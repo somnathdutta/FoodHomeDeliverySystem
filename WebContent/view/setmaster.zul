@@ -1,6 +1,6 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <zk>
-	<window title="new page title" border="normal"
+	<window title="Set Master" border="normal"
 	contentStyle="overflow:scroll;" apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm')@init('ViewModel.SetViewModel')">
 		<style>
