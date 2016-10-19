@@ -17,6 +17,7 @@ import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.Session;
 import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.select.Selectors;
+import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
 import dao.SetDAO;
@@ -74,10 +75,19 @@ public class SetViewModel {
 	@Command
 	@NotifyChange("*")
 	public void onClickAddItems(){
+		boolean added = false;
 		for(ItemBean bean : itemSetList){
 			if(bean.isChecked){
 				setBean.getItemList().add(bean);
+				added = true;
 			}
+		}
+		if(added){
+			itemSetList.clear();
+			categoryBean.categoryName = null;
+			categoryBeanList.clear();
+			onLoadQuery();
+			Messagebox.show("Items are added!","Added",Messagebox.OK,Messagebox.INFORMATION);
 		}
 	}
 	
