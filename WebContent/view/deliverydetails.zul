@@ -1,0 +1,30 @@
+<?page title="Delivery Details" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<window title="Delivery Details" border="normal" closable="true"
+		width="60%" apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm')@init('ViewModel.DeliveryDetailsViewModel')">
+
+		<div align="center" width="100%">
+			<grid width="100%">
+				<columns sizable="true">
+					<column label="Order By" align="center" />
+					<column label="Contact Number" align="center" />
+					<column label="Email Id" align="center" />
+					<column label="Delivery Address" align="center" />
+				</columns>
+
+				<rows>
+					<row>
+						<textbox width="100%" value="@bind(vm.deliveryDetailsBean.orderBy)" readonly="true" />
+						<textbox width="100%" value="@bind(vm.deliveryDetailsBean.contactNumber)" readonly="true" />
+						<textbox width="100%" value="@bind(vm.deliveryDetailsBean.emailId)" readonly="true" />
+						<textbox width="100%" rows="4" value="@bind(vm.deliveryDetailsBean.deliveryAddress)" readonly="true" />
+					</row>
+					
+				</rows>
+			</grid>
+		</div>
+
+
+	</window>
+</zk>

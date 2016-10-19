@@ -1,0 +1,55 @@
+<?page title="Type!" contentType="text/html;charset=UTF-8"?>
+
+<window title="MEAL" border="none"  width="10%" height="19%" closable="true" id="winChooseType"
+ apply="org.zkoss.bind.BindComposer" viewModel="@id('vm')@init('ViewModel.ChooseTypeViewModel')">
+
+	<style>
+		.fgrid tr.z-row td.z-row-inner,tr.z-row,div.z-grid-body
+		div.z-cell,div.z-grid { border: none; overflow: hidden; zoom: 1;
+		background:none; border-top: none; border-left: none;
+		border-right: none; border-bottom: none; }
+
+		.fgrid .z-grid-odd .fgrid .z-row-inner,.fgrid .z-grid-odd
+		.z-cell { background-color: #F7F7F7; border-bottom: 1px solid
+		transparent; border-left: 1px solid transparent; border-top: 1px
+		solid transparent; }
+
+		.fgrid .z-grid-odd .fgrid.z-row-inner,.fgrid.z-grid-odd
+		.z-cell,.fgrid.z-grid-odd { background: none repeat scroll 0 0
+		transparent; }
+
+		.fgrid tr.z-grid-odd td.z-row-inner,.fgrid tr.z-grid-odd
+		.z-cell,.fgrid tr.z-grid-odd { background: white }
+
+		.fgrid tr.z-row td.z-row-inner,.fgrid tr.z-row .z-cell {
+		background: white; border-top: none; }
+
+		div.z-grid-body{ background: #EDF4FF;}
+
+		.fgrid tr.z-row td.z-row-inner, .fgrid tr.z-row .z-cell{
+		background:none;}
+		
+		.border_style{
+			
+			-moz-border-radius: 25px 10px / 10px 25px;
+			border-radius: 25px 10px / 10px 25px;
+			}
+			
+			.mybutton {
+	        border-radius: 10px;
+	        background: linear-gradient(to bottom, #f0f9ff 0%,#a1dbff 100%);
+	        font-size :15px;
+	    }
+	</style>
+			<div align="center">
+				<space orient="vertical"></space>
+				<combobox width="90%" placeholder="[Choose meal]" selectedItem="@bind(vm.type)"
+				 autocomplete="true" autodrop="true" value="@bind(vm.type)">
+					<comboitem label="LUNCH"/>
+					<comboitem label="DINNER"/>
+				</combobox>
+				<separator spacing="9px"/>
+				<button label="OK" image="images/save.png" onClick="@command('onClicksave')"/>
+			</div>
+			
+</window>

@@ -1,0 +1,284 @@
+<?page title="Kitchen Item" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<window title="Kitchen Item" border="none"
+		contentStyle="overflow:scroll;" apply="org.zkoss.bind.BindComposer"
+		style="background:transparent"
+		viewModel="@id('vm')@init('ViewModel.ManageKitchenItemsViewModel')">
+		<style>
+			.fgrid tr.z-row td.z-row-inner,tr.z-row,div.z-grid-body
+			div.z-cell,div.z-grid { border: none; overflow: hidden;
+			zoom: 1; background:none; border-top: none; border-left:
+			none; border-right: none; border-bottom: none; }
+
+			.fgrid .z-grid-odd .fgrid .z-row-inner,.fgrid .z-grid-odd
+			.z-cell { background-color: #F7F7F7; border-bottom: 1px
+			solid transparent; border-left: 1px solid transparent;
+			border-top: 1px solid transparent; }
+
+			.fgrid .z-grid-odd .fgrid.z-row-inner,.fgrid.z-grid-odd
+			.z-cell,.fgrid.z-grid-odd { background: none repeat scroll 0
+			0 transparent; }
+
+			.fgrid tr.z-grid-odd td.z-row-inner,.fgrid tr.z-grid-odd
+			.z-cell,.fgrid tr.z-grid-odd { background: white }
+
+			.fgrid tr.z-row td.z-row-inner,.fgrid tr.z-row .z-cell {
+			background: white; border-top: none; }
+
+			div.z-grid-body{ background: #EDF4FF;}
+
+			.fgrid tr.z-row td.z-row-inner, .fgrid tr.z-row .z-cell{
+			background:none;}
+
+
+			.effect8 { position:relative; -webkit-box-shadow:0 1px 4px
+			rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+			-moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px
+			rgba(0, 0, 0, 0.1) inset; box-shadow:0 1px 4px rgba(0, 0, 0,
+			0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset; } .effect8:before,
+			.effect8:after { content:""; position:absolute; z-index:-1;
+			-webkit-box-shadow:0 0 20px rgba(0,0,0,0.8);
+			-moz-box-shadow:0 0 20px rgba(0,0,0,0.8); box-shadow:0 0
+			20px rgba(0,0,0,0.8); top:10px; bottom:10px; left:0;
+			right:0; -moz-border-radius:100px / 10px;
+			border-radius:100px / 10px; } .effect8:after { right:10px;
+			left:auto; -webkit-transform:skew(8deg) rotate(3deg);
+			-moz-transform:skew(8deg) rotate(3deg);
+			-ms-transform:skew(8deg) rotate(3deg);
+			-o-transform:skew(8deg) rotate(3deg); transform:skew(8deg)
+			rotate(3deg); }
+
+		</style>
+
+		<tabbox>
+			<tabs>
+				<tab label="Add items" />
+				<tab label="Show Items" />
+			</tabs>
+
+			<tabpanels>
+				<tabpanel>
+					<div
+						style=" border:#DADADA 1px solid;background-color:#F5F5FF;">
+
+						<div
+							style="padding: 1% 2% 1% 2%; border:#DADADA 1px groove;"
+							sclass="effect8">
+
+							<hbox>
+								<grid sclass="fgrid">
+									<columns>
+										<column align="center"></column>
+									</columns>
+									<rows>
+
+										<row>
+											<hlayout width="100%"
+												spacing="90px">
+												<combobox
+													placeholder="[Choose Kitchen]" width="80%"
+													selectedItem="@bind(vm.kitchenBean)"
+													value="@bind(vm.kitchenBean.kitchenName)"
+													model="@bind(vm.kitchenList)" autocomplete="true"
+													autodrop="true"
+													onSelect="@command('onSelectKitchenName')">
+													<template
+														name="model" var="v">
+														<comboitem
+															value="@load(v.kitchenId)" label="@load(v.kitchenName)" />
+													</template>
+												</combobox>
+
+
+												<combobox
+													placeholder="[Choose Cuisine]" width="80%"
+													value="@bind(vm.kitchenBean.cuisineName)"
+													selectedItem="@bind(vm.cuisinBean)"
+													model="@bind(vm.cuisineBeanList)" autocomplete="true"
+													autodrop="true"
+													onSelect="@command('onSelectCuisineName')">
+													<template
+														name="model" var="v">
+														<comboitem
+															value="@load(v.cuisinId)" label="@load(v.cuisinName)" />
+													</template>
+												</combobox>
+
+
+												<combobox
+													placeholder="[Choose Category]" width="110%"
+													value="@bind(vm.kitchenBean.categoryName)"
+													selectedItem="@bind(vm.categoryBean)"
+													model="@bind(vm.categoryBeanList)" autocomplete="true"
+													autodrop="true"
+													onSelect="@command('onSelectCategoryName')">
+													<template
+														name="model" var="v">
+														<comboitem
+															value="@load(v.categoryId)"
+															label="@load(v.categoryName)" />
+													</template>
+												</combobox>
+
+												<label value="Capacity"
+													sclass="mytextbox" />
+												<textbox
+													value="@bind(vm.kitchenBean.capacity)" width="80%" />
+											</hlayout>
+
+										</row>
+										<row>
+											<vbox>
+												<grid
+													model="@bind(vm.itemBeanList)">
+													<auxhead>
+														<auxheader
+															colspan="5">
+															<checkbox
+																checked="@bind(vm.allChecked)"
+																onCheck="@command('onAllCheck')" />
+															<label
+																value="All check" />
+														</auxheader>
+													</auxhead>
+													<columns
+														sizable="true">
+														<column
+															label="Check" align="center" style="text-align:center" />
+														<column
+															label="Item code" align="center"
+															style="text-align:center" />
+														<column
+															label="Item Name" align="center"
+															style="text-align:center" />
+														<column
+															label="Item Price" align="center"
+															style="text-align:center" />
+														<column
+															label="Item description" align="center"
+															style="text-align:center" />
+													</columns>
+													<rows>
+														<template
+															name="model" var="v">
+															<row>
+																<checkbox
+																	checked="@bind(v.checked)" />
+																<textbox
+																	value="@bind(v.itemCode)" readonly="true" width="100%" />
+																<textbox
+																	value="@bind(v.itemName)" readonly="true" width="100%" />
+																<textbox
+																	value="@bind(v.itemPrice)" readonly="true"
+																	width="100%" />
+																<textbox
+																	value="@bind(v.itemDescription)" readonly="true"
+																	rows="3" width="100%" />
+															</row>
+														</template>
+													</rows>
+												</grid>
+											</vbox>
+
+
+										</row>
+
+										<!-- <row>
+											<hlayout>
+											<label value="Is active" style="font-weight:bold;"/>
+											<combobox placeholder="[Active/Deactive]" width="130px" value="@bind(vm.kitchenBean.status)">
+											<comboitem  label="Active"/>
+											<comboitem label="Deactive"/>
+											</combobox>
+											</hlayout>
+											</row> -->
+										<row>
+											<div align="center">
+												<vbox>
+													<button
+														label="Add Item" visible="@bind(vm.saveButtonVisibility)"
+														sclass="mybutton" onClick="@command('onClickSave')" />
+													<button
+														label="Update Item"
+														visible="@bind(vm.updateButtonVisibility)"
+														sclass="mybutton"
+														onClick="@command('onClickUpdateCategoryItem')" />
+												</vbox>
+											</div>
+										</row>
+									</rows>
+								</grid>
+							</hbox>
+						</div>
+
+					</div>
+				</tabpanel>
+
+				<tabpanel>
+					<div
+						style=" border:#DADADA 1px solid;background-color:#F5F5FF;">
+
+						<div
+							style="padding: 1% 2% 1% 2%; border:#DADADA 1px groove;"
+							sclass="effect8">
+
+							<grid  model="@bind(vm.kitchenItemBeanList)">
+								<auxhead>
+									<auxheader colspan="2">
+										<combobox
+											placeholder="[Choose Kitchen]"
+											selectedItem="@bind(vm.kitchenBean)"
+											value="@bind(vm.kitchenBean.kitchenName)"
+											model="@bind(vm.kitchenList)" autocomplete="true"
+											autodrop="true" onSelect="@command('onSelectKitchen')">
+											<template name="model"
+												var="v">
+												<comboitem
+													value="@load(v.kitchenId)" label="@load(v.kitchenName)" />
+											</template>
+										</combobox>
+									</auxheader>
+									<auxheader>
+									<button visible="false"
+											label="Show Item details" sclass="mybutton"
+											onClick="@command('onClickShow')" />
+									</auxheader>	
+										
+									
+								</auxhead>
+								<columns>
+									<column label="Item code"
+										width="75px" align="center" style="text-align:center" />
+									<column label="Item Name" width="245px"
+										align="center" style="text-align:center" />
+									<column label="Item description"
+										align="center" style="text-align:center" />
+									<column label="Item Price"
+										width="95px" align="center" style="text-align:center" />
+								</columns>
+								<rows>
+									<template name="model" var="v">
+										<row>
+											<textbox
+												value="@bind(v.itemCode)" readonly="true" width="100%" />
+											<textbox
+												value="@bind(v.itemName)" readonly="true" width="100%" />
+											<textbox multiline="true"
+												value="@bind(v.itemDescription)" readonly="true" 
+												width="100%" />
+											<textbox
+												value="@bind(v.itemPrice)" readonly="true" width="100%" />
+										</row>
+									</template>
+								</rows>
+							</grid>
+						</div>
+					</div>
+				</tabpanel>
+			</tabpanels>
+		</tabbox>
+
+
+
+	</window>
+</zk>

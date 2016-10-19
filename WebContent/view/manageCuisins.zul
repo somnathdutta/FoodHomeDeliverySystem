@@ -1,0 +1,160 @@
+<?page title="Manage Cuisins" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window title="Manage Cuisins" border="normal" apply="org.zkoss.bind.BindComposer" contentStyle="overflow:scroll;"
+ viewModel="@id('vm')@init('ViewModel.ManageCuisinViewModel')">
+ <style>
+		.fgrid tr.z-row td.z-row-inner,tr.z-row,div.z-grid-body
+			div.z-cell,div.z-grid { border: none; overflow: hidden;
+			zoom: 1; background:none; border-top: none; border-left:
+			none; border-right: none; border-bottom: none; }
+
+			.fgrid .z-grid-odd .fgrid .z-row-inner,.fgrid .z-grid-odd
+			.z-cell { background-color: #F7F7F7; border-bottom: 1px
+			solid transparent; border-left: 1px solid transparent;
+			border-top: 1px solid transparent; }
+
+			.fgrid .z-grid-odd .fgrid.z-row-inner,.fgrid.z-grid-odd
+			.z-cell,.fgrid.z-grid-odd { background: none repeat scroll 0
+			0 transparent; }
+
+			.fgrid tr.z-grid-odd td.z-row-inner,.fgrid tr.z-grid-odd
+			.z-cell,.fgrid tr.z-grid-odd { background: white }
+
+			.fgrid tr.z-row td.z-row-inner,.fgrid tr.z-row .z-cell {
+			background: white; border-top: none; }
+
+			div.z-grid-body{ background: #EDF4FF;}
+
+			.fgrid tr.z-row td.z-row-inner, .fgrid tr.z-row .z-cell{
+			background:none;}
+	
+	
+		.effect8
+				{
+				  	position:relative;       
+				    -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+				       -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+				            box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+				}
+				.effect8:before, .effect8:after
+				{
+					content:"";
+				    position:absolute; 
+				    z-index:-1;
+				    -webkit-box-shadow:0 0 20px rgba(0,0,0,0.8);
+				    -moz-box-shadow:0 0 20px rgba(0,0,0,0.8);
+				    box-shadow:0 0 20px rgba(0,0,0,0.8);
+				    top:10px;
+				    bottom:10px;
+				    left:0;
+				    right:0;
+				    -moz-border-radius:100px / 10px;
+				    border-radius:100px / 10px;
+				} 
+				.effect8:after
+				{
+					right:10px; 
+				    left:auto;
+				    -webkit-transform:skew(8deg) rotate(3deg); 
+				       -moz-transform:skew(8deg) rotate(3deg);     
+				        -ms-transform:skew(8deg) rotate(3deg);     
+				         -o-transform:skew(8deg) rotate(3deg); 
+				            transform:skew(8deg) rotate(3deg);
+			}
+	
+	</style>
+	<!-- <div align="center" style="padding-top:1%; padding-bottom:1%; border:#DADADA 1px solid;"> -->
+	<div style=" border:#DADADA 1px solid;background-color:#F5F5FF;">
+		
+		<div style="padding: 1% 2% 1% 2%; border:#DADADA 1px groove;" sclass="effect8">
+		<hbox spacing="10px">
+			<grid width="100%" style="border:#DADADA 1px solid;" sclass="fgrid">
+				<columns>
+					<column align="right"/>
+					<column align="left"/>
+				</columns>
+				
+				<rows>
+					<row>
+						
+							<label value="Cuisine Name" style="font-weight:bold;"/>
+							<textbox placeholder="[Cuisine Name]" value="@bind(vm.manageCuisinBean.cuisinName)"/>
+						
+					</row>
+					<row>
+						
+							<label value="Cuisine Image" style="font-weight:bold;"/>
+							<vlayout>
+								<button label="Upload Cuisine Image"  upload="true" sclass="mybutton" 
+								onUpload="@command('onUploadCuisineImage',upEvent=event)"/>OR URL
+								<textbox value="@bind(vm.manageCuisinBean.cuisinePicturePath)"/>
+							</vlayout>
+							
+						
+					</row>
+					
+					<row>
+						
+							<label value="Is active" style="font-weight:bold;"/>
+							<combobox placeholder="[Active/Deactive]" width="130px" value="@bind(vm.manageCuisinBean.status)">
+								<comboitem  label="Active"/>
+								<comboitem label="Deactive"/>
+							</combobox>
+						
+					</row>
+					
+					<row>
+						<div align="right">
+							<vbox>
+	    						<button label="Save Cuisine" sclass="mybutton"   onClick="@command('onClickSave')" visible="@bind(vm.saveButtonVisibility)"/>
+	    						<button label="Update Cuisine" sclass="mybutton" onClick="@command('onClickUpdate')" visible="@bind(vm.updateButtonVisibility)" />
+	    					</vbox>
+	      				</div>
+					</row>
+				</rows>
+			</grid>
+			<vbox style="border:#DADADA 2px solid;">
+	        	<!-- <image content="@bind(vm.cuisineImage)" height="190px" width="360px"></image> -->
+	        	<iframe src="@bind(vm.manageCuisinBean.cuisinePicturePath)"  height="190px" width="360px"/>
+	        </vbox>
+		</hbox>
+		</div>
+	</div>
+	
+	<separator spacing="10px"/>
+	
+	<!-- <div align="center" style="padding-top:1%; padding-bottom:1%; border:#DADADA 1px solid;"> -->
+	<div style=" border:#DADADA 1px solid;background-color:#F5F5FF;">
+		
+		<div style="padding: 1% 2% 1% 2%; border:#DADADA 1px groove;" sclass="effect8">
+		<grid width="100%" style="border:1px #DADADA solid;padding:2px;" sclass="fgrid"
+		model="@bind(vm.manageCuisinBeanList)" mold="paging" pageSize="5">
+			<columns>
+				<column label="Cuisine Name" align="center"/>
+				<column label="Image"  align="center"/>
+				<column label="Status" align="center"/>
+				<column label="Action" align="center"/>
+			</columns>
+			
+			<rows>
+			<template name="model" var="v">
+				<row>
+					<textbox readonly="true" value="@bind(v.cuisinName)"/>
+					<div align="center">
+						<hbox style="padding-bottom:1%; border:#DADADA 2px solid;">
+       							<image height="40px" width="75px" content="@bind(v.cuisineImage)"/>
+						</hbox>
+					</div>
+					<textbox readonly="true" value="@bind(v.status)"/>
+					<hlayout>
+						<button label="Edit" sclass="mybutton" onClick="@command('onClickEdit', bean = v)"/>
+						<button label="Delete" sclass="mybutton" onClick="@command('onClickDelete', bean = v)"/>
+					</hlayout>
+				</row>
+			</template>
+			</rows>
+		</grid>
+	</div>
+	</div>
+</window>
+</zk>

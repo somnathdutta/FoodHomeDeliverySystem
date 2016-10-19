@@ -1,0 +1,82 @@
+<?page title="Stock Management" contentType="text/html;charset=UTF-8"?>
+<zk>
+
+<window title="Stock Management" border="normal" apply="org.zkoss.bind.BindComposer"
+viewModel="@id('vm')@init('ViewModel.StockManagementViewModel')">
+	
+	<div align="center"  visible="@bind(vm.kitchenDivVisibility)">
+		<label value="Select Kitchen" style="font-weight:bold"/>
+		<combobox model="@bind(vm.kitchenList)" onSelect="@command('onSelectKitchen')" selectedItem="@bind(vm.kitchenName)">
+			<template name="model" var="v">
+				<comboitem value="@load(v)" label="@load(v)"/>
+			</template>
+		</combobox>
+	</div>
+	<separator></separator>
+	<!-- <div align="center" >
+		<label value="Cuisine" style="font-weight:bold"/>	
+		<combobox model="@bind(vm.cuisineList)" onSelect="@command('onSelectCuisine')" value="@bind(vm.stockCategoryBean.cuisineName)" selectedItem="@bind(vm.stockCategoryBean.cuisineName)">
+		<template name="model" var="v">
+			<comboitem value="@load(v)" label="@load(v)"/>
+		</template>
+		</combobox>
+		<button sclass="mybutton" label="Close for today"/>
+	</div> -->
+	<div align="center" visible="false">
+		<grid width="50%">
+			<columns>
+				<column align="right"/>
+				<column align="left"/>
+				<column align="center"/>
+			</columns>
+			<rows>
+				<row>
+					<label value="Cuisine" style="font-weight:bold"/>
+					<combobox model="@bind(vm.cuisineList)" onSelect="@command('onSelectCuisine')" width="90%"
+					value="@bind(vm.stockCategoryBean.cuisineName)" selectedItem="@bind(vm.stockCategoryBean.cuisineName)">
+					<template name="model" var="v">
+						<comboitem value="@load(v)" label="@load(v)"/>
+					</template>
+					</combobox>
+					<!-- <button sclass="mybutton" label="Close for today" onClick="@command('onClickClose')"/> -->
+					<!-- <button sclass="mybutton" label="Open for today" onClick="@command('onClickOpen')"/> -->
+				</row>
+			</rows>
+		</grid>
+	</div>
+	<separator/>
+	<div align="center">
+		<grid style="border:#DADADA 1px solid;" mold="paging" pageSize="10"
+		model="@bind(vm.stockCategoryBeanList)" width="50%">
+			<columns sizable="true" >
+				<!-- <column label="Category Name" align="center" style="background-color:#FFCC99"/> -->
+				<column label="Item Name" align="center" style="background-color:#FFCC99"/>
+				<column label="Cost Price" width="105px"  align="center" style="background-color:#FFCC99"/>
+				<column label="Total Stock" align="center" width="75px" style="background-color:#FFCC99"/>
+				<!-- <column label="Lunch Stock" align="center" width="85px" style="background-color:#FFCC99"/>
+				<column label="Dinner Stock" align="center" width="85px" style="background-color:#FFCC99"/> -->
+				<column label="Action" align="center" style="background-color:#FFCC99"/>
+			</columns>
+			
+			<rows>
+				<template name="model" var="v">
+				<row>
+					<!-- <textbox width="100%" readonly="true" value="@bind(v.categoryName)"/>	 -->
+					<textbox width="100%" readonly="true" value="@bind(v.itemName)"/>
+					<textbox width="100%" readonly="@bind(v.priceDisability)" value="@bind(v.costPrice)" style="text-align:center"/>					
+					<textbox width="100%" value="@bind(v.stock)" style="text-align:center" readonly="@bind(v.stockDisability)"/>
+					<!-- <textbox width="100%" value="@bind(v.lunchStock)" style="text-align:center" readonly="@bind(v.stockDisability)"/>
+					<textbox width="100%" value="@bind(v.dinnerStock)" style="text-align:center" readonly="@bind(v.stockDisability)"/> -->
+					<vlayout>
+						<button sclass="mybutton" label="Edit" visible="@bind(v.editVisibility)" onClick="@command('onClickEdit',bean=v)"/>
+						<button sclass="mybutton" label="Update" visible="@bind(v.updateVisibility)" onClick="@command('onClickUpdate',bean=v)"/>
+					</vlayout>
+					
+				</row>
+				</template>
+			</rows>
+		</grid>
+	</div>
+	
+</window>
+</zk>

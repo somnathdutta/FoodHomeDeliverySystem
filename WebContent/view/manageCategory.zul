@@ -1,0 +1,186 @@
+<?page title="Manage Category" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window title="Manage Category" border="normal" contentStyle="overflow:scroll;"
+		apply="org.zkoss.bind.BindComposer" viewModel="@id('vm')@init('ViewModel.ManageCategoryViewModel')">
+		
+	<style>
+		.fgrid tr.z-row td.z-row-inner,tr.z-row,div.z-grid-body
+			div.z-cell,div.z-grid { border: none; overflow: hidden;
+			zoom: 1; background:none; border-top: none; border-left:
+			none; border-right: none; border-bottom: none; }
+
+			.fgrid .z-grid-odd .fgrid .z-row-inner,.fgrid .z-grid-odd
+			.z-cell { background-color: #F7F7F7; border-bottom: 1px
+			solid transparent; border-left: 1px solid transparent;
+			border-top: 1px solid transparent; }
+
+			.fgrid .z-grid-odd .fgrid.z-row-inner,.fgrid.z-grid-odd
+			.z-cell,.fgrid.z-grid-odd { background: none repeat scroll 0
+			0 transparent; }
+
+			.fgrid tr.z-grid-odd td.z-row-inner,.fgrid tr.z-grid-odd
+			.z-cell,.fgrid tr.z-grid-odd { background: white }
+
+			.fgrid tr.z-row td.z-row-inner,.fgrid tr.z-row .z-cell {
+			background: white; border-top: none; }
+
+			div.z-grid-body{ background: #EDF4FF;}
+
+			.fgrid tr.z-row td.z-row-inner, .fgrid tr.z-row .z-cell{
+			background:none;}
+	
+	
+		.effect8
+				{
+				  	position:relative;       
+				    -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+				       -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+				            box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+				}
+				.effect8:before, .effect8:after
+				{
+					content:"";
+				    position:absolute; 
+				    z-index:-1;
+				    -webkit-box-shadow:0 0 20px rgba(0,0,0,0.8);
+				    -moz-box-shadow:0 0 20px rgba(0,0,0,0.8);
+				    box-shadow:0 0 20px rgba(0,0,0,0.8);
+				    top:10px;
+				    bottom:10px;
+				    left:0;
+				    right:0;
+				    -moz-border-radius:100px / 10px;
+				    border-radius:100px / 10px;
+				} 
+				.effect8:after
+				{
+					right:10px; 
+				    left:auto;
+				    -webkit-transform:skew(8deg) rotate(3deg); 
+				       -moz-transform:skew(8deg) rotate(3deg);     
+				        -ms-transform:skew(8deg) rotate(3deg);     
+				         -o-transform:skew(8deg) rotate(3deg); 
+				            transform:skew(8deg) rotate(3deg);
+			}
+	
+	</style>
+		<div style=" padding-bottom:1%; border:#DADADA 1px solid;background-color:#F5F5FF;">	
+	<!-- <div align="center" style="padding-top:1%; padding-bottom:1%; border:#DADADA 1px solid;" visible="true"> -->
+	<div style="padding: 1% 2% 1% 2%; border:#DADADA 1px groove;" sclass="effect8">
+      		<hbox>
+      			<grid style="border:#DADADA 1px solid;" sclass="fgrid">
+      				<columns>
+	      				<column align="right" />
+	      				<column align="left"/>
+      				</columns>
+      				<rows>
+      					<!-- <row>
+      						<combobox placeholder="Choose Area" value="@bind(vm.manageCategoryBean.areaName)" 
+       				          model="@bind(vm.areaNameList)" selectedItem="@bind(vm.manageCategoryBean.areaName)" 
+       				          autocomplete="true" autodrop="true" onSelect="@command('onSelectAreaName')">
+								<template name="model" var="v">
+								 		<comboitem value="@bind(v)" label="@bind(v)"></comboitem>
+								</template>	
+							</combobox>
+      					</row> -->
+      					
+      					<row>
+      						<label value="Cuisine" style="font-weight:bold;"/>
+      						<combobox placeholder="[Choose cuisine]" model="@bind(vm.cuisinList)" autodrop="true"
+      						autocomplete="true" onSelect="@command('onSelectCuisine')" value="@bind(vm.manageCategoryBean.cuisinName)"
+      						 selectedItem="@bind(vm.manageCategoryBean.cuisinName)">
+      							<template name="model" var="v">
+      								<comboitem value="@load(v)" label="@load(v)"/>
+      							</template>
+      						</combobox>
+      					</row>
+      					
+      					<row>
+      						<label value="Category Name" style="font-weight:bold;"/>
+      						<textbox placeholder="Category Name"  value="@bind(vm.manageCategoryBean.categoryName)" width="100%"/>
+      					</row>
+      					<!-- <row>
+      						<label value="Category image" style="font-weight:bold;"/>
+      						<button  sclass="mybutton" label="Upload Category Image" upload="true" onUpload="@command('onUploadCategoryImage',upEvent=event)"/>	
+      					</row>-->
+      					<row>
+      						<label value="Category image" style="font-weight:bold;"/>
+      						<textbox placeholder="Url" value="@bind(vm.manageCategoryBean.categoryImagePath)"/>	
+      					</row> 
+      					<row>
+      						<!-- <checkbox label="Is Active" checked="@bind(vm.manageCategoryBean.isActiveChecked)"/> -->
+      						<label value="Status" style="font-weight:bold;"/>
+      						<combobox placeholder="[Active/Inactive]" width="130px" value="@bind(vm.manageCategoryBean.status)">
+								<comboitem  label="Active"/>
+								<comboitem label="Inactive"/>
+							</combobox>
+      					</row>
+      					
+      					<!-- <row>
+      						<div align="center">
+		      					<hbox spacing="6px">
+		      						<label value="In stock" style="font-weight:bold;"/>
+		      						<textbox placeholder="[In stock]" value="@bind(vm.manageCategoryBean.inStock)" width="50%"/>
+		      					</hbox>
+	      					</div>
+      					</row> -->
+      					<row>
+      						<div align="right">
+      							<vbox>
+      								<button label="Save Category" sclass="mybutton" onClick="@command('onClickSaveCategory')" visible="@bind(vm.saveButtonVisibility)" />
+      								<button label="Update Category" sclass="mybutton" onClick="@command('onClickUpdateCategory')" visible="@bind(vm.updateButtonVisibility)" />
+      							</vbox>
+      						</div>
+      						<label/>
+      					</row>
+      				</rows>
+      			</grid>
+      			<vbox style="border:#DADADA 2px solid;">
+	        		<hbox style="border:#DADADA 1px solid;">
+	        			<image content="@bind(vm.categoryImage)" height="150px" width="300px"/>
+	        		</hbox>
+	        		<hbox>
+	        			<image content="@bind(vm.categoryeBannerImage)" height="150px" width="300px"/>
+	        		</hbox>
+	        	</vbox>
+      		</hbox>
+      	</div>	
+	</div>
+	
+	<separator spacing="15px"/>
+	<!-- <div align="center" style=" border:#DADADA 1px solid;" visible="true"> -->
+	<div style="padding: 1% 2% 1% 2%; border:#DADADA 1px groove;" sclass="effect8">
+       		<grid width="100%" model="@bind(vm.manageCategoryBeanList)" sclass="fgrid" style="border:#DADADA 1px solid;"
+       		mold="paging" pageSize="3">
+       			<columns sizable="true">
+       				<column label="Cuisine Name" align="center" width="185px"></column>
+       				<column label="Category Name" align="center" width="285px"></column>
+       				<column label="Image" align="center" width="85px"></column>
+       				<!-- <column label="In Stock" align="center" width="80px"></column> -->
+       				<column label="Status" align="center" ></column>
+       				<column label="Action"  align="center" ></column>
+       			</columns>
+       			
+       			<rows>
+    				<template name="model" var="v" > 
+						<row style="border: 0.01px solid #C0C0C0;">
+							<textbox placeholder="Area" width="100%" value="@bind(v.cuisinName)" readonly="true"/>
+							<textbox placeholder="Category Name" width="100%" value="@bind(v.categoryName)" readonly="true"/>
+							<div align="center">
+								<hbox>
+	        						<image height="40px" width="75px" content="@bind(v.categoryImage)"/>
+								</hbox>
+							</div>
+							<!-- <intbox value="@bind(v.inStock)" width="100%"/> -->
+							<textbox value="@bind(v.status)" readonly="true"/>
+							<hlayout >
+								<button label="Edit" sclass="mybutton" width="100%" onClick="@command('onClickEdit', bean = v)"/>
+								<button label="Delete" sclass="mybutton " onClick="@command('onClickDelete', bean = v)"/>
+							</hlayout>
+						</row>
+			    	</template>
+    			</rows>
+       		</grid>
+      </div>
+</window>
+</zk>

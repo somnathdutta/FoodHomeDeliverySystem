@@ -1,0 +1,41 @@
+<?page title="Order details" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window title="Order details" border="normal" closable="true" width="80%"
+apply="org.zkoss.bind.BindComposer" viewModel="@id('vm')@init('ViewModel.OrderItemDetailsViewModel')">
+	
+	<div align="center" width="100%">
+		<grid model="@bind(vm.orderItemDetailsBeanList)" width="100%">
+			<columns sizable="true">
+				<column label="Cuisine Name" width="120px" align="center"/>
+				<column label="Category"  width="170px" align="center"/>
+				<column label="Item Code" width="70px"  align="center"/>
+				<column label="Item Name" width="220px"  align="center"/>
+				<column label="Item Description" width="190px"  align="center"/>
+				<column label="Quantity" width="65px"  align="center" />
+				<column label="Price" width="65px"  align="center" />
+				
+				<column label="Kitchen Name" width="120px" align="center"/>
+			</columns>
+			
+			<rows>
+				<template name="model" var="v">
+					<row>
+						<textbox width="100%" readonly="true" value="@bind(v.cuisineName)"/>
+						<textbox width="100%" readonly="true" value="@bind(v.categoryName)"/>
+						<textbox width="100%" readonly="true" value="@bind(v.itemCode)"/>
+						<textbox width="100%" readonly="true" value="@bind(v.itemName)"/>
+						<textbox width="100%" multiline="true" readonly="true" value="@bind(v.itemDescription)"/>
+						<textbox width="100%" readonly="true" value="@bind(v.quantity)"/>
+						<textbox width="100%" readonly="true" value="@bind(v.price)"/>
+						
+						<textbox width="100%" readonly="true" value="@bind(v.kitchenName)"/>
+					</row>
+				</template>
+				
+			</rows>
+		</grid>
+	</div>
+	
+	
+</window>
+</zk>

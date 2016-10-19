@@ -1,0 +1,39 @@
+<?page title="Show Details" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window title="Show Details" border="normal" 
+apply="org.zkoss.bind.BindComposer" viewModel="@id('vm')@init('ViewModel.ShowDetailsViewModel')" width="70%" closable="true">
+	
+	<div align="center" width="100%">
+		<grid model="@bind(vm.orderUserDetailsBeanList)" width="100%">
+			<columns sizable="true">
+				<column label="Order By" align="center"/>
+				<column label="Email Id" align="center"/>
+				<column label="Contact Number" align="center"/>
+			<!-- 	<column label="Delivery Address" align="center"/> -->
+				<column label="Delivery Zone" align="center"/>
+				<column label="Delivery Address" align="center"/>
+				<column label="Instruction" align="center"/>
+				<column label="Delivery pincode" align="center"/>
+				<column label="Order Date" align="center" />
+			</columns>
+			
+			<rows>
+				<template name="model" var="v">
+					<row>
+						<textbox width="100%" readonly="true" value="@bind(v.name)"/>
+						<textbox width="100%" readonly="true" value="@bind(v.emailId)"/>
+						<textbox width="100%" readonly="true" value="@bind(v.contactNumber)"/>
+						<textbox width="100%" readonly="true" value="@bind(v.deliveryZone)"/>
+						<textbox rows="4" width="100%" readonly="true" value="@bind(v.deliveryAddress)"/>
+						<textbox width="100%" readonly="true" value="@bind(v.instruction)"/>
+						<textbox width="100%" readonly="true" value="@bind(v.deliveryPincode)"/>
+						<textbox width="100%" readonly="true" value="@bind(v.orderedDateValue)"/>
+					</row>
+				</template>
+				
+			</rows>
+		</grid>
+	</div>
+	
+</window>
+</zk>

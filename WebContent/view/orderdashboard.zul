@@ -1,0 +1,144 @@
+<?page title="Order dashboard" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window title="Order dashboard" border="none" contentStyle="overflow:scroll;"
+ apply="org.zkoss.bind.BindComposer" viewModel="@id('vm')@init('ViewModel.OrderDashBoardViewModel')">
+ <!-- <timer id="timer" delay="20000" repeats="true" onTimer="@command('refresh')"/> --> 
+	<style>
+			.fgrid tr.z-row td.z-row-inner,tr.z-row,div.z-grid-body
+			div.z-cell,div.z-grid { border: none; overflow: hidden;
+			zoom: 1; background:none; border-top: none; border-left:
+			none; border-right: none; border-bottom: none; }
+
+			.fgrid .z-grid-odd .fgrid .z-row-inner,.fgrid .z-grid-odd
+			.z-cell { background-color: #F7F7F7; border-bottom: 1px
+			solid transparent; border-left: 1px solid transparent;
+			border-top: 1px solid transparent; }
+
+			.fgrid .z-grid-odd .fgrid.z-row-inner,.fgrid.z-grid-odd
+			.z-cell,.fgrid.z-grid-odd { background: none repeat scroll 0
+			0 transparent; }
+
+			.fgrid tr.z-grid-odd td.z-row-inner,.fgrid tr.z-grid-odd
+			.z-cell,.fgrid tr.z-grid-odd { background: white }
+
+			.fgrid tr.z-row td.z-row-inner,.fgrid tr.z-row .z-cell {
+			background: white; border-top: none; }
+
+			div.z-grid-body{ background: #EDF4FF;}
+
+			.fgrid tr.z-row td.z-row-inner, .fgrid tr.z-row .z-cell{
+			background:none;}
+			
+			.effect8
+				{
+				  	position:relative;       
+				    -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+				       -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+				            box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+				}
+				.effect8:before, .effect8:after
+				{
+					content:"";
+				    position:absolute; 
+				    z-index:-1;
+				    -webkit-box-shadow:0 0 20px rgba(0,0,0,0.8);
+				    -moz-box-shadow:0 0 20px rgba(0,0,0,0.8);
+				    box-shadow:0 0 20px rgba(0,0,0,0.8);
+				    top:10px;
+				    bottom:10px;
+				    left:0;
+				    right:0;
+				    -moz-border-radius:100px / 10px;
+				    border-radius:100px / 10px;
+				} 
+				.effect8:after
+				{
+					right:10px; 
+				    left:auto;
+				    -webkit-transform:skew(8deg) rotate(3deg); 
+				       -moz-transform:skew(8deg) rotate(3deg);     
+				        -ms-transform:skew(8deg) rotate(3deg);     
+				         -o-transform:skew(8deg) rotate(3deg); 
+				            transform:skew(8deg) rotate(3deg);
+			}
+		</style>
+		<div style="border:#DADADA 1px solid;background-color:#F5F5FF;" >
+			<div style="border:#DADADA 1px groove;" sclass="effect8">
+				<grid height="490px" mold="paging" pageSize="10" hflex="2"
+				model="@bind(vm.orderDashBoardBeanList)">
+					<auxhead>
+						<auxheader colspan="20">
+						<button onClick="@command('refresh')" sclass="mybutton"
+						style="border:none;background:transparent"
+						image="images/refresh.png"
+						 />
+						<label value="SEARCH BY VENDOR" style="font-weight:bold;"/>
+							<combobox model="@bind(vm.kitchenList)" autocomplete="true" autodrop="true" readonly="true"
+							selectedItem="@bind(vm.kitchenName)" value="@bind(vm.kitchenName)"
+							onSelect="@command('onSelectKitchen')"> 
+								<template name="model" var="v">
+									<comboitem value="@load(v)" label="@load(v)"/>
+								</template>
+							</combobox>
+							<label value="SEARCH BY ORDER DATE RANGE" style="font-weight:bold;"/>
+							<datebox placeholder="[START DATE]" value="@bind(vm.startDate)" format="dd-MM-yyyy"/>
+							<datebox placeholder="[END DATE]" value="@bind(vm.endDate)" format="dd-MM-yyyy"/>
+							<button label="Find" sclass="mybutton" onClick="@command('onClickFind')" />
+							<button label="Clear" sclass="mybutton" onClick="@command('onClickClear')"/>
+							<button label="Generate Excel" sclass="mybutton" onClick="@command('onClickGenerate')"/>
+						</auxheader>
+					</auxhead>
+					<columns sizable="true">
+						<column label="Order Number" align="center" width="145px"/>
+						<column label="Order Date" align="center" width="90px"/>
+						<column label="Order Status" align="center" width="130px"/>
+						<column label="Order By" align="center" width="140px"/>
+						<column label="Meal Type" align="center" width="120px"/>
+						<column label="Delivery Date" align="center" width="90px"/>
+						<column label="Contact No." align="center" width="140px"/>
+						<column label="Order Item(s)" align="center" width="160px"/>
+						<column label="Item Code" align="center" width="65px"/>
+						<column label="Item desc." align="center" width="160px"/>
+						<column label="Quantity" align="center" width="60px"/>
+						<column label="Order Price" align="center" />
+						<column label="Vendor Name" align="center" width="140px"/>
+						<column label="Received" align="center" width="70px"/>
+						<column label="Notified" align="center" width="70px"/>
+						<column label="Picked" align="center" width="70px"/>
+						<column label="Rejected" align="center" width="70px"/>	
+						<column label="Delivered" align="center" width="70px"/>
+						<column label="Driver Name" align="center" width="140px" visible="false"/>
+						<column label="Driver Number" align="center" width="140px" visible="false"/>
+					</columns>
+					
+					<rows >
+						 <template name="model" var="v" > 
+							<row>
+								<textbox width="100%" value="@bind(v.orderNo)" visible="@bind(v.orderNoVisibiliity)" readonly="true"/>
+								<textbox width="100%" value="@bind(v.orderDateValue)" visible="@bind(v.orderDateVisibility)" readonly="true"/>
+								<textbox width="100%" value="@bind(v.orderStatus)" readonly="true"/>
+								<textbox width="100%" value="@bind(v.orderBy)" visible="@bind(v.orderByVisibility)" readonly="true"/>
+								<textbox width="100%" value="@bind(v.mealType)" visible="@bind(v.mealTypeVisibility)" readonly="true"/>
+								<textbox width="100%" value="@bind(v.deliveryDateValue)" visible="@bind(v.deliveryDateVisibility)" readonly="true"/>
+								<textbox width="100%" value="@bind(v.contactNo)" visible="@bind(v.contactNoVisibility)" readonly="true"/>
+								<textbox width="100%" value="@bind(v.orderItem)" readonly="true"/>
+								<textbox width="100%" value="@bind(v.itemCode)" readonly="true"/>
+								<textbox width="100%" multiline="true" value="@bind(v.itemDescription)" readonly="true"/>
+								<textbox width="100%" value="@bind(v.quantity)" readonly="true"/>
+								<textbox width="100%" value="@bind(v.price)" readonly="true"/>
+								<textbox width="100%" value="@bind(v.kitchenName)" readonly="true"/>
+								<textbox width="100%" value="@bind(v.received)" readonly="true"/>
+								<textbox width="100%" value="@bind(v.notified)" readonly="true"/>
+								<textbox width="100%" value="@bind(v.picked)"  readonly="true"/>
+								<textbox width="100%" value="@bind(v.rejected)"  readonly="true"/>
+								<textbox width="100%" value="@bind(v.delivered)" readonly="true"/>
+								<textbox width="100%" value="@bind(v.driverName)" readonly="true"/>
+								<textbox width="100%" value="@bind(v.driverNumber)" readonly="true"/>
+							</row>
+						</template>
+					</rows>
+				</grid>
+			</div>
+		</div>
+</window>
+</zk>

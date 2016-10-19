@@ -1,0 +1,135 @@
+<?page title="Kitchen Orders" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window title="Kitchen Orders" border="normal" contentStyle="overflow:scroll;"
+ apply="org.zkoss.bind.BindComposer" viewModel="@id('vm')@init('ViewModel.KitchenOrdersViewModel')">
+<style>
+			.fgrid tr.z-row td.z-row-inner,tr.z-row,div.z-grid-body
+			div.z-cell,div.z-grid { border: none; overflow: hidden;
+			zoom: 1; background:none; border-top: none; border-left:
+			none; border-right: none; border-bottom: none; }
+
+			.fgrid .z-grid-odd .fgrid .z-row-inner,.fgrid .z-grid-odd
+			.z-cell { background-color: #FFFFAA; border-bottom: 1px
+			solid transparent; border-left: 1px solid transparent;
+			border-top: 1px solid transparent; }
+
+			.fgrid .z-grid-odd .fgrid.z-row-inner,.fgrid.z-grid-odd
+			.z-cell,.fgrid.z-grid-odd { background: none repeat scroll 0
+			0 transparent; }
+
+			.fgrid tr.z-grid-odd td.z-row-inner,.fgrid tr.z-grid-odd
+			.z-cell,.fgrid tr.z-grid-odd { background: white }
+
+			.fgrid tr.z-row td.z-row-inner,.fgrid tr.z-row .z-cell {
+			background: white; border-top: none; }
+
+			div.z-grid-body{ background: #FFFFAA;}
+
+			.fgrid tr.z-row td.z-row-inner, .fgrid tr.z-row .z-cell{
+			background:none;}
+			
+			.effect8
+				{
+				  	position:relative;       
+				    -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+				       -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+				            box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+				}
+				.effect8:before, .effect8:after
+				{
+					content:"";
+				    position:absolute; 
+				    z-index:-1;
+				    -webkit-box-shadow:0 0 20px rgba(0,0,0,0.8);
+				    -moz-box-shadow:0 0 20px rgba(0,0,0,0.8);
+				    box-shadow:0 0 20px rgba(0,0,0,0.8);
+				    top:10px;
+				    bottom:10px;
+				    left:0;
+				    right:0;
+				    -moz-border-radius:100px / 10px;
+				    border-radius:100px / 10px;
+				} 
+				.effect8:after
+				{
+					right:10px; 
+				    left:auto;
+				    -webkit-transform:skew(8deg) rotate(3deg); 
+				       -moz-transform:skew(8deg) rotate(3deg);     
+				        -ms-transform:skew(8deg) rotate(3deg);     
+				         -o-transform:skew(8deg) rotate(3deg); 
+				            transform:skew(8deg) rotate(3deg);
+			}
+
+		</style>
+
+	<div style="border:#DADADA 1px solid;background-color:#F5F5FF;" >
+		
+		<div style="padding: 1% 1% 1% 1%; border:#DADADA 1px groove;" sclass="effect8">
+			
+				<grid height="490px" model="@bind(vm.kitchenOrderBeanList)"
+				mold="paging" pageSize="10">
+				<auxhead>
+					<auxheader colspan="9">
+						<button onClick="@command('refresh')" sclass="mybutton"
+						style="border:none;background:transparent"
+						image="images/refresh.png"
+						 />
+					</auxheader>
+				</auxhead>
+					<columns sizable="true">
+						<column label="Order Number" align="center" width="145px"/>
+						<column label="Details" align="center" width="120px"/>
+						<column label="Receive" align="center" width="120px"/>
+						<column label="Notify" align="center" width="120px"/>
+						<column label="Deliver" align="center" width="120px"/>
+						
+						<column label="Order Date" align="center" width="90px"/>
+						<column label="Delivery Date" align="center" width="90px"/>
+						<column label="Order Status" align="center" width="123px"/>
+						<column label="Time Slot" align="center" width="138px"/>
+						<!--<column label="Price" align="center" width="60px"/>
+						 <column label="Item code" align="center" width="65px"/>
+						<column label="Item" align="center" width="160px"/>
+						<column label="Description" align="center" width="130px"/>
+						<column label="Quantity" align="center" width="60px"/>
+						<column label="Reject" align="center" width="130px"/> -->
+					</columns>
+					
+					<rows>
+					<template name="model" var="v"> 
+						<row>
+							<textbox value="@bind(v.orderNo)" readonly="true" width="100%" visible="@bind(v.orderNoVisibiliity)"/>
+							<button label="Details" width="100%" 
+								sclass="mybutton" disabled="@bind(v.orderReceived)"
+								onClick="@command('onClickDetails',bean=v)" visible="@bind(v.receiveVisibility)"/>
+							<button label="Receive" width="100%"
+								sclass="mybutton" disabled="@bind(v.orderReceived)"
+								onClick="@command('onClickReceive',bean=v)" visible="@bind(v.receiveVisibility)"/>
+							<button label="Notify" width="100%"
+								sclass="mybutton" disabled="@bind(v.orderNotified)"
+								onClick="@command('onClickNotify',bean=v)" visible="@bind(v.notifyVisibility)"/>
+							<button label="Deliver" width="100%"
+								sclass="mybutton" disabled="@bind(v.orderDelivered)"
+								onClick="@command('onClickDeliver',bean=v)" visible="@bind(v.deliverVisibility)"/>
+
+							<textbox value="@bind(v.orderDateValue)" readonly="true" width="100%"/>
+							<textbox value="@bind(v.deliveryDateValue)" readonly="true" width="100%"/>
+							<textbox value="@bind(v.orderStatus)" readonly="true" width="100%"/>
+							<textbox value="@bind(v.timeSlot)" readonly="true" width="100%"/>
+							<!--<textbox value="@bind(v.price)" readonly="true" width="100%"/>
+							 <textbox value="@bind(v.itemCode)" readonly="true" width="100%"/>
+							<textbox value="@bind(v.orderItem)" readonly="true" width="100%"/>
+							<textbox value="@bind(v.itemDescription)" readonly="true" width="100%" multiline="true"/>
+							<textbox value="@bind(v.quantity)" readonly="true" width="100%"/>
+							<button label="Reject" disabled="true" width="100%" sclass="mybutton"/> -->
+						</row>
+						</template>
+					</rows>
+				</grid>
+		</div>
+	
+	</div>
+	
+</window>
+</zk>

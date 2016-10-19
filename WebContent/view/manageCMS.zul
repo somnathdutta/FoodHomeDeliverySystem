@@ -1,0 +1,99 @@
+<?page title="Manage CMS" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window title="Manage CMS" border="normal" 
+	apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('ViewModel.ManageCMSViewModel')">
+	<div align="left" style="padding-top:1%; padding-bottom:1%; border:#DADADA 1px solid;" >
+        	<hbox spacing="10px">
+	        	<grid width="450px">
+	        		<columns>
+	        			<column align="left"></column>
+	        		</columns>
+	        		<rows>
+	        			<!-- <row>
+	        			
+		        			<hbox spacing="20px">
+			        			<combobox placeholder="Choose City" value="@bind(vm.manageCMSBean.cityName)" 
+       				          				model="@bind(vm.cityList)" selectedItem="@bind(vm.manageCMSBean.cityName)" 
+       				          				autocomplete="true" autodrop="true" onSelect="@command('onSelectcityName')">
+									<template name="model" var="v">
+							 			<comboitem value="@bind(v)" label="@bind(v)"></comboitem>
+									</template>	
+								</combobox>
+								<combobox placeholder="Choose Area" value="@bind(vm.manageCMSBean.areaName)" 
+       				          				model="@bind(vm.areaList)" selectedItem="@bind(vm.manageCMSBean.areaName)" 
+       				          				autocomplete="true" autodrop="true" onSelect="@command('onSelectAreaName')">
+									<template name="model" var="v">
+							 			<comboitem value="@bind(v)" label="@bind(v)"></comboitem>
+									</template>	
+								</combobox>
+			        			
+		        			</hbox>
+	        			
+	        		  </row> -->
+	        		
+	        			<row>
+	        				<textbox placeholder="Page Title" value="@bind(vm.manageCMSBean.pageTitle)"/>
+	        			</row>
+	        			<row>
+	        				<textbox placeholder="Page Banner" value="@bind(vm.manageCMSBean.pageBanner)"/>
+	        			</row>
+	        			<row>
+	        				<textbox placeholder="Page Content" rows="5" width="400px" value="@bind(vm.manageCMSBean.pageContent)"/>
+	        			</row>
+	        			<row>
+	        				<button label="Upload Banner Image"  upload="true" sclass="mybutton" onUpload="@command('onUploadBanerImage',upEvent=event)"/>
+	        			</row>
+	        			<row>
+	        				<!-- <checkbox label="Show in App Menu" checked="@bind(vm.manageCMSBean.showInAppChecked)"/> -->
+	        				<combobox placeholder="[Active/Inactive]" width="130px" value="@bind(vm.manageCMSBean.status)">
+								<comboitem  label="Active"/>
+								<comboitem label="Inactive"/>
+							</combobox>
+	        			</row>
+	        			<row>
+	        				<vbox>
+	        					<button label="Save CMS Page" sclass="mybutton" onClick="@command('onClickSaveCMSPage')" visible="@bind(vm.saveButtonVisibility)"/>
+	        					<button label="Update CMS Page" sclass="mybutton" onClick="@command('onClickUpdateCMSPage')" visible="@bind(vm.updateButtonVisibility)"/>
+	        				</vbox>
+	        			</row>
+	        			<row></row>
+	        		</rows>
+	        	</grid>
+	        		<vbox style="padding-bottom:1%; border:#DADADA 2px solid;">
+	        		<image content="@bind(vm.pageBannerImage)" height="240px" width="640px"></image>
+	        	</vbox>
+        	</hbox>
+       	</div>
+       	<separator spacing="30px"/>
+    	<div align="center" style="padding-bottom:1%; border:#DADADA 1px solid;" >
+   				<grid model="@bind(vm.manageCMSBeanList)" width="60%">
+   					<columns>
+   						<column label="Id" width="45px"/>
+   						<column label="Title" width="220px"/>
+   						<column label="Banner" width="85px"/>
+   						<column label="In App Menu" width="100px"></column>
+   						<column label="Action" width="150px"></column>		
+   					</columns>
+   					<rows>
+   						 <template name="model" var="v" > 
+							<row style="border: 0.01px solid #C0C0C0;">
+								<textbox placeholder="id"  width="100%" value="@bind(v.pageId)" readonly="true"></textbox>
+								<textbox placeholder="Title" width="100%" value="@bind(v.pageTitle)" readonly="true"></textbox>
+								<div align="center">
+								<hbox style="padding-bottom:1%; border:#DADADA 2px solid;">
+	        							<image height="40px" width="75px" content="@bind(v.bannerImage)"/>
+								</hbox>
+							</div>
+								<textbox placeholder="(Yes / No)" width="100%" value="@bind(v.inAppMenu)" readonly="true"></textbox>
+								<hlayout >
+									<button label="Edit" sclass="mybutton" onClick="@command('onClickEdit', bean = v)"/>
+									<button label="Delete" sclass="mybutton" onClick="@command('onClickDelete', bean = v)"/>
+									
+								</hlayout> 
+							</row>
+						 </template> 
+   				  </rows>
+   			</grid>
+    	</div>
+</window>
+</zk>

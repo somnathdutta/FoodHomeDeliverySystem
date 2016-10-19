@@ -1,0 +1,31 @@
+<?page title="Order Rejection" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window title="Order Rejection" border="normal" width="40%" id="winRejection"
+ apply="org.zkoss.bind.BindComposer" viewModel="@id('vm')@init('ViewModel.OrderRejectionViewModel')" closable="true">
+	<grid>
+		<columns>
+			<column align="center"/>
+		</columns>
+		
+		<rows>
+			<row>
+				<hlayout style="padding-left:11%">
+				<label value="Reject reason" style="font-weight:bold;"/>
+				<textbox rows="3" value="@bind(vm.orderRejectionBean.rejectReason)" style="font-family:consolas;font-size:medium"/>
+				</hlayout>
+			</row>
+			<row>
+				<hlayout style="padding-left:3%">
+				<label value="Reject Date" style="font-weight:bold;"/>
+				<textbox value="@bind(vm.orderRejectionBean.rejectiondate)" readonly="true"/>
+				</hlayout>
+			</row>
+			<row>
+				<button label="Confirm order rejection" sclass="mybutton" onClick="@command('onClickConfirm')"/>
+			</row>
+			
+		</rows>
+		
+	</grid>
+</window>
+</zk>

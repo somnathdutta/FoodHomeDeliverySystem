@@ -1,0 +1,46 @@
+<?page title="Assign Biker slots" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window title="Assign Biker slots" border="normal" apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('ViewModel.TimeSlotAssignmentViewModel')">
+
+	<grid>
+		<columns>
+			<column label="BikerID" align="center" width="190px"/>
+			<column label="Biker Name" align="center" width="250px"/>
+			<column label="TIMESLOTS" align="center"/>
+		</columns>
+		<rows>
+			<row>
+				<combobox placeholder="Choose Biker"  
+       				     width="90%" model="@bind(vm.boyList)" selectedItem="@bind(vm.boyBean)" 
+       				          autocomplete="true" autodrop="true" >
+				<template name="model" var="v">
+							<comboitem value="@load(v.boyStatusId)" label="@load(v.deliveryBoyUserId)"></comboitem>
+				</template>	
+				</combobox>
+				<textbox readonly="true" value="@bind(vm.boyBean.name)" width="100%"/>
+				<grid model="@bind(vm.timeSlotList)">
+					<columns>
+						<column label="Select" align="center"/>
+						<column label="Time slot" align="center"/>
+					</columns>
+					<rows>
+						<template name="model" var="v">
+							<row>
+								<checkbox checked="@bind(v.checked)"/>
+								<textbox value="@bind(v.timeSlot)" readonly="true"/>
+							</row>
+						</template>
+						
+					</rows>
+				</grid>
+			</row>
+			<row>
+				<space/>
+				<button sclass="mybutton" label="Assign" onClick="@command('onClickAssign')"/>
+			</row>
+		</rows>
+	</grid>
+	
+</window>
+</zk>

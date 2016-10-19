@@ -1,0 +1,86 @@
+<?page title="Admin Setting" contentType="text/html;charset=UTF-8"?>
+<zk>
+<style>
+	.mybutton {
+	        border-radius: 10px;
+	        background: linear-gradient(to bottom, #f0f9ff 0%,#a1dbff 100%);
+	        font-size :15px;
+	    }
+	    
+	    .myGrid tr.z-row td.z-row-inner, tr.z-row
+		.z-cell,div.z-grid { 
+	    	
+	    	background:white;
+	    	align:right;
+	    	border: 2px;
+	    }
+</style>
+<window title="Admin Setting" border="normal" apply="org.zkoss.bind.BindComposer" 
+	viewModel="@id('vm')@init('ViewModel.AdminSettingsViewModel')">
+	<div style="padding-top:1%; padding-bottom:1%; border:#DADADA 1px solid;">
+		<hbox>
+			<grid>
+				<columns>
+					<column align="center"></column>
+				</columns>
+				<rows>
+					<row>
+						<div align="center">
+						<label value="Booking Time" />
+							<hbox spacing="115px">
+								<!-- format="hh:mm:ss a" -->
+								<vbox>
+									<label value="From Time"></label>
+									<datebox placeholder="Start time" format="long+medium" width="120px" value="@bind(vm.adminSettingsbean.bookingFromTime)"/>
+									 (hh:mm:ss a)
+									
+								</vbox>
+								<vbox>
+									<label value="To Time"></label>
+									<datebox placeholder="End time" format="long+medium" width="120px" value="@bind(vm.adminSettingsbean.bookingToTime)"/>
+									 (hh:mm:ss a)
+								</vbox>
+							</hbox>
+						</div>
+					</row>
+					<row>
+						<div align="center">
+							<hbox spacing="40px">
+								<label value="Welcome Promossion"/>
+								<textbox width="100%" rows="4" placeholder="Welcome to Foodapp" value="@bind(vm.adminSettingsbean.welcomePromotion)"/>
+							</hbox>
+						</div>
+					</row>
+					<row>
+						<div align="center">
+							<hbox>
+								<button label="Upload Location Page Banner" upload="true" sclass="mybutton" onUpload="@command('onUploadLocationImage',upEvent=event)"/>
+							</hbox>
+						</div>
+						
+					</row>
+					<row>
+						<div align="center">
+							<hbox>
+								<button label="Upload Home Screen Banner" upload="true" sclass="mybutton" onUpload="@command('onUploadHomeScreenImage',upEvent=event)"/>
+							</hbox>
+						</div>
+					</row>
+					<row>
+						<button label="Save Setting" sclass="mybutton" onClick="@command('onClickSaveSettings')"></button>
+					</row>
+				</rows>
+			</grid>
+			<vbox style="padding-bottom:1%; border:#DADADA 2px solid;">
+	        		<hbox style="padding-bottom:1%; border:#DADADA 2px solid;">
+	        			<image content="@bind(vm.locationPageBannerImage)"  height="150px" width="300px"/>
+	        		</hbox>
+	        		<hbox style="padding-bottom:1%; border:#DADADA 2px solid;">
+	        			<image content="@bind(vm.homeScreenBannerImage)" height="150px" width="300px"/>
+	        		</hbox>
+	        </vbox>
+		</hbox>
+		
+	</div>
+</window>
+</zk>

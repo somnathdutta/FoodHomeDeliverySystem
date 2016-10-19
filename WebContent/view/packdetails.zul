@@ -1,0 +1,75 @@
+<?page title="Pack details" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window title="Pack details" border="normal" closable="true" width="70%" height="95%"
+	apply="org.zkoss.bind.BindComposer" 
+	viewModel="@id('vm')@init('ViewModel.PackDetailsViewModel')">
+	<grid model="@bind(vm.itemBeanList)" mold="paging" pageSize="10">
+		<columns>
+			<column label="Item name" align="center"/>
+			<column label="Quantity" align="center" width="75px"/>
+			<column label="Price" align="center"  width="75px"/>
+			<column label="Meal" align="center"/>
+			<column label="Day" align="center"/>
+			<column label="Update" align="center" width="75px"/>
+			<column label="Remove" align="center" width="75px"/>
+			
+		</columns>
+		
+		<rows>
+			<template name="model" var="v">
+				<row>
+					<textbox value="@bind(v.itemName)" readonly="true"/>
+					<intbox value="@bind(v.qty)" width="100%" constraint="no empty"/>
+					<doublebox value="@bind(v.itemPrice)" width="100%" constraint="no empty"/>
+					<combobox
+						model="@bind(v.mealTypeList)" readonly="true"
+						autocomplete="true" autodrop="true"
+						selectedItem="@bind(v.meal)"
+						value="@bind(v.meal.typeOfMeal)">
+						<template name="model"
+							var="v1">
+							<comboitem
+								label="@bind(v1.typeOfMeal)" value="@bind(v1.mealTypeId)" />
+						</template>
+					</combobox>
+					<!-- <textbox value="@bind(v.meal.typeOfMeal)" readonly="true"/> -->
+					<!-- <textbox value="@bind(v.dayName)" readonly="true"/> -->
+					<combobox placeholder="Choose DAY"
+								model="@bind(v.dayList)" autocomplete="true"
+								autodrop="true" readonly="true" selectedItem="@bind(v.day)"
+								value="@bind(v.day.day)">
+								<template name="model" var="v1">
+									<comboitem label="@bind(v1.day)"
+										value="@bind(v1.dayId)" />
+								</template>
+					</combobox>
+					
+					<button onClick="@command('onClickUpdate',bean = v)"
+						style="border:none;background:transparent"
+						image="images/update.png"
+					/>	 
+					<button onClick="@command('onClickRemove',bean = v)"
+						style="border:none;background:transparent"
+						image="images/delete (2).png"
+						 />
+					
+				</row>
+			</template>
+		</rows>
+	</grid>
+	<div align="center">
+	
+	 <space></space>
+	<!--	<label value="Add new Item" style="font-weight:bold" />
+		<combobox model="@bind(vm.allItemBeanList)"
+		autocomplete="true" autodrop="true" readonly="true">
+			<template name="model" var="v">
+				<comboitem label="@bind(v.itemName)" value="@bind(v.itemCode)"/>
+			</template>
+		</combobox> -->
+		<a label="Click here for add new item" onClick="@command('onClickAddNewItem')"/>
+		<!-- <button  style="border:none;background:transparent"
+						image="images/addItem.png"/> -->
+	</div>
+</window>
+</zk>

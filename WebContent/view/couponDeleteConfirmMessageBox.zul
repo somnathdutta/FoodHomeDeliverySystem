@@ -1,0 +1,70 @@
+<?page title="Delete Coupon Confirmation" contentType="text/html;charset=UTF-8"?>
+
+<window title="Delete Coupon Confirmation" border="normal" 
+	apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('ViewModel.CouponDeleteViewModel')"
+	closable="true" width="20%" height="17%"
+	id="winCouponDelete">
+
+	<style>
+		.fgrid tr.z-row td.z-row-inner,tr.z-row,div.z-grid-body
+		div.z-cell,div.z-grid { border: none; overflow: hidden; zoom: 1;
+		background:none; border-top: none; border-left: none;
+		border-right: none; border-bottom: none; }
+
+		.fgrid .z-grid-odd .fgrid .z-row-inner,.fgrid .z-grid-odd
+		.z-cell { background-color: #F7F7F7; border-bottom: 1px solid
+		transparent; border-left: 1px solid transparent; border-top: 1px
+		solid transparent; }
+
+		.fgrid .z-grid-odd .fgrid.z-row-inner,.fgrid.z-grid-odd
+		.z-cell,.fgrid.z-grid-odd { background: none repeat scroll 0 0
+		transparent; }
+
+		.fgrid tr.z-grid-odd td.z-row-inner,.fgrid tr.z-grid-odd
+		.z-cell,.fgrid tr.z-grid-odd { background: white }
+
+		.fgrid tr.z-row td.z-row-inner,.fgrid tr.z-row .z-cell {
+		background: white; border-top: none; }
+
+		div.z-grid-body{ background: #EDF4FF;}
+
+		.fgrid tr.z-row td.z-row-inner, .fgrid tr.z-row .z-cell{
+		background:none;}
+		
+		.border_style{
+			
+			-moz-border-radius: 25px 10px / 10px 25px;
+			border-radius: 25px 10px / 10px 25px;
+			}
+			
+			.mybutton {
+	        border-radius: 10px;
+	        background: linear-gradient(to bottom, #f0f9ff 0%,#a1dbff 100%);
+	        font-size :15px;
+	    }
+	</style>
+
+	<div style="background-color:#F5F5FF; padding-bottom:0.5%; padding-left:1%; padding-right:1%; padding-top:1%;" sclass="border_style">
+
+		<div style="border:#DADADA 1px groove; padding-top:1%; padding-bottom:1%; padding-left:3%;">
+			<hlayout spacing="20px">
+			<image src="images/del.jpg" />
+			<label value="Are you sure to DELETE?" style="font-weight:bold;" />
+			</hlayout>
+		</div>
+		
+		<separator/>
+		
+		<hlayout style="padding-left:13%;" spacing="20px">
+		
+			<div style="padding-left:30%; padding-button:2%;">
+				<button sclass="mybutton" label="Yes" onClick="@command('onClickYes')"/>
+			</div>
+			
+			<div style="padding-left:30%; padding-button:2%;">
+				<button sclass="mybutton"  label="No" width="50px" onClick="@command('onClickNo')"/>
+			</div>
+		</hlayout>
+		
+	</div>
+</window>

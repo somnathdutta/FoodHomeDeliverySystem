@@ -1,0 +1,166 @@
+<?page title="ManageCluster" contentType="text/html;charset=UTF-8"?>
+<zk>
+	
+	<window title="Manage Cluster" border="none"
+		style="background:#FFFFAA;" apply="org.zkoss.bind.BindComposer" 
+		viewModel="@id('vm')@init('ViewModel.ManageClusterViewModel')">
+		<style>
+		.fgrid tr.z-row td.z-row-inner,tr.z-row,div.z-grid-body
+		div.z-cell,div.z-grid { border: none; overflow: hidden; zoom: 1;
+		background:none; border-top: none; border-left: none;
+		border-right: none; border-bottom: none; }
+
+		.fgrid .z-grid-odd .fgrid .z-row-inner,.fgrid .z-grid-odd
+		.z-cell { background-color: #FFFFAA; border-bottom: 1px solid
+		transparent; border-left: 1px solid transparent; border-top: 1px
+		solid transparent; }
+
+		.fgrid .z-grid-odd .fgrid.z-row-inner,.fgrid.z-grid-odd
+		.z-cell,.fgrid.z-grid-odd { background: none repeat scroll 0 0
+		transparent; }
+
+		.fgrid tr.z-grid-odd td.z-row-inner,.fgrid tr.z-grid-odd
+		.z-cell,.fgrid tr.z-grid-odd { background: white }
+
+		.fgrid tr.z-row td.z-row-inner,.fgrid tr.z-row .z-cell {
+		background: white; border-top: none; }
+
+		div.z-grid-body{ background: #FFFFAA;}
+
+		.fgrid tr.z-row td.z-row-inner, .fgrid tr.z-row .z-cell{
+		background:none;}
+
+		.effect8 { position:relative; -webkit-box-shadow:0 1px 4px
+		rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+		-moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0,
+		0, 0, 0.1) inset; box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0
+		40px rgba(0, 0, 0, 0.1) inset; } .effect8:before, .effect8:after
+		{ content:""; position:absolute; z-index:-1;
+		-webkit-box-shadow:0 0 20px rgba(0,0,0,0.8); -moz-box-shadow:0 0
+		20px rgba(0,0,0,0.8); box-shadow:0 0 20px rgba(0,0,0,0.8);
+		top:10px; bottom:10px; left:0; right:0; -moz-border-radius:100px
+		/ 10px; border-radius:100px / 10px; } .effect8:after {
+		right:10px; left:auto; -webkit-transform:skew(8deg)
+		rotate(3deg); -moz-transform:skew(8deg) rotate(3deg);
+		-ms-transform:skew(8deg) rotate(3deg); -o-transform:skew(8deg)
+		rotate(3deg); transform:skew(8deg) rotate(3deg); }
+
+		.z-textbox{
+    	text-transform:uppercase;
+    	}
+	</style>
+		<div
+			style="border:#DADADA 1px solid;background-color:#F5F5FF;">
+
+			<div
+				style="padding: 1% 1% 1% 1%; border:#DADADA 1px groove;"
+				sclass="effect8">
+				
+				<hlayout spacing="10px">
+					<grid model="@bind(vm.clusterBeanList)" hflex="1" vflex="true" >
+						<columns>
+							<column label="Select"  align="center" width="45px"/>
+							<column label="Kitchen Id"  align="center" width="75px"/>
+							<column label="Kitchen Name" align="center" width="210px"/>
+							<column label="Pincode"  align="center" width="70px"/>
+						</columns>
+						<rows>
+							<template name="model" var="v">
+								<row>
+									<checkbox onCheck="@command('onClickItem',bean=v)" width="100%" checked="@bind(v.selected)"/>
+									<textbox value="@bind(v.kichenId)" readonly="true" width="100%"/>
+									<textbox value="@bind(v.kitchenName)" readonly="true" width="100%"/>
+									<textbox value="@bind(v.pincode)" readonly="true" width="100%"/>
+								</row>
+							</template>
+						</rows>
+						
+					</grid>
+					
+					<vbox spacing="10px">
+				        <!-- <image style="cursor:pointer" id="chooseAllBtn" src="images/rightrightarrow_g.png" onClick="@command('onClickAddAll')"/>
+				        <image style="cursor:pointer" id="chooseBtn" src="images/rightarrow_g.png" onClick="@command('onClickAddOne')"/>
+				        <image style="cursor:pointer" id="removeBtn" src="images/leftarrow_g.png" onClick="@command('onClickRemoveOne')"/>
+				        <image style="cursor:pointer" id="removeAllBtn" src="images/leftleftarrow_g.png" onClick="@command('onClickRemoveAll')"/> -->
+				        <button  label="Add" onClick="@command('onClickAddOne')"/>
+				        <button  label="Remove" onClick="@command('onClickRemoveOne')"/>
+				        
+				    </vbox>
+						
+				    	<grid model="@bind(vm.clusterBeanSet)" hflex="1" vflex="true" >
+						<columns>
+							<column label="Select"  align="center" width="45px"/>
+							<column label="Kitchen Id"  align="center" width="75px"/>
+							<column label="Kitchen Name" align="center" width="210px"/>
+							<column label="Pincode"  align="center" width="70px"/>
+						</columns>
+						<rows>
+							<template name="model" var="v">
+								<row>
+									<checkbox onCheck="@command('onClickRemoveItem',bean=v)" width="100%" checked="@bind(v.deSelected)"/>
+									<textbox value="@bind(v.kichenId)" readonly="true" width="100%"/>
+									<textbox value="@bind(v.kitchenName)" readonly="true" width="100%"/>
+									<textbox value="@bind(v.pincode)" readonly="true" width="100%"/>
+								</row>
+							</template>
+						</rows>
+					</grid>
+					<vbox>
+						<textbox placeholder="Group Name" value="@bind(vm.groupName)"/>
+						<button label="Create Group" sclass="mybutton" onClick="@command('onClickCreate')"/>
+						<button label="Add to Group" sclass="mybutton" onClick="@command('onClickAdd')"/>
+					</vbox>
+				</hlayout>
+
+			</div>
+		</div>
+		
+		<div
+			style="border:#DADADA 1px solid;background-color:#F5F5FF;">
+
+			<div
+				style="padding: 1% 1% 1% 1%; border:#DADADA 1px groove;"
+				sclass="effect8">
+				
+				<hlayout spacing="20px">
+					<combobox placeholder="Choose Group"  
+       				          model="@bind(vm.groupList)" selectedItem="@bind(vm.clusterBEAN)" 
+       				          autocomplete="true" autodrop="true" onSelect="@command('onSelectGroup',bean=vm.clusterBEAN)">
+							<template name="model" var="v">
+							 		<comboitem value="@bind(v.groupName)" label="@bind(v.groupName)" />
+							</template>	
+					</combobox>
+					<grid model="@bind(vm.selectedGroupList)" hflex="1" vflex="true" height="200px" mold="paging" pageSize="3">
+						<columns>
+							<column label="Select"  align="center" width="45px"/>
+							<column label="Kitchen Id"  align="center" width="75px"/>
+							<column label="Kitchen Name" align="center" width="210px"/>
+							<column label="Pincode"  align="center" width="70px"/>
+						</columns>
+						<rows>
+							<template name="model" var="v">
+								<row>
+									<checkbox onCheck="@command('onClickRemoveItem',bean=v)" width="100%" checked="@bind(v.deSelected)"/>
+									<textbox value="@bind(v.kichenId)" readonly="true" width="100%"/>
+									<textbox value="@bind(v.kitchenName)" readonly="true" width="100%"/>
+									<textbox value="@bind(v.pincode)" readonly="true" width="100%"/>
+								</row>
+							</template>
+						</rows>
+					</grid>
+					<combobox placeholder="Choose Boy"  
+       				          model="@bind(vm.driverList)" selectedItem="@bind(vm.driverBean)" 
+       				          autocomplete="true" autodrop="true" >
+							<template name="model" var="v">
+							 		<comboitem value="@bind(v.name)" label="@bind(v.deliveryBoyUserId)" />
+							</template>	
+					</combobox>
+					
+					<button label="Assign Boy" sclass="mybutton" onClick="@command('onClickAssignDriver')"/>
+				</hlayout>
+				
+			</div>
+			
+		</div>		
+	</window>
+</zk>

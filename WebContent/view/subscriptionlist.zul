@@ -1,0 +1,203 @@
+<?page title="Subscription List" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window title="" border="none" contentStyle="overflow:scroll;" apply="org.zkoss.bind.BindComposer"
+ viewModel="@id('vm')@init('ViewModel.SubscriptionListViewModel')">
+<style>
+			.fgrid tr.z-row td.z-row-inner,tr.z-row,div.z-grid-body
+			div.z-cell,div.z-grid { border: none; overflow: hidden;
+			zoom: 1; background:none; border-top: none; border-left:
+			none; border-right: none; border-bottom: none; }
+
+			.fgrid .z-grid-odd .fgrid .z-row-inner,.fgrid .z-grid-odd
+			.z-cell { background-color: #F7F7F7; border-bottom: 1px
+			solid transparent; border-left: 1px solid transparent;
+			border-top: 1px solid transparent; }
+
+			.fgrid .z-grid-odd .fgrid.z-row-inner,.fgrid.z-grid-odd
+			.z-cell,.fgrid.z-grid-odd { background: none repeat scroll 0
+			0 transparent; }
+
+			.fgrid tr.z-grid-odd td.z-row-inner,.fgrid tr.z-grid-odd
+			.z-cell,.fgrid tr.z-grid-odd { background: white }
+
+			.fgrid tr.z-row td.z-row-inner,.fgrid tr.z-row .z-cell {
+			background: white; border-top: none; }
+
+			div.z-grid-body{ background: #EDF4FF;}
+
+			.fgrid tr.z-row td.z-row-inner, .fgrid tr.z-row .z-cell{
+			background:none;}
+			
+			.effect8
+				{
+				  	position:relative;       
+				    -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+				       -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+				            box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+				}
+				.effect8:before, .effect8:after
+				{
+					content:"";
+				    position:absolute; 
+				    z-index:-1;
+				    -webkit-box-shadow:0 0 20px rgba(0,0,0,0.8);
+				    -moz-box-shadow:0 0 20px rgba(0,0,0,0.8);
+				    box-shadow:0 0 20px rgba(0,0,0,0.8);
+				    top:10px;
+				    bottom:10px;
+				    left:0;
+				    right:0;
+				    -moz-border-radius:100px / 10px;
+				    border-radius:100px / 10px;
+				} 
+				.effect8:after
+				{
+					right:10px; 
+				    left:auto;
+				    -webkit-transform:skew(8deg) rotate(3deg); 
+				       -moz-transform:skew(8deg) rotate(3deg);     
+				        -ms-transform:skew(8deg) rotate(3deg);     
+				         -o-transform:skew(8deg) rotate(3deg); 
+				            transform:skew(8deg) rotate(3deg);
+			}
+			
+		</style>
+
+	<div style=" border:#DADADA 1px solid;background-color:#F5F5FF;">
+		
+		<div style="padding:1%; border:#DADADA 1px groove;" sclass="effect8">
+			
+			
+	 		<div>
+	 			<grid sclass="fgrid" model="@bind(vm.subscriptionBeanList)" width="100%" mold="paging" pageSize="10">
+	 				<auxhead>
+	 					<auxheader colspan="9" width="100%">
+	 						<label value="SEARCH BY" style="font-weight:bold"/>
+	 						<textbox placeholder="[Subscription No]" value="@bind(vm.subscriptionBean.subscriptionNo)"/>
+	 						<textbox placeholder="[Contact No]" value="@bind(vm.subscriptionBean.contactNo)"/>
+	 						<!-- <datebox placeholder="[START DATE]" value="@bind(vm.subscriptionBean.startDate)" format="dd-MM-yyyy"/>
+	 						<datebox placeholder="[END DATE]" value="@bind(vm.subscriptionBean.endDate)" format="dd-MM-yyyy"/> -->
+	 						<button label="FIND SUBSCRIPTION" sclass="mybutton" onClick="@command('onClickFind')"/>
+				 			<button label="CLEAR" sclass="mybutton" onClick="@command('onClickClear')" />
+	 					</auxheader>
+	 				</auxhead>
+	 				<columns sizable="true">
+	 					<column label="Subscription No" align="center"  style="background-color:#FFCC99;color:white;"/>
+	 					<column label="Contact No" align="center"  style="background-color:#FFCC99;color:white"/>
+	 					<column label="Address" align="center"  style="background-color:#FFCC99;color:white"/>
+	 					<column label="Email" align="center"  style="background-color:#FFCC99;color:white"/>
+	 					<column label="Name" align="center"  style="background-color:#FFCC99;color:white"/>
+	 					<column label="Price" align="center"  style="background-color:#FFCC99;color:white"/>
+	 					<column label="Start Date" align="center"  style="background-color:#FFCC99;color:white"/>
+	 					<column label="End Date" align="center"  style="background-color:#FFCC99;color:white"/>
+	 					<column label="Action" align="center" style="text-align:center;background-color:#FFCC99;color:white"/>
+	 					
+	 				</columns >
+	 				<rows>
+	 					<template name="model" var="v">
+	 					<row>
+	 						<label value="@bind(v.subscriptionNo)"  width="100%"/>
+	 						<label value="@bind(v.contactNo)"  maxlength="10" width="100%"/>
+	 						<textbox rows="3" value="@bind(v.deliveryAddress)" readonly="true"  width="100%"/>
+	 						<label value="@bind(v.emailId)"  width="100%"/>
+				 			<label value="@bind(v.contactName)"   width="100%"/>
+				 			<label value="@bind(v.price)"   width="100%"/>
+				 			<label value="@bind(v.startDateValue)"  width="100%"/>
+				 			<label value="@bind(v.endDateValue)"  width="100%"/>
+				 			<hlayout>
+				 				<!-- <button label="Edit" sclass="mybutton" onClick="@command('onClickEdit',bean = v)"/> -->
+				 				<button label="Details" sclass="mybutton" onClick="@command('onClickDetails',bean = v)"/>
+				 			</hlayout>
+				 			
+	 					</row>
+	 					
+	 					</template>
+	 				</rows>
+	 			</grid>
+	 		</div>
+	 		
+	 		<space></space>
+	 	<div width="100%" align="left" style="border:1px #FFCC99" visible="@bind(vm.cuisineGridVisibility)" >
+			
+			<div style="background-color:#FFCC99;padding:2px">
+				<label value="SUBSCRIPTION NO" style="font-size:17px;font-weight:bold;color:white;"/>
+				<textbox value="@bind(vm.subscriptionBean.subscriptionNo)" readonly="true"/>
+				<label value="DELIVERY CITY" style="font-size:17px;font-weight:bold;color:white;"/>
+				<combobox placeholder="Choose City" value="@bind(vm.subscriptionBean.cityName)" 
+         				model="@bind(vm.cityList)" selectedItem="@bind(vm.subscriptionBean.cityName)" 
+         				autocomplete="true" autodrop="true" onSelect="@command('onSelectcityName')">
+					<template name="model" var="v">
+			 			<comboitem value="@bind(v)" label="@bind(v)"></comboitem>
+					</template>	
+				</combobox>
+				<label value="DELIVERY LOCATION" style="font-size:17px;font-weight:bold;color:white;"/>
+				<combobox placeholder="Choose Area" value="@bind(vm.subscriptionBean.areaName)" 
+      				      model="@bind(vm.areaList)" selectedItem="@bind(vm.subscriptionBean.areaName)" 
+      				      autocomplete="true" autodrop="true" onSelect="@command('onSelectAreaName')">
+						<template name="model" var="v">
+						 	<comboitem value="@bind(v)" label="@bind(v)"></comboitem>
+						</template>	
+				 </combobox>
+			</div> 
+			
+			
+			<button label="@bind(vm.subscriptionBean.dayArray[0])" style="margin:20px" sclass="mybutton" onClick="@command('onClickDay',string = vm.subscriptionBean.dayArray[0])"/>
+			<button label="@bind(vm.subscriptionBean.dayArray[1])" style="margin:20px" sclass="mybutton" onClick="@command('onClickDay',string = vm.subscriptionBean.dayArray[1])"/>
+			<button label="@bind(vm.subscriptionBean.dayArray[2])" style="margin:20px" sclass="mybutton" onClick="@command('onClickDay',string = vm.subscriptionBean.dayArray[2])"/>
+			<button label="@bind(vm.subscriptionBean.dayArray[3])" style="margin:20px" sclass="mybutton" onClick="@command('onClickDay',string = vm.subscriptionBean.dayArray[3])"/>
+			<button label="@bind(vm.subscriptionBean.dayArray[4])" style="margin:20px" sclass="mybutton" onClick="@command('onClickDay',string = vm.subscriptionBean.dayArray[4])"/>
+			<button label="@bind(vm.subscriptionBean.dayArray[5])" style="margin:20px" sclass="mybutton" onClick="@command('onClickDay',string = vm.subscriptionBean.dayArray[5])"/>
+			<button label="@bind(vm.subscriptionBean.dayArray[6])" style="margin:20px" sclass="mybutton" onClick="@command('onClickDay',string = vm.subscriptionBean.dayArray[6])"/>
+			<div style="background-color:#FFCC99" width="100%" height="30px">
+				<label value="@bind(vm.subscriptionBean.mealBean.dayName)" style="margin-left:30px;font-size:17px;font-weight:bold;color: white;"/>
+				<label value="@bind(vm.subscriptionBean.mealBean.typeOfMeal)" style="font-size:17px;font-weight:bold;color: white"/>
+			</div>
+		
+		<space/>
+		<space/>
+			<div style="border:1px #FFCC99" width="100%" >
+			<grid model="@bind(vm.subscriptionBean.mealBean.orderItemDetailsBeanList)" width="100%">
+             		<columns>
+             			<column label="Cuisine Name" width="200px" align="center"/>
+             			<column label="Item Name" width="200px" align="center"/>
+             			<column label="Price" width="90px" align="center"/>
+             			<column label="Add" align="center"/>
+             			<column label="Quantity" align="center"/>
+             			<column label="Less" align="center"/>
+             		</columns>
+             		<rows>
+             			 <template name="model" var="v">
+             				<row>
+             					<label value="@bind(v.cuisineName)"/>
+             					<label value="@bind(v.categoryName)" width="100%"/>
+             					<doublebox value="@bind(v.price)" width="100%"/>
+             					<button style="border:none;background:transparent" image="images/add.png" onClick="@command('onClickAdd',bean = v)"/>
+              					<label value="@bind(v.quantity)" style="font-weight:bold"/>
+              					<button style="border:none;background:transparent" image="images/remove.png" onClick="@command('onClickLess',bean = v)"/>
+             				</row>
+             			</template> 
+             		</rows>
+			</grid>
+				<div align="right" style="background-color:#FFCC99;padding:2px;" >
+					<button label="UPDATE AND CHOOSE NEXT" sclass="mybutton" onClick="@command('onClickUpdateAndChooseMeal')" 
+					disabled="@bind(vm.subscriptionBean.saveMealDisability)"/>
+				</div>
+				<div align="right" style="background-color:#FFCC99;padding:2px;" >
+					<label value="TOTAL PRICE" style="font-size:13px;font-weight:bold;color: white;"/>
+					<label value="@bind(vm.subscriptionBean.price)" style="font-size:13px;font-weight:bold;color: white;"/>
+				</div>
+			</div>
+			<space/>
+				<div align="center" style="border:1px #FFCC99;background-color: #FFCC99;" width="100%" >
+						<button label="UPDATE FINAL MEAL DETAILS" sclass="mybutton" onClick="@command('onClickFinalUpdate')"/>
+				</div>
+		</div>
+	 	
+		
+		
+			
+			
+		</div>
+	</div>	
+</window>
+</zk>

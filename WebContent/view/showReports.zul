@@ -1,0 +1,10 @@
+<?page title="Show Reports" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window title="Show Reports" border="normal" >
+	<hlayout>
+		<chart id="mychart" title="Pie Chart Demo"
+        width="550" height="400" paneColor="#ffffff" fgAlpha="192"
+        type="pie"></chart>
+	</hlayout>
+</window>
+</zk>

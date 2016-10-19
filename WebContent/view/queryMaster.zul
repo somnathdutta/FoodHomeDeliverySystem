@@ -1,0 +1,64 @@
+<?page title="Query Master" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<window title="Query Master" border="normal"
+	apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('ViewModel.QueryMasterViewModel')"	>
+		<div align="center"
+			style="padding-top:1%; padding-bottom:1%; border:#DADADA 1px solid;">
+			<grid style="border:#DADADA 1px solid;" width="60%">
+				<columns>
+					<column label="Add New Query" align="center" />
+				</columns>
+				<rows>
+					<row>
+						<textbox placeholder="Query Name"
+							value="@bind(vm.queryPojo.queryName)" />
+					</row>
+					<row>
+						<combobox placeholder="[Active/Inactive]"
+							width="130px" value="@bind(vm.queryPojo.status)">
+							<comboitem label="Active" />
+							<comboitem label="Inactive" />
+						</combobox>
+					</row>
+					<row>
+						<div align="center">
+							<vbox>
+								<button label="Save Query"
+									visible="@bind(vm.saveButtonVisibility)" sclass="mybutton"
+									onClick="@command('onClickSaveQueryType')" />
+								<button label="Update Query"
+									visible="@bind(vm.updateButtonVisibility)" sclass="mybutton"
+									onClick="@command('onClickUpdateQueryType')" />
+							</vbox>
+						</div>
+					</row>
+				</rows>
+			</grid>
+		</div>
+		<separator spacing="20px" />
+		<div align="center"
+			style="padding-top:1%; padding-bottom:1%; border:#DADADA 1px solid;">
+			<grid width="60%" model="@bind(vm.queryTypeList)"
+				style="border:#DADADA 1px solid;" mold="paging" pageSize="8">
+				<columns>
+					<column label="Query" align="center"/>
+					<column label="Status" align="center" />
+					<column label="Action" align="center" />
+				</columns>
+				<rows>
+					<template name="model" var="v">
+						<row>
+							<textbox width="100%" readonly="true"
+								value="@bind(v.queryName)" />
+							<textbox width="100%" readonly="true"
+								value="@bind(v.status)" />
+							<button sclass="mybutton" label="Edit"
+								onClick="@command('onClickEditQueryType',bean = v)" />
+						</row>
+					</template>
+
+				</rows>
+			</grid>
+		</div>
+	</window>
+</zk>

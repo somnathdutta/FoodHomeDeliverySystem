@@ -1,0 +1,6 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window title="" border="none" style="background-image: url('images/my.jpg');">
+
+</window>
+</zk>

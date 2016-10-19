@@ -1,0 +1,38 @@
+<?page title="Delivered Order List" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window title="Delivered Order List" border="normal"
+	apply="org.zkoss.bind.BindComposer" viewModel="@id('vm')@init('ViewModel.DeliveredOrderListViewModel')">
+	<div style=" padding-bottom:1%; border:#DADADA 1px solid;">
+		
+		<grid model="@bind(vm.deliveredOrderBeanList)">
+			<columns >
+				<column label="Order Id" align="center" width="60px" style="background-color:#FFCC99"/>
+				<column label="Order By" align="center" style="background-color:#FFCC99"/>
+				<column label="Contact Number" align="center" width="110px" style="background-color:#FFCC99"/>
+				<column label="Email Id" align="center" width="140px" style="background-color:#FFCC99"/>
+				<column label="Delivery Address" align="center" width="120px" style="background-color:#FFCC99"/>
+				<column label="Delivery Boy" align="center" width="100px" style="background-color:#FFCC99"/>
+				<column label="Delivery Boy Contact Number" align="center" width="190px" style="background-color:#FFCC99"/>
+				<column label="Status" align="center" width="110px" style="background-color:#FFCC99"/>
+				<column label="Show" align="center" width="140px" style="background-color:#FFCC99"/>
+			</columns>
+			 <template name="model" var="v" > 
+					<row>
+						<textbox width="100%" value="@bind(v.orderId)" readonly="true"/>
+						<textbox width="100%" value="@bind(v.orderBy)" readonly="true"/>
+						<textbox width="100%" value="@bind(v.contactNumber)" readonly="true"/>
+						<textbox width="100%" value="@bind(v.emailId)" readonly="true"/>
+						<textbox width="100%" rows="4" value="@bind(v.deliveryAddress)" readonly="true"/>
+						<textbox width="100%" value="@bind(v.deliveryBoy)" readonly="true"/>
+						<textbox width="100%" value="@bind(v.deliveryBoyPhone)" readonly="true"/>
+						<textbox width="100%" value="@bind(v.orderStatus)" readonly="true"/>
+						<hbox>
+							<button sclass="mybutton" label="Order Details" onClick="@command('onClickOrderDetails',bean=v)"/>
+							<button sclass="mybutton" label="Complete" onClick="@command('onClickComplete',bean=v)"/>
+						</hbox>
+					 </row>
+				 </template> 
+		</grid>
+	</div>
+</window>
+</zk>

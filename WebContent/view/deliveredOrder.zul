@@ -1,0 +1,85 @@
+<?page title="Delivered Order" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window title="Delivered Order" border="normal" closable="true" width="75%" id="winDeliverOrder"
+	apply="org.zkoss.bind.BindComposer" viewModel="@id('vm')@init('ViewModel.DeliveredOrderViewModel')">
+	<div align="center" style="padding-bottom:1%; border:#DADADA 1px solid;">
+		
+			<grid>
+				<columns>
+					<column width="65%"/>
+					<column/>
+				</columns>
+				<rows>
+					<row>
+						
+							<grid model="@bind(vm.deliveredOrderBeanList)">
+								<columns>
+									<column/>
+								</columns>
+								<rows>
+									<template name="model" var="v">
+									<row>
+										<hlayout spacing="20px">
+											<textbox placeholder="Item Name" visible="@bind(vm.deliveredOrderBean.itemVisibility)" readonly="true"  value="@bind(v.itemName)" />
+											<image width="320px" height="150px" style="border:#DADADA 1px solid;"/> <!-- content="@bind(v.subItemImage)"/> -->
+											<textbox placeholder="Subitem" readonly="true"/><!--  value="@bind(v.subItemName)"/> -->
+											
+										</hlayout>
+									</row>
+								</template>
+								</rows>
+							</grid>
+						
+						
+						<grid>
+							<columns>
+								<column align="right"/>
+								<column/>
+							</columns>
+							<rows>
+								<row>
+									<label value="Quantity"/><textbox width="40px" value="@bind(vm.quantity)" readonly="true"/>
+								</row>
+								<row>
+									<label value="Total price"/><decimalbox value="@bind(vm.itemPrice)"  readonly="true"/>
+								</row>
+								<row>
+									<label value="Order Status"/><textbox value="@bind(vm.deliveredOrderBean.orderStatus)" readonly="true"/>
+								</row>
+								<row>
+									<label value="Delivery Boy"/><textbox value="@bind(vm.deliveryBoyBean.name)"  readonly="true"/>
+								</row>
+								<row>
+									<label value="Delivery Boy Phone no"/><textbox value="@bind(vm.deliveryBoyBean.phoneNo)" readonly="true"/>
+								</row>
+							</rows>
+						</grid>
+					</row>
+					<row>
+							
+							<grid >
+								<columns>
+									<column align="center" />
+								</columns>
+								<rows>
+									<row>
+										<hlayout spacing="60px">
+											<image width="350px" height="160px" style="border:#DADADA 1px solid;" content="@bind(vm.podImage)"/>
+											<vbox spacing="15px">
+												<button sclass="mybutton" label="Upload Proof Of Delivery" upload="true" onUpload="@command('onUploadPODImage',upEvent=event)"/>
+												<cell colspan="2">
+						                			<datebox  format="long+medium" width="198px" value="@bind(vm.deliveredOrderBean.uploadingProofdate)"/>
+						            			</cell>
+						            			<button sclass="mybutton" label="Save Proof Of Delivery" onClick="@command('onClickSavePOD')"/>
+											</vbox>
+										</hlayout>
+									</row>
+								</rows>
+							</grid>
+						
+					</row>
+			    </rows>
+			</grid>
+	</div>
+</window>
+</zk>

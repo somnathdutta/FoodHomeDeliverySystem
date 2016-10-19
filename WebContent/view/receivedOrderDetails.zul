@@ -1,0 +1,184 @@
+<?page title="Received Order Details" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window title="Received Order Details" border="normal" width="100%" id="winReceivedOrder"
+	apply="org.zkoss.bind.BindComposer" viewModel="@id('vm')@init('ViewModel.ReceivedOrderViewModel')">
+	<style>
+			.fgrid tr.z-row td.z-row-inner,tr.z-row,div.z-grid-body
+			div.z-cell,div.z-grid { border: none; overflow: hidden;
+			zoom: 1; background:none; border-top: none; border-left:
+			none; border-right: none; border-bottom: none; }
+
+			.fgrid .z-grid-odd .fgrid .z-row-inner,.fgrid .z-grid-odd
+			.z-cell { background-color: #F7F7F7; border-bottom: 1px
+			solid transparent; border-left: 1px solid transparent;
+			border-top: 1px solid transparent; }
+
+			.fgrid .z-grid-odd .fgrid.z-row-inner,.fgrid.z-grid-odd
+			.z-cell,.fgrid.z-grid-odd { background: none repeat scroll 0
+			0 transparent; }
+
+			.fgrid tr.z-grid-odd td.z-row-inner,.fgrid tr.z-grid-odd
+			.z-cell,.fgrid tr.z-grid-odd { background: white }
+
+			.fgrid tr.z-row td.z-row-inner,.fgrid tr.z-row .z-cell {
+			background: white; border-top: none; }
+
+			div.z-grid-body{ background: #EDF4FF;}
+
+			.fgrid tr.z-row td.z-row-inner, .fgrid tr.z-row .z-cell{
+			background:none;}
+			
+			.effect8
+				{
+				  	position:relative;       
+				    -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+				       -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+				            box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+				}
+				.effect8:before, .effect8:after
+				{
+					content:"";
+				    position:absolute; 
+				    z-index:-1;
+				    -webkit-box-shadow:0 0 20px rgba(0,0,0,0.8);
+				    -moz-box-shadow:0 0 20px rgba(0,0,0,0.8);
+				    box-shadow:0 0 20px rgba(0,0,0,0.8);
+				    top:10px;
+				    bottom:10px;
+				    left:0;
+				    right:0;
+				    -moz-border-radius:100px / 10px;
+				    border-radius:100px / 10px;
+				} 
+				.effect8:after
+				{
+					right:10px; 
+				    left:auto;
+				    -webkit-transform:skew(8deg) rotate(3deg); 
+				       -moz-transform:skew(8deg) rotate(3deg);     
+				        -ms-transform:skew(8deg) rotate(3deg);     
+				         -o-transform:skew(8deg) rotate(3deg); 
+				            transform:skew(8deg) rotate(3deg);
+			}
+
+		</style>
+
+	<div style="border:#DADADA 1px solid;background-color:#F5F5FF;">
+		
+		<div style="padding: 1% 1% 1% 1%; border:#DADADA 1px groove;" sclass="effect8">
+			
+				<grid mold="paging" pageSize="10" model="@bind(vm.receivedOrderBeanList)">
+					<auxhead>
+						<auxheader colspan="6">
+							<label value="START DATE"/>
+							<datebox format="dd-MM-yyyy" value="@bind(vm.stdate)" />
+							<label value="END DATE"/>
+							<datebox format="dd-MM-yyyy" value="@bind(vm.endate)"/>
+							<button label="Find" sclass="mybutton" onClick="@command('onClickFind')"/>
+							<button label="Clear" sclass="mybutton" onClick="@command('onClickClear')"/>
+						</auxheader>
+					</auxhead>
+					<columns>
+						
+						<column label="Order No" align="center" style="background-color:#FFCC99;color:white"/>
+						<column label="Item" align="center" style="background-color:#FFCC99;color:white"/>
+						<column label="Description" align="center" style="background-color:#FFCC99;color:white"/>
+						<column label="Quantity" align="center" style="background-color:#FFCC99;color:white"/>
+						<column label="Price" align="center" style="background-color:#FFCC99;color:white"/>
+						<column label="Order Date" align="center" style="background-color:#FFCC99;color:white"/>
+						
+					</columns>
+					<rows>
+						<template name="model" var="v">
+						<row>
+							
+							<textbox value="@bind(v.orderNo)" readonly="true" width="100%"/>
+							<textbox value="@bind(v.itemName)" readonly="true" width="100%"/>
+							<textbox value="@bind(v.itemDescription)"  readonly="true" width="100%"/>
+							<textbox value="@bind(v.quantity)" readonly="true" width="100%"/>
+							<textbox value="@bind(v.price)" readonly="true" width="100%"/>
+							<textbox value="@bind(v.orderDateValue)" readonly="true" width="100%"/>
+							
+						</row>
+						</template>
+					</rows>
+				
+				</grid>
+		</div>
+		<!-- <grid>
+				<columns>
+					<column width="66%"/>
+					<column/>
+				</columns>
+				<rows>
+					<row>
+					
+						<grid model="@bind(vm.receivedOrderBeanList)" >
+								<columns>
+									<column/>
+								</columns>
+								<rows>
+								
+								<template name="model" var="v">
+									<row>
+										<hlayout spacing="15px">
+										<textbox placeholder="Item Name" width="190px" visible="@bind(vm.receivedOrderBean.itemVisibility)" value="@bind(v.itemName)" readonly="true"/>
+											<image width="320px" height="120px" content="@bind(v.subItemImage)" style="border:#DADADA 2px solid;" />
+											
+											<textbox placeholder="Subitem" width="140px" readonly="true" value="@bind(v.subItemName)"/>
+									
+										</hlayout>
+									</row>
+								</template>
+								</rows>
+							</grid>
+							
+						<grid>
+							<columns>
+								<column align="right"/>
+								<column/>
+							</columns>
+							<rows>
+								<row>
+									<label value="Quantity" /><textbox width="40px" value="@bind(vm.quantity)" readonly="true"/>
+								</row>
+								<row>
+									<label value="Total price" /><decimalbox value="@bind(vm.itemPrice)" readonly="true"/>
+								</row>
+								<row>
+									<label value="Order Status"/><textbox value="@bind(vm.receivedOrderBean.orderStatus)" readonly="true"/>
+								</row>
+							</rows>
+						</grid>
+					
+					</row>
+					<row>
+						<div align="right">
+							
+							<grid width="39%">
+								<columns>
+									<column />
+								</columns>
+								<rows>
+									<row>
+										<combobox placeholder="Choose Delivery Boy" value="@bind(vm.receivedOrderBean.deliveryBoyName)"
+										model="@bind(vm.deliveryBoyList)" selectedItem="@bind(vm.receivedOrderBean.deliveryBoyName)"
+										autocomplete="true" autodrop="true" onSelect="@command('onSelectdeliveryBoy')">
+											<template name="model" var="v">
+												<comboitem value="@bind(v)" label="@bind(v)"/>
+											</template>										
+										</combobox>
+									</row>
+									<row>
+										<button sclass="mybutton" label="Assign Delivery Boy" onClick="@command('onClickAssignDeliveryBoy')"/>
+									</row>
+								</rows>
+							</grid>
+							
+						</div>
+					</row>
+			    </rows>
+			</grid> -->
+	</div>
+</window>
+</zk>

@@ -1,0 +1,17 @@
+<?page title="Logistics Dashboard" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window title="Logistics Dashboard" border="normal" style="background-color:#FFFFAA">
+<menubar id="menubar" autodrop="true" style="background:#FFFFAA;">
+        <menuitem label="Order response and deployment time" onClick='inclResults.setSrc("orderresponse.zul")'/>
+        <menuitem label="Pick up And delivery" onClick='inclResults.setSrc("pickupdelivery.zul")'/>
+        <menuitem label="Biker Track" onClick='inclResults.setSrc("bikerTrackReport.zul")'/>
+        <menuitem label="Overall delivery analysis " onClick='inclResults.setSrc("overalldelayanalysis.zul")'/>
+    </menubar>
+        
+    <div height="460px" >
+    		<include id="inclResults" mode="instant" 
+				style="overflow: auto; overflow-x:scroll;border:none;background-color:white;">
+			</include>
+    </div>    
+</window>
+</zk>

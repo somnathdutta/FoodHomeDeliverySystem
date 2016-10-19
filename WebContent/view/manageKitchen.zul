@@ -1,0 +1,420 @@
+<?page title="Manage Kitchen" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window title="Manage Kitchen" border="normal" apply="org.zkoss.bind.BindComposer"  contentStyle="overflow:scroll;"
+viewModel="@id('vm') @init('ViewModel.ManageKitchenViewModel')">
+
+<style>
+			.fgrid tr.z-row td.z-row-inner,tr.z-row,div.z-grid-body
+			div.z-cell,div.z-grid { border: none; overflow: hidden;
+			zoom: 1; background:none; border-top: none; border-left:
+			none; border-right: none; border-bottom: none; }
+
+			.fgrid .z-grid-odd .fgrid .z-row-inner,.fgrid .z-grid-odd
+			.z-cell { background-color: #F7F7F7; border-bottom: 1px
+			solid transparent; border-left: 1px solid transparent;
+			border-top: 1px solid transparent; }
+
+			.fgrid .z-grid-odd .fgrid.z-row-inner,.fgrid.z-grid-odd
+			.z-cell,.fgrid.z-grid-odd { background: none repeat scroll 0
+			0 transparent; }
+
+			.fgrid tr.z-grid-odd td.z-row-inner,.fgrid tr.z-grid-odd
+			.z-cell,.fgrid tr.z-grid-odd { background: white }
+
+			.fgrid tr.z-row td.z-row-inner,.fgrid tr.z-row .z-cell {
+			background: white; border-top: none; }
+
+			div.z-grid-body{ background: #EDF4FF;}
+
+			.fgrid tr.z-row td.z-row-inner, .fgrid tr.z-row .z-cell{
+			background:none;}
+			
+			.effect8
+				{
+				  	position:relative;       
+				    -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+				       -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+				            box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+				}
+				.effect8:before, .effect8:after
+				{
+					content:"";
+				    position:absolute; 
+				    z-index:-1;
+				    -webkit-box-shadow:0 0 20px rgba(0,0,0,0.8);
+				    -moz-box-shadow:0 0 20px rgba(0,0,0,0.8);
+				    box-shadow:0 0 20px rgba(0,0,0,0.8);
+				    top:10px;
+				    bottom:10px;
+				    left:0;
+				    right:0;
+				    -moz-border-radius:100px / 10px;
+				    border-radius:100px / 10px;
+				} 
+				.effect8:after
+				{
+					right:10px; 
+				    left:auto;
+				    -webkit-transform:skew(8deg) rotate(3deg); 
+				       -moz-transform:skew(8deg) rotate(3deg);     
+				        -ms-transform:skew(8deg) rotate(3deg);     
+				         -o-transform:skew(8deg) rotate(3deg); 
+				            transform:skew(8deg) rotate(3deg);
+			}
+
+		</style>
+
+		<tabbox>
+			<tabs>
+				<tab label="Create New Kitchen "/>
+				<tab label="Show Kitchens "/>
+				<tab label="Item management" onClick="@command('onClickLoadItem')"/>
+			</tabs>
+			
+			<tabpanels>
+				<tabpanel>
+				  <div
+							style=" border:#DADADA 1px solid;background-color:#F5F5FF;">
+
+							<div
+								style="padding: 1% 1% 1% 1%; border:#DADADA 1px groove;"
+								sclass="effect8">
+						<grid style="border:#DADADA 1px solid;">
+							<columns>
+								<column align="center" />
+								<column />
+								<column align="center" />
+								<column />
+							</columns>
+
+							<rows>
+								<row>
+									<label value="Choose City"
+										style="font-weight:bold;" />
+									<combobox
+										placeholder="[Choose City]"
+										value="@bind(vm.manageKitchensBean.cityName)"
+										model="@bind(vm.cityList)"
+										selectedItem="@bind(vm.manageKitchensBean.cityName)"
+										autocomplete="true" autodrop="true"
+										onSelect="@command('onSelectcityName')">
+										<template name="model"
+											var="v">
+											<comboitem value="@bind(v)"
+												label="@bind(v)">
+											</comboitem>
+										</template>
+									</combobox>
+
+									<label value="Choose Area"
+										style="font-weight:bold;" />
+									<combobox
+										placeholder="[Choose Area]"
+										value="@bind(vm.manageKitchensBean.areaName)"
+										model="@bind(vm.areaList)"
+										selectedItem="@bind(vm.manageKitchensBean.areaName)"
+										autocomplete="true" autodrop="true"
+										onSelect="@command('onSelectAreaName')">
+										<template name="model"
+											var="v">
+											<comboitem value="@bind(v)"
+												label="@bind(v)">
+											</comboitem>
+										</template>
+									</combobox>
+								</row>
+
+								<row>
+									<label value="Postal Addresss"
+										style="font-weight:bold;" />
+									<textbox rows="3"
+										placeholder="[Full address]"
+										value="@bind(vm.manageKitchensBean.address)" />
+
+									<label value="Pincode"
+										style="font-weight:bold;" />
+									<textbox
+										value="@bind(vm.manageKitchensBean.pincode)"
+										placeholder="[e.g.700123]" maxlength="6"
+										onChange="@command('onChangePincode')" />
+								</row>
+
+								<row>
+									<label value="Lunch Stock"
+										style="font-weight:bold;" />
+									<intbox
+										value="@bind(vm.manageKitchensBean.lunchStock)" />
+									<label value="Dinner Stock"
+										style="font-weight:bold;" />
+									<intbox
+										value="@bind(vm.manageKitchensBean.dinnerStock)" />
+								</row>
+
+								<row>
+									<label value="Serving Areas"
+										style="font-weight:bold;" />
+									<textbox
+										value="@bind(vm.manageKitchensBean.servingAreas)" rows="2"
+										width="100%" />
+									<label value="Serving zipcodes"
+										style="font-weight:bold;" />
+									<textbox
+										value="@bind(vm.manageKitchensBean.servingZipCodes)"
+										width="100%" />
+								</row>
+
+								<row>
+									<label value="Kitchen Name"
+										style="font-weight:bold;" />
+									<textbox
+										placeholder="[Kitchen Name]"
+										onChange="@command('onOKkitchenName')"
+										value="@bind(vm.manageKitchensBean.kitchenName)" />
+
+									<label value="User Name"
+										style="font-weight:bold;" />
+									<textbox
+										placeholder="[Kitchen User Name]"
+										onChange="@command('onOKkitchenUserName')"
+										value="@bind(vm.manageKitchensBean.kitchenUserName)" />
+
+
+								</row>
+
+								<row>
+									<!-- <label value="Email Id" style="font-weight:bold;"/>
+										<textbox placeholder="[Kitchen email Id]" 
+										value="@bind(vm.manageKitchensBean.emailId)"/> -->
+									<label value="Mobile no"
+										style="font-weight:bold;" />
+									<textbox
+										placeholder="[Kitchen mobile No]"
+										onChange="@command('onOKkitchenMobileNo')" maxlength="10"
+										value="@bind(vm.manageKitchensBean.mobileNo)" />
+
+									<label value="Password"
+										style="font-weight:bold;" />
+									<textbox placeholder="[Password]"
+										value="@bind(vm.manageKitchensBean.password)" />
+								</row>
+
+								<row>
+									<label value="Cuisines"
+										style="font-weight:bold;" />
+									<grid style="border:1px solid;"
+										width="100%" model="@bind(vm.cuisinBeanList)">
+										<columns>
+											<column />
+										</columns>
+
+										<rows>
+											<template name="model"
+												var="v">
+												<row>
+													<hbox>
+														<checkbox
+															checked="@bind(v.chkCuisin)"
+															onCheck="@command('onCheckCuisineName' ,bean=v)" />
+														<label
+															value="@bind(v.cuisinName)" />
+
+														<!-- <grid style="border:2px solid;" width="100%"
+															model="@bind(v.categoryBeanList)" visible="@bind(v.categoryListVisibility)">
+															<columns>
+															<column/>
+															</columns>
+															<rows>
+															<template name="model" var="v1">
+															<row>
+															<hbox>
+															<checkbox checked="@bind(v1.chkCategory)" onCheck="@command('onCheckCategoryName' ,bean=v1)" />
+															<label value="@bind(v1.categoryName)"/>
+															</hbox>
+															</row>
+															</template>
+															</rows>
+															</grid> -->
+
+													</hbox>
+												</row>
+											</template>
+										</rows>
+									</grid>
+									<vbox>
+										<label value="Is active"
+											style="font-weight:bold;" />
+										<label value="Lead Time"
+											style="font-weight:bold;" />
+										<label value="Email Id"
+											style="font-weight:bold;" />
+
+									</vbox>
+									<vbox>
+										<combobox
+											placeholder="[Active/Deactive]" width="130px"
+											value="@bind(vm.manageKitchensBean.status)">
+											<comboitem label="Active" />
+											<comboitem label="Deactive" />
+										</combobox>
+										<textbox
+											placeholder="Lead Time(in minutes only)"
+											value="@bind(vm.manageKitchensBean.leadTime)" />
+										<textbox
+											placeholder="[Kitchen email Id]"
+											value="@bind(vm.manageKitchensBean.emailId)" />
+									</vbox>
+									<!-- <label value="Is active" style="font-weight:bold;"/>
+										<combobox placeholder="[Active/Deactive]" width="130px" value="@bind(vm.manageKitchensBean.status)">
+										<comboitem  label="Active"/>
+										<comboitem label="Deactive"/> 
+										</combobox>-->
+
+								</row>
+
+								<row>
+									<space />
+									<div align="right">
+										<vbox>
+											<button label="Save Kitchen"
+												sclass="mybutton" visible="@bind(vm.saveButtonVisibility)"
+												onClick="@command('onClickSave')" />
+											<button
+												label="Update Kitchen" sclass="mybutton"
+												visible="@bind(vm.updateButtonVisibility)"
+												onClick="@command('onClickupdate')" />
+										</vbox>
+									</div>
+									<button label="Clear"
+												sclass="mybutton" 
+										onClick="@command('onClickClear')"/>
+								</row>
+
+							</rows>
+						</grid>
+						</div>
+						</div>
+
+				</tabpanel>
+								
+								
+				<tabpanel>
+					
+						<div
+							style=" border:#DADADA 1px solid;background-color:#F5F5FF;">
+
+							<div
+								style="padding: 1% 1% 1% 1%; border:#DADADA 1px groove;"
+								sclass="effect8">
+								<grid mold="paging" pageSize="5"
+									style="border:#DADADA 1px solid;"
+									model="@bind(vm.manageKitchenBeanList)">
+									<columns sizable="true">
+										<column label="City"
+											align="center" />
+										<column label="Area"
+											align="center" />
+										<column label="Kitchen Name"
+											align="center" />
+										<column label="Lead Time"
+											align="center" />
+										<column label="Status"
+											align="center" />
+										<column label="Action"
+											align="center" />
+									</columns>
+
+									<rows>
+										<template name="model"
+											var="v">
+											<row>
+												<textbox readonly="true"
+													value="@bind(v.cityName)" width="100%" />
+												<textbox readonly="true"
+													value="@bind(v.areaName)" width="100%" />
+												<textbox readonly="true"
+													value="@bind(v.kitchenName)" width="100%" />
+												<textbox readonly="true"
+													value="@bind(v.leadTime)" width="100%" />
+												<textbox readonly="true"
+													value="@bind(v.status)" width="100%" />
+												<hlayout>
+													<button label="Edit"
+														sclass="mybutton"
+														onClick="@command('onClickEdit',bean=v)" />
+													<button
+														label="Delete" sclass="mybutton"
+														onClick="@command('onClickDelete',bean=v)" />
+												</hlayout>
+											</row>
+										</template>
+									</rows>
+								</grid>
+							</div>
+						</div>
+				</tabpanel>
+				
+				<tabpanel>
+						<div
+							style=" border:#DADADA 1px solid;background-color:#F5F5FF;">
+
+							<div
+								style="padding: 1% 1% 1% 1%; border:#DADADA 1px groove;"
+								sclass="effect8">
+								
+								<hlayout>
+									<label value="Kitchen"/>
+									<combobox model="@bind(vm.kitchenBeanList)" 
+									selectedItem="@bind(vm.kitchenBean)"
+									readonly="true" onSelect="@command('onSelectKitchen')">
+										<template name="model" var="v">
+											<comboitem value="@load(v.kitchenId)" label="@load(v.kitchenName)">
+											</comboitem>
+										</template>
+										
+									</combobox>
+								</hlayout><space/>
+								<grid model="@bind(vm.kitchenItemList)" mold="paging" pageSize="9" sizedByContent="true">
+									<columns sizable="true">
+										<column label="Item code" width="75px" align="center"/>
+										<column label="Item name" align="center"/>
+										<column label="Item description" width="285px" align="center"/>
+										<column label="Category name" width="215px" align="center"/>
+										<column label="Status" align="center"/>
+										<column label="Lunch Stock" align="center"/>
+										<column label="Dinner Stock" align="center"/>
+										<column label="Tomm.Lunch Stock" align="center"/>
+										<column label="Tomm.Dinner Stock" align="center"/>
+									<!-- 	<column label="Update" width="50px" align="center"/> -->
+									</columns>
+									<rows>
+											<template name="model" var="v">
+												<row>
+													<textbox value="@bind(v.itemCode)" width="100%" readonly="true"/>
+													<textbox value="@bind(v.itemName)" width="100%" readonly="true"/>
+													<textbox value="@bind(v.itemDescription)" width="100%"  multiline="true" readonly="true"/>
+													<textbox value="@bind(v.categoryName)" width="100%" readonly="true"/>
+													<combobox readonly="true" placeholder="[Active/Deactive]" 
+													width="130px" value="@bind(v.status)" onSelect="@command('onSelectStatus',bean = v)">
+														<comboitem  label="Active"/>
+														<comboitem label="Deactive"/> 
+													</combobox>
+													<textbox value="@bind(v.lunchStock)" width="100%" readonly="true"/>
+													<textbox value="@bind(v.dinnerStock)" width="100%" readonly="true"/>
+													<textbox value="@bind(v.tommorrowLunchStock)" width="100%" readonly="true"/>
+													<textbox value="@bind(v.tomorrowDinnerStock)" width="100%" readonly="true"/>
+													<!-- <button style="border:none;background:transparent"
+													image="images/update.png" onClick="@command('onClickUpdate',bean = v)"/> -->
+												</row>
+											</template>
+									
+									</rows>
+								</grid>
+							</div>
+							</div>	
+				</tabpanel>
+			</tabpanels>	
+		</tabbox>
+	 	
+	
+</window>
+</zk>

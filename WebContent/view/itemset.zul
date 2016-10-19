@@ -1,0 +1,6 @@
+<?page title="New Item Set" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window title="New Item Set" border="normal">
+New Content Here!
+</window>
+</zk>

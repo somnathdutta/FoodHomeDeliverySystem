@@ -1,0 +1,105 @@
+<?page title="Manage Deals" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window title="Manage Deals" border="normal"
+	apply="org.zkoss.bind.BindComposer"  viewModel="@id('vm') @init('ViewModel.ManageDealViewModel')">
+	<div align="center" style="padding-top:1%; padding-bottom:1%; border:#DADADA 1px solid;">
+		<hbox>
+			<grid width="500px">
+	        	<columns>
+	        			<column align="center"></column>
+	        	</columns>
+	        	<rows>
+	        		<row>
+	        			<div align="center">
+		        			<hbox spacing="20px">
+			        			<combobox placeholder="Choose City" value="@bind(vm.manageDealBean.cityName)" 
+       				          				model="@bind(vm.cityList)" selectedItem="@bind(vm.manageDealBean.cityName)" 
+       				          				autocomplete="true" autodrop="true" onSelect="@command('onSelectcityName')">
+									<template name="model" var="v">
+							 			<comboitem value="@bind(v)" label="@bind(v)"></comboitem>
+									</template>	
+								</combobox>
+								<combobox placeholder="Choose Area" value="@bind(vm.manageDealBean.areaName)" 
+       				          				model="@bind(vm.areaList)" selectedItem="@bind(vm.manageDealBean.areaName)" 
+       				          				autocomplete="true" autodrop="true" onSelect="@command('onSelectAreaName')">
+									<template name="model" var="v">
+							 			<comboitem value="@bind(v)" label="@bind(v)"></comboitem>
+									</template>	
+								</combobox>
+			        			
+		        			</hbox>
+	        			</div>
+	        		</row>
+	        		<row>
+	        			<textbox placeholder="Deal Title" value="@bind(vm.manageDealBean.title)"/>
+	        		</row>
+	        		<row>
+	        			<vlayout>
+	        				<button label="Upload Deal Banner"  upload="true" sclass="mybutton" onUpload="@command('onUploadDealBanerImage',upEvent=event)"/>
+	        				OR URL<textbox value="@bind(vm.manageDealBean.dealBannerPicturePath)"/>
+	        			</vlayout>
+	 		        </row>
+	        		<row>
+	        			<div align="center">
+	        				<hbox spacing="20px">
+	        					<datebox placeholder="From" value="@bind(vm.manageDealBean.fromDate)"/>
+	        					<datebox placeholder="To" value="@bind(vm.manageDealBean.toDate)"/>
+	        				</hbox>
+	        			</div>
+	        		</row>
+	        		<row>
+	        			<checkbox label="Is Active" checked="@bind(vm.manageDealBean.isActiveChecked)"/>
+	        		</row>
+	        		<row>
+	        			<div align="center">
+		        			<vbox>
+		        				<button label="Save Deal" sclass="mybutton" onClick="@command('onClickSaveDeal')" visible="@bind(vm.saveButtonVisibility)"/>
+		        				<button label="Update Deal" sclass="mybutton" onClick="@command('onClickUpdateDeal')" visible="@bind(vm.updateButtonVisibility)"/>
+		        			</vbox>
+	        			</div>
+	        		</row>
+	        	</rows>
+	        </grid>
+	        	<vbox style="padding-bottom:1%; border:#DADADA 2px solid;" visible="@bind(vm.iFrameVisibility)">
+	        		<iframe src="@bind(vm.manageDealBean.dealBannerPicturePath)" width="630px" height="250px"/>
+	        	</vbox>
+	        	<vbox visible="@bind(vm.imageContentVisibility)">
+	        		<image content="@bind(vm.dealPageBannerImage)" height="250px" width="630px"/> 
+	        	</vbox>
+        </hbox>
+	</div>
+			<separator spacing="20px"/>
+		   	<div align="center"  style="padding-bottom:1%; border:#DADADA 1px solid;">
+        		<grid model="@bind(vm.manageDealBeanList)" mold="paging" pageSize="2" height="200px">
+        			<columns>
+        				<column label="Id" align="center" width="50px"> </column>
+        				<column label="Deal Title" align="center"></column>
+        				<column label="Banner" align="center" width="85px"></column>
+        				<column label="From Date" align="center" width="95px"></column>
+        				<column label="To Date" align="center" width="95px"></column>
+        				<column label="Action" align="center"></column>
+        			</columns>
+        			
+        			<rows>
+     					 <template name="model" var="v" > 
+							<row style="border: 0.01px solid #C0C0C0;">
+								<textbox placeholder="Id"  width="100%" value="@bind(v.dealId)" readonly="true"></textbox>
+								<textbox placeholder="Deal Title" width="100%" value="@bind(v.title)" readonly="true"></textbox>
+								<div align="center">
+								<hbox style="padding-bottom:1%; border:#DADADA 2px solid;">
+	        							<image height="120px" width="75px" content="@bind(v.databaseBannerImage)"/>
+								</hbox>
+								</div>
+								<textbox placeholder="From Date" width="100%"  value="@bind(v.fromDate)" readonly="true"/>
+								<textbox placeholder="To Date" width="100%"  value="@bind(v.toDate)" readonly="true"/>
+								<hlayout spacing="30px">
+									<button label="Edit" sclass="mybutton" onClick="@command('onClickEdit', bean = v)"/>
+									<button label="Delete" sclass="mybutton " onClick="@command('onClickDelete', bean = v)"/>
+								</hlayout>
+							</row>
+				    	</template>
+     				</rows>
+        		</grid>
+			</div>
+</window>
+</zk>

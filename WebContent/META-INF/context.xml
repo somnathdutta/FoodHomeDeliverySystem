@@ -1,0 +1,15 @@
+<Context path="fooddeliverysystem" debug="5" reloadable="true" crossContext="true">
+
+	<Resource 
+		name="jdbc/foodsystem" 
+		auth="Container" 
+		type="javax.sql.DataSource"
+		maxActive="-1" 
+		maxIdle="-1" 
+		maxWait="-1" 
+		username="postgres" password="password"
+		driverClassName="org.postgresql.Driver" 
+		url="jdbc:postgresql://localhost:5432/foodhomedelivery"
+		
+	/>
+</Context>

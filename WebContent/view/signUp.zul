@@ -1,0 +1,103 @@
+
+	<window title="Sign Up" border="normal" apply="org.zkoss.bind.BindComposer" 
+			viewModel="@id('vm') @init('ViewModel.SignUpViewModel')"
+			closable="true" maximizable="true" width="30%" height="77%">
+			
+	<div align="center">
+		<grid width="100%">
+			<columns>
+				<column align="left"/>
+				<column align="left"/>
+			</columns>
+			<!-- <template name="model" var="v"> -->
+				<rows>
+					<row>
+						<label value="User Name"/>
+						<hbox>
+							<textbox placeholder="User Name" value="@bind(vm.signUpBean.userName)"/>
+							<label value="*" style="font-weight:bold; color:red; font-size:large;"/>
+						</hbox>
+					</row>
+					<row>
+						<label value="Password"/>
+						<hbox>
+							<textbox type="password" placeholder="Password" value="@bind(vm.signUpBean.password)"/>
+							<label value="*" style="font-weight:bold; color:red; font-size:large;"/>
+						</hbox>
+					</row>
+					<row>
+						<label value="Email"/>
+						<hbox>
+							<textbox placeholder="Email" value="@bind(vm.signUpBean.email)"/>
+							<label value="*" style="font-weight:bold; color:red; font-size:large;"/>
+						</hbox>
+					</row>
+					<row>
+						<label value="First Name"/>
+						<hbox>
+							<textbox placeholder="First Name" value="@bind(vm.signUpBean.firstName)"/>
+							<label value="*" style="font-weight:bold; color:red; font-size:large;"/>
+						</hbox>
+					</row>
+					<row>
+						<label value="Middle Name"/>
+						<textbox placeholder="Middle Name" value="@bind(vm.signUpBean.middleName)"/>
+					</row>
+					<row>
+						<label value="Last Name"/>
+						<hbox>
+							<textbox placeholder="Last Name" value="@bind(vm.signUpBean.lastName)"/>
+							<label value="*" style="font-weight:bold; color:red; font-size:large;"/>
+						</hbox>
+					</row>
+					<row>
+						<label value="Address Line 1"/>
+						<textbox placeholder="Address Line 1" value="@bind(vm.signUpBean.addressLine1)"/>
+					</row>
+					<row>
+						<label value="Address Line 2"/>
+						<textbox placeholder="Address Line 2" value="@bind(vm.signUpBean.addressLine2)"/>
+					</row>
+					 <row>
+						<label value="Choose City"/>
+						<combobox placeholder="Choose City" value="@bind(vm.signUpBean.cityName)" 
+       				          model="@bind(vm.cityList)" selectedItem="@bind(vm.signUpBean.cityName)" 
+       				          autocomplete="true" autodrop="true" onSelect="@command('onSelectcityName')">
+							<template name="model" var="v">
+							 		<comboitem value="@bind(v)" label="@bind(v)"></comboitem>
+								</template>	
+						</combobox>
+					</row> 
+					<row>
+						<label value="Pin Code"/>
+						<intbox maxlength="6" placeholder="Pin Code" value="@bind(vm.signUpBean.pinCode)"/>
+					</row>
+					<row>
+						<label value="Mobile No"/>
+						<hbox>
+							<textbox maxlength="10" placeholder="Mobile No" value="@bind(vm.signUpBean.mobileNo)" />
+							<label value="*" style="font-weight:bold; color:red; font-size:large;"/>
+						</hbox>
+					</row>
+					<row>
+						<div align="right">
+							<checkbox  checked="@bind(vm.signUpBean.isActiveChecked)"/>
+						</div>
+						<label value="Active"/>
+					</row>
+					<row>
+						<div align="right">
+							<checkbox checked="@bind(vm.signUpBean.isAdminChecked)"/>
+						</div>
+						<label value="Admin"/>
+					</row>
+					<row>
+						<button sclass="mybutton" label="Register" onClick="@command('onClickRegister')"/><label/>
+					</row>
+					
+				</rows>
+			<!-- </template> -->
+		</grid>
+	</div>
+</window>
+

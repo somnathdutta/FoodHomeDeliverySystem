@@ -1,0 +1,120 @@
+<?page title="Add New Item" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window title="Add New Item" border="normal" closable="true" width="50%"
+apply="org.zkoss.bind.BindComposer" id="addNew"
+	viewModel="@id('vm')@init('ViewModel.AddNewItemViewModel')">
+	
+	<hlayout spacing="30px">
+	
+		<combobox placeholder="Choose DAY" model="@bind(vm.dayList)"
+			autocomplete="true" autodrop="true" readonly="true" onSelect="@command('onSelectDay')"
+			selectedItem="@bind(vm.day)" value="@bind(vm.day.day)">
+			<template name="model" var="v">
+				<comboitem label="@bind(v.day)" value="@bind(v.dayId)" />
+			</template>
+		</combobox>
+
+		<combobox placeholder="Choose Cuisine"
+			model="@bind(vm.cuisineList)" value="@bind(vm.cuisine.cuisinName)"
+			selectedItem="@bind(vm.cuisine)" autocomplete="true" autodrop="true"
+			readonly="true" onSelect="@command('onSelectCuisine')">
+			<template name="model" var="v">
+				<comboitem label="@bind(v.cuisinName)"
+					value="@bind(v.cuisinId)" />
+			</template>
+		</combobox>
+
+		<combobox placeholder="Choose Category"
+			model="@bind(vm.categoryList)" selectedItem="@bind(vm.category)"
+			value="@bind(vm.category.categoryName)" autocomplete="true"
+			autodrop="true" readonly="true"
+			onSelect="@command('onSelectCategory')">
+			<template name="model" var="v">
+				<comboitem value="@bind(v.categoryId)"
+					label="@bind(v.categoryName)" />
+			</template>
+		</combobox>
+	</hlayout>
+	
+	<div>
+		<grid model="@bind(vm.itemList)">
+			<columns>
+				<column align="center" label="Select" width="75px" />
+				<column align="center" label="Item" />
+				<column align="center" label="Price" width="85px" />
+				<column align="center" label="Quantity" width="85px" />
+				<column align="center" label="Meal Type" />
+			</columns>
+			<rows>
+				<template name="model" var="v">
+					<row>
+						<checkbox checked="@bind(v.checked)" />
+						<textbox value="@bind(v.itemName)"
+							readonly="true" />
+						<textbox value="@bind(v.itemPrice)"
+							width="100%" />
+						<intbox value="@bind(v.qty)" width="100%" />
+						<combobox model="@bind(v.mealTypeList)"
+							readonly="true" autocomplete="true" autodrop="true"
+							selectedItem="@bind(v.meal)" value="@bind(v.meal.typeOfMeal)">
+							<template name="model" var="v1">
+								<comboitem label="@bind(v1.typeOfMeal)"
+									value="@bind(v1.mealTypeId)" />
+							</template>
+						</combobox>
+					</row>
+				</template>
+			</rows>
+		</grid>
+		<div align="center">
+			<button sclass="mybutton" label="Add"
+				onClick="@command('onClickAdd')" />
+		</div>
+	</div>
+
+	<div>
+		<grid model="@bind(vm.addedItemList)" mold="paging"
+			pageSize="10">
+			<columns>
+				<column align="center" label="Day" />
+				<column align="center" label="Item" />
+				<column align="center" label="Price" width="85px" />
+				<column align="center" label="Quantity" width="85px" />
+				<column align="center" label="Meal Type" />
+				<column align="center" label="Remove" />
+			</columns>
+			<rows>
+				<template name="model" var="v1">
+					<row>
+						<textbox value="@bind(v1.dayName)"
+							readonly="true" />
+						<textbox value="@bind(v1.itemName)"
+							readonly="true" />
+						<doublebox value="@bind(v1.itemPrice)"
+							width="100%" />
+						<intbox value="@bind(v1.qty)" width="100%" />
+						<combobox model="@bind(v1.mealTypeList)"
+							readonly="true" autocomplete="true" autodrop="true"
+							selectedItem="@bind(v1.meal)"
+							value="@bind(v1.meal.typeOfMeal)">
+							<template name="model" var="v2">
+								<comboitem label="@bind(v2.typeOfMeal)"
+									value="@bind(v2.mealTypeId)" />
+							</template>
+						</combobox>
+
+						<button
+							style="border:none;background:transparent"
+							image="images/remove.png"
+							onClick="@command('onClickRemove',bean=v1)" />
+					</row>
+				</template>
+			</rows>
+		</grid>
+		<div align="center">
+			<button sclass="mybutton" label="Update new items"
+				onClick="@command('onClickFinalAdd')" />
+		</div>
+	</div>
+</window>
+</zk>

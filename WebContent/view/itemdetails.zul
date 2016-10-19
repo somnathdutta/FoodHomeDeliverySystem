@@ -1,0 +1,22 @@
+<?page title="Item details" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window title="Item details" border="normal" closable="true" 
+height="70%" width="30%">
+	<grid>
+		<columns>
+			<column align="center" label="Name"/>
+			<column align="center" label="Remove" width="100px"/>
+		</columns>
+		<rows>
+			<row>
+				<textbox readonly="true" width="100%"/>
+				<button style="border:none;background:transparent"
+						image="images/delete (2).png"/>
+			</row>
+		</rows>
+	</grid>
+	<div align="center">
+		<a label="Click here for add new item" onClick="@command('onClickAddNewItem')"/>
+	</div>
+</window>
+</zk>

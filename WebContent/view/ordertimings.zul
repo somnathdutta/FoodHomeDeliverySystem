@@ -1,0 +1,26 @@
+<?page title="Set Order Timings" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window title="Set Order Timings" border="normal">
+<div align="center">
+<grid width="70%" >
+	<columns>
+		<column label="Meal" align="center"/>
+		<column label="Open Time" align="center"/>
+		<column label="Close Time" align="center"/>
+		<column label="Save" align="center"/>
+		<column label="Update" align="center"/>
+	</columns>
+	<rows>
+		<row>
+			<combobox readonly="true" autocomplete="true" autodrop="true"></combobox>
+			<timebox format="hh:mm:a" placeholder="Opened from" width="100%"/>
+			<timebox format="hh:mm:a" placeholder="Closed to" width="100%"/>
+			<button label="Save" sclass="mybutton"/>
+			<button label="Update" sclass="mybutton"/>
+		</row>
+	</rows>
+</grid>
+</div>
+
+</window>
+</zk>

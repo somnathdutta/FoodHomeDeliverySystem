@@ -1,0 +1,134 @@
+<?page title="runnrlocality" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window title="Road Runnr Localities" border="normal"
+apply="org.zkoss.bind.BindComposer" viewModel="@id('vm')@init('ViewModel.RoadRunnrViewModel')">
+	<style>
+			.fgrid tr.z-row td.z-row-inner,tr.z-row,div.z-grid-body
+			div.z-cell,div.z-grid { border: none; overflow: hidden;
+			zoom: 1; background:none; border-top: none; border-left:
+			none; border-right: none; border-bottom: none; }
+
+			.fgrid .z-grid-odd .fgrid .z-row-inner,.fgrid .z-grid-odd
+			.z-cell { background-color: #FFFFAA; border-bottom: 1px
+			solid transparent; border-left: 1px solid transparent;
+			border-top: 1px solid transparent; }
+
+			.fgrid .z-grid-odd .fgrid.z-row-inner,.fgrid.z-grid-odd
+			.z-cell,.fgrid.z-grid-odd { background: none repeat scroll 0
+			0 transparent; }
+
+			.fgrid tr.z-grid-odd td.z-row-inner,.fgrid tr.z-grid-odd
+			.z-cell,.fgrid tr.z-grid-odd { background: white }
+
+			.fgrid tr.z-row td.z-row-inner,.fgrid tr.z-row .z-cell {
+			background: white; border-top: none; }
+
+			div.z-grid-body{ background:  #FFFFAA;}
+
+			.fgrid tr.z-row td.z-row-inner, .fgrid tr.z-row .z-cell{
+			background:none;}
+			
+			.effect8
+				{
+				  	position:relative;       
+				    -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+				       -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+				            box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+				}
+				.effect8:before, .effect8:after
+				{
+					content:"";
+				    position:absolute; 
+				    z-index:-1;
+				    -webkit-box-shadow:0 0 20px rgba(0,0,0,0.8);
+				    -moz-box-shadow:0 0 20px rgba(0,0,0,0.8);
+				    box-shadow:0 0 20px rgba(0,0,0,0.8);
+				    top:10px;
+				    bottom:10px;
+				    left:0;
+				    right:0;
+				    -moz-border-radius:100px / 10px;
+				    border-radius:100px / 10px;
+				} 
+				.effect8:after
+				{
+					right:10px; 
+				    left:auto;
+				    -webkit-transform:skew(8deg) rotate(3deg); 
+				       -moz-transform:skew(8deg) rotate(3deg);     
+				        -ms-transform:skew(8deg) rotate(3deg);     
+				         -o-transform:skew(8deg) rotate(3deg); 
+				            transform:skew(8deg) rotate(3deg);
+			}
+
+		</style>
+		<div style="border:#DADADA 1px solid;background-color:#F5F5FF;">
+			<div style="padding: 1% 1% 1% 1%; border:#DADADA 1px groove;" sclass="effect8">
+				<grid sclass="fgrid">
+					<columns>
+						<column align="right"/>
+						<column align="left"/>
+					</columns>
+					<rows>
+						<row>
+							<label value="Runnr Locality ID" style="font-weight:bold;"/>
+							<textbox value="@bind(vm.roadRunnrBean.localityID)" style="font-family:consolas;font-weight:bold;font-size:15px"/>
+						</row>
+						<row>
+							<label value="Runnr Locality Name" style="font-weight:bold;"/>
+							<textbox value="@bind(vm.roadRunnrBean.locatityName)" style="font-family:consolas;font-weight:bold;font-size:15px"/>
+						</row>
+						<row>
+							<label value="EazeLyf Zipcode" style="font-weight:bold;"/>
+							<textbox value="@bind(vm.roadRunnrBean.zipCode)" style="font-family:consolas;font-weight:bold;font-size:15px"/>
+						</row>
+						<row>
+							<label value="Status" style="font-weight:bold;"/>
+							<combobox placeholder="[Active/Inactive]" width="130px" value="@bind(vm.roadRunnrBean.status)">
+								<comboitem  label="Active"/>
+								<comboitem label="Inactive"/>
+							</combobox>
+						</row>
+						<row>
+							<button sclass="mybutton" label="Save" disabled="false" onClick="@command('onClickSave')" visible="@bind(vm.saveButtonVisibility)"/>
+							<button sclass="mybutton" label="Update" disabled="false" onClick="@command('onClickUpdate')" visible="@bind(vm.updateButtonVisibility)"/>
+						</row>
+					</rows>
+				</grid>
+			</div>
+		
+		</div>
+		
+		<div style="border:#DADADA 1px solid;background-color:#F5F5FF;" >
+		
+			<div style="padding: 1% 1% 1% 1%; border:#DADADA 1px groove;" sclass="effect8">
+				<grid model="@bind(vm.roadRunnrBeanList)" mold="paging" pageSize="7">
+					<columns>
+						<column label="Runner Locality ID" align="center"/>
+						<column label="Runner Locality NAME" align="center"/>
+						<column label="Eazelyf zipcode" align="center"/>
+						<column label="Status" align="center"/>
+						<column label="Action" align="center"/>
+					</columns>
+					<rows>
+					<template name="model" var="v">
+						<row>
+							<textbox value="@bind(v.localityID)" readonly="true"/>
+							<textbox value="@bind(v.locatityName)" readonly="true"/>
+							<textbox value="@bind(v.zipCode)" readonly="true"/>
+							<textbox value="@bind(v.status)" readonly="true"/>
+							<hlayout>
+								<button sclass="mybutton" label="Edit" onClick="@command('onClickEdit',bean = v)"/>
+								<button sclass="mybutton" label="Delete" onClick="@command('onClickDelete',bean = v)"/>	
+							</hlayout>	
+						</row>
+					</template>
+					</rows>
+				</grid>
+			</div>
+		
+		</div>
+	
+
+</window>
+</zk>

@@ -1,0 +1,69 @@
+<?page title="Manage Sub Items" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window title="Manage Sub Items" border="normal"
+		apply="org.zkoss.bind.BindComposer" viewModel="@id('vm')@init('ViewModel.SubitemViewModel')">
+	<div style=" border:#DADADA 1px solid;">
+		<hbox>
+      		<grid height="224px" >
+   				<columns>
+   					<column align="center" />
+   				</columns>
+    			<rows>
+   					<row>
+   						<combobox placeholder="Choose Item" value="@bind(vm.itemName)" 
+    				          model="@bind(vm.itemNameList)" selectedItem="@bind(vm.itemName)" 
+    				          autocomplete="true" autodrop="true" onSelect="@command('onSelectItemName')">
+							<template name="model" var="v">
+				 				<comboitem value="@bind(v)" label="@bind(v)"/>
+							</template>	
+						</combobox>
+   					</row>
+   					<row>
+   						<textbox placeholder="Subitem Name" value="@bind(vm.subitemBean.subItemName)"/>
+   					</row>
+   				
+   					<row>
+   						<div align="center">
+    					 	<hbox spacing="30px">
+    							<button  sclass="mybutton" label="Upload Subitem Image" upload="true" onUpload="@command('onUploadSubitemImage',upEvent=event)"/>
+    						</hbox> 
+   						</div>
+   					</row>
+   					<row>
+   						<textbox rows="4" placeholder="Subitem Description" value="@bind(vm.subitemBean.subItemdescription)"/>
+   					</row>
+   					
+   					<row>
+   						<button label="Save Sub Item" sclass="mybutton" onClick="@command('onClickSaveSubItem')" /> 
+   					</row>
+    			</rows>
+      		</grid>
+      			<vbox style="border:#DADADA 2px solid;" height="200px">
+	        			<image content="@bind(vm.subItemImage)" height="220px" width="640px"/>
+	        	</vbox>
+      		</hbox>
+	</div>
+	 <separator spacing="10px"/>
+	 <div style="border:#DADADA 1px solid;" >
+		
+		<grid model="@bind(vm.subitembeanlist)" mold="paging" pageSize="6">
+			<columns>
+				<column align="center" label="Item Name" width="250px"/>
+				<column align="center" label="Subitem Name" />
+				<column align="center" label="Image"
+					width="195px" />
+				<column align="center" label="Description" />
+			</columns>
+			<template name="model" var="v">
+				<row >
+					<textbox width="100%" value="@bind(v.itemName)" visible="@bind(v.itemVisibility)" readonly="true"/>
+					<textbox placeholder="Sub item Name" width="100%" value="@bind(v.subItemName)" readonly="true"/>
+					<image height="70px" width="100%" content="@bind(v.subItemImage)" style="border: 1px solid ;" />
+					<textbox placeholder="Description" width="100%" value="@bind(v.subItemdescription)" readonly="true"/>
+				</row>
+			</template>
+		
+		</grid>
+	</div> 
+</window>
+</zk>

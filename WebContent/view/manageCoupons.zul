@@ -1,0 +1,84 @@
+<?page title="Manage Coupons" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window title="Manage Coupons" border="normal"
+	apply="org.zkoss.bind.BindComposer" viewModel="@id('vm')@init('ViewModel.ManageCouponsViewModel')">
+	<div align="center" style="padding-top:1%; padding-bottom:1%; border:#DADADA 1px solid;">
+		<grid width="50%" style=" border:#DADADA 1px solid;">
+			<columns>
+				<column align="center" />
+			</columns>
+			<rows>
+				<row>
+					<textbox placeholder="Coupon Code" value="@bind(vm.manageCouponsBean.couponCode)"/>
+				</row>
+				
+				<row>
+					<intbox placeholder="Uses Per User" value="@bind(vm.manageCouponsBean.usesPerUser)"/>
+				</row>
+				<row>
+					<div align="center">
+						<hbox spacing="30px">
+							<combobox placeholder="Discount Type" value="@bind(vm.manageCouponsBean.discountType)" 
+       				          model="@bind(vm.discountTypeList)" selectedItem="@bind(vm.manageCouponsBean.discountType)" 
+       				          autocomplete="true" autodrop="true" onSelect="@command('onSelectDiscountType')">
+							<template name="model" var="v">
+							 		<comboitem value="@bind(v)" label="@bind(v)"></comboitem>
+								</template>	
+						</combobox>
+							<decimalbox placeholder="Discount Amount" width="170px" value="@bind(vm.manageCouponsBean.discountAmount)"/> 
+						</hbox>
+					</div>
+				</row>
+				<row>
+					<div align="center">
+						<hbox spacing="30px">
+							<datebox placeholder="From" value="@bind(vm.manageCouponsBean.fromDate)"/> 
+							<datebox placeholder="To" value="@bind(vm.manageCouponsBean.toDate)"/>
+						</hbox>
+					</div>
+				</row>
+				<row>
+	     			<checkbox label="Is Active" checked="@bind(vm.manageCouponsBean.isActiveChecked)"/>
+	     		</row>
+   				<row align="center">
+   					<div align="center">
+   					<vbox>
+   						<button label="Save Coupon" sclass="mybutton" onClick="@command('onClickSaveCoupon')" visible="@bind(vm.saveButtonVisibility)"/>
+   						<button label="Update Coupon" sclass="mybutton" onClick="@command('onClickUpdateCoupon')" visible="@bind(vm.updateButtonVisibility)"/>
+   					</vbox>
+   					</div>
+   					
+   				</row>
+	     	</rows>
+		</grid>
+     </div>	
+       
+       <separator spacing="30px"/>
+        		
+ 		<div align="center" style="padding-top:1%; padding-bottom:1%; border:#DADADA 1px solid;" >
+  			<grid width="60%" model="@bind(vm.manageCouponsBeanList)" style="padding-top:1%; padding-bottom:1%; border:#DADADA 1px solid;">
+  				<columns sizable="true">
+  						<column label="Id" width="45px" align="center"></column>
+  						<column label="Coupon Code" width="220px" align="center"></column>
+  						<column label="Discount Amount" width="120px" align="center"></column>
+  						<column label="Status" width="120px" align="center"></column>
+  						<column label="Action" width="150px" align="center"></column>		
+  				</columns>
+  				<rows>
+  				 <template name="model" var="v" > 
+					<row style="border: 0.01px solid #C0C0C0;">
+						<textbox placeholder="Id"  width="100%" value="@bind(v.couponId)" readonly="true"/>
+						<textbox placeholder="Coupon Code" width="100%" value="@bind(v.couponCode)" readonly="true"/>
+						<textbox placeholder="Discount Amount" width="100%" value="@bind(v.discountAmount)" readonly="true"/>
+						<textbox placeholder="(Active / Deactive)" width="100%" value="@bind(v.status)"  readonly="true"/>
+						<hlayout >
+							<button label="Edit" sclass="mybutton" onClick="@command('onClickEdit', bean = v)"/>
+							<button label="Delete" sclass="mybutton " onClick="@command('onClickDelete', bean = v)"/>
+						</hlayout>
+			    	</row>
+				</template> 
+  				</rows>
+  			</grid>
+		</div>
+</window>
+</zk>

@@ -1,0 +1,109 @@
+<?page title="Home Page" contentType="text/html;charset=UTF-8"?>
+
+<zk>
+	<style>
+		.north {
+			background : #EBEBEB;
+		}
+		
+		.west {
+			background : #E6F2FF ;
+		}
+		
+		.mybutton {
+	        border-radius: 10px;
+	        background: linear-gradient(to bottom, #f0f9ff 0%,#a1dbff 100%);
+	        font-size :15px;
+	    }
+	    
+	    .myGrid tr.z-row td.z-row-inner, tr.z-row
+		.z-cell,div.z-grid { 
+	    	
+	    	background:white;
+	    	align:right;
+	    	border: 2px;
+	    }
+	    .mylabel {
+	    	font-size : 15px;
+	    	align:center;
+	    	font-weight:bold;
+	    	color:#DFADCC;
+	    }
+	    
+	    
+	    .panellabel {
+	    	align:right;
+	    }
+	    .z-tab-ver .z-tab-ver-text {
+			text-align: left;
+			}
+			
+		
+	</style>
+	<borderlayout  width="100%" height="100%" apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('ViewModel.HomePageViewModel')">
+	
+		<north size="13%" sclass="north">
+			<div>
+				<grid height="30%" style="background:#FFFFFF;border: 2px solid;" >
+					<columns>
+						<column />
+						<column />
+						<column align="right"/>
+					</columns>
+					
+					<rows>
+						<row>	
+							<label style="font-weight:bold;font-size:20px;color:#00AAAA;" value="@bind(vm.name)"/>
+							<image src="images/frontlogo.png" width="100%" height="60%"/>
+							<button sclass="mybutton" image="images/signout.png"  label="Sign Out"  onClick="@command('onClickSignOut')"/>
+						</row>	
+					</rows>
+				</grid>
+				
+			</div>
+		</north>
+		
+		<west title="Menu" size="15%" flex="true" splittable="true"
+			collapsible="true" style="background:#E6F2FF;">
+			
+			<borderlayout width="100%" height="100%">
+				<center>
+				 <div style="background:#F8DEBD" height="100%">
+					
+					<tree model="@bind(vm.model)" id="mytree" zclass="z-dottree" vflex="1" >
+						<template name="model" var="node" status="s">
+							<treeitem open="false">
+								<treerow >
+									<treecell label="@bind(node.name)" 
+										onClick="@command('onClickTreeCell', bean = node)" />
+								</treerow>
+							</treeitem>
+						</template>
+					</tree>
+					
+					</div>
+				</center>
+			</borderlayout>
+			
+		</west>
+		
+		<center>
+			<borderlayout >
+				<north size="100%" splittable="true" autoscroll="true"
+					flex="true">
+					 <div style="background:#ECEAD5">
+						<include id="inclResults" mode="instant"
+							style="overflow: auto; overflow-x:scroll ;">
+						</include>
+					</div>
+				</north>
+
+			</borderlayout>
+		</center>
+		
+		
+	</borderlayout>
+	<zscript>
+	</zscript>
+</zk>

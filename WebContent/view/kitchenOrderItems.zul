@@ -1,0 +1,28 @@
+<?page title="Kitchen Ordered Items Details" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window title="Kitchen Ordered Items Details" border="normal" closable="true"
+width="65%" height="50%">
+
+<grid>
+	<columns sizable="true">
+		<column label="Cusine" align="center" width="120px"/>
+		<column label="Category" align="center" width="190px"/>
+		<column label="Item Code" align="center" width="70px"/>
+		<column label="Item Name" align="center" width="160px"/>
+		<column label="Item description" align="center" width="240px"/>
+		<column label="Quantity" align="center" width="60px"/>
+	</columns>
+	<rows>
+		<row>
+			<textbox readonly="true" width="100%"/>
+			<textbox readonly="true" width="100%"/>
+			<textbox readonly="true" width="100%"/>
+			<textbox readonly="true" width="100%"/>
+			<textbox readonly="true" width="100%" multiline="true"/>
+			<textbox readonly="true" width="100%"/>
+		</row>
+	</rows>
+</grid>
+
+</window>
+</zk>

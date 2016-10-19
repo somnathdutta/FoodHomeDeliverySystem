@@ -1,0 +1,94 @@
+<?page title="Manage Logistics" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window title="Manage Logistics" border="normal" apply="org.zkoss.bind.BindComposer" viewModel="@id('vm')@init('ViewModel.ManageLogisticsViewModel')" >
+
+	<div align="center" style="padding-top:1%; padding-bottom:1%; border:#DADADA 1px solid;">
+		<grid width="50%" style="border:#DADADA 1px solid;">
+			<columns>
+				<column align="center"></column>
+			</columns>
+			
+			<rows>
+				<row visible="@bind(vm.kitchenComboBoxvisibility)">
+					<hlayout>
+							<label value="Choose Kitchen" style="font-weight:bold;"/>
+							<combobox placeholder="Choose Kitchen" value="@bind(vm.managelogisticsBean.kitchenName)" 
+       				          				model="@bind(vm.kitchenList)" selectedItem="@bind(vm.managelogisticsBean.kitchenName)" 
+       				          				autocomplete="true" autodrop="true" onSelect="@command('onSelectKitchenName')">
+							<template name="model" var="v">
+					 			<comboitem value="@bind(v)" label="@bind(v)"></comboitem>
+							</template>	
+					</combobox>
+					</hlayout>
+					
+				</row>
+				
+				<row>
+					<hlayout spacing="17px">
+						<label value="Logistics user Name" style="font-weight:bold;"/>
+						<textbox placeholder="[Logistics user Name]" value="@bind(vm.managelogisticsBean.logisticsName)" 
+						onChange="@command('onOKLogisticsName')"/>
+					</hlayout>	
+				</row>
+				
+				<row>
+					<hlayout spacing="17px">
+						<label value="Password" style="font-weight:bold;"/>
+						<textbox placeholder="[Password]" value="@bind(vm.managelogisticsBean.password)"/>
+					</hlayout>	
+				</row>
+				
+				<row>
+					<hlayout>
+						<label value="Is active" style="font-weight:bold;"/>
+						<combobox placeholder="[Active/Deactive]" width="130px" value="@bind(vm.managelogisticsBean.status)">
+							<comboitem  label="Active"/>
+							<comboitem label="Deactive"/>
+						</combobox>
+					</hlayout>
+				</row>
+				
+				<row align="center">
+   					<div align="center">
+   					<vbox>
+   						<button label="Save Logistics" sclass="mybutton" onClick="@command('onClickSave')" visible="@bind(vm.saveButtonVisibility)"/>
+   						<button label="Update Logistics" sclass="mybutton" visible="@bind(vm.updateButtonVisibility)"/>
+   					</vbox>
+   					</div>
+   					
+   				</row>
+				
+			</rows>
+		</grid>
+	</div>
+	
+	<separator spacing="10px"/>
+	<div align="center" style="padding-top:1%; padding-bottom:1%; border:#DADADA 1px solid;">
+		<grid width="60%"  mold="paging" pageSize="5"
+		style=" padding-bottom:1%; border:#DADADA 1px solid;" model="@bind(vm.manageLogisticsBeanList)">
+			<columns>
+				
+				<column label="Kitchen"/>
+				<column label="Logistics Name"/>
+				<column label="Status" />
+				<column label="Action"/>
+			</columns>
+			
+			<rows>
+				<template name="model" var="v">
+					<row>
+						<textbox readonly="true" value="@bind(v.kitchenName)"/>
+						<textbox readonly="true" value="@bind(v.logisticsName)"/>
+						<textbox readonly="true" value="@bind(v.status)"/>
+						
+						<hlayout>
+							<button label="Edit" sclass="mybutton" />
+							<button label="Delete" sclass="mybutton" />
+						</hlayout>
+					</row>
+				</template>
+			</rows>
+		</grid>
+	</div>
+</window>
+</zk>

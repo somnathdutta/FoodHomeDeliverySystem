@@ -1,0 +1,38 @@
+<?page title="Users" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window title="Users" border="normal" contentStyle="overflow:scroll;"
+ apply="org.zkoss.bind.BindComposer" viewModel="@id('vm')@init('ViewModel.UserViewModel')">
+	<grid model="@bind(vm.userList)" mold="paging" pageSize="10">
+		<auxhead>
+			<auxheader colspan="4">
+			 	<button sclass="mybutton"
+						style="border:none;background:transparent"
+						image="images/refresh.png" onClick="@command('onClickRefresh')"
+						 />
+				<textbox value="@bind(vm.mobileNo)" placeholder="[SEARCH BY MOBILE NO]" onChange="@command('onChangeMobileNo')"/>
+				<datebox placeholder="[START DATE]"  format="dd-MM-yyyy" value="@bind(vm.startDate)"/>
+				<datebox placeholder="[START DATE]" format="dd-MM-yyyy" value="@bind(vm.endDate)"/>
+				<button label="find" sclass="mybutton" onClick="@command('onClickFind')"/>
+				<button label="Clear" sclass="mybutton" onClick="@command('onClickClear')"/>
+				<button label="Generate Sheet" sclass="mybutton" onClick="@command('onClickGenerate')"/>			
+			</auxheader>
+		</auxhead>
+		<columns>
+			<column align="center" label="User Name"/>
+			<column align="center" label="Mobile No"/>
+			<column align="center" label="EmailID"/>
+			<column align="center" label="Password"/>
+		</columns>
+		<rows>
+			<template name="model" var="v">
+			<row>
+				<textbox value="@bind(v.userName)" readonly="true"/>
+				<textbox value="@bind(v.mobileNo)" readonly="true"/>
+				<textbox value="@bind(v.emailId)" readonly="true"/>
+				<textbox value="@bind(v.password)" readonly="true"></textbox>
+			</row>
+			</template>
+		</rows>
+	</grid>
+</window>
+</zk>

@@ -1,0 +1,55 @@
+<?page title="Manage City" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window title="Manage City" border="normal"
+	apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('ViewModel.ManageCityViewModel')">
+	<div align="center" style="padding-top:1%; padding-bottom:1%;border:#DADADA 1px solid;">
+      		<grid style="border:#DADADA 1px solid;" width="60%">	
+      			<columns>
+      				<column label="Add City" align="center"/>
+      			</columns>
+      			<rows>
+      				
+      				<row>
+      					
+      					<textbox placeholder="City Name" value="@bind(vm.manageCityBean.cityName)"/>
+      				</row>
+      				<row>
+  						<!-- <checkbox label="Is Active" checked="@bind(vm.manageCityBean.isActiveChecked)" /> -->
+  						
+						<combobox placeholder="[Active/Inactive]" width="130px" value="@bind(vm.manageCityBean.status)">
+							<comboitem  label="Active"/>
+							<comboitem label="Inactive"/>
+						</combobox>
+      				</row>
+      				<row>
+      					<div align="center">
+      						<vbox>
+	     						<button sclass="mybutton" label="Save City" visible="@bind(vm.saveButtonVisibility)" onClick="@command('onClickSaveCity')"/>
+	  							<button sclass="mybutton" label="Update City" visible="@bind(vm.updateButtonVisibility)" onClick="@command('onClickpdateCity')"/>
+  							</vbox>
+  						</div>
+  					</row>
+      			</rows>
+      		</grid>
+	</div>
+	<separator spacing="20px"/>
+	<div align="center" style="padding-top:1%; padding-bottom:1%;border:#DADADA 1px solid;" >
+		<grid width="60%" model="@bind(vm.manageCityBeanList)" style="border:#DADADA 1px solid;" mold="paging" pageSize="8"> 
+			<columns>
+				<column label="City" align="center"/>
+				<column label="Status" align="center"/>
+				<column label="Action" align="center"/>
+			</columns>
+			<rows>
+				<template name="model" var="v">
+				<row>
+					<textbox width="100%" readonly="true" value="@bind(v.cityName)"/>
+					<textbox width="100%" readonly="true" value="@bind(v.status)"/>
+					<button sclass="mybutton" label="Edit" onClick="@command('onClickEdit',bean = v)" />
+				</row>
+				</template>
+			</rows>
+      	</grid>
+	</div>
+</window>
+</zk>

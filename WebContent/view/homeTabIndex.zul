@@ -1,0 +1,483 @@
+<?page title="Home " contentType="text/html;charset=UTF-8"?>
+
+<zk>
+<timer id="timerKeepAliveSession" repeats="true" delay="600000" onTimer=""/>
+	<style>
+		.north {
+			background : #EBEBEB;
+		}
+		
+		.west {
+			background : #E6F2FF ;
+		}
+		
+		.mybutton {
+	        border-radius: 10px;
+	        background: linear-gradient(to bottom, #f0f9ff 0%,#a1dbff 100%);
+	        font-size :15px;
+	    }
+	    
+	    .myGrid tr.z-row td.z-row-inner, tr.z-row
+		.z-cell,div.z-grid { 
+	    	
+	    	background:#FFFFAA;
+	    	align:right;
+	    	border: 2px;
+	    }
+	    .mylabel {
+	    	font-size : 15px;
+	    	align:center;
+	    	font-weight:bold;
+	    	color:#DFADCC;
+	    }
+	    
+	    
+	    .panellabel {
+	    	align:right;
+	    }
+	    .z-tab-ver .z-tab-ver-text {
+			text-align: left;
+			}
+			
+		.bgimg {
+    		background-image: url('images/my.jpg');
+		}
+		
+	</style>
+		
+	<borderlayout  width="100%" height="100%" apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('ViewModel.HomeTabIndexViewModel')">
+	
+		<north size="9.9%" sclass="north">
+			<div>
+				<grid style="background:#edf4ff;border: 0.02px groove;" sclass="myGrid">
+					<columns>
+						<column />
+						<column />
+						<column align="right"/>
+					</columns>
+					
+					<rows>
+						<row>	
+							<label style="font-weight:bold;font-size:20px;color:#00AAAA;" value="@bind(vm.username)"/>
+							<image src="images/eaze.png"  onClick='inclResults.setSrc("blank.zul")' style="cursor:pointer;cursor:hand;"/>
+							<hlayout>
+								<button sclass="mybutton" label="Change password"  onClick="@command('onClickChangePassword')" />
+								<button sclass="mybutton" image="images/signout.png"  label="Sign Out"  onClick="@command('onClickSignOut')"/>
+							</hlayout>
+						</row>
+					
+					</rows>
+				</grid>
+				
+			</div>
+		</north>
+		
+		<west title="@bind(vm.roleName)" size="15%" flex="true" splittable="true"
+			collapsible="true" >
+			
+			<borderlayout width="100%" height="100%">
+				<center>
+				 <div style="background:#FFFFAA" height="100%">
+					<tree vflex="1" >
+						<treechildren>
+							
+							<!--Admin Menu Start -->
+							<treeitem open="false" visible="@bind(vm.adminSettingsVisibility)">
+								<treerow>
+									<treecell label="Admin Setting"/>
+								</treerow>
+								<!-- <treechildren>
+									<treeitem>
+										<treerow>
+											<treecell label="Setting"
+												onClick='inclResults.setSrc("adminSettings.zul");' />
+										</treerow>
+									</treeitem>
+								</treechildren> -->
+								<treechildren>
+									<treeitem>
+										<treerow>
+											<treecell label="Users"
+												onClick='inclResults.setSrc("users.zul");' />
+										</treerow>
+									</treeitem>
+								
+									<treeitem>
+										<treerow>
+											<treecell label="Time Setting"
+												onClick='inclResults.setSrc("lunchdinnertimings.zul");' />
+										</treerow>
+									</treeitem>
+									
+									<treeitem>
+										<treerow>
+											<treecell label="Subscription Setting"
+												onClick='inclResults.setSrc("subscriptionsettings.zul");' />
+										</treerow>
+									</treeitem>
+								</treechildren>
+							</treeitem>
+							<!--Admin Menu End -->
+							
+							<!--Manage Menu Start -->
+							<treeitem open="false" visible="@bind(vm.manageVisibility)">
+								<treerow>
+									<treecell  label="Manage" visible="@bind(vm.orderManagementVisibility)"/>
+								</treerow>
+								
+								<treechildren>
+									<treeitem open="false">
+										<treerow>
+											<treecell label="Manage Service Area" visible="@bind(vm.manageServiceAreaVisibility)"/>
+										</treerow>
+										<treechildren>
+											<treeitem>
+												<treerow>
+													<treecell label="Manage City" onClick='inclResults.setSrc("manageCity.zul");'></treecell>
+												</treerow>
+											</treeitem>
+											<treeitem>
+												<treerow>
+													<treecell label="Manage Area" onClick='inclResults.setSrc("manageArea.zul");'></treecell>
+												</treerow>
+											</treeitem>
+											<treeitem>
+												<treerow>
+													<treecell label="Manage Zipcodes" onClick='inclResults.setSrc("managezipcode.zul");'></treecell>
+												</treerow>
+											</treeitem>
+											<!-- <treeitem>
+												<treerow>
+													<treecell label="Manage Runnr" onClick='inclResults.setSrc("runnr.zul");'></treecell>
+												</treerow>
+											</treeitem> -->
+											
+										</treechildren>
+									</treeitem>
+									
+									
+									<treeitem open="false">
+										<treerow>
+											<treecell label="Manage Query" visible="@bind(vm.manageServiceAreaVisibility)"/>
+										</treerow>
+										<treechildren>
+											<treeitem>
+												<treerow>
+													<treecell label="Query Master" onClick='inclResults.setSrc("queryMaster.zul");'></treecell>
+												</treerow>
+											</treeitem>
+											<treeitem>
+												<treerow>
+													<treecell label="Querys from users" onClick='inclResults.setSrc("querymanagement.zul");'></treecell>
+												</treerow>
+											</treeitem>
+										</treechildren>
+									</treeitem>
+									
+									<treeitem>
+										<treerow>
+											<treecell label="Manage Cuisines" onClick='inclResults.setSrc("manageCuisins.zul");' visible="@bind(vm.managecuisineVisibility)"/>
+										</treerow>
+									</treeitem>
+									
+									<treeitem>
+										<treerow>
+											<treecell label="Manage Category" onClick='inclResults.setSrc("manageCategory.zul");' visible="@bind(vm.managcategoryVisibility)"/>
+										</treerow>
+									</treeitem>
+									
+									<treeitem>
+										<treerow>
+											<treecell label="Manage Food Items" onClick='inclResults.setSrc("fooditems.zul");' visible="@bind(vm.managecategoryitemsVisibility)"/>
+										</treerow>
+									</treeitem>
+									
+									
+									<treeitem open="false">
+										<treerow>
+											<treecell label="Manage Sets" visible="@bind(vm.manageServiceAreaVisibility)"/>
+										</treerow>
+										<treechildren>
+											<treeitem>
+												<treerow>
+													<treecell label="Set Master" onClick='inclResults.setSrc("setmaster.zul");'></treecell>
+												</treerow>
+											</treeitem>
+											<treeitem>
+												<treerow>
+													<treecell label="Set Items" onClick='inclResults.setSrc("itemset.zul");'></treecell>
+												</treerow>
+											</treeitem>
+										</treechildren>
+									</treeitem>
+									
+									<treeitem>
+										<treerow>
+											<treecell label="Manage Kitchens" onClick='inclResults.setSrc("managekitchen.zul");' visible="@bind(vm.managekitchensVisibility)"/>
+										</treerow>
+									</treeitem>
+									
+									<treeitem>
+										<treerow>
+											<treecell label="Manage Kitchen Items" onClick='inclResults.setSrc("kitchenitem.zul");' visible="@bind(vm.managecategoryitemsVisibility)"/>
+										</treerow>
+									</treeitem>
+									
+									<!-- <treeitem>
+										<treerow>
+											<treecell label="Manage Category Items" onClick='inclResults.setSrc("manageCategoryItems.zul");' visible="@bind(vm.managecategoryitemsVisibility)"/>
+										</treerow>
+									</treeitem> -->
+									
+									<!-- <treeitem>
+										<treerow>
+											<treecell label="Manage Sub Items" onClick='inclResults.setSrc("manageSubItems.zul");' visible="@bind(vm.managesubitemsVisibility)"/>
+										</treerow>
+									</treeitem> -->
+									
+									<!-- <treeitem>
+										<treerow>
+											<treecell label="Manage Ala carte Items" onClick='inclResults.setSrc("managealacarteitems.zul");' visible="@bind(vm.managealacarteitemsVisibility)"/>
+										</treerow>
+									</treeitem> -->
+									
+									
+									<!-- 
+									<treeitem>
+										<treerow>
+											<treecell label="Manage Logistics" onClick='inclResults.setSrc("managelogistics.zul");' visible="@bind(vm.managelogisticsVisibility)"/>
+										</treerow>
+									</treeitem> -->
+									
+									<!-- <treeitem>
+										<treerow>
+											<treecell label="Manage Taxes" onClick='inclResults.setSrc("managetaxes.zul");' visible="@bind(vm.managetaxesVisibility)"/>
+										</treerow>
+									</treeitem> -->
+									
+									<!-- <treeitem>
+										<treerow>
+											<treecell label="Manage CMS" onClick='inclResults.setSrc("manageCMS.zul");' visible="@bind(vm.managecmsVisibility)"/>
+										</treerow>
+									</treeitem> -->
+									
+									<!-- <treeitem>
+										<treerow>
+											<treecell label="Manage Coupons" onClick='inclResults.setSrc("manageCoupons.zul");' visible="@bind(vm.managecouponsVisibility)"/>
+										</treerow>
+									</treeitem> 
+									
+									<treeitem>
+										<treerow>
+											<treecell label="Manage Deals" onClick='inclResults.setSrc("managedeals.zul");' visible="@bind(vm.managedealsVisibility)"/>
+										</treerow>
+									</treeitem> -->
+									
+									<treeitem>
+										<treerow>
+											<treecell label="Manage Banners" onClick='inclResults.setSrc("manageBanners.zul");' visible="@bind(vm.managedealsVisibility)"/>
+										</treerow>
+									</treeitem> 
+									
+									<treeitem>
+										<treerow>
+												<treecell label="Manage Kitchen group" onClick='inclResults.setSrc("managecluster.zul");' 
+												visible="@bind(vm.kitchenGroupVisibility)"></treecell>
+										</treerow>
+									</treeitem>
+									
+									<treeitem>
+										<treerow>
+												<treecell label="Manage Biker" onClick='inclResults.setSrc("managebiker.zul");'
+												visible="@bind(vm.bikerManageVisibility)"></treecell>
+										</treerow>
+									</treeitem>
+									
+									<treeitem>
+										<treerow>
+												<treecell label="Slot assignment" onClick='inclResults.setSrc("bikerslot.zul");'
+												visible="@bind(vm.bikerManageVisibility)"></treecell>
+										</treerow>
+									</treeitem>
+									
+									<treeitem>
+										<treerow>
+											<treecell label="Manage Kitchen's Boy" onClick='inclResults.setSrc("manageDeliveryBoy.zul");' visible="@bind(vm.manageDeliveryBoyVisibility)"/>
+										</treerow>
+									</treeitem>
+				       
+								</treechildren>
+							</treeitem>
+							<!--Manage Menu End -->
+							
+							<!--Order Menu Start -->
+							<treeitem open="false" >
+								<treerow>
+									<treecell label="Order Management" visible="@bind(vm.orderManagementVisibility)"/>
+								</treerow>
+								<treechildren>
+								
+									<treeitem>
+										<treerow>
+											<treecell label="Stock Management" onClick='inclResults.setSrc("stockManagement.zul")' visible="@bind(vm.stockManagementVisibility)"/>
+										</treerow>
+									</treeitem>
+									
+									<treeitem visible="false">
+										<treerow>
+											<treecell label="Subscriptions" onClick='inclResults.setSrc("subscription.zul")' visible="@bind(vm.suscriptionVisibility)"/>
+										</treerow>
+									</treeitem>
+									
+									<treeitem visible="false">
+										<treerow>
+											<treecell label="Subscription List" onClick='inclResults.setSrc("subscriptionlist.zul")' visible="@bind(vm.subscriptionListVisibility)"/>
+										</treerow>
+									</treeitem>
+									
+									<treeitem visible="false">
+										<treerow>
+											<treecell label="New Order List" onClick='inclResults.setSrc("newOrderList.zul")' visible="@bind(vm.newOrderVisibility)"/>
+										</treerow>
+									</treeitem>
+									<treeitem visible="false" >
+										<treerow>
+											<treecell label="Kitchen Order List" onClick='inclResults.setSrc("kitchenorders.zul")' visible="@bind(vm.newOrderVisibility)"/>
+										</treerow>
+									</treeitem>
+									
+									<treeitem>
+										<treerow>
+											<treecell label="Order Dashboard" onClick='inclResults.setSrc("orderdashboard.zul")' visible="@bind(vm.orderDashboardVisibility)"/>
+										</treerow>
+									</treeitem>
+									
+									<treeitem visible="false">
+										<treerow>
+											<treecell label="Notify Logistics" onClick='inclResults.setSrc("assignLogistics.zul")' visible="@bind(vm.assignOrderlogisticsVisibility)"/>
+										</treerow>
+									</treeitem>
+									
+									<treeitem>
+										<treerow>
+											<treecell label="Subcription Orders" onClick='inclResults.setSrc("subscriptionOrderList.zul")' visible="@bind(vm.subscriptionOrderVisibility)"/>
+										</treerow>
+									</treeitem>
+									
+									<treeitem>
+										<treerow>
+											<treecell label="Received orders" onClick='inclResults.setSrc("receivedOrderDetails.zul")' visible="@bind(vm.receivedOrdersVisibility)"/>
+										</treerow>
+									</treeitem>
+									
+									<treeitem visible="false">
+										<treerow>
+											<treecell label="Logistics Order List" onClick='inclResults.setSrc("logisticsOrderList.zul")' visible="@bind(vm.receiveOrderVisibility)"/>
+										</treerow>
+									</treeitem>
+									
+									<treeitem>
+										<treerow>
+											<treecell label="Assigned Order List" onClick='inclResults.setSrc("assignedOrderList.zul")' visible="@bind(vm.assignVisibility)"/>
+										</treerow>
+									</treeitem>
+									
+									<treeitem>
+										<treerow>
+											<treecell label="Out For Delivery Order List" onClick='inclResults.setSrc("outForDeliveredOrder.zul")' visible="@bind(vm.outForDeliveryVisibility)"/>
+										</treerow>
+									</treeitem>
+									
+									<treeitem>
+										<treerow>
+											<treecell label="Delivered Order List" onClick='inclResults.setSrc("deliveredOrderList.zul")' visible="@bind(vm.deliveredorderVisibility)"/>
+										</treerow>
+									</treeitem>
+																	
+									<treeitem>
+										<treerow>
+											<treecell label="Completed Order List" onClick='inclResults.setSrc("completedOrderList.zul")' visible="@bind(vm.completedOrderVisibility)"/>
+										</treerow>
+									</treeitem>
+									
+									
+								</treechildren>
+							</treeitem>
+							<!--Order Menu End -->
+							
+							
+							
+							<!-- Reports Menu Start -->
+							<treeitem open="false">
+								<treerow>
+									<treecell label="MIS Reports" visible="@bind(vm.reportsVisibility)"/>
+								</treerow>
+								
+						
+								 <treechildren>
+									<treeitem>
+										<treerow>
+											<treecell visible="false" label="Orders and execution history"  onClick='inclResults.setSrc("orderAndExecutionHistory.zul")'></treecell>
+										</treerow>
+									</treeitem>
+									
+									<treeitem>
+										<treerow>
+											<treecell visible="false" label="Collection history" onClick='inclResults.setSrc("collectionHistory.zul")'></treecell>
+										</treerow>
+									</treeitem>
+									
+									<treeitem>
+										<treerow>
+											<treecell visible="false" label="Customer’s history" onClick='inclResults.setSrc("customerHistory.zul")'></treecell>
+										</treerow>
+									</treeitem>
+									
+									<treeitem>
+										<treerow>
+											<treecell label="Vendor’s performance" onClick='inclResults.setSrc("vendordashboard.zul")' ></treecell>
+										</treerow>
+									</treeitem>
+									
+									<treeitem>
+										<treerow>
+											<treecell label="Logistics performance" onClick='inclResults.setSrc("logisticsdashboard.zul")' ></treecell>
+										</treerow>
+									</treeitem>
+									
+									<treeitem>
+										<treerow>
+											<treecell label="Downtime analysis" ></treecell>
+										</treerow>
+									</treeitem>
+								</treechildren> 
+							</treeitem>
+							<!-- Report Menu End -->
+						</treechildren>	
+					</tree>
+					</div>
+				</center>
+			</borderlayout>
+			
+		</west>
+		
+		<center>
+			<borderlayout >
+				<north size="100%" splittable="true" autoscroll="true"
+					flex="true">
+					 <div sclass="bgimg">
+						<include id="inclResults" mode="instant"
+							style="overflow: auto; overflow-x:scroll ;">
+						</include>
+					</div>
+				</north>
+
+			</borderlayout>
+		</center>
+		
+		
+	</borderlayout>
+	<zscript>
+	</zscript>
+</zk>

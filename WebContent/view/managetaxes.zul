@@ -1,0 +1,53 @@
+<?page title="Manage Taxes" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window title="Manage Taxes" border="normal" apply="org.zkoss.bind.BindComposer"
+ viewModel="@id('vm')@init('ViewModel.ManageTaxesViewModel')">
+	<div align="center" style="padding-top:1%; padding-bottom:1%; border:#DADADA 1px solid;">
+		<grid style="border:#DADADA 1px solid;" width="50%">
+			<columns>
+				<column align="right"/>
+				<column align="left"/>
+			</columns>
+			<rows>
+				<row>
+					<label value="Service Tax" style="font-weight:bold;"/>
+					<textbox placeholder="[IN %]" value="@bind(vm.taxesBean.serviceTax)"/>
+				</row>
+				<row>
+					<label value="VAT" style="font-weight:bold;"/>
+					<textbox placeholder="[IN %]" value="@bind(vm.taxesBean.vatTax)"/>
+				</row>
+				<row>
+					<div align="right">
+						<vbox>
+							<button label="Save Tax" sclass="mybutton" onClick="@command('onClickSave')" visible="@bind(vm.saveButtonVisibility)"/>
+							<button label="Update Tax" sclass="mybutton" onClick="@command('onClickUpdate')" visible="@bind(vm.updateButtonVisibility)"/>
+					</vbox>
+					</div>
+				</row>
+			</rows>
+		</grid>
+	</div>
+	
+	<div align="center" style="padding-top:1%; padding-bottom:1%; border:#DADADA 1px solid;">
+		<grid width="50%" style="border:#DADADA 1px solid;" model="@bind(vm.taxesBeanList)">
+			<columns>
+				<column label="Service Tax" align="center" style="background-color:#FFCC99"/>
+				<column label="VAT" align="center" style="background-color:#FFCC99"/>
+				<column label="Action" align="center" style="background-color:#FFCC99"/>
+			</columns>
+			<template name="model" var="v">
+				<row>
+					<label value="@bind(v.serviceTax)"/>
+					<label value="@bind(v.vatTax)"/>
+					<hlayout>
+						<button label="Edit" sclass="mybutton" onClick="@command('onClickEdit',bean=v)"/>
+						<button label="Delete" sclass="mybutton" onClick="@command('onClickDelete',bean=v)"/>
+					</hlayout>
+					
+				</row>
+			</template>
+		</grid>
+	</div>
+</window>
+</zk>

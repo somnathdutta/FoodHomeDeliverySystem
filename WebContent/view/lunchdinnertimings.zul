@@ -1,0 +1,373 @@
+<?page title="Settings" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window title="Settings for Lunch And Dinner Timings" border="normal"
+apply="org.zkoss.bind.BindComposer" 
+	viewModel="@id('vm')@init('ViewModel.AdminSettingsViewModel')">
+<style>
+			.fgrid tr.z-row td.z-row-inner,tr.z-row,div.z-grid-body
+			div.z-cell,div.z-grid { border: none; overflow: hidden;
+			zoom: 1; background:none; border-top: none; border-left:
+			none; border-right: none; border-bottom: none; }
+
+			.fgrid .z-grid-odd .fgrid .z-row-inner,.fgrid .z-grid-odd
+			.z-cell { background-color: #F7F7F7; border-bottom: 1px
+			solid transparent; border-left: 1px solid transparent;
+			border-top: 1px solid transparent; }
+
+			.fgrid .z-grid-odd .fgrid.z-row-inner,.fgrid.z-grid-odd
+			.z-cell,.fgrid.z-grid-odd { background: none repeat scroll 0
+			0 transparent; }
+
+			.fgrid tr.z-grid-odd td.z-row-inner,.fgrid tr.z-grid-odd
+			.z-cell,.fgrid tr.z-grid-odd { background: white }
+
+			.fgrid tr.z-row td.z-row-inner,.fgrid tr.z-row .z-cell {
+			background: white; border-top: none; }
+
+			div.z-grid-body{ background: #EDF4FF;}
+
+			.fgrid tr.z-row td.z-row-inner, .fgrid tr.z-row .z-cell{
+			background:none;}
+			
+			.effect8
+				{
+				  	position:relative;       
+				    -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+				       -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+				            box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+				}
+				.effect8:before, .effect8:after
+				{
+					content:"";
+				    position:absolute; 
+				    z-index:-1;
+				    -webkit-box-shadow:0 0 20px rgba(0,0,0,0.8);
+				    -moz-box-shadow:0 0 20px rgba(0,0,0,0.8);
+				    box-shadow:0 0 20px rgba(0,0,0,0.8);
+				    top:10px;
+				    bottom:10px;
+				    left:0;
+				    right:0;
+				    -moz-border-radius:100px / 10px;
+				    border-radius:100px / 10px;
+				} 
+				.effect8:after
+				{
+					right:10px; 
+				    left:auto;
+				    -webkit-transform:skew(8deg) rotate(3deg); 
+				       -moz-transform:skew(8deg) rotate(3deg);     
+				        -ms-transform:skew(8deg) rotate(3deg);     
+				         -o-transform:skew(8deg) rotate(3deg); 
+				            transform:skew(8deg) rotate(3deg);
+			}
+
+		</style>
+
+	<div style="border:#DADADA 1px solid;background-color:#F5F5FF;" >
+		
+		<div style="padding: 1% 1% 1% 1%; border:#DADADA 1px groove;" sclass="effect8">
+			
+			<tabbox>
+				<tabs>
+					<tab label="Lunch Dinner time settings" onClick="@command('onClickTab1')"/>
+					<tab label="Early bird lunch time settings" onClick="@command('onClickTab2')"/>
+					<tab label="Early bird dinner time settings" onClick="@command('onClickTab3')"/>
+					<tab label="Credit settings" onClick="@command('onClickTab4')"/>
+				</tabs>
+				<tabpanels>
+				<!-- Lunch Dinner time settings starts here -->
+					<tabpanel>	
+						<div style="border:#DADADA 1px solid;background-color:#F5F5FF;" >
+							
+							<div style="padding: 1% 1% 1% 1%; border:#DADADA 1px groove;" sclass="effect8">
+								<grid>
+									<columns>
+										<column align="right" />
+										<column align="left" />
+									</columns>
+									<rows>
+										<row>
+											<label value="Lunch Timings" style="font-weight:bold"/>
+											<hlayout>
+												<timebox value="@bind(vm.lunchDinnerTimingsbean.lunchFromTimings)" format="HH:mm" placeholder="From" />
+												<timebox value="@bind(vm.lunchDinnerTimingsbean.lunchToTimings)" format="HH:mm" placeholder="To" />
+											</hlayout>
+											
+										</row>
+										<row>
+											<label value="Dinner Timings" style="font-weight:bold"/>
+											<hlayout>
+												<timebox value="@bind(vm.lunchDinnerTimingsbean.dinnerFromTimings)" format="HH:mm" placeholder="From" />
+												<timebox value="@bind(vm.lunchDinnerTimingsbean.dinnerToTimings)" format="HH:mm" placeholder="To" />
+											</hlayout>
+											
+										</row>
+							
+										<row>
+											<button label="Save" disabled="@bind(vm.saveDisability)" sclass="mybutton" onClick="@command('onClickSaveLD')"/>
+											<hbox>
+												<button label="Update" disabled="@bind(vm.updateDisability)"  sclass="mybutton" onClick="@command('onClickUpdateLD')"/>
+												<button label="Clear" sclass="mybutton" visible="false"/>
+											</hbox>
+										</row>
+									</rows>
+								</grid>
+							</div>
+						</div>
+					
+					 <space/><space/>
+						<div style="border:#DADADA 1px solid;background-color:#F5F5FF;" >
+		
+							<div style="padding: 1% 1% 1% 1%; border:#DADADA 1px groove;" sclass="effect8">
+									<grid model="@bind(vm.lunchDinnerTimingsbeanList)">
+										<columns>
+											<column label="Lunch Order from timing" align="center"/>
+											<column label="Lunch Order to timing" align="center"/>
+											<column label="Dinner Order from timing" align="center"/>
+											<column label="Dinner Order to timing" align="center"/>
+											<column label="Action" align="center"/>
+										</columns>
+										<rows>
+										<template name="model" var="v">
+											<row>
+												<textbox value="@bind(v.lunchFromTimingsValue)" readonly="true"/>
+												<textbox value="@bind(v.lunchToTimingsValue)" readonly="true"/>
+												<textbox value="@bind(v.dinnerFromTimingsValue)" readonly="true"/>
+												<textbox value="@bind(v.dinnerToTimingsValue)" readonly="true"/>
+												<button label="Edit" sclass="mybutton" onClick="@command('onClickEditLD',bean= v)"/>
+											</row>
+										</template>	
+										</rows>
+									</grid>
+							</div>
+							
+						</div> 
+						
+					</tabpanel>
+				
+				<!-- Early bird lunch time settings starts here -->	
+					<tabpanel>
+						<div style="border:#DADADA 1px solid;background-color:#F5F5FF;" >
+						
+						<div style="padding: 1% 1% 1% 1%; border:#DADADA 1px groove;" sclass="effect8">
+							<grid>
+								<columns>
+									<column align="right" />
+									<column align="left" />
+								</columns>
+								<rows>
+									<row>
+										<label value="Early bird lunch Timing" style="font-weight:bold"/>
+										<hlayout>
+											<timebox value="@bind(vm.ebLunchTimingsbean.ebLunchFromTimings)" format="hh:mm:a" placeholder="From" />
+											<timebox value="@bind(vm.ebLunchTimingsbean.ebLunchToTimings)" format="hh:mm:a" placeholder="To" />
+										</hlayout>
+									</row>
+									<row>
+										<label value="Choose category" style="font-weight:bold"/>
+										<groupbox open="@bind(vm.dinnerCategoryOpen)" width="440px" mold="3d">
+											<caption label="Check Categories"></caption>
+											<grid model="@bind(vm.ebLunchTimingsbean.earlyBirdLunchCategoryList)" width="100%">
+												<columns>
+													<column label="Select" width="65px" align="center"/>
+												<!-- 	<column label="Category id" width="85px" align="center"/> -->
+													<column label="Category name" width="245px" align="center"/>
+												</columns>
+												<rows>
+													<template name="model" var="v">
+														<row>
+															<checkbox checked="@bind(v.chkCategory)"/>
+															<!-- <textbox value="@bind(v.categoryId)" width="100%" readonly="true"/> -->
+															<textbox value="@bind(v.categoryName)"  width="100%" readonly="true"/>
+														</row>
+													</template>
+												</rows>
+											</grid>
+										</groupbox>
+									</row>
+						
+									<row>
+										<button label="Save" sclass="mybutton" onClick="@command('onClickSaveEBLunch')"/>
+										<hbox>
+											<button label="Update" sclass="mybutton"/>
+											<button label="Clear" sclass="mybutton"/>
+										</hbox>
+									</row>
+								</rows>
+							</grid>
+						</div>
+					</div>	
+					
+					<space/><space/>
+						<div style="border:#DADADA 1px solid;background-color:#F5F5FF;" >
+		
+							<div style="padding: 1% 1% 1% 1%; border:#DADADA 1px groove;" sclass="effect8">
+									<grid model="@bind(vm.ebLunchTimingsbeanList)">
+										<columns>
+											<column label="Early bird Lunch From timing" align="center"/>
+											<column label="Early bird Lunch To timing" align="center"/>
+											<column label="Details" align="center"/>
+											<column label="Action" align="center"/>
+										</columns>
+										<rows>
+										<template name="model" var="v">
+											<row>
+												<textbox value="@bind(v.ebLunchFromTimingsValue)" readonly="true"/>
+												<textbox value="@bind(v.ebLunchToTimingsValue)" readonly="true"/>
+												<a label="click here for items" onClick="@command('onClickLunchItemDetails',bean=v)"/>
+												<button label="Edit" sclass="mybutton"/>
+											</row>
+										</template>
+										</rows>
+									</grid>
+							</div>
+							
+						</div> 					
+					</tabpanel>
+				
+				<!-- Early bird dinner time settings starts here -->	
+					<tabpanel>
+						<div style="border:#DADADA 1px solid;background-color:#F5F5FF;" >
+						
+						<div style="padding: 1% 1% 1% 1%; border:#DADADA 1px groove;" sclass="effect8">
+							<grid>
+								<columns>
+									<column align="right" />
+									<column align="left" />
+								</columns>
+								<rows>
+									<row>
+										<label value="Early bird dinner Timing" style="font-weight:bold"/>
+										<hlayout>
+											<timebox value="@bind(vm.ebDinnerTimingsbean.dinnerFromTimings)" format="hh:mm:a" placeholder="From" />
+											<timebox value="@bind(vm.ebDinnerTimingsbean.dinnerToTimings)" format="hh:mm:a" placeholder="To" />
+										</hlayout>
+									</row>
+									
+									<row>
+										<label value="Choose category" style="font-weight:bold"/>
+										<groupbox open="@bind(vm.dinnerCategoryOpen)" width="440px" mold="3d">
+											<caption label="Check Categories"></caption>
+											<grid  model="@bind(vm.ebDinnerTimingsbean.earlyBirdDinnerCategoryList)" width="100%">
+											<columns>
+												<column label="Select" width="65px" align="center"/>
+												<!-- <column label="Category id" width="85px" align="center"/> -->
+												<column label="Category name" width="245px" align="center"/>
+											</columns>
+												<rows>
+													<template name="model" var="v">
+														<row>
+															<checkbox checked="@bind(v.chkCategory)"/>
+															<!-- <textbox value="@bind(v.categoryId)" width="100%" readonly="true"/> -->
+															<textbox value="@bind(v.categoryName)"  width="100%" readonly="true"/>
+														</row>
+													</template>
+												</rows>
+											</grid>
+										</groupbox>
+									</row>
+						
+									<row>
+										<button label="Save" sclass="mybutton" onClick="@command('onClickSaveEBDinner')"/>
+										<hbox>
+											<button label="Update" sclass="mybutton"/>
+											<button label="Clear" sclass="mybutton"/>
+										</hbox>
+									</row>
+								</rows>
+							</grid>
+						</div>
+					</div>	
+					
+					<space/><space/>
+						<div style="border:#DADADA 1px solid;background-color:#F5F5FF;" >
+		
+							<div style="padding: 1% 1% 1% 1%; border:#DADADA 1px groove;" sclass="effect8">
+									<grid model="@bind(vm.normalSpecialTimingsbeanList)">
+										<columns>
+											<column label="Early bird From timing" align="center"/>
+											<column label="Early bird To timing" align="center"/>
+											<column label="Details" align="center"/>
+											<column label="Action" align="center"/>
+										</columns>
+										<rows>
+										<template name="model" var="v">
+											<row>
+												<textbox value="@bind(v.specialItemFromSettingsValue)" readonly="true"/>
+												<textbox value="@bind(v.specialItemToSettingsValue)" readonly="true"/>
+												<a label="click here for items" onClick="@command('onClickDinnerItemDetails',bean=v)"/>
+												<button label="Edit" sclass="mybutton"/>
+											</row>
+										</template>
+											
+										</rows>
+									</grid>
+							</div>
+							
+						</div> 					
+					</tabpanel>
+		
+				<!-- Credit settings starts here -->			
+					<tabpanel>
+						<div style="border:#DADADA 1px solid;background-color:#F5F5FF;" >
+						
+							<div style="padding: 1% 1% 1% 1%; border:#DADADA 1px groove;" sclass="effect8">
+								<grid>
+									<columns>
+										<column align="right"/>
+										<column align="left"/>
+									</columns>
+									<rows>
+										<row>
+											<label value="Sign up credit" style="font-weight:bold"/>
+											<doublebox value="@bind(vm.creditbean.signUpCredit)"/>
+										</row>
+										<row>
+											<label value="Order credit" style="font-weight:bold"/>
+											<doublebox value="@bind(vm.creditbean.orderCredit)" />
+										</row>
+										<row>
+											<button label="Save" sclass="mybutton" onClick="@command('onClickSaveCredit')"/>
+											<hbox>
+												<button label="Update" sclass="mybutton" disabled="false" onClick="@command('onClickUpdateCredit')"/>
+												<button label="Clear" sclass="mybutton"  onClick="@command('onClickCreditClear')"/>
+											</hbox>
+										</row>
+									</rows>
+								</grid>
+							</div>
+						</div>
+						
+						<space/><space/>
+						<div style="border:#DADADA 1px solid;background-color:#F5F5FF;" >
+		
+							<div style="padding: 1% 1% 1% 1%; border:#DADADA 1px groove;" sclass="effect8">
+									<grid model="@bind(vm.creditbeanList)">
+										<columns>
+											<column label="Sign up credit" align="center"/>
+											<column label="Order credit" align="center"/>
+											<column label="Action" align="center"/>
+										</columns>
+										<rows>
+											<template name="model" var="v">
+												<row>
+													<doublebox value="@bind(v.signUpCredit)" readonly="true"/>
+													<doublebox value="@bind(v.orderCredit)" readonly="true"/>
+													<button label="Edit" sclass="mybutton" onClick="@command('onClickEditCredit',bean=v)"/>
+												</row>
+											</template>
+											
+										</rows>
+									</grid>
+							</div>
+							
+						</div> 
+					</tabpanel>
+				</tabpanels>
+			</tabbox>
+			
+		</div>
+	</div>		
+</window>
+</zk>

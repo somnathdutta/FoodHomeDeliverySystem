@@ -1,0 +1,66 @@
+<?page title="Tab " contentType="text/html;charset=UTF-8"?>
+<zk>
+<style>
+	.mymenu{
+	  height:30px;
+	}
+	.z-menubar-hor .z-menu-item-btn{
+		-adjust:none;
+font-stretch:normal; font-style:normal; font-variant:normal; font-weight:bold;
+ line-height:normal; white-space:nowrap; font-family: verdana; font-size: 20px;
+	}
+	
+</style>
+<window  border="none" style="background-color:white;">
+	<!-- <tabbox width="100%"  style="border:2px solid">
+        <tabs id="tabs" >
+            <tab label="Our Product" />
+            <tab label="Live Demo" />
+            <tab label="Online Documentation" />
+        </tabs>
+
+        <tabpanels>
+            <tabpanel>
+				<include  mode="instant"  />
+               
+            </tabpanel>
+
+            <tabpanel>
+               <include id="mytab" mode="instant" />
+            </tabpanel>
+            
+            <tabpanel>
+            	<include mode="instant" />
+            </tabpanel>
+        </tabpanels>
+       
+    </tabbox> -->
+    <div style="background:groove;border:1px solid;" height="100%" >
+    	<separator spacing="50px"/>
+    	<!-- <menubar style="background:transparent;border:none;" >
+    	<menuitem label="Home" onClick='inclResults.setSrc("new_file.zul")' 
+    	style="padding-left:200px;" />
+    	<menuitem label="Reports" style="padding-left:200px;" />
+    	<menuitem label="Pdf" style="padding-left:200px;" />
+    	<menuitem label="Show monthly" style="padding-left:200px;" />
+    </menubar> -->
+    <div style="background:groove">
+    	<label style="padding-left:200px;border:none;font-weight:bold;text-align:center;" />
+    	<button label="Home" style="padding-left:200px;border:none;font-weight:bold;text-align:center;" 
+    	height="55px" onClick='inclResults.setSrc("new_file.zul")'/>
+    	<button label="Reports" style="padding-left:200px;border:none;font-weight:bold;text-align:center;" 
+    	onClick='inclResults.setSrc("adminSettings.zul")' height="55px"/>
+    	<button label="Pdf" style="padding-left:200px;border:none;font-weight:bold;text-align:center;" height="55px"/>
+    	<button label="Show monthly" style="padding-left:200px;font-weight:bold;border:none;text-align:center;" height="55px"/>
+    </div>
+    <div>
+    	<include id="inclResults" mode="instant"
+				style="overflow: auto; overflow-x:scroll;border:none;background-color:white;">
+		</include>
+    </div>
+    </div>
+    
+    
+     
+</window>
+</zk>

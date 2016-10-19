@@ -1,0 +1,139 @@
+<?page title="Delay In Production" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<style>
+			.fgrid tr.z-row td.z-row-inner,tr.z-row,div.z-grid-body
+			div.z-cell,div.z-grid { border: none; overflow: hidden;
+			zoom: 1; background:none; border-top: none; border-left:
+			none; border-right: none; border-bottom: none; }
+
+			.fgrid .z-grid-odd .fgrid .z-row-inner,.fgrid .z-grid-odd
+			.z-cell { background-color: #FFFFAA; border-bottom: 1px
+			solid transparent; border-left: 1px solid transparent;
+			border-top: 1px solid transparent; }
+
+			.fgrid .z-grid-odd .fgrid.z-row-inner,.fgrid.z-grid-odd
+			.z-cell,.fgrid.z-grid-odd { background: none repeat scroll 0
+			0 transparent; }
+
+			.fgrid tr.z-grid-odd td.z-row-inner,.fgrid tr.z-grid-odd
+			.z-cell,.fgrid tr.z-grid-odd { background: white }
+
+			.fgrid tr.z-row td.z-row-inner,.fgrid tr.z-row .z-cell {
+			background: white; border-top: none; }
+
+			div.z-grid-body{ background: #FFFFAA;}
+
+			.fgrid tr.z-row td.z-row-inner, .fgrid tr.z-row .z-cell{
+			background:none;}
+			
+			.effect8
+				{
+				  	position:relative;       
+				    -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+				       -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+				            box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+				}
+				.effect8:before, .effect8:after
+				{
+					content:"";
+				    position:absolute; 
+				    z-index:-1;
+				    -webkit-box-shadow:0 0 20px rgba(0,0,0,0.8);
+				    -moz-box-shadow:0 0 20px rgba(0,0,0,0.8);
+				    box-shadow:0 0 20px rgba(0,0,0,0.8);
+				    top:10px;
+				    bottom:10px;
+				    left:0;
+				    right:0;
+				    -moz-border-radius:100px / 10px;
+				    border-radius:100px / 10px;
+				} 
+				.effect8:after
+				{
+					right:10px; 
+				    left:auto;
+				    -webkit-transform:skew(8deg) rotate(3deg); 
+				       -moz-transform:skew(8deg) rotate(3deg);     
+				        -ms-transform:skew(8deg) rotate(3deg);     
+				         -o-transform:skew(8deg) rotate(3deg); 
+				            transform:skew(8deg) rotate(3deg);
+			}
+
+		</style>
+<window title="Delay in production MIS Report" border="none" apply="org.zkoss.bind.BindComposer" style="background:#FFFFAA;"
+viewModel="@id('vm')@init('ViewModel.DelayInProductionViewModel')">	
+<div style="background:#FFFFAA;">
+	<div align="center" style="background:#FFFFAA;" >
+		<radiogroup id="rdgrp">
+			<grid style="background-color:#FFFFAA;">
+				<columns>
+					<column align="center"/><column align="center"/>
+				</columns>
+				<rows>
+					<row>
+						<radio label="Average delay in minutes" style="font-weight:bold;" checked="@bind(vm.averageRadio)"
+					radiogroup="rdgrp" onCheck="@command('onCheckFirstRadio')" />
+						<radio label="Highest delay Top 5 in minutes" style="font-weight:bold;" checked="@bind(vm.highestRadio)"
+					radiogroup="rdgrp" onCheck="@command('onCheckSecondRadio')" />
+					</row>
+				</rows>
+			</grid>	
+		</radiogroup>
+	</div>
+	<div>
+		<div style="border:#DADADA 1px solid;background-color:#F5F5FF;">	
+			<div style="padding:1% 1% 1% 1%;border:#DADADA 1px groove;" sclass="effect8">
+				<grid  height="340px" mold="paging" pageSize="9" model="@bind(vm.delayInProductionBeanList)"
+				emptyMessage="NO DATA FOUND" style="background-color:#FFFFAA;">
+					<auxhead>
+						<auxheader colspan="9">
+							<label value="SEARCH VENDOR" style="font-weight:bold;"/>
+							<!-- <combobox placeholder="[Search By Vendor]"></combobox> -->
+							<combobox model="@bind(vm.kitchenList)" selectedItem="@bind(vm.kitchenName)" value="@bind(vm.kitchenName)"> 
+								<template name="model" var="v">
+									<comboitem value="@load(v)" label="@load(v)"/>
+								</template>
+							</combobox>
+							<label value="CHOOSE DATE RANGE" style="font-weight:bold;"/>
+							<datebox format="dd-MM-yyyy" value="@bind(vm.startDate)"/><datebox format="dd-MM-yyyy" value="@bind(vm.endDate)"/>
+							<button label="Find" sclass="mybutton" onClick="@command('onClickFind')"/>
+							<button label="Clear" sclass="mybutton" onClick="@command('onClickClear')"/>
+							<button label="Generate Excel" sclass="mybutton" onClick="@command('onClickGenerate')"/>
+						</auxheader>
+					</auxhead>
+					<columns sizable="true">
+						<column label="Order Date" align="center" style="background-color:#FFCC99;color:white"/>
+						<column label="Vendor" align="center" style="background-color:#FFCC99;color:white"/>
+						<column label="Order No" width="155px" align="center" style="background-color:#FFCC99;color:white"/>
+						<column label="Item Name" align="center" style="background-color:#FFCC99;color:white"/>
+						<column label="Quantity" width="55px" align="center" style="background-color:#FFCC99;color:white"/>
+						<column label="Assignment time" align="center" style="background-color:#FFCC99;color:white"/>
+						<column label="Acceptance time" align="center" style="background-color:#FFCC99;color:white"/>
+						<column label="Notified time" align="center" style="background-color:#FFCC99;color:white"/>
+						<column label="Delay Accept" align="center" style="background-color:#FFCC99;color:white"/>
+						<column label="Delay Notify" align="center" style="background-color:#FFCC99;color:white"/>
+					</columns>
+					<rows>
+						<template name="model" var="v">
+							<row>
+								<textbox readonly="true" width="100%" value="@bind(v.orderDateValue)"/>
+								<textbox readonly="true" width="100%" value="@bind(v.kitchenName)"/>
+								<textbox readonly="true" width="100%" value="@bind(v.orderNo)"/>
+								<textbox readonly="true" width="100%" value="@bind(v.categoryName)"/>
+								<textbox readonly="true" width="100%" value="@bind(v.quantity)"/>
+								<textbox readonly="true" width="100%" value="@bind(v.orderAssignTimeValue)"/>
+								<textbox readonly="true" width="100%" value="@bind(v.acceptanceTimeValue)"/>
+								<textbox readonly="true" width="100%" value="@bind(v.notifyTimeValue)"/>
+								<textbox readonly="true" width="100%" value="@bind(v.delayInReceive)" style="text-align:center"/>
+								<textbox readonly="true" width="100%" value="@bind(v.delayInDelivery)" style="text-align:center"/>
+								
+							</row>
+						</template>
+					</rows>
+				</grid>
+			</div>
+		</div>
+	</div>
+</div>
+</window>
+</zk>

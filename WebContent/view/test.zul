@@ -1,0 +1,135 @@
+<?page title="Home " contentType="text/html;charset=UTF-8"?>
+
+<zk>
+<timer id="timerKeepAliveSession" repeats="true" delay="600000" onTimer=""/>
+	<style>
+		.north {
+			background : #EBEBEB;
+		}
+		
+		.west {
+			background : #E6F2FF ;
+		}
+		
+		.mybutton {
+	        border-radius: 10px;
+	        background: linear-gradient(to bottom, #f0f9ff 0%,#a1dbff 100%);
+	        font-size :15px;
+	    }
+	    
+	    .myGrid tr.z-row td.z-row-inner, tr.z-row
+		.z-cell,div.z-grid { 
+	    	
+	    	background:aqua;
+	    	align:right;
+	    	border: 2px;
+	    }
+	    .mylabel {
+	    	font-size : 15px;
+	    	align:center;
+	    	font-weight:bold;
+	    	color:#DFADCC;
+	    }
+	    
+	    
+	    .panellabel {
+	    	align:right;
+	    }
+	    .z-tab-ver .z-tab-ver-text {
+			text-align: left;
+			}
+			
+		
+	</style>
+	
+	
+	<borderlayout  width="100%" height="100%" >
+	
+		<north size="9.9%" sclass="north">
+			<div>
+				<grid style="background:#edf4ff;border: 0.02px groove;" sclass="myGrid">
+					<columns>
+						<column />
+						<column />
+						<column align="right"/>
+					</columns>
+					
+					<rows>
+						<row>	
+							<label style="font-weight:bold;font-size:20px;color:#00AAAA;" value="WELCOME"/>
+							<image />
+							<hlayout>
+								<button  label="Change password"  />
+							<button  label="Sign Out"  />
+							</hlayout>
+						</row>
+					
+					</rows>
+				</grid>
+				
+			</div>
+		</north>
+		
+		<west  size="15%" flex="true" splittable="true"
+			collapsible="true" >
+			
+			<borderlayout width="100%" height="100%">
+				<center>
+				 <div style="background:aqua" height="100%">
+					<tree vflex="1" >
+						<treechildren>
+							<treeitem open="false">
+								<treerow>
+									<treecell label="Payroll Setting"/>
+								</treerow>
+								<treechildren>
+									<treeitem open="false">
+										<treerow>
+											<treecell label="Masters" 
+												onClick='inclResults.setSrc("test.zul");' />
+										</treerow>
+										
+										<treechildren>
+												<treeitem open="false">
+													<treerow>
+														<treecell label="States"
+															onClick='inclResults.setSrc("test.zul");' />
+													</treerow>
+												</treeitem>
+												<treeitem open="false">
+													<treerow>
+														<treecell label="Company"
+															onClick='inclResults.setSrc("test.zul");' />
+													</treerow>
+												</treeitem>
+										</treechildren>
+									</treeitem>
+								</treechildren>
+							</treeitem>
+						</treechildren>
+					</tree>
+					</div>
+				</center>
+			</borderlayout>
+			
+		</west>
+		
+		<center>
+			<borderlayout >
+				<north size="100%" splittable="true" autoscroll="true"
+					flex="true">
+					 <div style="background:#FFFFFF">
+						<include id="inclResults" mode="instant"
+							style="overflow: auto; overflow-x:scroll ;">
+						</include>
+					</div>
+				</north>
+
+			</borderlayout>
+		</center>
+		
+		
+	</borderlayout>
+	<zscript>
+	</zscript>
+</zk>

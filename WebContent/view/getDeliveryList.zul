@@ -1,0 +1,26 @@
+<?page title="Get Delivery List" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window title="Get Order List by Delivery Boy" border="normal" closable="true" width="70%"
+	apply="org.zkoss.bind.BindComposer" viewModel="@id('vm')@init('ViewModel.GetListDeliveryBoyViewModel')">
+<div style=" padding-bottom:1%; border:#DADADA 1px solid;">
+		<grid model="@bind(vm.manageDeliveryBoyBeanList)">
+			<columns>
+				<column label="Order Id" align="center" width="65px"/>
+				<column label="Status" align="center"/>
+				<column label="Delivery Date Time" align="center"/>
+				<column label="Action" align="center"/>
+			</columns>
+			<rows>
+				<template name="model" var="v">
+					<row>
+						<textbox width="100%" value="@bind(v.orderId)" readonly="true"/>
+						<textbox width="100%" value="@bind(v.status)" readonly="true"/>
+						<textbox width="100%" value="@bind(v.deliveryDateTime)" readonly="true"/>
+						<button sclass="mybutton" label="Get Details"/>
+					</row>
+				</template>
+			</rows>
+		</grid>
+	</div>
+</window>
+</zk>

@@ -1,0 +1,18 @@
+<?page title="Vendor Dashboard" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window title="Vendor Dashboard" border="none" style="background:#FFFFAA;">
+	
+	<menubar id="menubar" autodrop="true" style="background:#FFFFAA;">
+        <menuitem label="Delay in production" onClick='inclResults.setSrc("delayinproduction.zul")'/>
+        <menuitem label="Feedback on food" onClick='inclResults.setSrc("feedbackonfood.zul")'/>
+        <!-- <menuitem label="Order Acceptance/TAT" onClick='inclResults.setSrc("orderacceptance.zul")'/> -->
+        <menuitem label="Order rejection" onClick='inclResults.setSrc("orderrejectionMIS.zul")'/>
+    </menubar>
+        
+    <div height="460px" >
+    		<include id="inclResults" mode="instant" 
+				style="overflow: auto; overflow-x:scroll;border:none;background-color:white;">
+			</include>
+    </div>    
+</window>
+</zk>
