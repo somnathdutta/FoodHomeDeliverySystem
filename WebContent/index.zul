@@ -93,7 +93,7 @@
 								<label sclass="mylabel" value="PASSWORD"/> 
 						</row>
 						<row>	
-								<textbox sclass="mytextbox" type="password" placeholder="Enter password" value="@bind(vm.loginBean.password)"/>
+								<textbox sclass="mytextbox" type="password" placeholder="Enter password" value="@bind(vm.loginBean.password)" onOK="@command('onClickLogin')"/>
 						</row>
 						<row>	
 								<div align="center">
