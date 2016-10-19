@@ -4,14 +4,18 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import org.zkoss.bind.annotation.AfterCompose;
+import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.ExecutionArgParam;
+import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Session;
 import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.select.Selectors;
+import org.zkoss.zul.Messagebox;
 
+import dao.SetDetailsSaveDao;
 import Bean.ItemBean;
 import Bean.SetBean;
 
@@ -50,6 +54,16 @@ public class SetDetailsViewModel {
 			itemBeanList.add(bean);
 		}
 			
+	}
+	
+	@Command
+	@NotifyChange("*")
+	public void onclickFinalSave(){
+		int i = SetDetailsSaveDao.setDetailsSave(connection, setBean.getSetName(), userName, setBean);
+		if(i>0){
+			Messagebox.show("Saved Successfully", "Information", Messagebox.OK, Messagebox.INFORMATION);
+		}
+		
 	}
 
 	public Session getSession() {
