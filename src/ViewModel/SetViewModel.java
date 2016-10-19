@@ -20,6 +20,7 @@ import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
+import service.SetMasterService;
 import dao.SetDAO;
 import Bean.CompletedOrderBean;
 import Bean.ItemBean;
@@ -29,14 +30,14 @@ import Bean.SetBean;
 public class SetViewModel {
 	
 	private SetBean setBean = new SetBean();
-	
+	private ManageCategoryBean categoryBean = new ManageCategoryBean();
 	private ItemBean itemBean = new ItemBean();
 	
+	private ArrayList<SetBean> existingItemSetList;
 	private ArrayList<ItemBean> itemSetList = new ArrayList<ItemBean>();
-	
 	private HashSet<SetBean> setBeanWithItemList = new HashSet<SetBean>();
 	
-	private ManageCategoryBean categoryBean = new ManageCategoryBean();
+	
 	
 	private ArrayList<ManageCategoryBean> categoryBeanList = new ArrayList<ManageCategoryBean>();
 	
@@ -64,6 +65,7 @@ public class SetViewModel {
 	
 	public void onLoadQuery(){
 		categoryBeanList = SetDAO.onLoadCategoryList(connection);
+		existingItemSetList = SetMasterService.fetchExistingSetDetais(connection);
 	}
 	
 	@Command
@@ -105,6 +107,9 @@ public class SetViewModel {
 		}
 		
 	}
+	
+	
+	
 	
 	public ArrayList<ItemBean> getItemSetList() {
 		return itemSetList;
@@ -168,5 +173,21 @@ public class SetViewModel {
 
 	public void setCategoryBean(ManageCategoryBean categoryBean) {
 		this.categoryBean = categoryBean;
+	}
+
+	public HashSet<SetBean> getSetBeanWithItemList() {
+		return setBeanWithItemList;
+	}
+
+	public void setSetBeanWithItemList(HashSet<SetBean> setBeanWithItemList) {
+		this.setBeanWithItemList = setBeanWithItemList;
+	}
+
+	public ArrayList<SetBean> getExistingItemSetList() {
+		return existingItemSetList;
+	}
+
+	public void setExistingItemSetList(ArrayList<SetBean> existingItemSetList) {
+		this.existingItemSetList = existingItemSetList;
 	}
 }

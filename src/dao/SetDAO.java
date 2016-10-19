@@ -3,14 +3,21 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javafx.scene.shape.Cylinder;
+import jdk.nashorn.internal.ir.SetSplitState;
 
 import org.zkoss.zul.Messagebox;
 
+import com.itextpdf.text.Phrase;
+
+import sql.SetMasterSql;
+import utility.FappPstm;
 import Bean.ItemBean;
 import Bean.ManageCategoryBean;
+import Bean.SetBean;
 
 public class SetDAO {
 
@@ -80,5 +87,49 @@ public class SetDAO {
 			// TODO: handle exception
 		}
 		return itemBeanList;
+	}
+	
+	public static ArrayList<SetBean> fetchExistingSetItems(Connection connection){
+		ArrayList<SetBean> list = new ArrayList<SetBean>();
+		if(list.size()>0){
+			list.clear();
+		}
+		PreparedStatement preparedStatement = null;
+		try {
+			
+			preparedStatement = FappPstm.createQuery(connection, SetMasterSql.selctExsistingSetQuery,null);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				SetBean bean = new SetBean();
+				
+				bean.setSetId(resultSet.getInt("set_id"));
+				bean.setSetName(resultSet.getString("set_name"));
+				bean.getItemBean().setItemId(resultSet.getInt("item_id"));
+				bean.getItemBean().setItemCode(resultSet.getString("item_code"));
+				bean.getItemBean().setItemName(resultSet.getString("item_name"));
+				bean.getItemBean().setItemDescription(resultSet.getString("item_description"));
+				
+				list.add(bean);
+				
+			}
+			
+		} catch (Exception e) {
+			String msg = e.getMessage();
+			Messagebox.show(msg, "Error", Messagebox.OK,Messagebox.ERROR);
+			e.printStackTrace();
+		}finally{
+			if(preparedStatement != null){
+				try {
+					preparedStatement.close();
+				} catch (SQLException e) {
+					
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		return list;
+		
+		
 	}
 }

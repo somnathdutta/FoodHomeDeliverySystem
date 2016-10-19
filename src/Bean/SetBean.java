@@ -7,6 +7,7 @@ public class SetBean {
 	private String setName;
 	private int setId;
 	
+	private ItemBean itemBean = new ItemBean();
 	private ArrayList<ItemBean> itemList = new ArrayList<ItemBean>();
 
 	public String getSetName() {
@@ -31,6 +32,14 @@ public class SetBean {
 
 	public void setItemList(ArrayList<ItemBean> itemList) {
 		this.itemList = itemList;
+	}
+
+	public ItemBean getItemBean() {
+		return itemBean;
+	}
+
+	public void setItemBean(ItemBean itemBean) {
+		this.itemBean = itemBean;
 	}
 	
 }

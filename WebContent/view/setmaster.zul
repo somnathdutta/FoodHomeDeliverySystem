@@ -142,7 +142,29 @@
 
 						</tabpanel>
 
-						<tabpanel></tabpanel>
+						<tabpanel>
+						   <div sclass="effect8">	
+						   		<grid model="@bind(vm.existingItemSetList)" mold="paging" pageSize="12">	
+						   			<columns sizable="true">
+						   				<column label="Set Name" style="font-weight: bold" width="80px" align="center"></column>
+						   				<column label="Item Code" style="font-weight: bold" width="70px" align="center"></column>
+						   				<column label="Item Name" style="font-weight: bold" width="330px" align="center"></column>
+						   				<column label="Item Description" style="font-weight: bold" align="center"></column>
+						   			</columns>
+						   			<rows>
+						   			  <template name="model" var = "v">
+						   				<row>
+						   					<textbox value="@bind(v.setName)" width="100%" style="font-weight: bold"></textbox>
+						   					<textbox value="@bind(v.itemBean.itemCode)" width="100%"></textbox>
+						   					<textbox value="@bind(v.itemBean.itemName)" width="100%"></textbox>
+						   					<textbox value="@bind(v.itemBean.itemDescription)" width="100%"></textbox>
+						   				</row>
+						   			  </template>	
+						   			</rows>
+								</grid>
+						
+						   </div>	
+						</tabpanel>
 					</tabpanels>
 				</tabbox>
 			</div>
