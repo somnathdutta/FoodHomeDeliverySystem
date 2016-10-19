@@ -98,9 +98,12 @@ public class SetViewModel {
 		Map<String, SetBean> parentMap =  new HashMap<String, SetBean>();
 		
 		parentMap.put("parentObject", setBean);
-		Window orderDetailswindow = (Window) Executions.createComponents("setDetails.zul", null, parentMap);
+		if(setBean.getItemList().size() > 0){
+			Window orderDetailswindow = (Window) Executions.createComponents("setDetails.zul", null, parentMap);
+			
+			orderDetailswindow.doModal();
+		}
 		
-		orderDetailswindow.doModal();
 	}
 	
 	public ArrayList<ItemBean> getItemSetList() {
