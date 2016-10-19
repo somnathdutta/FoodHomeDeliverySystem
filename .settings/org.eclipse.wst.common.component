@@ -2,88 +2,10 @@
     <wb-module deploy-name="FoodHomeDeliverySystem">
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
-        <dependent-module archiveName="zul.jar" deploy-path="/WEB-INF/lib/" handle="module:/resource/zul/zul">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module archiveName="gcm-server.jar" deploy-path="/WEB-INF/lib/" handle="module:/resource/gcm-server/gcm-server">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module archiveName="http-core-4.1.jar" deploy-path="/WEB-INF/lib/" handle="module:/resource/http-core-4.1/http-core-4.1">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
         <dependent-module archiveName="silvertail.jar" deploy-path="/WEB-INF/lib/" handle="module:/resource/silvertail/silvertail">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="itextpdf-5.4.3.jar" deploy-path="/WEB-INF/lib/" handle="module:/resource/itextpdf-5.4.3/itextpdf-5.4.3">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module archiveName="flashchart.jar" deploy-path="/WEB-INF/lib/" handle="module:/resource/flashchart/flashchart">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module archiveName="httpclient-4.1.jar" deploy-path="/WEB-INF/lib/" handle="module:/resource/httpclient-4.1/httpclient-4.1">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module archiveName="jettison-1.3.jar" deploy-path="/WEB-INF/lib/" handle="module:/resource/jettison-1.3/jettison-1.3">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module archiveName="org-apache-commons-logging.jar" deploy-path="/WEB-INF/lib/" handle="module:/resource/org-apache-commons-logging/org-apache-commons-logging">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module archiveName="zhtml.jar" deploy-path="/WEB-INF/lib/" handle="module:/resource/zhtml/zhtml">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module archiveName="json-simple-1.1.1.jar" deploy-path="/WEB-INF/lib/" handle="module:/resource/json-simple-1.1.1/json-simple-1.1.1">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module archiveName="javax.mail.jar" deploy-path="/WEB-INF/lib/" handle="module:/resource/javax.mail/javax.mail">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module archiveName="zkplus.jar" deploy-path="/WEB-INF/lib/" handle="module:/resource/zkplus/zkplus">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module archiveName="zweb.jar" deploy-path="/WEB-INF/lib/" handle="module:/resource/zweb/zweb">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module archiveName="zkbind.jar" deploy-path="/WEB-INF/lib/" handle="module:/resource/zkbind/zkbind">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module archiveName="slf4j-api.jar" deploy-path="/WEB-INF/lib/" handle="module:/resource/slf4j-api/slf4j-api">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module archiveName="commons-fileupload.jar" deploy-path="/WEB-INF/lib/" handle="module:/resource/commons-fileupload/commons-fileupload">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module archiveName="commons-codec.jar" deploy-path="/WEB-INF/lib/" handle="module:/resource/commons-codec/commons-codec">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module archiveName="zcommon.jar" deploy-path="/WEB-INF/lib/" handle="module:/resource/zcommon/zcommon">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module archiveName="javax.ws.rs.jar" deploy-path="/WEB-INF/lib/" handle="module:/resource/javax.ws.rs/javax.ws.rs">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module archiveName="commons-io.jar" deploy-path="/WEB-INF/lib/" handle="module:/resource/commons-io/commons-io">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module archiveName="zel.jar" deploy-path="/WEB-INF/lib/" handle="module:/resource/zel/zel">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module archiveName="slf4j-jdk14.jar" deploy-path="/WEB-INF/lib/" handle="module:/resource/slf4j-jdk14/slf4j-jdk14">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module archiveName="bsh.jar" deploy-path="/WEB-INF/lib/" handle="module:/resource/bsh/bsh">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
         <dependent-module archiveName="sapphire.jar" deploy-path="/WEB-INF/lib/" handle="module:/resource/sapphire/sapphire">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module archiveName="poi-3.9.jar" deploy-path="/WEB-INF/lib/" handle="module:/resource/poi-3.9/poi-3.9">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module archiveName="zk.jar" deploy-path="/WEB-INF/lib/" handle="module:/resource/zk/zk">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module archiveName="jdbc-postgresql.jar" deploy-path="/WEB-INF/lib/" handle="module:/resource/jdbc-postgresql/jdbc-postgresql">
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <property name="context-root" value="FoodHomeDeliverySystem"/>
