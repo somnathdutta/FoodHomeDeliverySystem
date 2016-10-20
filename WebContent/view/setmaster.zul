@@ -154,7 +154,7 @@
 						   		</combobox>
 						   	</hlayout>	
 						   	<space></space>
-						   		<grid model="@bind(vm.existingItemSetList)" mold="paging" pageSize="10" height="400px">	
+						   		<grid model="@bind(vm.existingItemSetList)" mold="paging" pageSize="10" height="380px">	
 						   			<columns sizable="true">
 						   				<column label="Set Name" style="font-weight: bold" width="65px" align="center"></column>
 						   				<column label="Item Code" style="font-weight: bold" width="70px" align="center"></column>
@@ -182,7 +182,10 @@
 						   			  </template>	
 						   			</rows>
 								</grid>
-						
+						   </div>
+						   <div align="center">
+						   	<button label="Update Set" sclass="mybutton" onClick="@command('onclickSetUpdate')"></button>
+						   	
 						   </div>	
 						</tabpanel>
 					</tabpanels>

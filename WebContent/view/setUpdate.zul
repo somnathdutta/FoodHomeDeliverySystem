@@ -1,0 +1,52 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window title="SET ITEM UPDATE" border="normal" apply="org.zkoss.bind.BindComposer" 
+        viewModel="@id('vm') @init('ViewModel.SetUpdateViewModel')" width="1000px" height="500px" closable="true">
+
+	<div>
+	   <hlayout spacing="20px">
+	   		<label value="Set" style="font-weight: bold"></label>
+	   		<textbox value="@bind(vm.setValueBean.setName)" width="120px" readonly="true"></textbox>
+	   		
+	   		<label value="Category" style="font-weight: bold"></label>
+	   		<combobox model="@bind(vm.categoryBeanList)" selectedItem="@bind(vm.categoryBean)" width="250px"
+	   			value="@bind(vm.categoryBean.categoryName)" onSelect="@command('onSelectCategory')" readonly="true">
+	   			<template name="model" var = "v">
+	   		     <comboitem value="@bind(v.categoryId)" label="@bind(v.categoryName)"></comboitem>
+	   		    </template>
+	   		</combobox>
+	   			
+	   </hlayout>	
+	   <space></space>	
+	   <div>
+	   	
+	   	<grid model="@bind(vm.itemSetList)">
+	   		<columns sizable="true">
+	   			<column width="65px" label="Select" align="center"></column>
+	   			<column width="70px" label="Item Code" align="center"></column>	
+	   			<column width="330px" label="Item Name" align="center"></column>
+	   			<column align="center" label="Description"></column>
+	   		</columns>
+	   		<rows>
+	   		  <template name="model" var = "v">	
+	   			<row>	
+	   				<checkbox value="@bind(v.checked)" width="100%"></checkbox>
+	   				<textbox value="@bind(v.itemCode)" readonly="true" width="100%"></textbox>
+	   				<textbox value="@bind(v.itemName)" readonly="true" width="100%"></textbox>
+	   				<textbox value="@bind(v.itemDescription)" readonly="true" width="100%"></textbox>	
+	   			</row>
+	   		  </template>
+	   		</rows>
+		</grid>
+			   
+	   </div>
+	   <space></space>
+	   <div align="center">
+	   	<button label="Add items" onClick="@command('onClickAddItemsUpdate')" sclass="mybutton" />
+		<button label="Save Set" onClick="@command('onClickSaveSetUpdate')" sclass="mybutton" />
+	   			
+	   </div>	
+	</div>
+
+</window>
+</zk>	

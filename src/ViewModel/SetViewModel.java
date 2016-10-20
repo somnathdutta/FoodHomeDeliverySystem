@@ -33,7 +33,7 @@ public class SetViewModel {
 	private SetBean setBean = new SetBean();
 	private ManageCategoryBean categoryBean = new ManageCategoryBean();
 	private ItemBean itemBean = new ItemBean();
-	private SetBean setValueBean;
+	private SetBean setValueBean = new SetBean();
 	
 	private ArrayList<SetBean> existingItemSetList;
 	private ArrayList<ItemBean> itemSetList = new ArrayList<ItemBean>();
@@ -44,9 +44,7 @@ public class SetViewModel {
 	private ArrayList<ManageCategoryBean> categoryBeanList = new ArrayList<ManageCategoryBean>();
 	
 	Session session = null;
-	
 	private Connection connection = null;
-	
 	private String userName = "";
 	
 	@AfterCompose
@@ -154,8 +152,22 @@ public class SetViewModel {
 	}
 	
 	
-	
-	
+	@Command
+	@NotifyChange("*")
+	public void onclickSetUpdate(){
+		
+		Map<String, SetBean> parentMap =  new HashMap<String, SetBean>();
+		
+		parentMap.put("parentObject", setValueBean);
+		
+		if(setValueBean.getSetId() != null){
+			Window orderDetailswindow = (Window) Executions.createComponents("setUpdate.zul", null, parentMap);
+			
+			orderDetailswindow.doModal();
+		}else {
+			Messagebox.show("Please Select Set!", "Alert", Messagebox.OK,Messagebox.EXCLAMATION);
+		}
+	}
 	
 	
 	public ArrayList<ItemBean> getItemSetList() {
