@@ -16,7 +16,7 @@ public class SetMasterSql {
 	
 	public static final String updateTodayStatusQuery = "update fapp_kitchen_items set is_active = 'Y' where item_code = ? and is_delete = 'N' ";
 	
-	public static final String updateTomorrowStatusQuery = "update fapp_kitchen_items set is_active_tomorrow = 'Y' where item_code = ? and and is_delete = 'N' " ;
+	public static final String updateTomorrowStatusQuery = "update fapp_kitchen_items set is_active_tomorrow = 'Y' where item_code = ? and is_delete = 'N' " ;
 	
 	public static final String upDateSetMasterQuery = "update fapp_set_master set order_type_id = ? where set_id = ? ";
 	
