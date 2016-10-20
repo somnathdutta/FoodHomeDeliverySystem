@@ -14,6 +14,7 @@ import org.zkoss.zul.Messagebox;
 
 import com.itextpdf.text.Phrase;
 
+import service.SetMasterService;
 import sql.SetMasterSql;
 import utility.FappPstm;
 import Bean.ItemBean;
@@ -187,7 +188,7 @@ public class SetDAO {
 	}
 	
 	public static ArrayList<SetBean> fetchDayTypeList(Connection connection){
-		ArrayList<SetBean> list = new ArrayList<SetBean>();
+	  ArrayList<SetBean> list = new ArrayList<SetBean>();
 		if(list.size()>0){
 			list.clear();
 		}
@@ -224,9 +225,10 @@ public class SetDAO {
 		
 	}
 	
-	public static int applyDayType(Connection connection, Integer dayTypeId, ArrayList<SetBean> itemCodeList){
-		int insertCount = 0;
-		String sql = null;
+	public static int applyDayType(Connection connection, Integer dayTypeId, ArrayList<SetBean> itemCodeList, int setId){
+	  int insertCount = 0;
+	  int count = 0;
+	  String sql = null;
 		PreparedStatement preparedStatement = null;
 		if(dayTypeId == 1){
 			sql = SetMasterSql.updateTodayStatusQuery;
@@ -235,11 +237,12 @@ public class SetDAO {
 			sql = SetMasterSql.updateTomorrowStatusQuery;
 		}
 		try {
+			connection.setAutoCommit(false);
+		try {
 			
 			for(SetBean bean : itemCodeList){
 				
 				preparedStatement = FappPstm.createQuery(connection, sql, Arrays.asList(bean.getItemBean().itemCode));
-				
 				insertCount = preparedStatement.executeUpdate();
 			}
 			
@@ -256,7 +259,44 @@ public class SetDAO {
 				}
 			}
 		}
-		return insertCount;
+		if(insertCount> 0){
+			PreparedStatement preparedStatement2 = null;
+			try {
+				preparedStatement2 = FappPstm.createQuery(connection, SetMasterSql.upDateSetMasterQuery, Arrays.asList(dayTypeId, setId));
+				count = preparedStatement2.executeUpdate();
+			
+			} catch (Exception e) {
+				String msg = e.getMessage();
+				Messagebox.show(msg, "Error", Messagebox.OK,Messagebox.ERROR);
+				e.printStackTrace();
+			}finally{
+				if(preparedStatement2 != null){
+					try {
+						preparedStatement2.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}
+		connection.commit();
+		} catch (Exception e) {
+			try {
+				connection.rollback();
+			} catch (SQLException e1) {
+				
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		}finally{
+			try {
+				connection.setAutoCommit(true);
+			} catch (SQLException e) {
+				
+				e.printStackTrace();
+			}
+		}
+		return count;
 	}
 	
 	

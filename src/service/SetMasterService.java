@@ -32,9 +32,9 @@ public class SetMasterService {
 		
 	}
 	
-	public static int applyDayTypeUpdate(Connection connection, Integer dayTypeId, ArrayList<SetBean> itemCodeList){
+	public static int applyDayTypeUpdate(Connection connection, Integer dayTypeId, ArrayList<SetBean> itemCodeList, int setId){
 		int i = 0;
-		return i = SetDAO.applyDayType(connection, dayTypeId, itemCodeList);
+		return i = SetDAO.applyDayType(connection, dayTypeId, itemCodeList, setId);
 	}
 	
 }

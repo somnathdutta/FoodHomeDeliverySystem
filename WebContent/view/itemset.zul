@@ -1,6 +1,6 @@
 <?page title="New Item Set" contentType="text/html;charset=UTF-8"?>
 <zk>
-	<window title="New Item Set" border="normal"
+	<window title="APPLY SET" border="normal"
 		apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('ViewModel.ItemSetViewModel')">
 		<div>

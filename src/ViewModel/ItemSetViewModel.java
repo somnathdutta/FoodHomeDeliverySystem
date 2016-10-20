@@ -66,19 +66,12 @@ Session session = null;
 	@NotifyChange("*")
 	public void onClickApply(){
 		int i = 0;
-		i = SetMasterService.applyDayTypeUpdate(connection, dayBean.getDayTypeId(), itemCodeList);
+		i = SetMasterService.applyDayTypeUpdate(connection, dayBean.getDayTypeId(), itemCodeList, setBean.getSetId());
 		if(i >0){
 			Messagebox.show("Saved Successfully", "Information", Messagebox.OK, Messagebox.INFORMATION);
 		}
 		
 	}
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	public Session getSession() {

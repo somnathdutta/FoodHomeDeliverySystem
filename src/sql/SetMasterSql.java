@@ -14,8 +14,12 @@ public class SetMasterSql {
 	
 	public static final String SelectDayTypeQuery = "select order_type_id, order_type, is_active, is_delete from  fapp_order_type_master ";
 	
-	public static final String updateTodayStatusQuery = "update fapp_kitchen_items set is_active = 'Y' where item_code = ? ";
+	public static final String updateTodayStatusQuery = "update fapp_kitchen_items set is_active = 'Y' where item_code = ? and is_delete = 'N' ";
 	
 	public static final String updateTomorrowStatusQuery = "update fapp_kitchen_items set is_active_tomorrow = 'Y' where item_code = ? " ;
+	
+	public static final String upDateSetMasterQuery = "update fapp_set_master set order_type_id = ? where set_id = ? ";
+	
+	
 	
 }
