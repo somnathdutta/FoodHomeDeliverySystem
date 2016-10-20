@@ -59,6 +59,7 @@
 					<tabs>
 						<tab label="Create New Item" />
 						<tab label="Show Items " />
+						<tab label="New User Items"></tab>
 					</tabs>
 
 					<tabpanels>
@@ -283,6 +284,51 @@
 								</rows>
 							</grid>
 						</tabpanel>
+					
+						<tabpanel>
+							<hlayout spacing="30px">
+								<combobox placeholder="Choose Cuisine" model="@bind(vm.newUserCuisineBeanList)" 
+								   width="250px" readonly="true" onSelect="@command('onSelectNewUserFetchCuisine')" selectedItem="@bind(vm.manageCuisinBean)" value="@bind(vm.manageCuisinBean.cuisinName)">
+									<template name="model" var = "v">
+										<comboitem label="@bind(v.cuisinName)" value="@bind(v.cuisinId)"></comboitem>
+									</template>
+								</combobox>
+								
+								<combobox model="@bind(vm.newUserCategoryBeanList)" placeholder="Choose Category" onSelect="@command('onSelectNewUserCategory')" selectedItem="@bind(vm.manageCategoryBean)"
+								  value="@bind(vm.manageCategoryBean.categoryName)" width="250px" readonly="true">
+									<template name="model" var = "v">
+									 <comboitem label="@bind(v.categoryName)" value="@bind(v.categoryId)"></comboitem>
+									</template>
+								</combobox>
+								
+							</hlayout>
+							<space></space>
+							
+							<grid model="@bind(vm.newUserItemBeanList)">
+								<columns sizable="true">
+									<column label="Item Code" style="font-weight: bold" width="100px" align="center"></column>
+									<column label="Item Name" style="font-weight: bold" width="250px" align="center"></column>
+									<column label="Item Description" style="font-weight: bold" width="500px" align="center"></column>
+									<column label="New User" style="font-weight: bold" width="120px" align="center"></column>
+								</columns>
+								
+								<rows>
+								  <template name="model" var = "v">	
+									<row>
+										<textbox value="@bind(v.itemCode)" width="100%" readonly="true"></textbox>
+										<textbox value="@bind(v.itemName)" width="100%" readonly="true"></textbox>
+										<textbox value="@bind(v.itemDescription)" width="98%" multiline="true" readonly="true"></textbox>
+										<combobox width="100%" readonly="true" value="@bind(v.status)" onSelect="@command('onSelctNewUserStatus', bean = v)">
+											<comboitem label="YES"></comboitem>
+											<comboitem label="NO"></comboitem>
+										</combobox>
+									</row>
+								  </template>	
+								</rows>
+							
+							</grid>
+						</tabpanel>
+						
 					</tabpanels>
 				</tabbox>
 

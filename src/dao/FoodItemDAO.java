@@ -10,6 +10,8 @@ import org.zkoss.zhtml.Pre;
 import org.zkoss.zul.Messagebox;
 
 import Bean.ItemBean;
+import Bean.ManageCategoryBean;
+import Bean.ManageCuisinBean;
 
 public class FoodItemDAO {
 
@@ -81,6 +83,14 @@ public class FoodItemDAO {
 							}else{
 								bean.itemTypeName = "";
 							}
+							if(resultSet.getString("apply_new_user").equals("Y")){
+								bean.status = "YES";
+							}else {
+								bean.status = "NO";
+							}
+							
+							
+							
 							itemBeanList.add(bean);
 						}
 					} catch (Exception e) {
@@ -124,4 +134,86 @@ public class FoodItemDAO {
 		}
 		return alaCarteTypeList;
 	}
+
+	public static ArrayList<ManageCuisinBean> loadCuisineList(Connection connection){
+		ArrayList<ManageCuisinBean> list = new ArrayList<ManageCuisinBean>();
+		if(list.size()>0){
+			list.clear();
+		}
+		
+		try {
+			SQL:{
+					PreparedStatement preparedStatement = null;
+					ResultSet  resultSet = null;
+					String sql = "SELECT cuisin_name,cuisin_id FROM fapp_cuisins WHERE is_delete = 'N' order by cuisin_id";
+					
+					try {
+						preparedStatement = connection.prepareStatement(sql);
+						resultSet =  preparedStatement.executeQuery();
+						while (resultSet.next()) {
+							ManageCuisinBean cuisinBean = new ManageCuisinBean();
+							cuisinBean.cuisinName =  resultSet.getString("cuisin_name");
+							cuisinBean.cuisinId = resultSet.getInt("cuisin_id");
+								
+							list.add(cuisinBean);
+						}
+						
+					}catch (Exception e) {
+						Messagebox.show("Error Due To: "+e.getMessage(), "Error", Messagebox.OK, Messagebox.ERROR);
+						e.printStackTrace();
+						} finally{
+						if(preparedStatement!=null){
+							preparedStatement.close();
+						}
+					}	
+			}
+				
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+	
+	public static ArrayList<ManageCategoryBean> loadCategoryList(Connection connection, int cuisineId){
+		ArrayList<ManageCategoryBean> list = new ArrayList<ManageCategoryBean>();
+		if(list.size()>0){
+			list.clear();
+		}
+		
+		try {
+			SQL:{
+					PreparedStatement preparedStatement = null;
+					ResultSet  resultSet = null;
+					String sql = "SELECT category_name,category_id FROM food_category WHERE area_id IS NULL AND is_delete = 'N' "
+							+ "AND cuisine_id = ?";
+					
+					try {
+						preparedStatement = connection.prepareStatement(sql);
+						preparedStatement.setInt(1, cuisineId);
+						resultSet =  preparedStatement.executeQuery();
+						while (resultSet.next()) {
+							ManageCategoryBean categoryBean = new ManageCategoryBean();
+							categoryBean.categoryId = resultSet.getInt("category_id");
+							categoryBean.categoryName = resultSet.getString("category_name");
+							list.add(categoryBean);
+						}
+						
+					}catch (Exception e) {
+						Messagebox.show("Error Due To: "+e.getMessage(), "Error", Messagebox.OK, Messagebox.ERROR);
+						e.printStackTrace();
+						} finally{
+						if(preparedStatement!=null){
+							preparedStatement.close();
+						}
+					}	
+			}
+				
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return list;
+	}
+
+
 }

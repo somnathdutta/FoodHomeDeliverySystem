@@ -29,6 +29,7 @@ import org.zkoss.zk.ui.event.UploadEvent;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zul.Messagebox;
 
+import service.FoodItemService;
 import dao.FoodItemDAO;
 import Bean.ItemBean;
 import Bean.ManageCategoryBean;
@@ -57,6 +58,15 @@ public class FooditemVieModel {
 	private String userName = "";
 	
 	private ArrayList<ManageCuisinBean> cuisineBeanList =  new ArrayList<ManageCuisinBean>();
+	
+	ManageCuisinBean manageCuisinBean = new ManageCuisinBean();
+	ManageCategoryBean manageCategoryBean = new ManageCategoryBean();
+	ItemBean newUserItemBean = new ItemBean();
+	
+	
+	private ArrayList<ManageCuisinBean> newUserCuisineBeanList;
+	private ArrayList<ManageCategoryBean> NewUserCategoryBeanList;
+	private ArrayList<ItemBean> newUserItemBeanList;
 	
 	public Boolean saveButtonVisibility = true, typeVisibility = false;
 	
@@ -87,6 +97,8 @@ public class FooditemVieModel {
 		
 		//loadQuery();
 		onLoadCuisineList();
+		newUserCuisineBeanList = FoodItemService.fetchCuisineList(connection);
+		
 		
 	}
 	
@@ -634,6 +646,27 @@ public class FooditemVieModel {
 		this.categoryBeanList = categoryBeanList;
 	}
 
+	
+	@Command
+	@NotifyChange("*")
+	public void onSelectNewUserFetchCuisine(){
+		
+		NewUserCategoryBeanList = FoodItemService.fetchCategory(connection, manageCuisinBean.cuisinId);
+		newUserItemBeanList = FoodItemDAO.loadFoodItems(connection, manageCuisinBean.cuisinId, 0);
+	}
+	
+	@Command
+	@NotifyChange("*")
+	public void onSelectNewUserCategory(){
+		newUserItemBeanList = FoodItemDAO.loadFoodItems(connection, manageCuisinBean.cuisinId, manageCategoryBean.categoryId);
+	}
+	
+	@Command
+	@NotifyChange("*")
+	public void onSelctNewUserStatus(@BindingParam("bean") ItemBean bean ){
+		System.out.println("Status ---------------------->>> >> > " + bean.status);
+	}
+	
 	public Session getSession() {
 		return session;
 	}
@@ -784,6 +817,56 @@ public class FooditemVieModel {
 
 	public void setAlaCarteTypeBean(ItemBean alaCarteTypeBean) {
 		this.alaCarteTypeBean = alaCarteTypeBean;
+	}
+
+	public ManageCuisinBean getManageCuisinBean() {
+		return manageCuisinBean;
+	}
+
+	public void setManageCuisinBean(ManageCuisinBean manageCuisinBean) {
+		this.manageCuisinBean = manageCuisinBean;
+	}
+
+	public ManageCategoryBean getManageCategoryBean() {
+		return manageCategoryBean;
+	}
+
+	public void setManageCategoryBean(ManageCategoryBean manageCategoryBean) {
+		this.manageCategoryBean = manageCategoryBean;
+	}
+
+	public ArrayList<ManageCuisinBean> getNewUserCuisineBeanList() {
+		return newUserCuisineBeanList;
+	}
+
+	public void setNewUserCuisineBeanList(
+			ArrayList<ManageCuisinBean> newUserCuisineBeanList) {
+		this.newUserCuisineBeanList = newUserCuisineBeanList;
+	}
+
+	public ArrayList<ManageCategoryBean> getNewUserCategoryBeanList() {
+		return NewUserCategoryBeanList;
+	}
+
+	public void setNewUserCategoryBeanList(
+			ArrayList<ManageCategoryBean> newUserCategoryBeanList) {
+		NewUserCategoryBeanList = newUserCategoryBeanList;
+	}
+
+	public ItemBean getNewUserItemBean() {
+		return newUserItemBean;
+	}
+
+	public void setNewUserItemBean(ItemBean newUserItemBean) {
+		this.newUserItemBean = newUserItemBean;
+	}
+
+	public ArrayList<ItemBean> getNewUserItemBeanList() {
+		return newUserItemBeanList;
+	}
+
+	public void setNewUserItemBeanList(ArrayList<ItemBean> newUserItemBeanList) {
+		this.newUserItemBeanList = newUserItemBeanList;
 	}
 
 	
