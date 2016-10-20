@@ -3,7 +3,7 @@
 
 	<window title="Set Item Details" border="normal" width="50%"
 		closable="true" contentStyle="overflow:scroll;"
-		apply="org.zkoss.bind.BindComposer" height="70%"
+		apply="org.zkoss.bind.BindComposer" height="70%" id ="setDetWin"
 		viewModel="@id('vm')@init('ViewModel.SetDetailsViewModel')">
 		<style>
 			.fgrid tr.z-row td.z-row-inner,tr.z-row,div.z-grid-body

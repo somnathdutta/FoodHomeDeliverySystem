@@ -80,7 +80,7 @@
 											style="font-weight:bold" />
 										<combobox readonly="true"
 												placeholder="[Choose Category]" width="100%"
-												value="@bind(vm.itemBean.categoryName)"
+												value="@bind(vm.categoryBean.categoryName)"
 												selectedItem="@bind(vm.categoryBean)"
 												model="@bind(vm.categoryBeanList)" autocomplete="true"
 												autodrop="true"
@@ -146,7 +146,7 @@
 						   <div sclass="effect8">
 						    <space></space>
 						   	<hlayout>
-						   	  <combobox placeholder="Choose Set" model="@bind(vm.setList)" value="@bind(vm.setBean.setName)" 
+						   	  <combobox placeholder="Choose Set" model="@bind(vm.setList)" value="@bind(vm.setValueBean.setName)" 
 						   		   selectedItem="@bind(vm.setBean)" onSelect="@command('onSelectSet')" readonly="true">
 						   			<template name="model" var = "v">	
 						   				<comboitem label="@bind(v.setName)" value="@bind(v.setId)"></comboitem>

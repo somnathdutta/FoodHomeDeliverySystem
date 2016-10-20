@@ -11,6 +11,7 @@ import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
+import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
@@ -32,6 +33,7 @@ public class SetViewModel {
 	private SetBean setBean = new SetBean();
 	private ManageCategoryBean categoryBean = new ManageCategoryBean();
 	private ItemBean itemBean = new ItemBean();
+	private SetBean setValueBean;
 	
 	private ArrayList<SetBean> existingItemSetList;
 	private ArrayList<ItemBean> itemSetList = new ArrayList<ItemBean>();
@@ -72,7 +74,10 @@ public class SetViewModel {
 	@Command
 	@NotifyChange("*")
 	public void onSelectCategoryName(){
+		System.out.println("Category Name " + categoryBean.categoryName);
+		
 		itemSetList = SetDAO.loadItemsFromCategory(connection, categoryBean.categoryId);
+		
 	}
 
 	@Command
@@ -112,7 +117,7 @@ public class SetViewModel {
 	@Command
 	@NotifyChange("*")
 	public void onSelectSet(){
-		existingItemSetList = SetMasterService.fetchExistingSetDetais(connection, setBean.getSetId());
+		existingItemSetList = SetMasterService.fetchExistingSetDetais(connection, setValueBean.getSetId());
 		
 		if(existingItemSetList.size()==0){
 			Messagebox.show("No Item Added", "Alert", Messagebox.OK,Messagebox.EXCLAMATION);
@@ -125,6 +130,23 @@ public class SetViewModel {
 	public void onSelectStatus(){
 		System.out.println("Status " + setBean.getItemBean().getStatus());
 	}
+	
+	@GlobalCommand
+	@NotifyChange("*")
+	public void setDetailsGlobalUpdate(){
+		
+	setBean.setSetName(null);
+	categoryBeanList.clear();
+	categoryBean.categoryName= null;
+	setBean.getItemBean().categoryName=null;
+	categoryBeanList = SetDAO.onLoadCategoryList(connection);
+	setList = SetMasterService.fetchSetList(connection);	
+	}
+	
+	
+	
+	
+	
 	
 	public ArrayList<ItemBean> getItemSetList() {
 		return itemSetList;
@@ -212,5 +234,13 @@ public class SetViewModel {
 
 	public void setSetList(ArrayList<SetBean> setList) {
 		this.setList = setList;
+	}
+
+	public SetBean getSetValueBean() {
+		return setValueBean;
+	}
+
+	public void setSetValueBean(SetBean setValueBean) {
+		this.setValueBean = setValueBean;
 	}
 }

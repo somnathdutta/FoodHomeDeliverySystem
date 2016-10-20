@@ -3,6 +3,7 @@ package ViewModel;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
@@ -13,7 +14,9 @@ import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Session;
 import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.select.Selectors;
+import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Messagebox;
+import org.zkoss.zul.Window;
 
 import dao.SetDetailsSaveDao;
 import Bean.ItemBean;
@@ -32,6 +35,9 @@ public class SetDetailsViewModel {
 	private Connection connection = null;
 	
 	private String userName = "";
+	
+	@Wire("#setDetWin")
+	private Window setDetWinUpdate;
 	
 	@AfterCompose
 	public void initSetup(@ContextParam(ContextType.VIEW) Component view,
@@ -61,6 +67,10 @@ public class SetDetailsViewModel {
 	public void onclickFinalSave(){
 		int i = SetDetailsSaveDao.setDetailsSave(connection, setBean.getSetName(), userName, setBean);
 		if(i>0){
+			BindUtils.postGlobalCommand(null, null, "setDetailsGlobalUpdate", null);
+			
+			setDetWinUpdate.detach();
+			
 			Messagebox.show("Saved Successfully", "Information", Messagebox.OK, Messagebox.INFORMATION);
 		}
 		
