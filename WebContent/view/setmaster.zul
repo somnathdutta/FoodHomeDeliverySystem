@@ -147,7 +147,7 @@
 						    <space></space>
 						   	<hlayout>
 						   	  <combobox placeholder="Choose Set" model="@bind(vm.setList)" value="@bind(vm.setValueBean.setName)" 
-						   		   selectedItem="@bind(vm.setBean)" onSelect="@command('onSelectSet')" readonly="true">
+						   		   selectedItem="@bind(vm.setValueBean)" onSelect="@command('onSelectSet')" readonly="true">
 						   			<template name="model" var = "v">	
 						   				<comboitem label="@bind(v.setName)" value="@bind(v.setId)"></comboitem>
 						   			</template>

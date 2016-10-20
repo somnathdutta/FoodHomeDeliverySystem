@@ -74,7 +74,6 @@ public class SetViewModel {
 	@Command
 	@NotifyChange("*")
 	public void onSelectCategoryName(){
-		System.out.println("Category Name " + categoryBean.categoryName);
 		
 		itemSetList = SetDAO.loadItemsFromCategory(connection, categoryBean.categoryId);
 		

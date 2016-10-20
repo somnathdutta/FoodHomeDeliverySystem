@@ -10,9 +10,9 @@ public class SetMasterSql {
 	
 	public static final String selctExsistingSetQuery = "select * from vw_set_item_food_details where set_id = ? ";
 	
-	public static final String selectSetListQuery = "select set_id, set_name from  fapp_set_master where is_delete ='N' and is_active = 'Y' ";
+	public static final String selectSetListQuery = "select set_id, set_name from  fapp_set_master where is_delete ='N' and is_active = 'Y' order by set_id ";
 	
-	public static final String SelectDayTypeQuery = "select order_type_id, order_type, is_active, is_delete from  fapp_order_type_master ";
+	public static final String SelectDayTypeQuery = "select order_type_id, order_type, is_active, is_delete from  fapp_order_type_master order by order_type_id ";
 	
 	public static final String updateTodayStatusQuery = "update fapp_kitchen_items set is_active = 'Y' where item_code = ? and is_delete = 'N' ";
 	
