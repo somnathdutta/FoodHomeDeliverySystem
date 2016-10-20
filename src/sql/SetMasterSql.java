@@ -22,6 +22,9 @@ public class SetMasterSql {
 	
 	public static final String updateSetItemStatus = "update fapp_set_item set is_active = ? where set_item_id = ? ";
 	
+	public static final String fetchExistingSetItemQuery = "select item_code from vw_set_item_food_details where set_id = ? ";
+	
+	public static final String selectSetItemQuery = "select item_id,item_code,item_name,item_description from vw_food_item_details where category_id = ? and item_id <> in ";
 	
 	
 }

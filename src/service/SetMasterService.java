@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import dao.SetDAO;
 import dao.SetDetailsSaveDao;
+import Bean.ItemBean;
 import Bean.SetBean;
 
 public class SetMasterService {
@@ -42,5 +43,15 @@ public class SetMasterService {
 		return i = SetDAO.statusUpdate(connection, status, setItemId);
 	}
 	
+	public static ArrayList<String> fetchExistIngCodeList(Connection connection, Integer setId){
+		ArrayList<String> list = new ArrayList<String>();
+		return list = SetDAO.fetchExistingSetItemCode(connection, setId);
+	}
+	
+	public static ArrayList<ItemBean> loadItemsFromCategoryUpdate(Connection  connection, int categoryId, String codeString){
+		ArrayList<ItemBean> itemBeanList = new ArrayList<ItemBean>();
+		return itemBeanList = SetDAO.loadItemsFromCategoryUpdate(connection, categoryId, codeString);
+		
+	}
 	
 }

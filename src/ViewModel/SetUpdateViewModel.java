@@ -1,11 +1,13 @@
 package ViewModel;
 
+import java.io.BufferedReader;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 
+import org.json.simple.ItemList;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
@@ -20,6 +22,10 @@ import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
+
+import service.SetMasterService;
 import dao.SetDAO;
 import Bean.ItemBean;
 import Bean.ManageCategoryBean;
@@ -39,11 +45,13 @@ public class SetUpdateViewModel {
 	private ArrayList<ItemBean> itemSetList = new ArrayList<ItemBean>();
 	private HashSet<SetBean> setBeanWithItemList = new HashSet<SetBean>();
 	private ArrayList<SetBean> setList;
+	private ArrayList<String> codeList;
 	
 	
 	Session session = null;
 	private Connection connection = null;
 	private String userName = "";
+	private String itemCodeString;
 	
 	@AfterCompose
 	public void initSetup(@ContextParam(ContextType.VIEW) Component view,
@@ -58,13 +66,30 @@ public class SetUpdateViewModel {
 		
 		setValueBean = setbean;
 		categoryBeanList = SetDAO.onLoadCategoryList(connection);
+		itemCodeString = itemCode();
 	}
+	
+	public String itemCode(){
+		codeList = SetMasterService.fetchExistIngCodeList(connection, setValueBean.getSetId());
+		String codeString = null;
+		ArrayList<String> newCodeList = new ArrayList<String>();
+		for(String str : codeList){
+			newCodeList.add("'"+str+"'");
+		}
+		
+		String temp = newCodeList.toString();
+		codeString = temp.replace("[", "(");
+		codeString = codeString.replace("]", ")");
+		return codeString;
+	}
+	
+	
+	
 	
 	@Command
 	@NotifyChange("*")
 	public void onSelectCategory(){
-		
-		itemSetList = SetDAO.loadItemsFromCategory(connection, categoryBean.categoryId);
+		itemSetList = SetMasterService.loadItemsFromCategoryUpdate(connection, categoryBean.categoryId, itemCodeString);
 	}
 	
 	
@@ -78,8 +103,7 @@ public class SetUpdateViewModel {
 				added = true;
 			}
 		}
-		System.out.println("ADDED " + added);
-		System.out.println("Size  " + setValueBean.getItemList().size());
+		
 		if(added){
 			itemSetList.clear();
 			categoryBean.categoryName = null;

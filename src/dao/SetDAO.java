@@ -315,4 +315,68 @@ public class SetDAO {
 		return i;
 	}
 	
+	public static ArrayList<String> fetchExistingSetItemCode(Connection connection, Integer setId){
+		ArrayList<String> codeList = new ArrayList<String>();
+		if(codeList.size()>0){
+			codeList.clear();
+		}
+		try {
+			PreparedStatement preparedStatement = null;
+			try {
+				preparedStatement = FappPstm.createQuery(connection, SetMasterSql.fetchExistingSetItemQuery, Arrays.asList(setId));
+				ResultSet resultSet = preparedStatement.executeQuery();
+				
+				while (resultSet.next()) {
+					codeList.add(resultSet.getString("item_code"));
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return codeList;
+		
+	}
+	
+	public static ArrayList<ItemBean> loadItemsFromCategoryUpdate(Connection  connection, int categoryId, String codeString){
+		ArrayList<ItemBean> itemBeanList = new ArrayList<ItemBean>();
+		if(itemBeanList.size()>0){
+			itemBeanList.clear();
+		}
+		System.out.println("Codes - " + codeString);
+		try {
+			SQL:{
+			 PreparedStatement preparedStatement = null;
+			 ResultSet resultSet = null;
+			 String sql = "select item_id,item_code,item_name,item_description "
+			 		+ " from vw_food_item_details where category_id = ? and item_code not IN "+codeString;
+			 
+			 try {
+				preparedStatement = connection.prepareStatement(sql);
+				preparedStatement.setInt(1, categoryId);
+				
+				resultSet = preparedStatement.executeQuery();
+				while (resultSet.next()) {
+					ItemBean item = new ItemBean();
+					item.itemId = resultSet.getInt("item_id");
+					item.itemCode = resultSet.getString("item_code");
+					item.itemName = resultSet.getString("item_name");
+					item.itemDescription = resultSet.getString("item_description");
+					itemBeanList.add(item);
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+				Messagebox.show("ERROR Due to: "+e.getMessage(),"ERROR",Messagebox.OK,Messagebox.ERROR);
+			}
+		}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return itemBeanList;
+	}
+	
 }
