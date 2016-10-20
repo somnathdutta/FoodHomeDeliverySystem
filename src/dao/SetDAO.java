@@ -184,7 +184,81 @@ public class SetDAO {
 		}
 		
 		return list;
+	}
+	
+	public static ArrayList<SetBean> fetchDayTypeList(Connection connection){
+		ArrayList<SetBean> list = new ArrayList<SetBean>();
+		if(list.size()>0){
+			list.clear();
+		}
+		PreparedStatement preparedStatement = null;
+		try {
+			preparedStatement = FappPstm.createQuery(connection, SetMasterSql.SelectDayTypeQuery, null);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				SetBean bean = new SetBean();
+				
+				bean.setDayTypeId(resultSet.getInt("order_type_id"));
+				bean.setDayType(resultSet.getString("order_type"));
+				
+				list.add(bean);
+				
+			}
+			
+		} catch (Exception e) {
+			String msg = e.getMessage();
+			Messagebox.show(msg, "Error", Messagebox.OK,Messagebox.ERROR);
+			e.printStackTrace();
+		}finally{
+			if(preparedStatement != null){
+				try {
+					preparedStatement.close();
+				} catch (SQLException e) {
+					
+					e.printStackTrace();
+				}
+			}
+		}
 		
+		return list;
 		
 	}
+	
+	public static int applyDayType(Connection connection, Integer dayTypeId, ArrayList<SetBean> itemCodeList){
+		int insertCount = 0;
+		String sql = null;
+		PreparedStatement preparedStatement = null;
+		if(dayTypeId == 1){
+			sql = SetMasterSql.updateTodayStatusQuery;
+		}
+		if(dayTypeId == 2){
+			sql = SetMasterSql.updateTomorrowStatusQuery;
+		}
+		try {
+			
+			for(SetBean bean : itemCodeList){
+				
+				preparedStatement = FappPstm.createQuery(connection, sql, Arrays.asList(bean.getItemBean().itemCode));
+				System.out.println("update query " + preparedStatement);
+				insertCount = preparedStatement.executeUpdate();
+			}
+			
+		} catch (Exception e) {
+			String msg = e.getMessage();
+			Messagebox.show(msg, "Error", Messagebox.OK,Messagebox.ERROR);
+			e.printStackTrace();
+		}finally{
+			if(preparedStatement != null){
+				try {
+					preparedStatement.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return insertCount;
+	}
+	
+	
+	
 }

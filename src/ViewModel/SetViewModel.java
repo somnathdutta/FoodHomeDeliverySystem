@@ -112,9 +112,8 @@ public class SetViewModel {
 	@Command
 	@NotifyChange("*")
 	public void onSelectSet(){
-		System.out.println("Set Selected");
-		System.out.println("Set Id >>> >> > " + setBean.getSetId());
 		existingItemSetList = SetMasterService.fetchExistingSetDetais(connection, setBean.getSetId());
+		
 		if(existingItemSetList.size()==0){
 			Messagebox.show("No Item Added", "Alert", Messagebox.OK,Messagebox.EXCLAMATION);
 		}

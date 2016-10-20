@@ -26,5 +26,15 @@ public class SetMasterService {
 		
 	}
 	
+	public static ArrayList<SetBean> fetchDayTypeList(Connection connection){
+		ArrayList<SetBean> list = new ArrayList<SetBean>();
+		return list = SetDAO.fetchDayTypeList(connection);
+		
+	}
+	
+	public static int applyDayTypeUpdate(Connection connection, Integer dayTypeId, ArrayList<SetBean> itemCodeList){
+		int i = 0;
+		return i = SetDAO.applyDayType(connection, dayTypeId, itemCodeList);
+	}
 	
 }

@@ -7,6 +7,10 @@ public class SetBean {
 	private String setName;
 	private int setId;
 	private boolean setNameVis;
+	private Integer dayTypeId;
+	private String dayType;
+	
+	
 	
 	private ItemBean itemBean = new ItemBean();
 	private ArrayList<ItemBean> itemList = new ArrayList<ItemBean>();
@@ -49,6 +53,22 @@ public class SetBean {
 
 	public void setSetNameVis(boolean setNameVis) {
 		this.setNameVis = setNameVis;
+	}
+
+	public Integer getDayTypeId() {
+		return dayTypeId;
+	}
+
+	public void setDayTypeId(Integer dayTypeId) {
+		this.dayTypeId = dayTypeId;
+	}
+
+	public String getDayType() {
+		return dayType;
+	}
+
+	public void setDayType(String dayType) {
+		this.dayType = dayType;
 	}
 	
 }

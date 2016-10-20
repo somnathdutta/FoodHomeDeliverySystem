@@ -1,6 +1,43 @@
 <?page title="New Item Set" contentType="text/html;charset=UTF-8"?>
 <zk>
-<window title="New Item Set" border="normal">
-New Content Here!
-</window>
+	<window title="New Item Set" border="normal"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('ViewModel.ItemSetViewModel')">
+		<div>
+			<hlayout spacing="40px">
+				<combobox placeholder="Choose Set"
+					model="@bind(vm.setList)" selectedItem="@bind(vm.setBean)"
+					value="@bind(vm.setBean.setName)"
+					onSelect="@command('onSelectSet')" readonly="true">
+					<template name="model" var="v">
+						<comboitem value="@bind(v.setId)"
+							label="@bind(v.setName)">
+						</comboitem>
+					</template>
+				</combobox>
+
+				<combobox placeholder="Choose Day Type"
+					onSelect="@command('onSelectDayType')" readonly="true"
+					model="@bind(vm.dayTypeList)" selectedItem="@bind(vm.dayBean)"
+					value="@bind(vm.setBean.dayType)">
+					<template name="model" var="v">
+						<comboitem value="@bind(v.dayTypeId)"
+							label="@bind(v.dayType)">
+						</comboitem>
+					</template>
+				</combobox>
+
+				<button label="Apply" style="font-weight: bold" sclass="mybutton"
+					width="80px" onClick="@command('onClickApply')">
+				</button>
+
+			</hlayout>
+		</div>
+
+		<div>
+
+
+
+		</div>
+	</window>
 </zk>
