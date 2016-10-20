@@ -22,11 +22,11 @@ public class ManageDeliveryBoyBean {
 	public Boolean isActiveChecked=false;
 	public Integer deliveryBoyId;
 	
-	public String deliveryBoyUserId;
+	public String deliveryBoyUserId,userName;
 	
 	public String password;
 	
-	public String status;
+	public String status,isPickJiBoy;
 	public String boyStatus;
 	public int boyStatusId;
 	public String orderAssigned;
@@ -200,6 +200,18 @@ public class ManageDeliveryBoyBean {
 	}
 	public void setBoyStatusList(ArrayList<BoyStatus> boyStatusList) {
 		this.boyStatusList = boyStatusList;
+	}
+	public String getIsPickJiBoy() {
+		return isPickJiBoy;
+	}
+	public void setIsPickJiBoy(String isPickJiBoy) {
+		this.isPickJiBoy = isPickJiBoy;
+	}
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 	
 	

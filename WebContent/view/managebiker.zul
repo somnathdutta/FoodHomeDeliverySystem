@@ -62,6 +62,18 @@
 							<column align="left" />
 						</columns>
 						<rows>
+						<row>
+						<label/>
+						<label value="Select kitchen" style="font-weight:bold"/>
+								<combobox model="@bind(vm.kitchenList)" onSelect="@command('onSelectKitchen')"
+								 value="@bind(vm.manageDeliveryBoyBean.kitchenName)"
+								selectedItem="@bind(vm.kicthenBean)" >
+									<template name="model" var="v">
+										<comboitem label="@load(v.kitchenName)" value="@load(v.kitchenId)" />
+									</template>
+								</combobox>
+						<label/>		
+						</row>
 							<row>
 								<label value="Name"
 									style="font-weight:bold;" />
@@ -114,8 +126,14 @@
 							</row>
 
 							<row>
-								<label />
-								<label />
+								<label value="Is pickJi BOY?"
+									style="font-weight:bold;" />
+								<combobox
+									placeholder="[YES/NO]" width="130px"
+									value="@bind(vm.manageDeliveryBoyBean.isPickJiBoy)">
+									<comboitem label="YES" />
+									<comboitem label="NO" />
+								</combobox>
 								<div align="right">
 									<vbox>
 										<button
@@ -128,6 +146,10 @@
 											visible="@bind(vm.updateButtonVisibility)" />
 									</vbox>
 								</div>
+								<button
+											label="Cancel" sclass="mybutton"
+											onClick="@command('onClickCancel')"
+											 />
 							</row>
 						</rows>
 					</grid>
