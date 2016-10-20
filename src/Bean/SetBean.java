@@ -9,7 +9,7 @@ public class SetBean {
 	private boolean setNameVis;
 	private Integer dayTypeId;
 	private String dayType;
-	
+	private Integer setItemId;
 	
 	
 	private ItemBean itemBean = new ItemBean();
@@ -69,6 +69,14 @@ public class SetBean {
 
 	public void setSetId(Integer setId) {
 		this.setId = setId;
+	}
+
+	public Integer getSetItemId() {
+		return setItemId;
+	}
+
+	public void setSetItemId(Integer setItemId) {
+		this.setItemId = setItemId;
 	}
 	
 }

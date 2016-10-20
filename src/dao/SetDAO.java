@@ -164,7 +164,7 @@ public class SetDAO {
 				}else {
 					bean.getItemBean().setStatus("Inactive");
 				}
-				
+				bean.setSetItemId(resultSet.getInt("set_item_id"));
 				list.add(bean);
 				
 			}
@@ -299,6 +299,20 @@ public class SetDAO {
 		return count;
 	}
 	
-	
+	public static int statusUpdate(Connection connection,String status,  int setItemId){
+		int i = 0;
+		PreparedStatement preparedStatement = null;
+		try {
+			preparedStatement = FappPstm.createQuery(connection, SetMasterSql.updateSetItemStatus, Arrays.asList(status, setItemId));
+			i = preparedStatement.executeUpdate();
+			
+		} catch (Exception e) {
+			String msg = e.getMessage();
+			Messagebox.show(msg, "Error", Messagebox.OK,Messagebox.ERROR);
+			e.printStackTrace();
+			e.printStackTrace();
+		}
+		return i;
+	}
 	
 }

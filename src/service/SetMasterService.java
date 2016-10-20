@@ -37,4 +37,10 @@ public class SetMasterService {
 		return i = SetDAO.applyDayType(connection, dayTypeId, itemCodeList, setId);
 	}
 	
+	public static int updateStatus(Connection connection, String status, int setItemId){
+		int i = 0;
+		return i = SetDAO.statusUpdate(connection, status, setItemId);
+	}
+	
+	
 }

@@ -20,6 +20,8 @@ public class SetMasterSql {
 	
 	public static final String upDateSetMasterQuery = "update fapp_set_master set order_type_id = ? where set_id = ? ";
 	
+	public static final String updateSetItemStatus = "update fapp_set_item set is_active = ? where set_item_id = ? ";
+	
 	
 	
 }

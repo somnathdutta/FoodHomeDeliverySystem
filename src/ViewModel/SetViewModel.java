@@ -127,9 +127,17 @@ public class SetViewModel {
 	@Command
 	@NotifyChange("*")
 	public void onSelectStatus(@BindingParam("bean") SetBean bean){
+		String status = null;
+		if(bean.getItemBean().getStatus().equalsIgnoreCase("Active")){
+			status = "Y";
+		}else {
+			status = "N";
+		}
 		
-		
-		
+		int i = SetMasterService.updateStatus(connection, status, bean.getSetItemId());
+		if(i>0){
+			Messagebox.show("Status Updated!", "Information", Messagebox.OK,Messagebox.INFORMATION);
+		}
 		
 	}
 	
