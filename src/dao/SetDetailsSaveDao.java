@@ -15,6 +15,8 @@ public class SetDetailsSaveDao {
 	public static int setDetailsSave(Connection connection, String setName, String userName, SetBean setBean){
 		int i = 0;
 		int j = 0;
+		System.out.println("SET ------------------- ID ---------- >>> >> > " + setBean.getSetId());
+		if(setBean.getSetId() == null){
 		PreparedStatement preparedStatement = null;
 		try {
 			int generatedKey= 0;
@@ -24,10 +26,10 @@ public class SetDetailsSaveDao {
 			preparedStatement.setString(1, setName);
 			preparedStatement.setString(2, userName);
 			preparedStatement.setString(3, userName);
-			System.out.println("prep q " + preparedStatement);
+			
 			j = preparedStatement.executeUpdate();
-			//ResultSet resultSet = preparedStatement.getGeneratedKeys();
-			/*if(resultSet.next()){
+			/*ResultSet resultSet = preparedStatement.getGeneratedKeys();
+			if(resultSet.next()){
 				generatedKey = resultSet.getInt(1);
 				System.out.println("generated key " + generatedKey);
 			}*/
@@ -69,6 +71,21 @@ public class SetDetailsSaveDao {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+		}else {
+			PreparedStatement preparedStatement = null;
+			try {
+				for(ItemBean setbn : setBean.getItemList()){
+					
+					preparedStatement = FappPstm.createQuery(connection, SetMasterSql.insertSetItemQuery, Arrays.asList(setBean.getSetId(), setbn.getItemCode(), userName, userName ));
+				
+				    i = preparedStatement.executeUpdate();
+				
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+			
 		}
 		
 		return i;

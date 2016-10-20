@@ -59,7 +59,7 @@
 					<hlayout>
 						<label value="Set Name"
 							style="font-weight:bold" />
-						<textbox value="@bind(vm.setBean.setName)" />
+						<textbox value="@bind(vm.setBean.setName)" readonly="true"/>
 					</hlayout>
 				</div>
 

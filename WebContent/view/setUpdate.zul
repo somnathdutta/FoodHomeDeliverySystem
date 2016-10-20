@@ -30,7 +30,7 @@
 	   		<rows>
 	   		  <template name="model" var = "v">	
 	   			<row>	
-	   				<checkbox value="@bind(v.checked)" width="100%"></checkbox>
+	   				<checkbox checked="@bind(v.checked)" width="100%"></checkbox>
 	   				<textbox value="@bind(v.itemCode)" readonly="true" width="100%"></textbox>
 	   				<textbox value="@bind(v.itemName)" readonly="true" width="100%"></textbox>
 	   				<textbox value="@bind(v.itemDescription)" readonly="true" width="100%"></textbox>	

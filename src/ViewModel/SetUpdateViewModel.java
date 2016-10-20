@@ -74,12 +74,12 @@ public class SetUpdateViewModel {
 		boolean added = false;
 		for(ItemBean bean : itemSetList){
 			if(bean.isChecked){
-				setBean.getItemList().add(bean);
+				setValueBean.getItemList().add(bean);
 				added = true;
 			}
 		}
 		System.out.println("ADDED " + added);
-		System.out.println("Size  " + setBean.getItemList().size());
+		System.out.println("Size  " + setValueBean.getItemList().size());
 		if(added){
 			itemSetList.clear();
 			categoryBean.categoryName = null;
@@ -97,8 +97,8 @@ public class SetUpdateViewModel {
 		
 		Map<String, SetBean> parentMap =  new HashMap<String, SetBean>();
 		
-		parentMap.put("parentObject", setBean);
-		if(setBean.getItemList().size() > 0){
+		parentMap.put("parentObject", setValueBean);
+		if(setValueBean.getItemList().size() > 0){
 			Window orderDetailswindow = (Window) Executions.createComponents("setDetails.zul", null, parentMap);
 			
 			orderDetailswindow.doModal();
