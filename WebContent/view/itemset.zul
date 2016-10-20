@@ -19,7 +19,7 @@
 				<combobox placeholder="Choose Day Type"
 					onSelect="@command('onSelectDayType')" readonly="true"
 					model="@bind(vm.dayTypeList)" selectedItem="@bind(vm.dayBean)"
-					value="@bind(vm.setBean.dayType)">
+					value="@bind(vm.dayBean.dayType)">
 					<template name="model" var="v">
 						<comboitem value="@bind(v.dayTypeId)"
 							label="@bind(v.dayType)">

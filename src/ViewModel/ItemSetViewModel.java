@@ -25,9 +25,9 @@ Session session = null;
 	private String userName;
 	
 	private SetBean setTypeBean = new SetBean();
-	private SetBean dayBean;
-	private SetBean setBean;
-	private SetBean itemCodeBean;
+	private SetBean dayBean = new SetBean();
+	private SetBean setBean = new SetBean();
+	private SetBean itemCodeBean = new SetBean();
 	
 	private ArrayList<SetBean> dayTypeList;
 	private ArrayList<SetBean> setList;
@@ -51,7 +51,9 @@ Session session = null;
 	@Command
 	@NotifyChange("*")
 	public void onSelectSet(){
+		dayBean.setDayType(null);
 		dayTypeList = SetMasterService.fetchDayTypeList(connection);
+		
 		
 	}
 
@@ -66,7 +68,11 @@ Session session = null;
 	@NotifyChange("*")
 	public void onClickApply(){
 		int i = 0;
+		if(dayBean.getDayTypeId() != null && setBean.getSetId() != null){
 		i = SetMasterService.applyDayTypeUpdate(connection, dayBean.getDayTypeId(), itemCodeList, setBean.getSetId());
+		}else {
+			Messagebox.show("Select Set And Day Type", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+		}
 		if(i >0){
 			Messagebox.show("Saved Successfully", "Information", Messagebox.OK, Messagebox.INFORMATION);
 		}

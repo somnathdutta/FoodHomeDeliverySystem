@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class SetBean {
 
 	private String setName;
-	private int setId;
+	private Integer setId;
 	private boolean setNameVis;
 	private Integer dayTypeId;
 	private String dayType;
@@ -21,14 +21,6 @@ public class SetBean {
 
 	public void setSetName(String setName) {
 		this.setName = setName;
-	}
-
-	public int getSetId() {
-		return setId;
-	}
-
-	public void setSetId(int setId) {
-		this.setId = setId;
 	}
 
 	public ArrayList<ItemBean> getItemList() {
@@ -69,6 +61,14 @@ public class SetBean {
 
 	public void setDayType(String dayType) {
 		this.dayType = dayType;
+	}
+
+	public Integer getSetId() {
+		return setId;
+	}
+
+	public void setSetId(Integer setId) {
+		this.setId = setId;
 	}
 	
 }
