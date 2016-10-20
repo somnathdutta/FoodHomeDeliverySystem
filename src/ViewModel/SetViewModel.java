@@ -20,6 +20,7 @@ import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
+import service.SetMasterService;
 import dao.SetDAO;
 import Bean.CompletedOrderBean;
 import Bean.ItemBean;
@@ -29,14 +30,14 @@ import Bean.SetBean;
 public class SetViewModel {
 	
 	private SetBean setBean = new SetBean();
-	
+	private ManageCategoryBean categoryBean = new ManageCategoryBean();
 	private ItemBean itemBean = new ItemBean();
 	
+	private ArrayList<SetBean> existingItemSetList;
 	private ArrayList<ItemBean> itemSetList = new ArrayList<ItemBean>();
-	
 	private HashSet<SetBean> setBeanWithItemList = new HashSet<SetBean>();
+	private ArrayList<SetBean> setList;
 	
-	private ManageCategoryBean categoryBean = new ManageCategoryBean();
 	
 	private ArrayList<ManageCategoryBean> categoryBeanList = new ArrayList<ManageCategoryBean>();
 	
@@ -59,11 +60,13 @@ public class SetViewModel {
 		
 		connection.setAutoCommit(true);
 		
+		setList = SetMasterService.fetchSetList(connection);
 		onLoadQuery();
 	}
 	
 	public void onLoadQuery(){
 		categoryBeanList = SetDAO.onLoadCategoryList(connection);
+		
 	}
 	
 	@Command
@@ -104,6 +107,23 @@ public class SetViewModel {
 			orderDetailswindow.doModal();
 		}
 		
+	}
+	
+	@Command
+	@NotifyChange("*")
+	public void onSelectSet(){
+		existingItemSetList = SetMasterService.fetchExistingSetDetais(connection, setBean.getSetId());
+		
+		if(existingItemSetList.size()==0){
+			Messagebox.show("No Item Added", "Alert", Messagebox.OK,Messagebox.EXCLAMATION);
+		}
+		
+	}
+	
+	@Command
+	@NotifyChange("*")
+	public void onSelectStatus(){
+		System.out.println("Status " + setBean.getItemBean().getStatus());
 	}
 	
 	public ArrayList<ItemBean> getItemSetList() {
@@ -168,5 +188,29 @@ public class SetViewModel {
 
 	public void setCategoryBean(ManageCategoryBean categoryBean) {
 		this.categoryBean = categoryBean;
+	}
+
+	public HashSet<SetBean> getSetBeanWithItemList() {
+		return setBeanWithItemList;
+	}
+
+	public void setSetBeanWithItemList(HashSet<SetBean> setBeanWithItemList) {
+		this.setBeanWithItemList = setBeanWithItemList;
+	}
+
+	public ArrayList<SetBean> getExistingItemSetList() {
+		return existingItemSetList;
+	}
+
+	public void setExistingItemSetList(ArrayList<SetBean> existingItemSetList) {
+		this.existingItemSetList = existingItemSetList;
+	}
+
+	public ArrayList<SetBean> getSetList() {
+		return setList;
+	}
+
+	public void setSetList(ArrayList<SetBean> setList) {
+		this.setList = setList;
 	}
 }

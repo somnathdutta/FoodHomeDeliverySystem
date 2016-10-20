@@ -142,7 +142,47 @@
 
 						</tabpanel>
 
-						<tabpanel></tabpanel>
+						<tabpanel>
+						   <div sclass="effect8">
+						    <space></space>
+						   	<hlayout>
+						   	  <combobox placeholder="Choose Set" model="@bind(vm.setList)" value="@bind(vm.setBean.setName)" 
+						   		   selectedItem="@bind(vm.setBean)" onSelect="@command('onSelectSet')" readonly="true">
+						   			<template name="model" var = "v">	
+						   				<comboitem label="@bind(v.setName)" value="@bind(v.setId)"></comboitem>
+						   			</template>
+						   		</combobox>
+						   	</hlayout>	
+						   	<space></space>
+						   		<grid model="@bind(vm.existingItemSetList)" mold="paging" pageSize="10" height="400px">	
+						   			<columns sizable="true">
+						   				<column label="Set Name" style="font-weight: bold" width="65px" align="center"></column>
+						   				<column label="Item Code" style="font-weight: bold" width="70px" align="center"></column>
+						   				<column label="Item Name" style="font-weight: bold" width="300px" align="center"></column>
+						   				<column label="Item Description" style="font-weight: bold" align="center" width="490px"></column>
+						   				<column label="Status" style="font-weight: bold" width="100px" align="center"></column>
+						   			</columns>
+						   			<rows>
+						   			  <template name="model" var = "v">
+						   				<row>
+						   					
+						   					
+						   					<label value="@bind(v.setName)" width="100%" style="font-weight: bold" visible="@bind(v.setNameVis)"></label>
+						   					<textbox value="@bind(v.itemBean.itemCode)" width="100%" readonly="true"></textbox>
+						   					<textbox value="@bind(v.itemBean.itemName)" width="100%" readonly="true"></textbox>
+						   					<textbox value="@bind(v.itemBean.itemDescription)" width="100%" readonly="true"></textbox>
+						   					
+						   					<combobox value="@bind(v.itemBean.status)" width="100%" onSelect="@command('onSelectStatus')" readonly="true">
+						   					 <comboitem label="Active"></comboitem>
+						   					 <comboitem label="Inactive"></comboitem>	
+						   					</combobox>
+						   				</row>
+						   			  </template>	
+						   			</rows>
+								</grid>
+						
+						   </div>	
+						</tabpanel>
 					</tabpanels>
 				</tabbox>
 			</div>

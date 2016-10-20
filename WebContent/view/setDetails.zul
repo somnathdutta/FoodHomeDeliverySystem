@@ -83,7 +83,7 @@
 				
 				<div align="center">
 					<hlayout>
-						<button label="Save Final" sclass="mybutton"/>
+						<button label="Save Final" sclass="mybutton" onClick="@command('onclickFinalSave')"/>
 					</hlayout>
 				</div>
 			</div>
