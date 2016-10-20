@@ -6,6 +6,7 @@ public class SetBean {
 
 	private String setName;
 	private int setId;
+	private boolean setNameVis;
 	
 	private ItemBean itemBean = new ItemBean();
 	private ArrayList<ItemBean> itemList = new ArrayList<ItemBean>();
@@ -40,6 +41,14 @@ public class SetBean {
 
 	public void setItemBean(ItemBean itemBean) {
 		this.itemBean = itemBean;
+	}
+
+	public boolean isSetNameVis() {
+		return setNameVis;
+	}
+
+	public void setSetNameVis(boolean setNameVis) {
+		this.setNameVis = setNameVis;
 	}
 	
 }

@@ -36,7 +36,7 @@ public class SetViewModel {
 	private ArrayList<SetBean> existingItemSetList;
 	private ArrayList<ItemBean> itemSetList = new ArrayList<ItemBean>();
 	private HashSet<SetBean> setBeanWithItemList = new HashSet<SetBean>();
-	
+	private ArrayList<SetBean> setList;
 	
 	
 	private ArrayList<ManageCategoryBean> categoryBeanList = new ArrayList<ManageCategoryBean>();
@@ -60,12 +60,13 @@ public class SetViewModel {
 		
 		connection.setAutoCommit(true);
 		
+		setList = SetMasterService.fetchSetList(connection);
 		onLoadQuery();
 	}
 	
 	public void onLoadQuery(){
 		categoryBeanList = SetDAO.onLoadCategoryList(connection);
-		existingItemSetList = SetMasterService.fetchExistingSetDetais(connection);
+		
 	}
 	
 	@Command
@@ -108,8 +109,23 @@ public class SetViewModel {
 		
 	}
 	
+	@Command
+	@NotifyChange("*")
+	public void onSelectSet(){
+		System.out.println("Set Selected");
+		System.out.println("Set Id >>> >> > " + setBean.getSetId());
+		existingItemSetList = SetMasterService.fetchExistingSetDetais(connection, setBean.getSetId());
+		if(existingItemSetList.size()==0){
+			Messagebox.show("No Item Added", "Alert", Messagebox.OK,Messagebox.EXCLAMATION);
+		}
+		
+	}
 	
-	
+	@Command
+	@NotifyChange("*")
+	public void onSelectStatus(){
+		System.out.println("Status " + setBean.getItemBean().getStatus());
+	}
 	
 	public ArrayList<ItemBean> getItemSetList() {
 		return itemSetList;
@@ -189,5 +205,13 @@ public class SetViewModel {
 
 	public void setExistingItemSetList(ArrayList<SetBean> existingItemSetList) {
 		this.existingItemSetList = existingItemSetList;
+	}
+
+	public ArrayList<SetBean> getSetList() {
+		return setList;
+	}
+
+	public void setSetList(ArrayList<SetBean> setList) {
+		this.setList = setList;
 	}
 }

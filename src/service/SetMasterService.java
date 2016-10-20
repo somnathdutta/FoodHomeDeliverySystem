@@ -14,10 +14,17 @@ public class SetMasterService {
 	  return i = SetDetailsSaveDao.setDetailsSave(connection, setName, userName, setBean);
 	}
 	
-	public static ArrayList<SetBean> fetchExistingSetDetais(Connection connection){
+	public static ArrayList<SetBean> fetchExistingSetDetais(Connection connection, Integer setId){
 		ArrayList<SetBean> list = new ArrayList<SetBean>();
-		return list = SetDAO.fetchExistingSetItems(connection);
+		return list = SetDAO.fetchExistingSetItems(connection, setId);
 		
 	}
+	
+	public static ArrayList<SetBean> fetchSetList(Connection connection){
+		ArrayList<SetBean> list = new ArrayList<SetBean>();
+		return list = SetDAO.fetchSetList(connection);
+		
+	}
+	
 	
 }
