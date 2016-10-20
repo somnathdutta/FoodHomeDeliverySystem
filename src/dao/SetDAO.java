@@ -239,7 +239,7 @@ public class SetDAO {
 			for(SetBean bean : itemCodeList){
 				
 				preparedStatement = FappPstm.createQuery(connection, sql, Arrays.asList(bean.getItemBean().itemCode));
-				System.out.println("update query " + preparedStatement);
+				
 				insertCount = preparedStatement.executeUpdate();
 			}
 			
