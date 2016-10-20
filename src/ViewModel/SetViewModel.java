@@ -126,8 +126,11 @@ public class SetViewModel {
 	
 	@Command
 	@NotifyChange("*")
-	public void onSelectStatus(){
-		System.out.println("Status " + setBean.getItemBean().getStatus());
+	public void onSelectStatus(@BindingParam("bean") SetBean bean){
+		
+		
+		
+		
 	}
 	
 	@GlobalCommand

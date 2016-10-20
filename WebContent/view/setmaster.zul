@@ -172,7 +172,7 @@
 						   					<textbox value="@bind(v.itemBean.itemName)" width="100%" readonly="true"></textbox>
 						   					<textbox value="@bind(v.itemBean.itemDescription)" width="100%" readonly="true"></textbox>
 						   					
-						   					<combobox value="@bind(v.itemBean.status)" width="100%" onSelect="@command('onSelectStatus')" readonly="true">
+						   					<combobox value="@bind(v.itemBean.status)" width="100%" onSelect="@command('onSelectStatus', bean = v) " readonly="true">
 						   					 <comboitem label="Active"></comboitem>
 						   					 <comboitem label="Inactive"></comboitem>	
 						   					</combobox>
