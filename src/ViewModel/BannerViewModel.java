@@ -16,6 +16,7 @@ import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.bind.impl.BinderUtil;
+import org.zkoss.bind.sys.debugger.impl.info.AddBindingInfo;
 import org.zkoss.zhtml.Messagebox;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Session;
@@ -23,8 +24,8 @@ import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.select.Selectors;
 
-import com.google.android.gcm.server.Message;
-import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
+import service.BannerService;
+
 
 import Bean.BannerBean;
 import Bean.UrlBean;
@@ -32,6 +33,7 @@ import Bean.UrlBean;
 public class BannerViewModel {
 
 	public BannerBean bannerBean = new BannerBean();
+	public BannerBean addNewBannerBean = new BannerBean();
 	
 	public String urlOfImage = null;
 	
@@ -60,7 +62,7 @@ public class BannerViewModel {
 		userName = (String) session.getAttribute("login");
 		
 		connection.setAutoCommit(true);
-		
+		System.out.println("zul page >> manageBanners.zul");
 		loadSavedBanners();
 	}
 	
@@ -117,10 +119,13 @@ public class BannerViewModel {
 	@Command
 	@NotifyChange("*")
 	public void onOkNoOfImages(){
-		if(bannerBean.noOfUrls==null){
+		if(addNewBannerBean.noOfUrls==null){
 			urlList.clear();
+			addNewBannerBean.setUrlGridVis(false);
 		}else{
-			for(int i = 0 ;i<bannerBean.noOfUrls;i++ ){
+			addNewBannerBean.setUrlGridVis(true);
+			urlList.clear();
+			for(int i = 0 ;i<addNewBannerBean.noOfUrls;i++ ){
 				urlList.add(new UrlBean());
 			}
 		}
@@ -129,9 +134,26 @@ public class BannerViewModel {
 	@Command
 	@NotifyChange("*")
 	public void onClickAdd(){
-		if(isValid()){
-			save();
+		//save()
+		int i = 0;
+		if(addNewBannerBean.bannertTitle !=null){
+		     if(addNewBannerBean.noOfUrls != null){	
+			    i = BannerService.insertBannerDetails(connection, addNewBannerBean, urlList);
+			    if(i>0){
+					urlList.clear();
+					addNewBannerBean.bannertTitle = null;
+					addNewBannerBean.noOfUrls = null;
+					addNewBannerBean.setUrlGridVis(false);
+					Messagebox.show("Inserted Successfully", "Information", Messagebox.OK, Messagebox.INFORMATION);
+				}
+		     }else {
+			    Messagebox.show("Enter Url Number", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+		     }
+		 }else {
+			Messagebox.show("Enter Banner Title", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
 		}
+		
+		
 	}
 	
 	@Command
@@ -526,6 +548,14 @@ public class BannerViewModel {
 
 	public void setUrlOfImage(String urlOfImage) {
 		this.urlOfImage = urlOfImage;
+	}
+
+	public BannerBean getAddNewBannerBean() {
+		return addNewBannerBean;
+	}
+
+	public void setAddNewBannerBean(BannerBean addNewBannerBean) {
+		this.addNewBannerBean = addNewBannerBean;
 	}
 	
 	
