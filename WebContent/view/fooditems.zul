@@ -52,7 +52,7 @@
 			style=" border:#DADADA 1px solid;background-color:#F5F5FF;">
 
 			<div
-				style="padding: 1% 2% 1% 2%; border:#DADADA 1px groove;"
+				style="padding: 1% 1% 1% 1%; border:#DADADA 1px groove;"
 				sclass="effect8">
 
 				<tabbox>
@@ -65,7 +65,7 @@
 					<tabpanels>
 						<tabpanel>
 							<hbox>
-								<grid sclass="fgrid">
+								<grid sclass="fgrid" >
 									<columns>
 										<column align="right" />
 										<column align="left" />
@@ -110,11 +110,11 @@
 										<row>
 											<label value="Item Name"
 												style="font-weight:bold" />
-											<textbox
+											<textbox 
 												value="@bind(vm.itemBean.itemName)" />
 											<label value="Item Code"
 												style="font-weight:bold" />
-											<textbox
+											<textbox width="45px"
 												value="@bind(vm.itemBean.itemCode)" />
 											<!-- </hlayout> -->
 										</row>
@@ -202,11 +202,21 @@
 										style="border:#DADADA 1px solid;">
 										<!-- <image content="@bind(vm.itemImage)" height="180px" width="300px"/> -->
 										<iframe
-											src="@bind(vm.itemBean.itemmagePath)" height="180px"
-											width="300px" />
+											src="@bind(vm.itemBean.itemmagePath)" height="380px"
+											width="500px" />
 									</hbox>
 								</vbox>
 							</hbox>
+							<!-- <vbox
+									style="border:#DADADA 2px solid;">
+									<hbox
+										style="border:#DADADA 1px solid;">
+										<image content="@bind(vm.itemImage)" height="180px" width="300px"/>
+										<iframe
+											src="@bind(vm.itemBean.itemmagePath)" height="400px"
+											width="1060px" />
+									</hbox>
+								</vbox> -->
 						</tabpanel>
 
 						<tabpanel>
