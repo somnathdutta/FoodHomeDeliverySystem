@@ -21,5 +21,10 @@ public class FoodItemService {
 		
 	}
 	
+	public static int updateNewUserItemStatus(Connection connection, String status, int itemId){
+		int i = 0;
+		return i = FoodItemDAO.updateNewUserItemStatus(connection, status, itemId);
+	}
+	
 	
 }

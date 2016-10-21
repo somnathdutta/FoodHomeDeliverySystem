@@ -3,12 +3,15 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.zkoss.image.AImage;
 import org.zkoss.zhtml.Pre;
 import org.zkoss.zul.Messagebox;
 
+import utility.FappPstm;
 import Bean.ItemBean;
 import Bean.ManageCategoryBean;
 import Bean.ManageCuisinBean;
@@ -215,5 +218,37 @@ public class FoodItemDAO {
 		return list;
 	}
 
-
+	public static int updateNewUserItemStatus(Connection connection, String status, int itemId){
+		int  i =0;
+		try {
+			PreparedStatement preparedStatement =null;
+			String sql = "update food_items set apply_new_user = ? where item_id = ? ";
+			try {
+				preparedStatement = FappPstm.createQuery(connection, sql, Arrays.asList(status, itemId));
+				i = preparedStatement.executeUpdate();
+				
+			} finally {
+				if(preparedStatement != null){
+					preparedStatement.close();
+				}
+			}
+			
+		} catch (Exception e) {
+			String msg = e.getMessage();
+			Messagebox.show("Error Due To: "+e.getMessage(), "Error", Messagebox.OK, Messagebox.ERROR);
+			e.printStackTrace();
+		}finally{
+			if(connection != null){
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					
+					e.printStackTrace();
+				}
+			}
+		}
+		return i;
+		
+	}
+	
 }

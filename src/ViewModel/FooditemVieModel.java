@@ -664,7 +664,18 @@ public class FooditemVieModel {
 	@Command
 	@NotifyChange("*")
 	public void onSelctNewUserStatus(@BindingParam("bean") ItemBean bean ){
-		System.out.println("Status ---------------------->>> >> > " + bean.status);
+		
+		int i = 0;
+		String localStatus = bean.status;
+		if(localStatus.equals("YES")){
+			localStatus = "Y";
+		}else {
+			localStatus = "N";
+		}
+		i = FoodItemService.updateNewUserItemStatus(connection, localStatus, bean.itemId);
+		if(i>0){
+			Messagebox.show("Updated Successfully", "Information", Messagebox.OK, Messagebox.INFORMATION);
+		}
 	}
 	
 	public Session getSession() {
