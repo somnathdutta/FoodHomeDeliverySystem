@@ -62,7 +62,37 @@
 			            transform:skew(8deg) rotate(3deg);
 		}
 	</style>
-	<groupbox open="@bind(vm.group1Open)" mold="3d" onClick="@command('onClickAddNewGroup')">
+	
+	<div>
+	  <hlayout spacing="30px">
+		<textbox placeholder="Enter Banner Title" value="@bind(vm.addNewBannerBean.bannertTitle)" width="250px"></textbox>	
+		<intbox placeholder="Number Of Images" value="@bind(vm.addNewBannerBean.noOfUrls)" width="330px"></intbox>
+		<button label="Press" onClick="@command('onOkNoOfImages')" width="80px"></button>
+	</hlayout>
+	<space></space>
+		<div visible="@bind(vm.addNewBannerBean.urlGridVis)">
+			<grid model="@bind(vm.urlList)">
+				  <columns>	
+					<column label="Image Url" style="font-weight: bold" align="center"></column>
+				  </columns>		
+				  <rows>
+				  	<template name="model" var= "v">	
+					 <row>
+					  <textbox value="@bind(v.urlName)" width="98%"></textbox>
+					 </row>
+				   </template>
+				  </rows>
+			</grid>
+		    <space></space>	
+			<div align="center">
+		  		<button label="Add" sclass="mybutton" onClick="@command('onClickAdd')"/>
+		  		<button label="Cancel" sclass="mybutton" onClick="@command('onClickCancel')"/>
+			</div>
+		</div>
+	</div>
+	
+	
+	<!-- <groupbox open="@bind(vm.group1Open)" mold="3d" onClick="@command('onClickAddNewGroup')">
 		<caption label="Add new"></caption>
 			<div style="border:#DADADA 1px solid;background-color:#F5F5FF;" >
 				<div style=" border:#DADADA 1px groove;" sclass="effect8">
@@ -142,7 +172,7 @@
 				</grid>
 			</div>
 		</div>
-	</groupbox>
+	</groupbox> -->
 	
 </window>
 </zk>
