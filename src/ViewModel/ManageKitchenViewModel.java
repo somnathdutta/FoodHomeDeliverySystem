@@ -96,6 +96,8 @@ public class ManageKitchenViewModel {
 		userName = (String) session.getAttribute("login");
 		connection.setAutoCommit(true);
 		
+		System.out.println("zul page >> manageKitchen.zul");
+		
 		loadAllKitchenList();
 		onLoadCityList();
 		loadCuisinList();
@@ -915,6 +917,10 @@ public class ManageKitchenViewModel {
 		if(validateFields()){
 			if(upDateKitchenData()){
 				ManageKitchenDAO.updateStock(manageKitchensBean, connection);
+				System.out.println("SSSSSSSS TTTTTTT AAAAAAA UUUUUUUU SSSSSSS > " + manageKitchensBean.status);
+				if(manageKitchensBean.status.equalsIgnoreCase("Deactive")){
+					ManageKitchenDAO.updateDeactiveKitchenStock(connection, manageKitchensBean.kitchenId);
+				}
 				refresh();
 				loadAllKitchenList();
 				saveButtonVisibility=true;

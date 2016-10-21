@@ -119,15 +119,23 @@ public class BannerViewModel {
 	@Command
 	@NotifyChange("*")
 	public void onOkNoOfImages(){
-		if(addNewBannerBean.noOfUrls==null){
-			urlList.clear();
-			addNewBannerBean.setUrlGridVis(false);
-		}else{
-			addNewBannerBean.setUrlGridVis(true);
-			urlList.clear();
-			for(int i = 0 ;i<addNewBannerBean.noOfUrls;i++ ){
-				urlList.add(new UrlBean());
+		if(addNewBannerBean.bannertTitle !=null){
+		    if(addNewBannerBean.noOfUrls != null){
+		    	if(addNewBannerBean.noOfUrls==null){
+					urlList.clear();
+					addNewBannerBean.setUrlGridVis(false);
+				}else{
+					addNewBannerBean.setUrlGridVis(true);
+					urlList.clear();
+					for(int i = 0 ;i<addNewBannerBean.noOfUrls;i++ ){
+						urlList.add(new UrlBean());
+					}
+				}
+		    }else {
+		    	Messagebox.show("Enter Url Number", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
 			}
+		}else {
+			Messagebox.show("Enter Banner Title", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
 		}
 	}
 	
@@ -137,14 +145,26 @@ public class BannerViewModel {
 		//save()
 		int i = 0;
 		if(addNewBannerBean.bannertTitle !=null){
-		     if(addNewBannerBean.noOfUrls != null){	
+		     if(addNewBannerBean.noOfUrls != null){
+		    	 ArrayList<UrlBean> subUrlBeanList = new ArrayList<UrlBean>();
+		    	 for(UrlBean bean : urlList){
+		    		 if(bean.urlName != null){
+		    			 subUrlBeanList.add(bean);
+		    		 }
+		    	 }
+		    	if(subUrlBeanList.size()>0){ 
 			    i = BannerService.insertBannerDetails(connection, addNewBannerBean, urlList);
-			    if(i>0){
-					urlList.clear();
-					addNewBannerBean.bannertTitle = null;
-					addNewBannerBean.noOfUrls = null;
-					addNewBannerBean.setUrlGridVis(false);
-					Messagebox.show("Inserted Successfully", "Information", Messagebox.OK, Messagebox.INFORMATION);
+				    if(i>0){
+						urlList.clear();
+						addNewBannerBean.bannertTitle = null;
+						addNewBannerBean.noOfUrls = null;
+						addNewBannerBean.setUrlGridVis(false);
+						Messagebox.show("Inserted Successfully", "Information", Messagebox.OK, Messagebox.INFORMATION);
+					}else {
+						
+					}
+		    	}else {
+		    		Messagebox.show("Enter Image Url", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
 				}
 		     }else {
 			    Messagebox.show("Enter Url Number", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);

@@ -3,10 +3,13 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.zkoss.zul.Messagebox;
 
+import utility.FappPstm;
 import Bean.ItemBean;
 import Bean.ManageKitchens;
 
@@ -166,4 +169,30 @@ public class ManageKitchenDAO {
 			// TODO: handle exception
 		}
 	}
+	
+	public static int updateDeactiveKitchenStock(Connection connection, int kitId){
+		int i = 0;
+		PreparedStatement preparedStatement = null;
+		try {
+			
+			String sql = "update fapp_kitchen_items set stock = 0, dinner_stock = 0, stock_tomorrow = 0, dinner_stock_tomorrow = 0 where kitchen_id= ? ";
+				preparedStatement = FappPstm.createQuery(connection, sql, Arrays.asList(kitId));
+				i = preparedStatement.executeUpdate();
+		} catch (Exception e) {
+			String msg = e.getMessage();
+		}finally{
+			if(preparedStatement != null){
+				try {
+					preparedStatement.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		return i;
+		
+	}
+	
+	
 }
