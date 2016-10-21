@@ -605,6 +605,37 @@ public class FooditemVieModel {
 		}
 	}
 	
+	@Command
+	@NotifyChange("*")
+	public void onSelectNewUserFetchCuisine(){
+		
+		NewUserCategoryBeanList = FoodItemService.fetchCategory(connection, manageCuisinBean.cuisinId);
+		newUserItemBeanList = FoodItemDAO.loadFoodItems(connection, manageCuisinBean.cuisinId, 0);
+	}
+	
+	@Command
+	@NotifyChange("*")
+	public void onSelectNewUserCategory(){
+		newUserItemBeanList = FoodItemDAO.loadFoodItems(connection, manageCuisinBean.cuisinId, manageCategoryBean.categoryId);
+	}
+	
+	@Command
+	@NotifyChange("*")
+	public void onSelctNewUserStatus(@BindingParam("bean") ItemBean bean ){
+		
+		int i = 0;
+		String localStatus = bean.status;
+		if(localStatus.equals("YES")){
+			localStatus = "Y";
+		}else {
+			localStatus = "N";
+		}
+		i = FoodItemService.updateNewUserItemStatus(connection, localStatus, bean.itemId);
+		if(i>0){
+			Messagebox.show("Updated Successfully", "Information", Messagebox.OK, Messagebox.INFORMATION);
+		}
+	}
+	
 	public void clear(){
 		categoryId = 0;
 		cuisineid = 0;
@@ -647,36 +678,7 @@ public class FooditemVieModel {
 	}
 
 	
-	@Command
-	@NotifyChange("*")
-	public void onSelectNewUserFetchCuisine(){
-		
-		NewUserCategoryBeanList = FoodItemService.fetchCategory(connection, manageCuisinBean.cuisinId);
-		newUserItemBeanList = FoodItemDAO.loadFoodItems(connection, manageCuisinBean.cuisinId, 0);
-	}
 	
-	@Command
-	@NotifyChange("*")
-	public void onSelectNewUserCategory(){
-		newUserItemBeanList = FoodItemDAO.loadFoodItems(connection, manageCuisinBean.cuisinId, manageCategoryBean.categoryId);
-	}
-	
-	@Command
-	@NotifyChange("*")
-	public void onSelctNewUserStatus(@BindingParam("bean") ItemBean bean ){
-		
-		int i = 0;
-		String localStatus = bean.status;
-		if(localStatus.equals("YES")){
-			localStatus = "Y";
-		}else {
-			localStatus = "N";
-		}
-		i = FoodItemService.updateNewUserItemStatus(connection, localStatus, bean.itemId);
-		if(i>0){
-			Messagebox.show("Updated Successfully", "Information", Messagebox.OK, Messagebox.INFORMATION);
-		}
-	}
 	
 	public Session getSession() {
 		return session;

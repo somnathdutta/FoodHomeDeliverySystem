@@ -237,15 +237,6 @@ public class FoodItemDAO {
 			String msg = e.getMessage();
 			Messagebox.show("Error Due To: "+e.getMessage(), "Error", Messagebox.OK, Messagebox.ERROR);
 			e.printStackTrace();
-		}finally{
-			if(connection != null){
-				try {
-					connection.close();
-				} catch (SQLException e) {
-					
-					e.printStackTrace();
-				}
-			}
 		}
 		return i;
 		

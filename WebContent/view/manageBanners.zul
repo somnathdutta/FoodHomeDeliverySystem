@@ -78,7 +78,7 @@
 							</row>
 							<row>
 								<label value="How many images?"/>
-								<intbox value="@bind(vm.bannerBean.noOfUrls)" onOK="@command('onOkNoOfImages')"/>
+								<intbox value="@bind(vm.bannerBean.noOfUrls)" />
 							</row>
 							<row>
 								<label value="Put urls from (http://imgur.com/)"/>
