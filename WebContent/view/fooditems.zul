@@ -78,7 +78,7 @@
 											<label value="Cusine"
 												style="font-weight:bold" />
 											<combobox readonly="true"
-												placeholder="[Choose Cuisine]" width="80%"
+												placeholder="[Choose Cuisine]" width="100%"
 												selectedItem="@bind(vm.cuisinBean)"
 												value="@bind(vm.itemBean.cusineName)"
 												model="@bind(vm.cuisineBeanList)" autocomplete="true"
