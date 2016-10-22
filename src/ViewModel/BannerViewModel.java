@@ -34,12 +34,13 @@ public class BannerViewModel {
 
 	public BannerBean bannerBean = new BannerBean();
 	public BannerBean addNewBannerBean = new BannerBean();
-	
+	public UrlBean existingBannerName = new UrlBean();
 	public String urlOfImage = null;
 	
 	public ArrayList<UrlBean> urlList = new ArrayList<UrlBean>();
-	
+	public ArrayList<UrlBean> existingUrlList = new ArrayList<UrlBean>();
 	public ArrayList<BannerBean> bannerList = new ArrayList<BannerBean>();
+	public ArrayList<UrlBean> bannerNameList;
 	
 	Session session = null;
 	
@@ -62,8 +63,10 @@ public class BannerViewModel {
 		userName = (String) session.getAttribute("login");
 		
 		connection.setAutoCommit(true);
-		System.out.println("zul page >> manageBanners.zul");
 		loadSavedBanners();
+		bannerNameList = BannerService.loadBannerList(connection);
+		System.out.println("zul page >> manageBanners.zul");
+		
 	}
 	
 	public void loadSavedBanners(){
@@ -156,6 +159,7 @@ public class BannerViewModel {
 			    i = BannerService.insertBannerDetails(connection, addNewBannerBean, urlList);
 				    if(i>0){
 						urlList.clear();
+						onclickExistClear();
 						addNewBannerBean.bannertTitle = null;
 						addNewBannerBean.noOfUrls = null;
 						addNewBannerBean.setUrlGridVis(false);
@@ -498,6 +502,101 @@ public class BannerViewModel {
 		urlList.clear();
 	}
 	
+	@Command
+	@NotifyChange("*")
+	public void onSelectBannerName(){
+		
+		existingUrlList = BannerService.loadUrlList(connection, existingBannerName.bannerId);
+		existingBannerName.divVis = true;
+		if(existingUrlList.size()==0){
+			Messagebox.show("Please add","Information",Messagebox.OK,Messagebox.INFORMATION);
+		}
+		
+	}
+	
+	@Command
+	@NotifyChange("*")
+	public void onclickEdit(@BindingParam("Bean") UrlBean bean){
+		int i =0;
+		i = BannerService.upDateBannerUrl(connection, bean.bannerId);
+		if(i>0){
+			Messagebox.show("Updated successfully!","Information",Messagebox.OK,Messagebox.INFORMATION);
+		}
+	}
+	
+	@Command
+	@NotifyChange("*")
+	public void onClickDelete(@BindingParam("Bean") UrlBean bean){
+        String status = bean.activeStatus;
+		if(status.equalsIgnoreCase("Active")){
+        	status = "Y";
+        }else {
+			status= "N";
+		}
+		
+		int i =0;
+		i = BannerService.inActiveBannerUrl(connection, bean.bannerId, status);
+		if(i>0){
+			Messagebox.show("Deactive successfully!","Information",Messagebox.OK,Messagebox.INFORMATION);
+		}
+	}
+	
+	@Command
+	@NotifyChange("*")
+	public void onClickNewAdd(){
+		UrlBean bean = new UrlBean();
+		bean.bannerName = existingBannerName.bannerName;
+		bean.activeStatus = "Active";
+		
+		existingUrlList.add(bean);
+	}
+	
+	@Command
+	@NotifyChange("*")
+	public void saveAll(){
+		boolean status = false;
+		status = BannerService.saveAll(connection, existingBannerName.bannerId, existingUrlList);
+		if(status == true){
+			existingUrlList = BannerService.loadUrlList(connection, existingBannerName.bannerId);
+			Messagebox.show("Updated successfully!","Information",Messagebox.OK,Messagebox.INFORMATION);
+		}
+		
+	}
+	
+	
+	@Command
+	@NotifyChange("*")
+	public void onclickExistClear(){
+		existingBannerName.bannerName = null;
+		existingUrlList.clear();
+		existingBannerName.divVis = false;
+		bannerNameList = BannerService.loadBannerList(connection);
+		
+	}
+	
+	@Command
+	@NotifyChange("*")
+	public void onclickStatus(@BindingParam("bean") UrlBean bean){
+		int i = 0;
+		System.out.println(bean.activeStatus);
+		String status = bean.activeStatus;
+		if(status.equalsIgnoreCase("Active")){
+        	status = "Y";
+        }else {
+			status= "N";
+		}
+		if(bean.urlId != null){
+		i = BannerService.inActiveBannerUrl(connection, bean.bannerId, status);
+		}
+		
+		if(i>0){
+			existingUrlList = BannerService.loadUrlList(connection, existingBannerName.bannerId);
+			Messagebox.show("Updated successfully!","Information",Messagebox.OK,Messagebox.INFORMATION);
+		}
+		
+		
+	}
+	
 	public BannerBean getBannerBean() {
 		return bannerBean;
 	}
@@ -576,6 +675,30 @@ public class BannerViewModel {
 
 	public void setAddNewBannerBean(BannerBean addNewBannerBean) {
 		this.addNewBannerBean = addNewBannerBean;
+	}
+
+	public ArrayList<UrlBean> getExistingUrlList() {
+		return existingUrlList;
+	}
+
+	public void setExistingUrlList(ArrayList<UrlBean> existingUrlList) {
+		this.existingUrlList = existingUrlList;
+	}
+
+	public ArrayList<UrlBean> getBannerNameList() {
+		return bannerNameList;
+	}
+
+	public void setBannerNameList(ArrayList<UrlBean> bannerNameList) {
+		this.bannerNameList = bannerNameList;
+	}
+
+	public UrlBean getExistingBannerName() {
+		return existingBannerName;
+	}
+
+	public void setExistingBannerName(UrlBean existingBannerName) {
+		this.existingBannerName = existingBannerName;
 	}
 	
 	

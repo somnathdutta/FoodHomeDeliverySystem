@@ -1,6 +1,6 @@
 <?page title="Kitchen Item" contentType="text/html;charset=UTF-8"?>
 <zk>
-	<window title="Kitchen Item" border="none"
+	<window title="Kitchen Item" border="normal"
 		contentStyle="overflow:scroll;" apply="org.zkoss.bind.BindComposer"
 		style="background:transparent"
 		viewModel="@id('vm')@init('ViewModel.ManageKitchenItemsViewModel')">

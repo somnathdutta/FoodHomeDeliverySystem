@@ -74,6 +74,7 @@ public class ManageKitchenItemsViewModel {
 		connection.setAutoCommit(true);
 		
 		loadKitchenList();
+		System.out.println("zul page >> kitchenitem.zul");
 	}
 	
 	public void loadKitchenList(){

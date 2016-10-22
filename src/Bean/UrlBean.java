@@ -3,6 +3,11 @@ package Bean;
 public class UrlBean {
 	public String urlName;
 	public Integer urlId;
+	public String bannerName;
+	public Integer bannerId;
+	public boolean divVis;
+	public String activeStatus;
+	
 	public boolean checkedUrl = false;
 	public UrlBean() {
 		super();
@@ -37,6 +42,38 @@ public class UrlBean {
 
 	public void setCheckedUrl(boolean checkedUrl) {
 		this.checkedUrl = checkedUrl;
+	}
+
+	public String getBannerName() {
+		return bannerName;
+	}
+
+	public void setBannerName(String bannerName) {
+		this.bannerName = bannerName;
+	}
+
+	public Integer getBannerId() {
+		return bannerId;
+	}
+
+	public void setBannerId(Integer bannerId) {
+		this.bannerId = bannerId;
+	}
+
+	public boolean isDivVis() {
+		return divVis;
+	}
+
+	public void setDivVis(boolean divVis) {
+		this.divVis = divVis;
+	}
+
+	public String getActiveStatus() {
+		return activeStatus;
+	}
+
+	public void setActiveStatus(String activeStatus) {
+		this.activeStatus = activeStatus;
 	}
 	
 }

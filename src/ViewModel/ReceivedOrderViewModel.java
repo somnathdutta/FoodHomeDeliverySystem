@@ -71,6 +71,7 @@ public class ReceivedOrderViewModel {
 		//onLoadeliveryBoyList();
 		onLoadQuery();
 		reload();
+		System.out.println("zul page >> receivedOrderDetails.zul");
 	}
 	
 	public void reload(){
