@@ -242,4 +242,29 @@ public class FoodItemDAO {
 		
 	}
 	
+	public static String getLastItemCode(Connection connection){
+		int i = 0;
+		String itemCode = null;
+		String sql = "select item_code from food_items where item_id = (select max(item_id) from food_items) ";
+		try {
+			PreparedStatement preparedStatement = null;
+			preparedStatement = connection.prepareStatement(sql);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				itemCode = resultSet.getString(1);
+				i = Integer.parseInt(itemCode);
+				i = i+1;
+				itemCode = itemCode.valueOf(i);
+			}
+		} catch (Exception e) {
+			String msg = e.getMessage();
+			Messagebox.show(msg, "Error", Messagebox.OK, Messagebox.ERROR);
+			e.printStackTrace();
+		}
+		return itemCode;
+	}
+
+	
+	
+	
 }

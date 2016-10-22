@@ -94,11 +94,11 @@ public class FooditemVieModel {
 		userName = (String) session.getAttribute("login");
 		
 		connection.setAutoCommit(true);
-		
+		System.out.println("zul page >> fooditems.zul");
 		//loadQuery();
 		onLoadCuisineList();
 		newUserCuisineBeanList = FoodItemService.fetchCuisineList(connection);
-		
+		itemBean.itemCode = FoodItemDAO.getLastItemCode(connection);
 		
 	}
 	
@@ -635,6 +635,8 @@ public class FooditemVieModel {
 			Messagebox.show("Updated Successfully", "Information", Messagebox.OK, Messagebox.INFORMATION);
 		}
 	}
+	
+	
 	
 	public void clear(){
 		categoryId = 0;

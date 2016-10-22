@@ -115,7 +115,7 @@
 											<label value="Item Code"
 												style="font-weight:bold" />
 											<textbox width="45px"
-												value="@bind(vm.itemBean.itemCode)" />
+												value="@bind(vm.itemBean.itemCode)" readonly="true"/>
 											<!-- </hlayout> -->
 										</row>
 
@@ -203,7 +203,7 @@
 										<!-- <image content="@bind(vm.itemImage)" height="180px" width="300px"/> -->
 										<iframe
 											src="@bind(vm.itemBean.itemmagePath)" height="380px"
-											width="500px" />
+											width="400px" />
 									</hbox>
 								</vbox>
 							</hbox>
