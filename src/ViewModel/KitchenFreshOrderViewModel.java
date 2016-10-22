@@ -57,6 +57,7 @@ public class KitchenFreshOrderViewModel {
 		connection.setAutoCommit(true);
 		onLoadQuery();
 		reload();
+		System.out.println("zul page >> kitchenFreshorders.zul");
 	}
 	
 	public void reload(){

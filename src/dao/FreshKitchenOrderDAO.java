@@ -34,8 +34,11 @@ public class FreshKitchenOrderDAO {
 						// receivedorderbean.status = resultSet.getString("order_status_name");
 						 SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 						 java.sql.Date date = resultSet.getDate("order_date");
-						
 						 receivedorderbean.orderDateValue =  sdf.format(date);
+						 
+						 receivedorderbean.deliveryDateSql = resultSet.getDate("delivery_date");
+						 receivedorderbean.deliveryDateValue = sdf.format(receivedorderbean.deliveryDateSql);
+						 
 						 String tempOrderNo = "";
 						 if(orderno!=null){
 							 tempOrderNo = receivedorderbean.orderNo;
@@ -43,6 +46,7 @@ public class FreshKitchenOrderDAO {
 								 receivedorderbean.orderNo = "";
 								 receivedorderbean.status = "";
 								 receivedorderbean.orderDateValue="";
+								 receivedorderbean.deliveryDateValue="";
 							 }
 						 }
 						
@@ -107,8 +111,11 @@ public class FreshKitchenOrderDAO {
 						// receivedorderbean.status = resultSet.getString("order_status_name");
 						 SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 						 java.sql.Date date = resultSet.getDate("order_date");
-						
 						 receivedorderbean.orderDateValue =  sdf.format(date);
+						 
+						 receivedorderbean.deliveryDateSql = resultSet.getDate("delivery_date");
+						 receivedorderbean.deliveryDateValue = sdf.format(receivedorderbean.deliveryDateSql);
+						 
 						 String tempOrderNo = "";
 						 if(orderno!=null){
 							 tempOrderNo = receivedorderbean.orderNo;
@@ -116,6 +123,7 @@ public class FreshKitchenOrderDAO {
 								 receivedorderbean.orderNo = "";
 								 receivedorderbean.status = "";
 								 receivedorderbean.orderDateValue="";
+								 receivedorderbean.deliveryDateValue = null;
 							 }
 						 }
 						

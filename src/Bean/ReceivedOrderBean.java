@@ -30,6 +30,10 @@ public class ReceivedOrderBean {
 	public Date orderedDate ;
 	public String orderDateValue;
 	
+	public java.util.Date deliveryDate; 
+	public Date deliveryDateSql ;
+	public String deliveryDateValue;
+	
 	public String getItemName() {
 		return itemName;
 	}
@@ -180,6 +184,24 @@ public class ReceivedOrderBean {
 	}
 	public void setItemDescription(String itemDescription) {
 		this.itemDescription = itemDescription;
+	}
+	public java.util.Date getDeliveryDate() {
+		return deliveryDate;
+	}
+	public void setDeliveryDate(java.util.Date deliveryDate) {
+		this.deliveryDate = deliveryDate;
+	}
+	public Date getDeliveryDateSql() {
+		return deliveryDateSql;
+	}
+	public void setDeliveryDateSql(Date deliveryDateSql) {
+		this.deliveryDateSql = deliveryDateSql;
+	}
+	public String getDeliveryDateValue() {
+		return deliveryDateValue;
+	}
+	public void setDeliveryDateValue(String deliveryDateValue) {
+		this.deliveryDateValue = deliveryDateValue;
 	}
 	
 	

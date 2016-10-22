@@ -86,19 +86,18 @@
 						<column label="Quantity" align="center" style="background-color:#FFCC99;color:white"/>
 						<column label="Price" align="center" style="background-color:#FFCC99;color:white"/>
 						<column label="Order Date" align="center" style="background-color:#FFCC99;color:white"/>
-						
+						<column label="Delivery Date" align="center" style="background-color:#FFCC99;color:white"/>
 					</columns>
 					<rows>
 						<template name="model" var="v">
 						<row>
-							
 							<textbox value="@bind(v.orderNo)" readonly="true" width="100%"/>
 							<textbox value="@bind(v.itemName)" readonly="true" width="100%"/>
-							<textbox value="@bind(v.itemDescription)"  readonly="true" width="100%"/>
+							<textbox value="@bind(v.itemDescription)"  readonly="true" width="100%" multiline="true"/>
 							<textbox value="@bind(v.quantity)" readonly="true" width="100%"/>
 							<textbox value="@bind(v.price)" readonly="true" width="100%"/>
 							<textbox value="@bind(v.orderDateValue)" readonly="true" width="100%"/>
-							
+							<textbox value="@bind(v.deliveryDateValue)" readonly="true" width="100%"/>
 						</row>
 						</template>
 					</rows>
