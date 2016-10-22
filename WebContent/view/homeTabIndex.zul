@@ -318,7 +318,7 @@
 								</treerow>
 								<treechildren>
 								
-									<treeitem>
+									<treeitem visible="false">
 										<treerow>
 											<treecell label="Stock Management" onClick='inclResults.setSrc("stockManagement.zul")' visible="@bind(vm.stockManagementVisibility)"/>
 										</treerow>
