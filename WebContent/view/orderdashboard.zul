@@ -107,8 +107,8 @@
 						<column label="Picked" align="center" width="70px"/>
 						<column label="Rejected" align="center" width="70px"/>	
 						<column label="Delivered" align="center" width="70px"/>
-						<column label="Driver Name" align="center" width="140px" visible="false"/>
-						<column label="Driver Number" align="center" width="140px" visible="false"/>
+						<column label="Driver Name" align="center" width="140px" visible="true"/>
+						<column label="Driver Number" align="center" width="140px" visible="true"/>
 					</columns>
 					
 					<rows >

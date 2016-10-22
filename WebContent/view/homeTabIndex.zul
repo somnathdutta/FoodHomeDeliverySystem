@@ -341,9 +341,15 @@
 											<treecell label="New Order List" onClick='inclResults.setSrc("newOrderList.zul")' visible="@bind(vm.newOrderVisibility)"/>
 										</treerow>
 									</treeitem>
-									<treeitem visible="false" >
+									<!-- <treeitem visible="false" >
 										<treerow>
 											<treecell label="Kitchen Order List" onClick='inclResults.setSrc("kitchenorders.zul")' visible="@bind(vm.newOrderVisibility)"/>
+										</treerow>
+									</treeitem> -->
+									
+									<treeitem visible="true" >
+										<treerow>
+											<treecell label="Kitchen Fresh Order" onClick='inclResults.setSrc("kitchenfreshorders.zul")' visible="@bind(vm.receivedOrdersVisibility)"/>
 										</treerow>
 									</treeitem>
 									
@@ -359,7 +365,7 @@
 										</treerow>
 									</treeitem>
 									
-									<treeitem>
+									<treeitem visible="false">
 										<treerow>
 											<treecell label="Subcription Orders" onClick='inclResults.setSrc("subscriptionOrderList.zul")' visible="@bind(vm.subscriptionOrderVisibility)"/>
 										</treerow>

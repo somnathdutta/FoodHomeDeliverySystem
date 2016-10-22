@@ -177,7 +177,7 @@ public class OrderDashBoardViewModel {
 							dashBoardBean.delivered = "N";
 						
 						
-						/*if(resultSet.getString("driver_name")!=null){
+						if(resultSet.getString("driver_name")!=null){
 							dashBoardBean.driverName = resultSet.getString("driver_name");
 						}else{
 							dashBoardBean.driverName = "No Driver assigned!";
@@ -186,7 +186,7 @@ public class OrderDashBoardViewModel {
 							dashBoardBean.driverNumber = resultSet.getString("driver_number");
 						}else{
 							dashBoardBean.driverNumber = "NA";
-						}*/
+						}
 						
 						if(dashBoardBean.orderNo.equals(orderNo)){
 							dashBoardBean.orderNoVisibiliity= false;
