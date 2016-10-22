@@ -180,6 +180,8 @@ public class ManageKitchenDAO {
 				i = preparedStatement.executeUpdate();
 		} catch (Exception e) {
 			String msg = e.getMessage();
+			Messagebox.show(msg, "Error", Messagebox.OK, Messagebox.ERROR);
+			e.printStackTrace();
 		}finally{
 			if(preparedStatement != null){
 				try {
