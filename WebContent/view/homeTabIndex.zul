@@ -391,7 +391,8 @@
 									
 									<treeitem>
 										<treerow>
-											<treecell label="Out For Delivery Order List" onClick='inclResults.setSrc("outForDeliveredOrder.zul")' visible="@bind(vm.outForDeliveryVisibility)"/>
+											<treecell label="Out For Delivery Order List" onClick='inclResults.setSrc("kitchendeliveredorders.zul")' visible="@bind(vm.receivedOrdersVisibility)"/>
+											<!-- <treecell label="Out For Delivery Order List" onClick='inclResults.setSrc("outForDeliveredOrder.zul")' visible="@bind(vm.outForDeliveryVisibility)"/> -->
 										</treerow>
 									</treeitem>
 									
