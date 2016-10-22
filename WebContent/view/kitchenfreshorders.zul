@@ -70,15 +70,18 @@
 				<grid mold="paging" pageSize="10" model="@bind(vm.freshOrderBeanList)">
 					<auxhead>
 						<auxheader colspan="6">
-							<label value="START DATE"/>
-							<datebox format="dd-MM-yyyy" value="@bind(vm.stdate)" />
-							<label value="END DATE"/>
-							<datebox format="dd-MM-yyyy" value="@bind(vm.endate)"/>
+							<label value="ORDER START DATE" style="font-weight: bold"/>
+							<datebox format="dd-MM-yyyy" value="@bind(vm.stdate)" placeholder="From Date"/>
+							<space></space>
+							<label value="ORDER END DATE" style="font-weight: bold"/>
+							<datebox format="dd-MM-yyyy" value="@bind(vm.endate)" placeholder="To Date"/>
+							<space></space>
 							<button label="Find" sclass="mybutton" onClick="@command('onClickFind')"/>
+							<space></space>
 							<button label="Clear" sclass="mybutton" onClick="@command('onClickClear')"/>
 						</auxheader>
 					</auxhead>
-					<columns>
+					<columns sizable="true">
 						
 						<column label="Order No" align="center" style="background-color:#FFCC99;color:white"/>
 						<column label="Item" align="center" style="background-color:#FFCC99;color:white"/>
