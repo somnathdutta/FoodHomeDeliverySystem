@@ -292,8 +292,15 @@ public class ManageKitchenItemsViewModel {
 		    if(categorySaved){
 		    	SQL:{
 			    	PreparedStatement preparedStatement = null;
-					String sql = "INSERT INTO fapp_kitchen_items( item_code,item_id,kitchen_id )"
-							+ " VALUES(?,?,?)";
+					String sql = null;
+					if(kitchenBean.categoryId==78 || kitchenBean.categoryId==79){//FOR A LA CARTE ITEMS
+						sql=	"INSERT INTO fapp_kitchen_items( item_code,item_id,kitchen_id,is_alacarte )"
+								+ " VALUES(?,?,?,'Y')";
+					}else{
+						sql=	"INSERT INTO fapp_kitchen_items( item_code,item_id,kitchen_id )"
+								+ " VALUES(?,?,?)";
+					}
+					
 					try {
 						preparedStatement = connection.prepareStatement(sql);
 						for(ItemBean itemBean : itemBeanList){

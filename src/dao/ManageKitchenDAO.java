@@ -65,7 +65,7 @@ public class ManageKitchenDAO {
 							item.itemDescription = resultSet.getString("item_description");
 							item.categoryId = resultSet.getInt("category_id");
 							item.categoryName = resultSet.getString("category_name");
-							if(resultSet.getString("is_active").equals("Y")){
+							if(resultSet.getString("is_item_active").equals("Y")){
 								item.status = "Active";
 							}else{
 								item.status = "Deactive";
@@ -102,11 +102,11 @@ public class ManageKitchenDAO {
 					String sql = "";
 					if(isAlaCarte){
 						sql = "UPDATE fapp_kitchen_items "
-								   +" SET is_active=?,is_alacarte ='Y' "
+								   +" SET is_item_active=?,is_alacarte ='Y' "
 								   +" WHERE item_code=? and  kitchen_id=? ";
 					}else{
 						sql = "UPDATE fapp_kitchen_items "
-								   +" SET is_active=? "
+								   +" SET is_item_active=? "
 								   +" WHERE item_code=? and  kitchen_id=? ";
 					}
 					
