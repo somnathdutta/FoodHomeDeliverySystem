@@ -116,6 +116,13 @@
 												onClick='inclResults.setSrc("subscriptionsettings.zul");' />
 										</treerow>
 									</treeitem>
+									<treeitem>
+										<treerow>
+											<treecell label="Promo Code Master"
+												onClick='inclResults.setSrc("promoCodeMaster.zul");' />
+										</treerow>
+									</treeitem>
+									
 								</treechildren>
 							</treeitem>
 							<!--Admin Menu End -->
