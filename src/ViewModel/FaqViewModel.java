@@ -126,6 +126,7 @@ public class FaqViewModel {
 	public void saveFaq(){
 		faqBean.setUserName(userName);
 		FaqDAO.saveNewFaq(connection, faqBean);
+		FaqService.clear(faqBean);
 	}
 	
 	

@@ -24,4 +24,10 @@ public class FaqService {
 			return false;
 		}
 	}
+	
+	public static void clear(FaqBean faqBean){
+		faqBean.setFaqQuestion(null);
+		faqBean.setFaqAnswer(null);
+		faqBean.setStatus(null);
+	}
 }

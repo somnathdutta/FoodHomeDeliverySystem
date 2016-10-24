@@ -360,6 +360,12 @@
 										</treerow>
 									</treeitem>
 									
+									<treeitem visible="true">
+										<treerow>
+											<treecell label="Order creation" onClick='inclResults.setSrc("createOrder.zul")' visible="@bind(vm.orderDashboardVisibility)"/>
+										</treerow>
+									</treeitem>
+									
 									<treeitem>
 										<treerow>
 											<treecell label="Order Dashboard" onClick='inclResults.setSrc("orderdashboard.zul")' visible="@bind(vm.orderDashboardVisibility)"/>
