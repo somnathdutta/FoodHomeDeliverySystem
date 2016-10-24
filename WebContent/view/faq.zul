@@ -1,0 +1,124 @@
+<?page title="Manage FAQ" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<style>
+		.fgrid tr.z-row td.z-row-inner,tr.z-row,div.z-grid-body
+		div.z-cell,div.z-grid { border: none; overflow: hidden; zoom: 1;
+		background:none; border-top: none; border-left: none;
+		border-right: none; border-bottom: none; }
+
+		.fgrid .z-grid-odd .fgrid .z-row-inner,.fgrid .z-grid-odd
+		.z-cell { background-color: #FFFFAA; border-bottom: 1px solid
+		transparent; border-left: 1px solid transparent; border-top: 1px
+		solid transparent; }
+
+		.fgrid .z-grid-odd .fgrid.z-row-inner,.fgrid.z-grid-odd
+		.z-cell,.fgrid.z-grid-odd { background: none repeat scroll 0 0
+		transparent; }
+
+		.fgrid tr.z-grid-odd td.z-row-inner,.fgrid tr.z-grid-odd
+		.z-cell,.fgrid tr.z-grid-odd { background: white }
+
+		.fgrid tr.z-row td.z-row-inner,.fgrid tr.z-row .z-cell {
+		background: white; border-top: none; }
+
+		div.z-grid-body{ background: #FFFFAA;}
+
+		.fgrid tr.z-row td.z-row-inner, .fgrid tr.z-row .z-cell{
+		background:none;}
+
+		.effect8 { position:relative; -webkit-box-shadow:0 1px 4px
+		rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+		-moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0,
+		0, 0, 0.1) inset; box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0
+		40px rgba(0, 0, 0, 0.1) inset; } .effect8:before, .effect8:after
+		{ content:""; position:absolute; z-index:-1;
+		-webkit-box-shadow:0 0 20px rgba(0,0,0,0.8); -moz-box-shadow:0 0
+		20px rgba(0,0,0,0.8); box-shadow:0 0 20px rgba(0,0,0,0.8);
+		top:10px; bottom:10px; left:0; right:0; -moz-border-radius:100px
+		/ 10px; border-radius:100px / 10px; } .effect8:after {
+		right:10px; left:auto; -webkit-transform:skew(8deg)
+		rotate(3deg); -moz-transform:skew(8deg) rotate(3deg);
+		-ms-transform:skew(8deg) rotate(3deg); -o-transform:skew(8deg)
+		rotate(3deg); transform:skew(8deg) rotate(3deg); }
+
+	</style>
+	<window title="Manage FAQ" border="normal" apply="org.zkoss.bind.BindComposer" contentStyle="overflow:scroll;"
+viewModel="@id('vm') @init('ViewModel.FaqViewModel')">
+		<tabbox>
+			<tabs>
+				<tab label="Create new Faq" />
+				<tab label="Show Faq" onClick="@command('onClickShowFaq')"/>
+			</tabs>
+
+			<tabpanels>
+				<tabpanel>
+					<grid>
+						<columns>
+							<column align="right" />
+							<column align="left" />
+						</columns>
+						<rows>
+							<row>
+								<label value="FAQ Question"
+									style="font-weight:bold" />
+								<textbox placeholder="Question here"
+									width="100%" multiline="true" value="@bind(vm.faqBean.faqQuestion)"/>
+							</row>
+							<row>
+								<label value="FAQ Answer"
+									style="font-weight:bold" />
+								<textbox placeholder="Answer here"
+									width="100%" multiline="true" value="@bind(vm.faqBean.faqAnswer)"/>
+							</row>
+							<row>
+								<label value="Is Active?"
+									style="font-weight:bold" />
+								<combobox readonly="true" autocomplete="true" autodrop="true" value="@bind(vm.faqBean.status)">
+										<comboitem label="Active"/>
+										<comboitem label="Deactive"/>
+									</combobox>
+							</row>
+							<row>
+								<button label="Save Faq"
+									sclass="mybutton" onClick="@command('onClickSaveFaq')"/>
+								
+							</row>
+						</rows>
+					</grid>
+				</tabpanel>
+
+
+				<tabpanel>
+						<grid model="@bind(vm.faqBeanList)">
+							<columns>
+								<column label="Question" align="center"/>
+								<column label="Answer" align="center"/>
+								<column label="Status" align="center"/>
+								<column label="Action" align="center"/>
+							</columns>
+							<rows>
+							<template name="model" var="v">
+							<row>
+									<textbox multiline="true" value="@bind(v.faqQuestion)"/>
+									<textbox multiline="true" value="@bind(v.faqAnswer)"/>
+									<combobox readonly="true" autocomplete="true" autodrop="true" value="@bind(v.status)">
+										<comboitem value="" label="Active"/>
+										<comboitem value="" label="Deactive"/>
+									</combobox>
+									<hlayout>
+									<button label="Update" sclass="mybutton" onClick="@command('onClickUpdateFaq',bean=v)"/>
+									<button label="Delete" sclass="mybutton" onClick="@command('onClickDeleteFaq',bean=v)"/>
+									</hlayout>
+									
+								</row>
+							</template>
+								
+							</rows>
+						</grid>
+				</tabpanel>
+			</tabpanels>
+		</tabbox>
+
+
+	</window>
+</zk>

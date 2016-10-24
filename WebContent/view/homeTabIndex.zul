@@ -112,6 +112,13 @@
 									
 									<treeitem>
 										<treerow>
+											<treecell label="Faq Setting"
+												onClick='inclResults.setSrc("faq.zul");' />
+										</treerow>
+									</treeitem>
+									
+									<treeitem>
+										<treerow>
 											<treecell label="Subscription Setting"
 												onClick='inclResults.setSrc("subscriptionsettings.zul");' />
 										</treerow>
