@@ -122,7 +122,7 @@ public class BannerViewModel {
 	@Command
 	@NotifyChange("*")
 	public void onOkNoOfImages(){
-		if(addNewBannerBean.bannertTitle !=null){
+		if(addNewBannerBean.bannertTitle.trim() !=null){
 		    if(addNewBannerBean.noOfUrls != null){
 		    	if(addNewBannerBean.noOfUrls==null){
 					urlList.clear();
@@ -147,7 +147,7 @@ public class BannerViewModel {
 	public void onClickAdd(){
 		//save()
 		int i = 0;
-		if(addNewBannerBean.bannertTitle !=null){
+		if(addNewBannerBean.bannertTitle.trim() !=null){
 		     if(addNewBannerBean.noOfUrls != null){
 		    	 ArrayList<UrlBean> subUrlBeanList = new ArrayList<UrlBean>();
 		    	 for(UrlBean bean : urlList){

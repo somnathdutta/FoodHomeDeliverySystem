@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Arrays;
 
+import org.zkoss.zul.Messagebox;
+
 import Bean.ItemBean;
 import Bean.SetBean;
 import sql.SetMasterSql;
@@ -15,8 +17,10 @@ public class SetDetailsSaveDao {
 	public static int setDetailsSave(Connection connection, String setName, String userName, SetBean setBean){
 		int i = 0;
 		int j = 0;
-		System.out.println("SET ------------------- ID ---------- >>> >> > " + setBean.getSetId());
+		
 		if(setBean.getSetId() == null){
+			
+			
 		PreparedStatement preparedStatement = null;
 		try {
 			int generatedKey= 0;
@@ -70,6 +74,13 @@ public class SetDetailsSaveDao {
 			
 			
 		} catch (Exception e) {
+			String str = e.getMessage();
+			if(str.startsWith("ERROR: duplicate ")){
+				Messagebox.show("Already Exists", "Error", Messagebox.OK, Messagebox.ERROR);
+			}else {
+				Messagebox.show(str, "Error", Messagebox.OK, Messagebox.ERROR);
+			}
+			
 			e.printStackTrace();
 		}
 		}else {
@@ -83,7 +94,7 @@ public class SetDetailsSaveDao {
 				
 				}
 			} catch (Exception e) {
-				// TODO: handle exception
+				e.printStackTrace();
 			}
 			
 		}

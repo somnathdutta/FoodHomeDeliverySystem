@@ -46,6 +46,7 @@ Session session = null;
 		
 		connection.setAutoCommit(true);
 		setList = SetMasterService.fetchSetList(connection);
+		System.out.println("zul page >> itemset.zul");
 	}
 
 	@Command

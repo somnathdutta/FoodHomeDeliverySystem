@@ -26,7 +26,7 @@ public class BannerDao {
 			
 			SQL:{
 				preparedStatement = connection.prepareStatement(BannerSql.insertBannerIdQuery);
-				preparedStatement.setString(1, bean.bannertTitle);
+				preparedStatement.setString(1, bean.bannertTitle.trim());
 				
 			    i = preparedStatement.executeUpdate();
 			    
@@ -56,7 +56,12 @@ public class BannerDao {
 			
 		} catch (Exception e) {
 			String msg = e.getMessage();
-			Messagebox.show(msg,"Error", Messagebox.OK, Messagebox.ERROR);
+			if(msg.startsWith("ERROR: duplicate")){
+				Messagebox.show("Already Exists","Error", Messagebox.OK, Messagebox.ERROR);
+			}else {
+				Messagebox.show(msg,"Error", Messagebox.OK, Messagebox.ERROR);
+			}
+			
 			
 			try {
 				connection.rollback();
