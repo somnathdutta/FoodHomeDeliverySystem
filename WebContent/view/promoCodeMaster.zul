@@ -73,8 +73,8 @@
 						  <template name="model" var= "v">	
 							<row>
 								<textbox readonly="true" value="@bind(v.promoCode)"></textbox>
-								<datebox value="@bind(v.fromDateUtil)" format="dd-mm-yyyy"></datebox>
-								<datebox value="@bind(v.toDateUtil)" format="dd-mm-yyyy"></datebox>
+								<datebox value="@bind(v.fromDateUtil)"></datebox>
+								<datebox value="@bind(v.toDateUtil)"></datebox>
 								<combobox model="@bind(vm.promoCodeTypeList)" selectedItem="@bind(v.promoCodeTypeBean)" value="@bind(v.promoType)">
 									<template name="model" var ="v">
 										<comboitem label="@bind(v.promoType)" value="@bind(v.promoTypeId)"></comboitem>

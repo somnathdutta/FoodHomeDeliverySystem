@@ -94,6 +94,7 @@ public class PromoCodeMasterViewModel {
 			i = PromoCodeMasterService.insertPromoCodeDetails(connection, promoCodeMasterBean, promoCodeTypeBean, promoCodeApplicationTypeBean);
 			if(i>0){
 				onClickClear();
+				promoCodeDetailsBeanList = PromoCodeMasterService.loadPromoCodeDetails(connection);
 				Messagebox.show("Saved Succesfully", "Information", Messagebox.OK, Messagebox.INFORMATION);
 			}
 			
@@ -131,6 +132,8 @@ public class PromoCodeMasterViewModel {
 		
 		promoCodeApplicationTypeBean.setPromoCodeApplyType(null);
 		promoCodeApplicationTypeList = PromoCodeMasterService.loadPromoCodeApplicationType(connection);
+		
+		promoCodeDetailsBeanList = PromoCodeMasterService.loadPromoCodeDetails(connection);
 		
 	}
 	
