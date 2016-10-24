@@ -383,7 +383,7 @@
 										</treerow>
 									</treeitem>
 									
-									<treeitem>
+									<treeitem visible="false">
 										<treerow>
 											<treecell label="Assigned Order List" onClick='inclResults.setSrc("assignedOrderList.zul")' visible="@bind(vm.assignVisibility)"/>
 										</treerow>
