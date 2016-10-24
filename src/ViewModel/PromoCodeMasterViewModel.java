@@ -44,7 +44,6 @@ public class PromoCodeMasterViewModel {
 		connection.setAutoCommit(true);
 		
 		promoCodeMasterBean.setUser(userName);
-		System.out.println("promoCodeMasterBean.setUser(userName) " + promoCodeMasterBean.getUser());
 		promoCodeList = PromoCodeMasterService.loadPromoCodeList(connection);
 		promoCodeDetailsBeanList = PromoCodeMasterService.loadPromoCodeDetails(connection);
 		
@@ -59,8 +58,10 @@ public class PromoCodeMasterViewModel {
 		if(promoCode !=null){
 			
 		i = PromoCodeMasterService.insertPromocode(connection, promoCodeMasterBean, promoCode);
+		
 		if(i>0){
 			promoCode = null;
+			promoCodeList = PromoCodeMasterService.loadPromoCodeList(connection);
 			Messagebox.show("Promo code Saved Succesfully", "Information", Messagebox.OK, Messagebox.INFORMATION);
 		}
 		}else {

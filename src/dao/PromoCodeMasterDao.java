@@ -158,6 +158,7 @@ public class PromoCodeMasterDao {
 	
 	public static int inSertPromocodeDetails(Connection connection, PromoCodeMasterBean bean, PromoCodeMasterBean typeBean, PromoCodeMasterBean applbean){
 		int i =0;
+		int j =0;
 		Date fromDate = new Date(bean.getFromDateUtil().getTime());
 		Date toDate = new Date(bean.getToDateUtil().getTime());
 		String status = bean.getStatus();
@@ -168,12 +169,19 @@ public class PromoCodeMasterDao {
 		}
 		
 		try {
+			
 			PreparedStatement preparedStatement = null;
 			preparedStatement = FappPstm.createQuery(connection, PromoCodeMasterSql.insertPromoCodeDetailsSql, 
 					Arrays.asList(bean.getPromoCodeId(), bean.getPromoCode(), fromDate, toDate, typeBean.getPromoTypeId(), 
 							applbean.getPromocodeApplyTypeId(), bean.getUser(), bean.getUser(), status, bean.getPromoValue()));
 			
 			i = preparedStatement.executeUpdate();
+			
+			if(i>0){
+				PreparedStatement preparedStatement2 = null;
+				preparedStatement2 = FappPstm.createQuery(connection, PromoCodeMasterSql.updatePromoCodeSql, Arrays.asList(bean.getPromoCodeId()));
+				j = preparedStatement2.executeUpdate();
+			}
 			
 		} catch (Exception e) {
 			String msg = e.getMessage();

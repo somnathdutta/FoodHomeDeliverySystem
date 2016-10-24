@@ -18,4 +18,6 @@ public class PromoCodeMasterSql {
 	
 	public static final String upDatePromoCodeDetailsSql = "";
 	
+	public static final String updatePromoCodeSql = "update fapp_promo_code_master set is_applied = 'Y' where fapp_promo_code_master_id = ? "; 
+	
 }
