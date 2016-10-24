@@ -1,0 +1,107 @@
+<?page title="Promo Code" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window title="PROMO CODE MASTER" border="normal" apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('ViewModel.PromoCodeMasterViewModel')">
+	
+	<tabbox>
+		<tabs>
+			<tab label="PromoCode Generate"></tab>
+			<tab label="Existing Promo Code "></tab>
+		</tabs>
+		<tabpanels>
+			<tabpanel>
+				<div>	
+					<hlayout spacing="30px">
+						<textbox placeholder="Enter Promo Code" value="@bind(vm.promoCode)" width="180px"></textbox>
+						<button label="Save" onClick="@command('onClickSavePromoCode')" sclass="mybutton"></button>
+					</hlayout>
+				</div>
+				
+				<space></space>
+				<div>
+					<hlayout spacing="40px">
+					<combobox readonly="true" model="@bind(vm.promoCodeList)" value="@bind(vm.promoCodeMasterBean.promoCode)" placeholder="Select Promo code" selectedItem="@bind(vm.promoCodeMasterBean)" onSelect="@command('onSelectPromocode')">
+						<template name="model" var = "v">
+						<comboitem value="@bind(v.promoCodeId)" label="@bind(v.promoCode)"></comboitem>
+						</template>
+					</combobox>
+					<button label="Clear" sclass="mybutton"></button>
+					</hlayout>
+				</div>
+				<space></space>
+				<div visible="@bind(vm.promoCodeMasterBean.promoApplyDivVis)">
+					<hlayout spacing="20px">
+						<datebox placeholder="From Date" value="@bind(vm.promoCodeMasterBean.fromDateUtil)"></datebox>
+						<datebox placeholder="To Date" value="@bind(vm.promoCodeMasterBean.toDateUtil)"></datebox>
+						
+						<combobox readonly="true" onSelect="@command('onSelectType')" model="@bind(vm.promoCodeTypeList)" placeholder="Select Type" value="@bind(vm.promoCodeTypeBean.promoType)" selectedItem="@bind(vm.promoCodeTypeBean)" width="150px">
+							<template name="model" var="v">
+								<comboitem value="@bind(v.promoTypeId)" label="@bind(v.promoType)"></comboitem>	
+							</template>
+						</combobox>
+						<doublebox value="@bind(vm.promoCodeMasterBean.promoValue)" disabled="@bind(vm.promoCodeTypeBean.promoVauleVis)" placeholder="Promo Value)"></doublebox>
+						<combobox readonly="true" model="@bind(vm.promoCodeApplicationTypeList)" value="@bind(vm.promoCodeApplicationTypeBean.promoCodeApplyType)" selectedItem="@bind(vm.promoCodeApplicationTypeBean)" placeholder="Promo Application Type">
+							<template name="model" var= "v">
+								<comboitem value="@bind(v.promocodeApplyTypeId)" label="@bind(v.promoCodeApplyType)"></comboitem>
+							</template>
+						</combobox>
+						<combobox value="@bind(vm.promoCodeMasterBean.status)" readonly="true" placeholder="Select Status">
+							<comboitem label="Active"></comboitem>
+							<comboitem label="Inactive"></comboitem>
+						</combobox>
+						
+					</hlayout>
+					<space></space>
+					<div align="center">
+					<button label="Apply" onClick="@command('onclickApplyPromoCode')" sclass="mybutton"></button>
+					</div>
+				</div>
+				
+			</tabpanel>
+			<tabpanel>
+				<!-- <div>
+					<grid model="@bind(vm.promoCodeDetailsBeanList)">
+						<columns>
+							<column label="Promo Code" style="font-weight: bold"></column>
+							<column label="From Date" style="font-weight: bold"></column>
+							<column label="To Date" style="font-weight: bold"></column>
+							<column label="Promo Code Type" style="font-weight: bold"></column>
+							<column label="Promo Code Application type" style="font-weight: bold"></column>
+							<column label="Promo Code Status" style="font-weight: bold"></column>
+							<column label="Apply Promo Code" style="font-weight: bold"></column>
+						</columns>
+						<rows>
+						  <template name="model" var= "v">	
+							<row>
+								<textbox readonly="true" value="@bind(v.promoCode)"></textbox>
+								<datebox value="@bind(v.fromDateUtil)"></datebox>
+								<datebox value="@bind(v.toDateUtil)"></datebox>
+								<combobox model="@bind(vm.promoCodeTypeList)" selectedItem="@bind(v.promoCodeTypeBean)" value="@bind(v.promoType)">
+									<template name="model" var ="v">
+										<comboitem label="@bind(v.promoType)" value="@bind(v.promoTypeId)"></comboitem>
+									</template>
+								</combobox>
+								<combobox model="@bind(vm.promoCodeApplicationTypeList)" selectedItem="@bind(v.promoCodeApplicationTypeBean)" value="@bind(v.promoCodeApplyType)">
+									<template name="model" var="v">
+										<comboitem label="@bind(v.promoCodeApplyType)" value="@bind(v.promocodeApplyTypeId)"></comboitem>
+									</template>
+								</combobox>
+								<combobox value="@bind(v.status)">
+									<comboitem label="Active"></comboitem>
+									<comboitem label="Inactive"></comboitem>
+								</combobox>
+								
+								<button label="Apply" onClick="@command('onclickApplyPromoCode', bean= v)"></button>
+							</row>
+						  </template>	
+					
+						</rows>
+					</grid>
+				</div> -->
+			
+			</tabpanel>
+	
+		</tabpanels>
+	</tabbox>
+	
+</window>
+</zk>
