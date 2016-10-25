@@ -130,6 +130,50 @@
 										</treerow>
 									</treeitem>
 									
+									<treeitem open="false">
+										<treerow>
+											<treecell label="Cms Settings"></treecell>
+										</treerow>
+										<treechildren>
+											<treeitem>
+												<treerow>
+													<treecell label="Share and Earn"
+														onClick='inclResults.setSrc("cmsshare.zul");' />
+												</treerow>
+									   		</treeitem>
+									   		
+									   		<treeitem>
+												<treerow>
+													<treecell label="About Us"
+														onClick='inclResults.setSrc("cmsaboutus.zul");' />
+												</treerow>
+									   		</treeitem>
+										
+											<treeitem>
+												<treerow>
+													<treecell label="Contact Us"
+														onClick='inclResults.setSrc("cmscontactus.zul");' />
+												</treerow>
+									   		</treeitem>
+									   		
+									   		<treeitem>
+												<treerow>
+													<treecell label="Terms and Conditions"
+														onClick='inclResults.setSrc("cmstandc.zul");' />
+												</treerow>
+									   		</treeitem>
+									   		
+									   		<treeitem>
+												<treerow>
+													<treecell label="Privacy Policy"
+														onClick='inclResults.setSrc("cmsprivacypolicy.zul");' />
+												</treerow>
+									   		</treeitem>
+										
+										
+										
+										</treechildren>
+									</treeitem>
 								</treechildren>
 							</treeitem>
 							<!--Admin Menu End -->

@@ -1,0 +1,52 @@
+<?page title="Share & Earn" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window title="Share And Earn Master" border="normal" apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('ViewModel.ShareAndEarnViewModel')">
+	<div visible="@bind(vm.shareAndEarnBean.insertDivVis)">
+		<grid>
+			<columns sizable="true">
+				<column label="App Message" align="center"></column>
+				<column label="Invite Message" align="center"></column>
+				<column label="Amount" align="center"></column>
+				<column label="Save" align="center"></column>
+			</columns>
+			<rows>
+				<row>
+					<textbox multiline="true" width="100%" value="@bind(vm.shareAndEarnBean.appMsg)"></textbox>
+					<textbox multiline="true" width="100%" value="@bind(vm.shareAndEarnBean.invtMsg)"></textbox>
+					<doublebox width="100%" value="@bind(vm.shareAndEarnBean.amnt)"></doublebox>	
+					<button label="Save" sclass="mybutton" onClick="@command('onclickShareAndEarn')"></button>
+				</row>
+			</rows>
+		</grid>
+	</div>
+	<space></space>
+	<div height="30px" align="center">
+	<label value="Update Existing Data" style="font-weight: bold"></label>
+	
+	</div>
+	<div>
+		<grid model="@bind(vm.shareAndEarnBeanList)">
+			<columns sizable="true">
+				<column label="App Message" align="center"></column>
+				<column label="Invite Message" align="center"></column>
+				<column label="Amount" align="center"></column>
+				<column label="Action" align="center"></column>
+				
+			</columns>
+			<rows>
+			 <template name="model" var="v">
+				<row>
+					<textbox multiline="true" width="100%" value="@bind(v.appMsg)"></textbox>
+					<textbox multiline="true" width="100%" value="@bind(v.invtMsg)"></textbox>
+					<doublebox width="100%" value="@bind(v.amnt)"></doublebox>	
+					<hlayout>
+						<button label="Update" sclass="mybutton" onClick="@command('onClickUpdate', bean =v)"></button>
+						<button label="Delete" sclass="mybutton" onClick="@command('onClickDelete' bean =v)"></button>
+					</hlayout>
+				</row>
+			  </template>	
+			</rows>
+		</grid>
+	</div>
+</window>
+</zk>
