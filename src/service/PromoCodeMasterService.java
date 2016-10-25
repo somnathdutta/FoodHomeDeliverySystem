@@ -61,7 +61,11 @@ public class PromoCodeMasterService {
 		
 	}
 	
-	
+	public static int updatePromoCodeDetails(Connection connection, PromoCodeMasterBean bean){
+		int i = 0;
+		i = PromoCodeMasterDao.updatePromoCodeDetails(connection, bean);
+		return i;
+	}
 	
 	
 	

@@ -16,7 +16,8 @@ public class PromoCodeMasterSql {
 	
 	public static final String loadPromoCodeList = "select fapp_promo_code_master_id, promo_code from fapp_promo_code_master where is_applied = 'N' ";
 	
-	public static final String upDatePromoCodeDetailsSql = "";
+	public static final String upDatePromoCodeDetailsSql = "update fapp_promo_code_details set from_date = ?, to_date = ?, promo_type_id = ?, promo_code_application_type_id= ?, "
+															+ " updated_by = ?, is_active = ?, promo_value = ? where fapp_promo_code_details_id = ?  ";
 	
 	public static final String updatePromoCodeSql = "update fapp_promo_code_master set is_applied = 'Y' where fapp_promo_code_master_id = ? "; 
 	

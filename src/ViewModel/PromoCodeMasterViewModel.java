@@ -1,6 +1,7 @@
 package ViewModel;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 
 import org.zkoss.bind.annotation.AfterCompose;
@@ -159,6 +160,17 @@ public class PromoCodeMasterViewModel {
 		
 		//System.out.println("Type >> " + bean.getPromoCodeTypeBean().getPromoType());
 		
+	}
+	
+	@Command
+	@NotifyChange("*")
+	public void onclickUpdateDetails(@BindingParam("bean") PromoCodeMasterBean bean){
+		bean.setUser(userName);
+		int i = 0;
+		i = PromoCodeMasterService.updatePromoCodeDetails(connection, bean);
+		if(i >0){
+			Messagebox.show("Updated Successfully", "Information", Messagebox.OK, Messagebox.INFORMATION);
+		}
 	}
 	
 	public PromoCodeMasterBean getPromoCodeMasterBean() {

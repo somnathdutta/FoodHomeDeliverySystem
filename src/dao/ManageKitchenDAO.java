@@ -201,7 +201,7 @@ public class ManageKitchenDAO {
 		if(list.size()>0){
 			list.clear();
 		}
-		String sql ="select kitchen_id, category_id, category_name, is_active, category_image, is_lunch, is_dinner from vw_category_kitchen where kitchen_id = ? ";
+		String sql ="select kitchen_id, category_id, category_name, is_active, category_image, is_lunch, is_dinner from vw_category_kitchen_lunch_dinner_details where kitchen_id = ? ";
 		try {
 			PreparedStatement preparedStatement = null;
 			preparedStatement = FappPstm.createQuery(connection, sql, Arrays.asList(kitchenId));

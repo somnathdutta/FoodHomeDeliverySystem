@@ -99,8 +99,8 @@
 								</combobox>
 								
 								<hlayout spacing="10px">
-									<button label="Update" sclass="mybutton" onClick="@command('onclickApplyPromoCode', bean= v)"></button>
-									<button label="Delete" sclass="mybutton" onClick="@command('onclickDelete', bean= v)"></button>
+									<button label="Update" sclass="mybutton" onClick="@command('onclickUpdateDetails', bean= v)"></button>
+									<button label="Delete" sclass="mybutton" onClick="@command('onclickDelete', bean= v)" visible="false"></button>
 								</hlayout>
 							</row>
 						  </template>	

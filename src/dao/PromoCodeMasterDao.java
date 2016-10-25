@@ -207,7 +207,7 @@ public class PromoCodeMasterDao {
 		try {
 			PreparedStatement preparedStatement = null;
 			preparedStatement = FappPstm.createQuery(connection, PromoCodeMasterSql.loadPromocodeTypeSql, null);
-			System.out.println("Load Promo Code Type >>> >> > " + preparedStatement);
+			
 			ResultSet resultSet = preparedStatement.executeQuery(); 
 			while (resultSet.next()) {
 				PromoCodeTypeBean bean = new PromoCodeTypeBean();
@@ -249,5 +249,34 @@ public class PromoCodeMasterDao {
 		return list;
 	}
 	
-	
+	public static int updatePromoCodeDetails(Connection connection, PromoCodeMasterBean bean){
+		int i = 0;
+		Date fromDate = null;
+		Date toDate = null;
+		if(bean.getFromDateUtil() != null){
+		fromDate = new Date(bean.getFromDateUtil().getTime());
+		}
+		if(bean.getToDateUtil() != null){
+		toDate = new Date(bean.getToDateUtil().getTime());
+		}
+		String status = bean.getStatus();
+		if(status.equalsIgnoreCase("Active")){
+			status = "Y";
+		}else {
+			status = "N";
+		}
+		PreparedStatement preparedStatement = null;
+		try {
+			preparedStatement = FappPstm.createQuery(connection, PromoCodeMasterSql.upDatePromoCodeDetailsSql, Arrays.asList(fromDate, toDate, bean.getPromoTypeBean().getPromoCodeTypeId(),
+													 bean.getPromoApplyBean().getApplyTypeId(), bean.getUser(), status, bean.getPromoValue(), bean.getPromocodeDetailsId()));
+			
+			i = preparedStatement.executeUpdate();
+			
+		} catch (Exception e) {
+			String msg = e.getMessage();
+			Messagebox.show(msg, "Error", Messagebox.OK, Messagebox.ERROR);
+			e.printStackTrace();
+		}
+	  return i;
+	}
 }
