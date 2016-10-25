@@ -586,7 +586,7 @@ public class BannerViewModel {
 			status= "N";
 		}
 		if(bean.urlId != null){
-		i = BannerService.inActiveBannerUrl(connection, bean.bannerId, status);
+		i = BannerService.inActiveBannerUrl(connection, bean.urlId, status);
 		}
 		
 		if(i>0){
