@@ -1,6 +1,51 @@
-<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<?page title="T&C" contentType="text/html;charset=UTF-8"?>
 <zk>
-<window title="new page title" border="normal">
-New Content Here!
+<window title="Terms and Conditions" border="normal" apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('ViewModel.TermsAndConditionViewModel')">
+
+	<div visible="@bind(vm.termsAndConditionBean.insertDivVis)">	
+		<grid>
+		   <columns>
+				<column label="Terms and Conditions" align="center"></column>
+				<column label="Save" align="center"></column>
+					
+		   </columns>
+		   <rows>
+				<row>
+					<textbox value="@bind(vm.termsAndConditionBean.termsandCondition)" multiline="true" width="100%"></textbox>
+					<button label="Save" onClick="@command('onClickTandc')" sclass="mybutton"></button>
+				</row>
+			</rows>
+		</grid>
+	</div>
+	<space></space>
+	<div align="center">
+		<label value="Update Terms and Conditions" style="font-weight:bold"></label>
+	</div>
+	<space></space>
+	<div>
+		<grid model="@bind(vm.termsAndConditionBeanList)">
+			<columns>
+				<column label="Terms and Conditions" align="center"></column>
+				<column label="Action" align="center"></column>
+			</columns>
+			<rows>
+				
+				<template name="model" var = "v">
+					<row>
+						<textbox multiline="true" value="@bind(v.termsandCondition)" width="100%"></textbox>
+						<hlayout>
+							<button sclass="mybutton" onClick="@command('updateTandc', bean= v)"></button>
+							<button sclass="mybutton" onClick="@command('deleteTandc', bean= v)"></button>
+						</hlayout>
+							
+					</row>
+				</template>	
+			</rows>
+				
+	
+		</grid>
+	</div>
+	
+	
 </window>
 </zk>

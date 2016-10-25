@@ -1,6 +1,46 @@
-<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<?page title="Privacy Policy" contentType="text/html;charset=UTF-8"?>
 <zk>
-<window title="new page title" border="normal">
-New Content Here!
+<window title="Privacy Policy" border="normal" apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('ViewModel.PrivecyPolicyViewModel')">
+
+	<div visible="@bind(vm.privacyPolicyBean.insertDivVis)">
+		<grid>
+		   <columns>
+		     <column label="Privacy Policy" align="center"></column>
+			 <column label="Save" align="center"></column>	
+		   </columns>
+		   <rows>
+		   	  <row>	
+		   		<textbox multiline="true" value="@bind(vm.privacyPolicyBean.privacyPolicy)" width="100%"></textbox>
+		   		<button label="Save" sclass="mybutton" onClick="@command('onClickPivacyPolicy')"></button>
+		   	  </row>	
+		   </rows>
+		</grid>
+	</div>
+	<space></space>
+	<div height="20px" align="center">
+		<label value="Update Privacy Policy" style="font-weight: bold"></label>
+	</div>
+	<space></space>
+	<div>
+		<grid model="@bind(vm.privacyPolicyBeanList)">
+			<columns sizable="true">
+				<column label="Privacy Policy"></column>
+				<column label="Action"></column>
+			</columns>
+			<rows>
+				<template name="model" var ="v">
+					<row>
+						<textbox value="@bind(v.privacyPolicy)"></textbox>
+						<hlayout spacing="20px">
+							<button label="Update" onClick="@command('onclcikUpdate', bean= v)" sclass="mybutton"></button>
+							<button label="Delete" onClick="@command('onclcikDelete', bean= v)" sclass="mybutton"></button>
+						
+						</hlayout>	
+					</row>
+				</template>
+				
+			</rows>
+		</grid>
+	</div>
 </window>
 </zk>

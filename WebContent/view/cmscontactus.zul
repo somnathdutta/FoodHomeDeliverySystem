@@ -1,6 +1,49 @@
-<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<?page title="Contact us" contentType="text/html;charset=UTF-8"?>
 <zk>
-<window title="new page title" border="normal">
-New Content Here!
+<window title="Contact Us Master" border="normal" apply="org.zkoss.bind.BindComposer" viewModel="@id('vw') @init('ViewModel.ContactUsViewModel')">
+	<div visible="@bind(vw.contactUsBean.insertDivVis)">
+		<grid>
+			<columns>
+				<column label="Contact No" align="center"></column>
+				<column label="Save" align="center"></column>
+			</columns>
+			<rows>
+				<row>
+					<textbox value="@bind(vw.contactUsBean.contNo)"></textbox>
+					<button label="Save" onClick="@command('insertContactUs')" sclass="mybutton"></button>
+			
+				</row>
+			</rows>
+		</grid>
+		<space></space>
+		<div align="center" height="20px">
+			<label value="Update Contact No" style="font-weight: bold"></label>
+		</div>
+		<space></space>
+		<div>
+			<grid model="@bind(vw.contactUsBeanList)">
+				<columns>
+					<column label="Contact No"></column>
+					<column label="Action"></column>
+				</columns>
+				<rows>
+					<template name="model" var= "v">
+						<row>
+							<textbox value="@bind(v.contNo)" width="100%"></textbox>
+							<hlayout spacing="20px">
+								<button onClick="@command('updateContactUs', bean= v)" sclass="mybutton" label="Update"></button>
+								<button onClick="@command('deleteContactUs', bean= v)" sclass="mybutton" label="Delete"></button>
+							</hlayout>
+						</row>
+					</template>	
+				
+				</rows>
+			</grid>
+		</div>
+		
+		
+	</div>
+	
+	
 </window>
 </zk>
