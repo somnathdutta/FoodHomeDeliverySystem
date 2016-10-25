@@ -171,17 +171,21 @@ public class BannerDao {
 	public static boolean saveAll(Connection connection, int bannerId, ArrayList<UrlBean> list){
 		boolean status = false;
 		int i = 0, j = 0;
-		PreparedStatement preparedStatement = null;
+		
 		try {
 			
 			for(UrlBean bean : list){
 				
 				if(bean.urlId !=null && bean.urlName != null){
+					PreparedStatement preparedStatement = null;
 					preparedStatement = FappPstm.createQuery(connection, BannerSql.updateBannerUrl, Arrays.asList(bean.urlName, bannerId));
+					
 					i = preparedStatement.executeUpdate();
 					
 				}if(bean.urlId ==null && bean.urlName != null) {
+					PreparedStatement preparedStatement = null;
 					preparedStatement = FappPstm.createQuery(connection, BannerSql.insertBannerListQuery, Arrays.asList(bannerId, bean.urlName));
+					
 					j =preparedStatement.executeUpdate();
 				}
 			}
