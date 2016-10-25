@@ -425,7 +425,7 @@ viewModel="@id('vm') @init('ViewModel.ManageKitchenViewModel')">
 				   </hlayout>
 				   <space></space>
 				   <div>
-						<grid model="@bind(vm.lunchDinnerDetailsBeanList)">
+						<grid model="@bind(vm.lunchDinnerDetailsBeanList)" mold="paging" pageSize="9">
 							<columns sizable="true">
 								<column label="Category Name" align="center" width="320px"></column>
 								<column label="Lunch" align="center" width="150px"></column>
