@@ -1,0 +1,54 @@
+<?page title="New Order Creation" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<window title="New Order Creation" border="normal"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('ViewModel.CreateNewOrderViewModel')">
+		<hlayout>
+			<combobox readonly="true" placeholder="[Choose Location]"
+				width="100%" selectedItem="@bind(vm.loactionBean)"
+				value="@bind(vm.loactionBean.locatityName)"
+				model="@bind(vm.locationBeanList)" autocomplete="true"
+				autodrop="true" onSelect="@command('onSelectLocationName')">
+				<template name="model" var="v">
+					<comboitem value="@load(v.zipCode)"
+						label="@load(v.locatityName)" />
+				</template>
+			</combobox>
+			
+			<combobox readonly="true" placeholder="[Choose DAY]"
+				width="100%" selectedItem="@bind(vm.dayBean)"
+				value="@bind(vm.dayBean.day)"
+				model="@bind(vm.dayBeanList)" autocomplete="true"
+				autodrop="true" onSelect="@command('onSelectDayName')">
+				<template name="model" var="v">
+					<comboitem value="@load(v.day)"
+						label="@load(v.day)" />
+				</template>
+			</combobox>
+			
+			<combobox readonly="true" placeholder="[Choose TYPE]"
+				width="100%" selectedItem="@bind(vm.mealBean)"
+				value="@bind(vm.mealBean.typeOfMeal)"
+				model="@bind(vm.mealBeanList)" autocomplete="true"
+				autodrop="true" onSelect="@command('onSelectTypeName')">
+				<template name="model" var="v">
+					<comboitem value="@load(v.typeOfMeal)"
+						label="@load(v.typeOfMeal)" />
+				</template>
+			</combobox>
+			
+			<combobox placeholder="[Choose cuisine]" readonly="true"
+				model="@bind(vm.cuisinBeanList)" autodrop="true" autocomplete="true"
+				onSelect="@command('onSelectCuisine')"
+				value="@bind(vm.cuisinBean.cuisinName)"
+				selectedItem="@bind(vm.cuisinBean.cuisinName)">
+				<template name="model" var="v">
+					<comboitem value="@load(v.cuisinId)" label="@load(v.cuisinName)" />
+				</template>
+			</combobox>
+		</hlayout>
+		<button label="Click me" sclass="mybutton"
+			onClick="@command('onClickCreate')" />
+
+	</window>
+</zk>
