@@ -69,6 +69,7 @@ viewModel="@id('vm') @init('ViewModel.ManageKitchenViewModel')">
 				<tab label="Create New Kitchen "/>
 				<tab label="Show Kitchens "/>
 				<tab label="Item management" onClick="@command('onClickLoadItem')"/>
+				<tab label="Lunch Dinner"></tab>
 			</tabs>
 			
 			<tabpanels>
@@ -411,6 +412,54 @@ viewModel="@id('vm') @init('ViewModel.ManageKitchenViewModel')">
 								</grid>
 							</div>
 							</div>	
+				</tabpanel>
+			
+				<tabpanel>
+					<combobox readonly="true" model="@bind(vm.lunchDinnerkitchenBeanList)" selectedItem="@bind(vm.lunchDinnerBean)" value="@bind(vm.lunchDinnerBean.kitchenName)" onSelect="@command('onSelectLunchDinnerKitchen')">
+						<template name="model" var ="v">
+							<comboitem value="@bind(v.kitchenId)" label="@bind(v.kitchenName)"></comboitem>
+						</template>
+					</combobox>
+					<space></space>
+					<div>
+						<grid model="@bind(vm.lunchDinnerDetailsBeanList)">
+							<columns sizable="true">
+								<column label="Category Name" align="center" width="320px"></column>
+								<column label="Lunch" align="center" width="150px"></column>
+								<column label="Dinner" align="center" width="150px"></column>
+								<column label="Status" align="center" width="150px"></column>
+								<column label="Action" align="center" width="260px"></column>
+							</columns>
+							<rows>
+								<template name="model" var = "v">
+									<row>
+										<textbox readonly="true" value="@bind(v.categoryName)" width="100%"></textbox>
+										
+										<combobox value="@bind(v.lunchStatus)" width="100%" readonly="true">
+										  <comboitem label="Yes"></comboitem>
+										  <comboitem label="No"></comboitem>	
+										</combobox>
+										
+										<combobox value="@bind(v.dinnerStatus)" width="100%" readonly="true">
+										  <comboitem label="Yes"></comboitem>
+										  <comboitem label="No"></comboitem>	
+										</combobox>
+										
+										
+										<combobox value="@bind(v.status)" width="100%" readonly="true">
+										  <comboitem label="Active"></comboitem>
+										  <comboitem label="Inactive"></comboitem>	
+										</combobox>
+										
+										<hlayout spacing="10px">
+										  <button label="Update" onClick="@command('onClickUpdate', bean= v)" sclass="mybutton"></button>
+										  <button label= "Delete" onClick="@command('onClcikDelete', bean= v)" sclass="mybutton" visible="false"></button>  	
+										</hlayout>
+									</row>
+								</template>
+							</rows>
+						</grid>
+					</div>
 				</tabpanel>
 			</tabpanels>	
 		</tabbox>

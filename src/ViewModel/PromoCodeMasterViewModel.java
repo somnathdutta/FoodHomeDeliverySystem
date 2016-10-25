@@ -21,12 +21,17 @@ import service.PromoCodeMasterService;
 public class PromoCodeMasterViewModel {
 	
 	PromoCodeMasterBean promoCodeMasterBean = new PromoCodeMasterBean();
+	PromoCodeMasterBean promoCodeDetailsBean = new PromoCodeMasterBean();
 	PromoCodeMasterBean promoCodeTypeBean = new PromoCodeMasterBean();
 	PromoCodeMasterBean promoCodeApplicationTypeBean = new PromoCodeMasterBean();
+	PromoCodeMasterBean promoCodeTypeBeanExist = new PromoCodeMasterBean();
+	PromoCodeMasterBean promoCodeApplicationTypeBeanExist = new PromoCodeMasterBean();
 	
 	ArrayList<PromoCodeMasterBean> promoCodeDetailsBeanList;
 	ArrayList<PromoCodeMasterBean> promoCodeTypeList;
 	ArrayList<PromoCodeMasterBean> promoCodeApplicationTypeList;
+	ArrayList<PromoCodeMasterBean> promoCodeTypeExistList;
+	ArrayList<PromoCodeMasterBean> promoCodeApplicationTypeExistList;
 	ArrayList<PromoCodeMasterBean> promoCodeList;
 	
 	String promoCode;
@@ -81,6 +86,16 @@ public class PromoCodeMasterViewModel {
 	
 	@Command
 	@NotifyChange("*")
+	public void onChangeToDateNew(){
+		if(promoCodeMasterBean.getToDateUtil().before(promoCodeMasterBean.getFromDateUtil())){
+			promoCodeMasterBean.setToDateUtil(null);
+			Messagebox.show("To Date Should Be After From Date", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+		}
+	}
+	
+	
+	@Command
+	@NotifyChange("*")
 	public void onSelectType(){
 		promoCodeMasterBean.setPromoVauleVis(false);
 	}
@@ -103,15 +118,7 @@ public class PromoCodeMasterViewModel {
 	}
 	
 	
-	/*@Command
-	@NotifyChange("*")
-	public void onclickApplyPromoCode(@BindingParam("bean") PromoCodeMasterBean bean){
-		int i= 0;
-		i = PromoCodeMasterService.insertPromoCodeDetails(connection, bean);
-		if(i>0){
-			Messagebox.show("Saved Succesfully", "Information", Messagebox.OK, Messagebox.INFORMATION);
-		}
-	}*/
+	
 	
 	@Command
 	@NotifyChange("*")
@@ -137,8 +144,23 @@ public class PromoCodeMasterViewModel {
 		
 	}
 	
+	@Command
+	@NotifyChange("*")
+	public void onchangeToDateExist(@BindingParam("bean") PromoCodeMasterBean bean){
+		if(bean.getToDateUtil().before(bean.getFromDateUtil())){
+			bean.setToDateUtil(null);
+			Messagebox.show("To Date Should Be After From Date", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+		}
+	}
 	
-
+	@Command
+	@NotifyChange()
+	public void onSelectPromoCodeTypeExist(@BindingParam("bean") PromoCodeMasterBean bean){
+		
+		//System.out.println("Type >> " + bean.getPromoCodeTypeBean().getPromoType());
+		
+	}
+	
 	public PromoCodeMasterBean getPromoCodeMasterBean() {
 		return promoCodeMasterBean;
 	}
@@ -249,6 +271,59 @@ public class PromoCodeMasterViewModel {
 
 	public void setPromoCodeList(ArrayList<PromoCodeMasterBean> promoCodeList) {
 		this.promoCodeList = promoCodeList;
+	}
+
+
+	public PromoCodeMasterBean getPromoCodeDetailsBean() {
+		return promoCodeDetailsBean;
+	}
+
+
+	public void setPromoCodeDetailsBean(PromoCodeMasterBean promoCodeDetailsBean) {
+		this.promoCodeDetailsBean = promoCodeDetailsBean;
+	}
+
+
+	public PromoCodeMasterBean getPromoCodeTypeBeanExist() {
+		return promoCodeTypeBeanExist;
+	}
+
+
+	public void setPromoCodeTypeBeanExist(PromoCodeMasterBean promoCodeTypeBeanExist) {
+		this.promoCodeTypeBeanExist = promoCodeTypeBeanExist;
+	}
+
+
+	public PromoCodeMasterBean getPromoCodeApplicationTypeBeanExist() {
+		return promoCodeApplicationTypeBeanExist;
+	}
+
+
+	public void setPromoCodeApplicationTypeBeanExist(
+			PromoCodeMasterBean promoCodeApplicationTypeBeanExist) {
+		this.promoCodeApplicationTypeBeanExist = promoCodeApplicationTypeBeanExist;
+	}
+
+
+	public ArrayList<PromoCodeMasterBean> getPromoCodeTypeExistList() {
+		return promoCodeTypeExistList;
+	}
+
+
+	public void setPromoCodeTypeExistList(
+			ArrayList<PromoCodeMasterBean> promoCodeTypeExistList) {
+		this.promoCodeTypeExistList = promoCodeTypeExistList;
+	}
+
+
+	public ArrayList<PromoCodeMasterBean> getPromoCodeApplicationTypeExistList() {
+		return promoCodeApplicationTypeExistList;
+	}
+
+
+	public void setPromoCodeApplicationTypeExistList(
+			ArrayList<PromoCodeMasterBean> promoCodeApplicationTypeExistList) {
+		this.promoCodeApplicationTypeExistList = promoCodeApplicationTypeExistList;
 	}
 	
 

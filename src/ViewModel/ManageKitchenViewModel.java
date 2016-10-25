@@ -54,6 +54,12 @@ public class ManageKitchenViewModel {
 	
 	private ArrayList<ManageKitchens> kitchenBeanList = new ArrayList<ManageKitchens>();
 	
+	private ArrayList<ManageKitchens> lunchDinnerkitchenBeanList;
+	ManageKitchens lunchDinnerBean = new ManageKitchens();
+	
+	private ArrayList<ManageKitchens> lunchDinnerDetailsBeanList;
+	private ManageKitchens lunchDinnerDetailsBean = new ManageKitchens();
+	
 	ArrayList<ItemBean> kitchenItemList = new ArrayList<ItemBean>();
 	
 	private ManageCuisinBean cuisinBEAN = new ManageCuisinBean();
@@ -97,7 +103,7 @@ public class ManageKitchenViewModel {
 		connection.setAutoCommit(true);
 		
 		System.out.println("zul page >> manageKitchen.zul");
-		
+		lunchDinnerkitchenBeanList = ManageKitchenDAO.fetchKitchens(connection);
 		loadAllKitchenList();
 		onLoadCityList();
 		loadCuisinList();
@@ -1459,6 +1465,28 @@ public class ManageKitchenViewModel {
 		}
 	}
 	
+	@Command
+	@NotifyChange("*")
+	public void onSelectLunchDinnerKitchen(){
+		lunchDinnerDetailsBeanList = ManageKitchenDAO.loadlunchDinnerDetails(connection, lunchDinnerBean.kitchenId);
+		
+		if(lunchDinnerDetailsBeanList.size() ==0){
+			Messagebox.show("No Category Found!", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+		}
+	}
+	
+	@Command
+	@NotifyChange("*")
+	public void onClickUpdate(@BindingParam("bean") ManageKitchens bean){
+		int i = 0;
+		i = ManageKitchenDAO.upDateCategory(connection, bean);
+		if(i>0){
+			lunchDinnerDetailsBeanList = ManageKitchenDAO.loadlunchDinnerDetails(connection, lunchDinnerBean.kitchenId);
+			Messagebox.show("Updated Successfully", "Inforation", Messagebox.OK, Messagebox.INFORMATION);
+		}
+	}
+	
+	
 	public ManageKitchens getManageKitchensBean() {
 		return manageKitchensBean;
 	}
@@ -1645,6 +1673,48 @@ public class ManageKitchenViewModel {
 
 	public void setKitchenItemList(ArrayList<ItemBean> kitchenItemList) {
 		this.kitchenItemList = kitchenItemList;
+	}
+
+
+	public ArrayList<ManageKitchens> getLunchDinnerkitchenBeanList() {
+		return lunchDinnerkitchenBeanList;
+	}
+
+
+	public void setLunchDinnerkitchenBeanList(
+			ArrayList<ManageKitchens> lunchDinnerkitchenBeanList) {
+		this.lunchDinnerkitchenBeanList = lunchDinnerkitchenBeanList;
+	}
+
+
+	public ManageKitchens getLunchDinnerBean() {
+		return lunchDinnerBean;
+	}
+
+
+	public void setLunchDinnerBean(ManageKitchens lunchDinnerBean) {
+		this.lunchDinnerBean = lunchDinnerBean;
+	}
+
+
+	public ArrayList<ManageKitchens> getLunchDinnerDetailsBeanList() {
+		return lunchDinnerDetailsBeanList;
+	}
+
+
+	public void setLunchDinnerDetailsBeanList(
+			ArrayList<ManageKitchens> lunchDinnerDetailsBeanList) {
+		this.lunchDinnerDetailsBeanList = lunchDinnerDetailsBeanList;
+	}
+
+
+	public ManageKitchens getLunchDinnerDetailsBean() {
+		return lunchDinnerDetailsBean;
+	}
+
+
+	public void setLunchDinnerDetailsBean(ManageKitchens lunchDinnerDetailsBean) {
+		this.lunchDinnerDetailsBean = lunchDinnerDetailsBean;
 	}
 	
 	

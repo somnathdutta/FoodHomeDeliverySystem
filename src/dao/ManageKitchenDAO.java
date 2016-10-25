@@ -196,5 +196,88 @@ public class ManageKitchenDAO {
 		
 	}
 	
+	public static ArrayList<ManageKitchens> loadlunchDinnerDetails(Connection connection, Integer kitchenId){
+		ArrayList<ManageKitchens> list = new ArrayList<ManageKitchens>();
+		if(list.size()>0){
+			list.clear();
+		}
+		String sql ="select kitchen_id, category_id, category_name, is_active, category_image, is_lunch, is_dinner from vw_category_kitchen where kitchen_id = ? ";
+		try {
+			PreparedStatement preparedStatement = null;
+			preparedStatement = FappPstm.createQuery(connection, sql, Arrays.asList(kitchenId));
+			ResultSet resultSet = preparedStatement.executeQuery();
+			
+			while (resultSet.next()) {
+				ManageKitchens bean = new ManageKitchens();
+				bean.setKitchenId(resultSet.getInt("kitchen_id"));
+				bean.setCategoryId(resultSet.getInt("category_id"));
+				bean.setCategoryName(resultSet.getString("category_name"));
+				String status = resultSet.getString("is_active");
+				if(status.equals("Y")){
+					bean.setStatus("Active");
+				}else{
+					bean.setStatus("Inactive");
+				}
+				
+				String lnStatus = resultSet.getString("is_lunch");
+				if(lnStatus.equals("Y")){
+					bean.setLunchStatus("Yes");
+				}else {
+					bean.setLunchStatus("No");
+				}
+				
+				String dnStatus = resultSet.getString("is_dinner");
+				if(dnStatus.equalsIgnoreCase("Y")){
+					bean.setDinnerStatus("Yes");
+				}else {
+					bean.setDinnerStatus("No");
+				}
+				list.add(bean);
+			}
+		} catch (Exception e) {
+			String msg = e.getMessage();
+			Messagebox.show(msg, "Error", Messagebox.OK, Messagebox.ERROR);
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	public static int upDateCategory(Connection connection, ManageKitchens bean){
+		int i  =0;
+		PreparedStatement preparedStatement = null;
+		String sql = "update fapp_kitchen_stock set is_active = ?, is_lunch = ?, is_dinner = ? where kitchen_id = ? and kitchen_category_id = ? ";
+		try {
+			//preparedStatement = FappPstm.createQuery(connection, sql, Arrays.asList(bean.status, bean.lunchStatus, bean.dinnerStatus, bean.kitchenId, bean.categoryId));
+			
+			preparedStatement = connection.prepareStatement(sql);
+			if(bean.status.equals("Active")){
+				preparedStatement.setString(1, "Y");
+			}else {
+				preparedStatement.setString(1, "N");
+			}
+			if(bean.lunchStatus.equalsIgnoreCase("Yes")){
+				preparedStatement.setString(2, "Y");
+			}else {
+				preparedStatement.setString(2, "N");
+			}
+			if(bean.dinnerStatus.equalsIgnoreCase("Yes")){
+				preparedStatement.setString(3, "Y");
+			}else {
+				preparedStatement.setString(3, "N");
+			}
+			
+			preparedStatement.setInt(4, bean.kitchenId);
+			preparedStatement.setInt(5, bean.categoryId);
+			
+			i = preparedStatement.executeUpdate();
+			
+		} catch (Exception e) {
+			String msg = e.getMessage();
+			Messagebox.show(msg, "Error", Messagebox.OK, Messagebox.ERROR);
+			e.printStackTrace();
+		}
+		return i;
+	}
+	
 	
 }

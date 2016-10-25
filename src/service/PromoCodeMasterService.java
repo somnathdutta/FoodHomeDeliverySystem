@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import org.zkoss.zul.Messagebox;
 
 import Bean.PromoCodeMasterBean;
+import Bean.PromoCodeTypeBean;
 import dao.PromoCodeMasterDao;
 
 public class PromoCodeMasterService {
@@ -46,7 +47,19 @@ public class PromoCodeMasterService {
 		return list;
 	}
 	
+	public static ArrayList<PromoCodeTypeBean> loadTypeList(Connection connection){
+		ArrayList<PromoCodeTypeBean> list = new ArrayList<PromoCodeTypeBean>();
+		list = PromoCodeMasterDao.loadPromoType(connection);
+		return list;
+		
+	}
 	
+	public static ArrayList<PromoCodeTypeBean> loadApplyTypeList(Connection connection){
+		ArrayList<PromoCodeTypeBean> list = new ArrayList<PromoCodeTypeBean>();
+		list = PromoCodeMasterDao.loadPromoApplyList(connection);
+		return list;
+		
+	}
 	
 	
 	

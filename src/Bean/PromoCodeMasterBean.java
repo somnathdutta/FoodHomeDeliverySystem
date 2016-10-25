@@ -33,14 +33,11 @@ public class PromoCodeMasterBean {
 	
 	private String user;
 	
-	private PromoCodeMasterBean promoCodeTypeBean;
-	private PromoCodeMasterBean promoCodeApplicationTypeBean;
+	private PromoCodeTypeBean promoTypeBean = new PromoCodeTypeBean();
+	private PromoCodeTypeBean promoApplyBean = new PromoCodeTypeBean();
 	
-	private ArrayList<PromoCodeMasterBean> promoCodeTypeList;
-	private ArrayList<PromoCodeMasterBean> promoCodeApplicationTypeList;
-	
-	
-	
+	private ArrayList<PromoCodeTypeBean> promoTypeBeanList;
+	private ArrayList<PromoCodeTypeBean> applyBeanList;
 	
 	public Integer getPromoCodeId() {
 		return promoCodeId;
@@ -133,33 +130,7 @@ public class PromoCodeMasterBean {
 	public void setPromocodeDetailsId(Integer promocodeDetailsId) {
 		this.promocodeDetailsId = promocodeDetailsId;
 	}
-	public PromoCodeMasterBean getPromoCodeTypeBean() {
-		return promoCodeTypeBean;
-	}
-	public void setPromoCodeTypeBean(PromoCodeMasterBean promoCodeTypeBean) {
-		this.promoCodeTypeBean = promoCodeTypeBean;
-	}
-	public PromoCodeMasterBean getPromoCodeApplicationTypeBean() {
-		return promoCodeApplicationTypeBean;
-	}
-	public void setPromoCodeApplicationTypeBean(
-			PromoCodeMasterBean promoCodeApplicationTypeBean) {
-		this.promoCodeApplicationTypeBean = promoCodeApplicationTypeBean;
-	}
-	public ArrayList<PromoCodeMasterBean> getPromoCodeTypeList() {
-		return promoCodeTypeList;
-	}
-	public void setPromoCodeTypeList(
-			ArrayList<PromoCodeMasterBean> promoCodeTypeList) {
-		this.promoCodeTypeList = promoCodeTypeList;
-	}
-	public ArrayList<PromoCodeMasterBean> getPromoCodeApplicationTypeList() {
-		return promoCodeApplicationTypeList;
-	}
-	public void setPromoCodeApplicationTypeList(
-			ArrayList<PromoCodeMasterBean> promoCodeApplicationTypeList) {
-		this.promoCodeApplicationTypeList = promoCodeApplicationTypeList;
-	}
+	
 	public String getUser() {
 		return user;
 	}
@@ -185,6 +156,29 @@ public class PromoCodeMasterBean {
 	public void setPromoValue(Double promoValue) {
 		this.promoValue = promoValue;
 	}
-	
+	public PromoCodeTypeBean getPromoTypeBean() {
+		return promoTypeBean;
+	}
+	public void setPromoTypeBean(PromoCodeTypeBean promoTypeBean) {
+		this.promoTypeBean = promoTypeBean;
+	}
+	public PromoCodeTypeBean getPromoApplyBean() {
+		return promoApplyBean;
+	}
+	public void setPromoApplyBean(PromoCodeTypeBean promoApplyBean) {
+		this.promoApplyBean = promoApplyBean;
+	}
+	public ArrayList<PromoCodeTypeBean> getPromoTypeBeanList() {
+		return promoTypeBeanList;
+	}
+	public void setPromoTypeBeanList(ArrayList<PromoCodeTypeBean> promoTypeBeanList) {
+		this.promoTypeBeanList = promoTypeBeanList;
+	}
+	public ArrayList<PromoCodeTypeBean> getApplyBeanList() {
+		return applyBeanList;
+	}
+	public void setApplyBeanList(ArrayList<PromoCodeTypeBean> applyBeanList) {
+		this.applyBeanList = applyBeanList;
+	}
 	
 }

@@ -10,6 +10,7 @@ import java.util.Arrays;
 import org.zkoss.zul.Messagebox;
 
 import Bean.PromoCodeMasterBean;
+import Bean.PromoCodeTypeBean;
 import sql.PromoCodeMasterSql;
 import utility.DateFormatter;
 import utility.FappPstm;
@@ -26,7 +27,7 @@ public class PromoCodeMasterDao {
 			
 		} catch (Exception e) {
 			String msg = e.getMessage();
-			if(msg.startsWith("Error: duplicate ")){
+			if(msg.startsWith("ERROR: duplicate")){
 				Messagebox.show("Promo code Already Exists", "Error", Messagebox.OK, Messagebox.ERROR);
 			}else {
 				Messagebox.show(msg, "Error", Messagebox.OK, Messagebox.ERROR);
@@ -126,20 +127,27 @@ public class PromoCodeMasterDao {
 				
 				bean.setFromDateSql(resultSet.getDate("from_date"));
 				bean.setFromDateStr(resultSet.getString("from_date"));
-				if(bean.getFromDateStr() != null){
-					bean.setFromDateUtil(DateFormatter.strToUtilDate(bean.getFromDateStr()));
+				if(bean.getFromDateSql() != null){
+					bean.setFromDateUtil(DateFormatter.sqlToUtilDate(bean.getFromDateSql()));
 				}
 				
-				bean.setFromDateSql(resultSet.getDate("to_date"));
+				bean.setToDateSql(resultSet.getDate("to_date"));
 				bean.setToDateStr(resultSet.getString("to_date"));
-				if(bean.getToDateStr() != null){
-					bean.setFromDateUtil(DateFormatter.strToUtilDate(bean.getFromDateStr()));
+				if(bean.getToDateSql() != null){
+					bean.setToDateUtil(DateFormatter.sqlToUtilDate(bean.getToDateSql()));
 				}
 				
-				bean.setPromoTypeId(resultSet.getInt("promo_type_id"));
-				bean.setPromoType(resultSet.getString("promo_code_type"));
-				bean.setPromocodeApplyTypeId(resultSet.getInt("promo_code_application_type_id"));
-				bean.setPromoCodeApplyType(resultSet.getString("promo_code_application_type"));
+				bean.getPromoTypeBean().setPromoCodeTypeId(resultSet.getInt("promo_type_id"));
+				bean.getPromoTypeBean().setPromocodeType(resultSet.getString("promo_code_type"));
+				
+				bean.setPromoValue(resultSet.getDouble("promo_value"));
+				
+				bean.getPromoApplyBean().setApplyTypeId(resultSet.getInt("promo_code_application_type_id"));
+				bean.getPromoApplyBean().setApplyType(resultSet.getString("promo_code_application_type"));
+				
+				bean.setPromoTypeBeanList(loadPromoType(connection));
+				bean.setApplyBeanList(loadPromoApplyList(connection));
+				
 				String status = resultSet.getString("promo_code_is_active");
 				if(status.equalsIgnoreCase("Y")){
 					bean.setStatus("Active");
@@ -191,7 +199,55 @@ public class PromoCodeMasterDao {
 		return i;
 	}
 	
+	public static ArrayList<PromoCodeTypeBean> loadPromoType(Connection connection){
+		ArrayList<PromoCodeTypeBean> list = new ArrayList<PromoCodeTypeBean>();
+		if(list.size()>0){
+			list.clear();
+		}
+		try {
+			PreparedStatement preparedStatement = null;
+			preparedStatement = FappPstm.createQuery(connection, PromoCodeMasterSql.loadPromocodeTypeSql, null);
+			System.out.println("Load Promo Code Type >>> >> > " + preparedStatement);
+			ResultSet resultSet = preparedStatement.executeQuery(); 
+			while (resultSet.next()) {
+				PromoCodeTypeBean bean = new PromoCodeTypeBean();
+				bean.setPromoCodeTypeId(resultSet.getInt("fapp_promo_code_type_master_id"));
+				bean.setPromocodeType(resultSet.getString("promo_code_type"));
+				
+				list.add(bean);
+			}
+		} catch (Exception e) {
+			String msg = e.getMessage();
+			Messagebox.show(msg, "Error", Messagebox.OK, Messagebox.ERROR);
+			e.printStackTrace();
+		}
+		return list;
+	}
 	
+	public static ArrayList<PromoCodeTypeBean> loadPromoApplyList(Connection connection){
+		ArrayList<PromoCodeTypeBean> list = new ArrayList<PromoCodeTypeBean>();
+		if(list.size()>0){
+			list.clear();
+		}
+		try {
+			PreparedStatement preparedStatement = null;
+			preparedStatement = FappPstm.createQuery(connection, PromoCodeMasterSql.loadPromocodeApplicationTypeSql, null);
+		
+			ResultSet resultSet = preparedStatement.executeQuery(); 
+			while (resultSet.next()) {
+				PromoCodeTypeBean bean = new PromoCodeTypeBean();
+				bean.setApplyTypeId(resultSet.getInt("fapp_promo_code_application_type_master_id"));
+				bean.setApplyType(resultSet.getString("promo_code_application_type"));
+				
+				list.add(bean);
+			}
+		} catch (Exception e) {
+			String msg = e.getMessage();
+			Messagebox.show(msg, "Error", Messagebox.OK, Messagebox.ERROR);
+			e.printStackTrace();
+		}
+		return list;
+	}
 	
 	
 }

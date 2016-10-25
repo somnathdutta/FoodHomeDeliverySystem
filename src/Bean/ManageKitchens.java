@@ -42,6 +42,13 @@ public class ManageKitchens {
 	
 	public String cuisineName,categoryName;
 	
+	public boolean lunchCheck;
+	
+	public boolean dinnerCheck;
+	
+	public String lunchStatus;
+	
+	public String dinnerStatus;
 	
 	public ArrayList<ItemBean> itemBeanList = new ArrayList<ItemBean>();
 
@@ -243,6 +250,38 @@ public class ManageKitchens {
 
 	public void setDinnerStock(int dinnerStock) {
 		this.dinnerStock = dinnerStock;
+	}
+
+	public boolean isLunchCheck() {
+		return lunchCheck;
+	}
+
+	public void setLunchCheck(boolean lunchCheck) {
+		this.lunchCheck = lunchCheck;
+	}
+
+	public boolean isDinnerCheck() {
+		return dinnerCheck;
+	}
+
+	public void setDinnerCheck(boolean dinnerCheck) {
+		this.dinnerCheck = dinnerCheck;
+	}
+
+	public String getLunchStatus() {
+		return lunchStatus;
+	}
+
+	public void setLunchStatus(String lunchStatus) {
+		this.lunchStatus = lunchStatus;
+	}
+
+	public String getDinnerStatus() {
+		return dinnerStatus;
+	}
+
+	public void setDinnerStatus(String dinnerStatus) {
+		this.dinnerStatus = dinnerStatus;
 	}
 	
 	

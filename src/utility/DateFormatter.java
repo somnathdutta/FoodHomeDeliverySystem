@@ -45,17 +45,22 @@ public class DateFormatter {
 		return date;
 	}
 	
-	public static Date strToUtilDate(String prmdate) throws ParseException{
-		
-		DateFormat formatter = new SimpleDateFormat("dd-MM-YYYY");
-		Date date = formatter.parse(prmdate);
-		
-		return date;
-		
+	public static Date strToUtilDate(String prmdate) throws Exception{
+		 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		    Date convertedCurrentDate = sdf.parse(prmdate);
+		    //Date date=sdf.parse(prmdate);
+		    
+		return convertedCurrentDate;
+	}
+	
+	public static Date sqlToUtilDate(java.sql.Date sqlDate){
+		java.util.Date utilDate = new java.util.Date(sqlDate.getTime());
+		return utilDate;
 	}
 	
 	public static DateFormatter getInstance() {
 		return new DateFormatter();
 	}
+	
 	
 }
