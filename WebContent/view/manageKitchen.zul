@@ -415,13 +415,16 @@ viewModel="@id('vm') @init('ViewModel.ManageKitchenViewModel')">
 				</tabpanel>
 			
 				<tabpanel>
+				   <hlayout spacing="30px">
 					<combobox readonly="true" model="@bind(vm.lunchDinnerkitchenBeanList)" selectedItem="@bind(vm.lunchDinnerBean)" value="@bind(vm.lunchDinnerBean.kitchenName)" onSelect="@command('onSelectLunchDinnerKitchen')">
 						<template name="model" var ="v">
 							<comboitem value="@bind(v.kitchenId)" label="@bind(v.kitchenName)"></comboitem>
 						</template>
 					</combobox>
-					<space></space>
-					<div>
+					<button label="Clear" sclass="mybutton" onClick="@command('onClickClearLunchDinner')"></button>
+				   </hlayout>
+				   <space></space>
+				   <div>
 						<grid model="@bind(vm.lunchDinnerDetailsBeanList)">
 							<columns sizable="true">
 								<column label="Category Name" align="center" width="320px"></column>

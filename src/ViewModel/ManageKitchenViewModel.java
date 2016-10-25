@@ -57,7 +57,7 @@ public class ManageKitchenViewModel {
 	private ArrayList<ManageKitchens> lunchDinnerkitchenBeanList;
 	ManageKitchens lunchDinnerBean = new ManageKitchens();
 	
-	private ArrayList<ManageKitchens> lunchDinnerDetailsBeanList;
+	private ArrayList<ManageKitchens> lunchDinnerDetailsBeanList = new ArrayList<ManageKitchens>();
 	private ManageKitchens lunchDinnerDetailsBean = new ManageKitchens();
 	
 	ArrayList<ItemBean> kitchenItemList = new ArrayList<ItemBean>();
@@ -1473,6 +1473,14 @@ public class ManageKitchenViewModel {
 		if(lunchDinnerDetailsBeanList.size() ==0){
 			Messagebox.show("No Category Found!", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
 		}
+	}
+	
+	@Command
+	@NotifyChange("*")
+	public void onClickClearLunchDinner(){
+		lunchDinnerDetailsBeanList.clear();
+		lunchDinnerBean.kitchenName = null;
+		lunchDinnerkitchenBeanList = ManageKitchenDAO.fetchKitchens(connection);
 	}
 	
 	@Command
