@@ -74,13 +74,12 @@ public class ShareAndEarnViewModel {
 	@NotifyChange("*")
 	public void onClickUpdate(@BindingParam("bean") ShareAndEarnBean bean){
 		int i = 0;
-		if(CmsMasterService.shareAndEarnValidation(bean)){
+		
 			i = CmsMasterService.updateShareAndEarnDetails(connection, bean, userName);
 			if(i>0){
 				onload();
 				Messagebox.show("Updated Successfully", "Information", Messagebox.OK, Messagebox.INFORMATION);
 			}
-		}
 		
 	}
 	
@@ -92,7 +91,7 @@ public class ShareAndEarnViewModel {
 			i = CmsMasterService.deleteShareAndEarnDetails(connection, bean, userName);
 			if(i>0){
 				onload();
-				Messagebox.show("Updated Successfully", "Information", Messagebox.OK, Messagebox.INFORMATION);
+				Messagebox.show("Deleted Successfully", "Information", Messagebox.OK, Messagebox.INFORMATION);
 			}
 		
 		

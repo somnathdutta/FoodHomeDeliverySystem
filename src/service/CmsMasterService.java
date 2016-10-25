@@ -52,13 +52,13 @@ public class CmsMasterService {
 	
 	public static int updateShareAndEarnDetails(Connection connection, ShareAndEarnBean bean, String user){
 		int i = 0;
-		i = CmsMasterDao.insertShareAndEarnDetails(connection, bean, user);
+		i = CmsMasterDao.upDateShareAndEarnDetails(connection, bean, user);
 		return i;
 	}
 	
 	public static int deleteShareAndEarnDetails(Connection connection, ShareAndEarnBean bean, String user){
 		int i = 0;
-		i = CmsMasterDao.insertShareAndEarnDetails(connection, bean, user);
+		i = CmsMasterDao.deleteShareAndEarnDetails(connection, bean, user);
 		return i;
 	}
 	

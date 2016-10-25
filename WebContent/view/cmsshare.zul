@@ -7,13 +7,15 @@
 				<column label="App Message" align="center"></column>
 				<column label="Invite Message" align="center"></column>
 				<column label="Amount" align="center"></column>
+				<column label="Image Url"></column>
 				<column label="Save" align="center"></column>
 			</columns>
 			<rows>
 				<row>
 					<textbox multiline="true" width="100%" value="@bind(vm.shareAndEarnBean.appMsg)"></textbox>
 					<textbox multiline="true" width="100%" value="@bind(vm.shareAndEarnBean.invtMsg)"></textbox>
-					<doublebox width="100%" value="@bind(vm.shareAndEarnBean.amnt)"></doublebox>	
+					<doublebox width="100%" value="@bind(vm.shareAndEarnBean.amnt)"></doublebox>
+					<textbox width="100%" value="@bind(vm.shareAndEarnBean.imgUrl)"></textbox>	
 					<button label="Save" sclass="mybutton" onClick="@command('onclickShareAndEarn')"></button>
 				</row>
 			</rows>
@@ -30,6 +32,7 @@
 				<column label="App Message" align="center"></column>
 				<column label="Invite Message" align="center"></column>
 				<column label="Amount" align="center"></column>
+				<column label="Image Url"></column>
 				<column label="Action" align="center"></column>
 				
 			</columns>
@@ -38,10 +41,12 @@
 				<row>
 					<textbox multiline="true" width="100%" value="@bind(v.appMsg)"></textbox>
 					<textbox multiline="true" width="100%" value="@bind(v.invtMsg)"></textbox>
-					<doublebox width="100%" value="@bind(v.amnt)"></doublebox>	
+					<doublebox width="100%" value="@bind(v.amnt)"></doublebox>
+					<textbox width="100%" value="@bind(v.imgUrl)"></textbox>
+					
 					<hlayout>
 						<button label="Update" sclass="mybutton" onClick="@command('onClickUpdate', bean =v)"></button>
-						<button label="Delete" sclass="mybutton" onClick="@command('onClickDelete' bean =v)"></button>
+						<button label="Delete" sclass="mybutton" onClick="@command('onClickDelete', bean =v)"></button>
 					</hlayout>
 				</row>
 			  </template>	
