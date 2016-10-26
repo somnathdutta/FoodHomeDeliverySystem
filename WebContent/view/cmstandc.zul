@@ -34,8 +34,8 @@
 					<row>
 						<textbox multiline="true" value="@bind(v.termsandCondition)" width="100%"></textbox>
 						<hlayout>
-							<button sclass="mybutton" onClick="@command('updateTandc', bean= v)"></button>
-							<button sclass="mybutton" onClick="@command('deleteTandc', bean= v)"></button>
+							<button sclass="mybutton" onClick="@command('updateTandc', bean= v)" label="Update"></button>
+							<button sclass="mybutton" onClick="@command('deleteTandc', bean= v)" label="Delete"></button>
 						</hlayout>
 							
 					</row>

@@ -1,6 +1,6 @@
 <?page title="Contact us" contentType="text/html;charset=UTF-8"?>
 <zk>
-<window title="Contact Us Master" border="normal" apply="org.zkoss.bind.BindComposer" viewModel="@id('vw') @init('ViewModel.ContactUsViewModel')">
+<window title="Contact Us Master" border="normal" apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('ViewModel.ContactUsViewModel')">
 	<div visible="@bind(vw.contactUsBean.insertDivVis)">
 		<grid>
 			<columns>
@@ -9,7 +9,7 @@
 			</columns>
 			<rows>
 				<row>
-					<textbox value="@bind(vw.contactUsBean.contNo)"></textbox>
+					<textbox value="@bind(vm.contactUsBean.contNo)"></textbox>
 					<button label="Save" onClick="@command('insertContactUs')" sclass="mybutton"></button>
 			
 				</row>
@@ -21,10 +21,10 @@
 		</div>
 		<space></space>
 		<div>
-			<grid model="@bind(vw.contactUsBeanList)">
+			<grid model="@bind(vm.contactUsBeanList)">
 				<columns>
-					<column label="Contact No"></column>
-					<column label="Action"></column>
+					<column label="Contact No" align="center"></column>
+					<column label="Action" align="center"></column>
 				</columns>
 				<rows>
 					<template name="model" var= "v">

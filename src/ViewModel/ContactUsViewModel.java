@@ -74,7 +74,11 @@ public class ContactUsViewModel {
 	@NotifyChange("*")
 	public void updateContactUs(@BindingParam("Bean") ContactUsBean bean){
 		int i = 0;
+		if(bean.getContNo() != null){
 		i = CmsMasterService.updateContactUs(connection, bean, userName);
+		}else {
+			Messagebox.show("Enter Valid Contact No", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+		}
 		if(i>0){
 			onload();
 			Messagebox.show("Updated Successfully", "Information", Messagebox.OK, Messagebox.INFORMATION);

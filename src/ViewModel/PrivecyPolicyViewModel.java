@@ -56,7 +56,7 @@ public class PrivecyPolicyViewModel {
 	@NotifyChange("*")
 	public void onClickPivacyPolicy(){
 
-		if(privacyPolicyBean.getPrivacyPolicy() != null){
+		if(privacyPolicyBean.getPrivacyPolicy() != null && privacyPolicyBean.getPrivacyPolicy().trim().length()>0){
 			int i = 0;
 			i = CmsMasterService.insertPrivacyPolicy(connection, privacyPolicyBean, userName);
 			if(i>0){
@@ -64,6 +64,8 @@ public class PrivecyPolicyViewModel {
 				onload();
 				Messagebox.show("Saved Successfully", "Information", Messagebox.OK, Messagebox.INFORMATION);
 			}
+		}else {
+			Messagebox.show("Enter Privacy Policy Text", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
 		}
 	}
 	
@@ -71,7 +73,12 @@ public class PrivecyPolicyViewModel {
 	@NotifyChange("*")
 	public void onclcikUpdate(@BindingParam("bean") PrivacyPolicyBean bean){
 		int i = 0;
-		i = CmsMasterService.updatePrivacyPolicy(connection, bean, userName);
+		if
+		(bean.getPrivacyPolicy() != null && bean.getPrivacyPolicy().trim().length()>0){
+			i = CmsMasterService.updatePrivacyPolicy(connection, bean, userName);
+		}else {
+			Messagebox.show("Enter Privacy Policy Text", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+		}
 		if(i>0){
 			onload();
 			Messagebox.show("Updated Successfully", "Information", Messagebox.OK, Messagebox.INFORMATION);

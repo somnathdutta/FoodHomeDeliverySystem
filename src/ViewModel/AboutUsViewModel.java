@@ -61,6 +61,8 @@ public class AboutUsViewModel {
 		i = CmsMasterDao.insertAboutUs(connection, aboutUsBean, userName);
 		}
 		if(i>0){
+			onload();
+			aboutUsBean.setAboutUs(null);
 			Messagebox.show("Saved Successfully", "Information", Messagebox.OK, Messagebox.INFORMATION);
 		}
 	}
@@ -69,7 +71,11 @@ public class AboutUsViewModel {
 	@NotifyChange("*")
 	public void updateAboutUs(@BindingParam("bean") AboutUsBean bean){
 		int i = 0;
-		i = CmsMasterService.updateAboutUs(connection, aboutUsBean, userName);
+		if(bean.getAboutUs() != null){
+		i = CmsMasterService.updateAboutUs(connection, bean, userName);
+		}else {
+			Messagebox.show("Enter About Us Text", "Information", Messagebox.OK, Messagebox.INFORMATION);
+		}
 		if(i>0){
 			onload();
 			Messagebox.show("Updated Successfully", "Information", Messagebox.OK, Messagebox.INFORMATION);
@@ -81,7 +87,7 @@ public class AboutUsViewModel {
 	@NotifyChange("*")
 	public void deleteAboutUs(@BindingParam("bean") AboutUsBean bean){
 		int i = 0;
-		i = CmsMasterService.deleteAboutUs(connection, aboutUsBean, userName);
+		i = CmsMasterService.deleteAboutUs(connection, bean, userName);
 		if(i>0){
 			onload();
 			Messagebox.show("Deleted Successfully", "Information", Messagebox.OK, Messagebox.INFORMATION);

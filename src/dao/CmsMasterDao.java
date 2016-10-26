@@ -342,7 +342,7 @@ public class CmsMasterDao {
 		int i = 0;
 			try {
 				PreparedStatement preparedStatement = null;
-				preparedStatement = FappPstm.createQuery(connection, CmsMasterSql.inSertTermsAndC, Arrays.asList(bean.getPrivacyPolicy(), user, user));
+				preparedStatement = FappPstm.createQuery(connection, CmsMasterSql.insertPrivacyPolicySql, Arrays.asList(bean.getPrivacyPolicy(), user, user));
 				i = preparedStatement.executeUpdate();
 				
 			} catch (Exception e) {
@@ -404,7 +404,7 @@ public class CmsMasterDao {
 		int i = 0;
 		try {
 			PreparedStatement preparedStatement = null;
-			preparedStatement = FappPstm.createQuery(connection, CmsMasterSql.deleteTermsAndCSql, Arrays.asList(user, bean.getPrivacyPolicyId()));
+			preparedStatement = FappPstm.createQuery(connection, CmsMasterSql.deletePrivacyPolicySql, Arrays.asList(user, bean.getPrivacyPolicyId()));
 			i = preparedStatement.executeUpdate();
 			
 		} catch (Exception e) {

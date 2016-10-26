@@ -24,13 +24,13 @@
 	<div>
 		<grid model="@bind(vm.privacyPolicyBeanList)">
 			<columns sizable="true">
-				<column label="Privacy Policy"></column>
-				<column label="Action"></column>
+				<column label="Privacy Policy" align="center"></column>
+				<column label="Action" align="center"></column>
 			</columns>
 			<rows>
 				<template name="model" var ="v">
 					<row>
-						<textbox value="@bind(v.privacyPolicy)"></textbox>
+						<textbox value="@bind(v.privacyPolicy)" width="100%" multiline="true"></textbox>
 						<hlayout spacing="20px">
 							<button label="Update" onClick="@command('onclcikUpdate', bean= v)" sclass="mybutton"></button>
 							<button label="Delete" onClick="@command('onclcikDelete', bean= v)" sclass="mybutton"></button>

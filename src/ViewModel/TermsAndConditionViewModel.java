@@ -71,7 +71,11 @@ public class TermsAndConditionViewModel {
 	@NotifyChange("*")
 	public void updateTandc(@BindingParam("bean") TermsAndConditionBean bean){
 		int i = 0;
-		i = CmsMasterService.updateTaC(connection, bean, userName);
+		if(bean.getTermsandCondition() !=null && bean.getTermsandCondition().trim().length()>0){
+		  i = CmsMasterService.updateTaC(connection, bean, userName);
+		}else {
+			Messagebox.show("Enter T&C Text", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+		}
 		if(i>0){
 			onload();
 			Messagebox.show("Updated Successfully", "Information", Messagebox.OK, Messagebox.INFORMATION);
