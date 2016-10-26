@@ -22,7 +22,7 @@ public class ContactUsViewModel {
 
 	ContactUsBean contactUsBean = new ContactUsBean();
 	
-	ArrayList<ContactUsBean> contactUsBeanList = new ArrayList<ContactUsBean>();
+	private ArrayList<ContactUsBean> contactUsBeanList = new ArrayList<ContactUsBean>();
 	
 	Session session = null;
 	private Connection connection = null;
@@ -72,10 +72,10 @@ public class ContactUsViewModel {
 
 	@Command
 	@NotifyChange("*")
-	public void updateContactUs(@BindingParam("Bean") ContactUsBean bean){
+	public void updateContactUs(@BindingParam("bean") ContactUsBean bean){
 		int i = 0;
-		if(bean.getContNo() != null){
-		i = CmsMasterService.updateContactUs(connection, bean, userName);
+		if(bean.getContNo() != null && bean.getContNo().trim().length()>0){
+			i = CmsMasterService.updateContactUs(connection, bean, userName);
 		}else {
 			Messagebox.show("Enter Valid Contact No", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
 		}
@@ -87,7 +87,7 @@ public class ContactUsViewModel {
 	
 	@Command
 	@NotifyChange("*")
-	public void deleteContactUs(@BindingParam("Bean") ContactUsBean bean){
+	public void deleteContactUs(@BindingParam("bean") ContactUsBean bean){
 		int i = 0;
 		i = CmsMasterService.deleteContactUs(connection, bean, userName);
 		if(i>0){
@@ -106,14 +106,7 @@ public class ContactUsViewModel {
 		this.contactUsBean = contactUsBean;
 	}
 
-	public ArrayList<ContactUsBean> getContactUsBeanList() {
-		return contactUsBeanList;
-	}
-
-	public void setContactUsBeanList(ArrayList<ContactUsBean> contactUsBeanList) {
-		this.contactUsBeanList = contactUsBeanList;
-	}
-
+	
 	public Session getSession() {
 		return session;
 	}
@@ -136,6 +129,14 @@ public class ContactUsViewModel {
 
 	public void setUserName(String userName) {
 		this.userName = userName;
+	}
+
+	public ArrayList<ContactUsBean> getContactUsBeanList() {
+		return contactUsBeanList;
+	}
+
+	public void setContactUsBeanList(ArrayList<ContactUsBean> contactUsBeanList) {
+		this.contactUsBeanList = contactUsBeanList;
 	}
 	
 }

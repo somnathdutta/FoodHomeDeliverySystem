@@ -1,7 +1,7 @@
 <?page title="Contact us" contentType="text/html;charset=UTF-8"?>
 <zk>
 <window title="Contact Us Master" border="normal" apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('ViewModel.ContactUsViewModel')">
-	<div visible="@bind(vw.contactUsBean.insertDivVis)">
+	<div visible="@bind(vm.contactUsBean.insertDivVis)">
 		<grid>
 			<columns>
 				<column label="Contact No" align="center"></column>
@@ -9,16 +9,19 @@
 			</columns>
 			<rows>
 				<row>
-					<textbox value="@bind(vm.contactUsBean.contNo)"></textbox>
+					<textbox value="@bind(vm.contactUsBean.contNo)" maxlength="14"></textbox>
 					<button label="Save" onClick="@command('insertContactUs')" sclass="mybutton"></button>
 			
 				</row>
 			</rows>
 		</grid>
+		</div>
+		
 		<space></space>
 		<div align="center" height="20px">
 			<label value="Update Contact No" style="font-weight: bold"></label>
 		</div>
+		
 		<space></space>
 		<div>
 			<grid model="@bind(vm.contactUsBeanList)">
@@ -29,7 +32,7 @@
 				<rows>
 					<template name="model" var= "v">
 						<row>
-							<textbox value="@bind(v.contNo)" width="100%"></textbox>
+							<textbox value="@bind(v.contNo)"  maxlength="14"></textbox>
 							<hlayout spacing="20px">
 								<button onClick="@command('updateContactUs', bean= v)" sclass="mybutton" label="Update"></button>
 								<button onClick="@command('deleteContactUs', bean= v)" sclass="mybutton" label="Delete"></button>
@@ -39,11 +42,6 @@
 				
 				</rows>
 			</grid>
-		</div>
-		
-		
-	</div>
-	
-	
+	    </div>
 </window>
 </zk>
