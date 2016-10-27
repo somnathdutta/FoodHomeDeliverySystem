@@ -1,6 +1,7 @@
 <?page title="Promo Code" contentType="text/html;charset=UTF-8"?>
 <zk>
-<window title="PROMO CODE MASTER" border="normal" apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('ViewModel.PromoCodeMasterViewModel')">
+<window title="PROMO CODE MASTER" border="normal" apply="org.zkoss.bind.BindComposer" 
+viewModel="@id('vm') @init('ViewModel.PromoCodeMasterViewModel')">
 	
 	<tabbox>
 		<tabs>
@@ -39,11 +40,11 @@
 							</template>
 						</combobox>
 						<doublebox value="@bind(vm.promoCodeMasterBean.promoValue)" disabled="@bind(vm.promoCodeTypeBean.promoVauleVis)" placeholder="Promo Value)"></doublebox>
-						<combobox readonly="true" model="@bind(vm.promoCodeApplicationTypeList)" value="@bind(vm.promoCodeApplicationTypeBean.promoCodeApplyType)" selectedItem="@bind(vm.promoCodeApplicationTypeBean)" placeholder="Promo Application Type">
+						<!-- <combobox readonly="true" model="@bind(vm.promoCodeApplicationTypeList)" value="@bind(vm.promoCodeApplicationTypeBean.promoCodeApplyType)" selectedItem="@bind(vm.promoCodeApplicationTypeBean)" placeholder="Promo Application Type">
 							<template name="model" var= "v">
 								<comboitem value="@bind(v.promocodeApplyTypeId)" label="@bind(v.promoCodeApplyType)"></comboitem>
 							</template>
-						</combobox>
+						</combobox> -->
 						<combobox value="@bind(vm.promoCodeMasterBean.status)" readonly="true" placeholder="Select Status">
 							<comboitem label="Active"></comboitem>
 							<comboitem label="Inactive"></comboitem>
@@ -66,7 +67,7 @@
 							<column label="To Date" style="font-weight: bold" align="center" width="120px"></column>
 							<column label="Promo Code Type" style="font-weight: bold" align="center" width="150px"></column>
 							<column label="Promo Value" style="font-weight: bold" align="center" width="120px"></column>
-							<column label="Appled On" style="font-weight: bold" align="center" width="140px"></column>
+							<!-- <column label="Appled On" style="font-weight: bold" align="center" width="140px"></column> -->
 							<column label="Promo Code Status" style="font-weight: bold" align="center" width="150px"></column>
 							<column label="Action" style="font-weight: bold" align="center" width="180px"></column>
 						</columns>
@@ -86,12 +87,12 @@
 								
 								<doublebox value="@bind(v.promoValue)" width="100%"></doublebox>
 								
-								<combobox width="120px" readonly="true" model="@bind(v.applyBeanList)" 
+								<!-- <combobox width="120px" readonly="true" model="@bind(v.applyBeanList)" 
 									selectedItem="@bind(v.promoApplyBean)" value="@bind(v.promoApplyBean.applyType)">
 									<template name="model" var="p1">
 										<comboitem label="@bind(p1.applyType)" value="@bind(p1.applyTypeId)"></comboitem>
 									</template>
-								</combobox>
+								</combobox> -->
 								
 								<combobox value="@bind(v.status)" width="120px" readonly="true">
 									<comboitem label="Active"></comboitem>

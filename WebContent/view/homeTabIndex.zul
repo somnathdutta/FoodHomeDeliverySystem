@@ -352,12 +352,26 @@
 										</treerow>
 									</treeitem>
 									
-									<treeitem>
+									<treeitem open="false">
+										<treerow>
+											<treecell label="Manage Slots" visible="@bind(vm.manageServiceAreaVisibility)"/>
+										</treerow>
+										<treechildren>
+											<treeitem>
+												<treerow>
+													<treecell label="Slot Master" onClick='inclResults.setSrc("slotmaster.zul");'></treecell>
+												</treerow>
+											</treeitem>
+											<treeitem>
 										<treerow>
 												<treecell label="Slot assignment" onClick='inclResults.setSrc("bikerslot.zul");'
 												visible="@bind(vm.bikerManageVisibility)"></treecell>
 										</treerow>
 									</treeitem>
+										</treechildren>
+									</treeitem>
+									
+									
 									
 									<treeitem>
 										<treerow>
@@ -411,7 +425,7 @@
 										</treerow>
 									</treeitem>
 									
-									<treeitem visible="true">
+									<treeitem visible="false">
 										<treerow>
 											<treecell label="Order creation" onClick='inclResults.setSrc("createOrder.zul")' visible="@bind(vm.orderDashboardVisibility)"/>
 										</treerow>

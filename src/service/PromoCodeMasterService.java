@@ -76,17 +76,17 @@ public class PromoCodeMasterService {
 			if(promoCodeMasterBean.getToDateUtil() != null){
 				if(typeBean.getPromoTypeId() !=null){
 					if(promoCodeMasterBean.getPromoValue() !=null){
-						if(applyTypeBean.getPromocodeApplyTypeId() != null){
+						//if(applyTypeBean.getPromocodeApplyTypeId() != null){
 							if(promoCodeMasterBean.getStatus() !=null){
 								return true;
 							}else {
 								Messagebox.show("Select Status", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
 								return false;
 							}
-						}else {
+						/*}else {
 							Messagebox.show("Select Promo code Application Type", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
 							return false;
-						}
+						}*/
 						
 					}else {
 						Messagebox.show("Enter Promo Value", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
