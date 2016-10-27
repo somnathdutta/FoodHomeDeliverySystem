@@ -6,22 +6,25 @@
 		<grid model="@bind(vm.timeSlotBeanList)">
 			<columns>
 				<column label="Time Slot" align="center"></column>
-				<column label="Lunch Status" align="center"></column>
 				<column label="Active" align="center"></column>
+				<column label="Lunch Status" align="center"></column>
 				<column label="Update" align="center"></column>
 			</columns>
 			<rows>
 				<template name="model" var="v">
 				<row>
 					<textbox value="@bind(v.timeSlot)"></textbox>
-					<combobox value="@bind(v.lunchStatus)">
-						<comboitem label="Active"></comboitem>
-						<comboitem label="Inactive"></comboitem>
-					</combobox>
+					
 					<combobox value="@bind(v.status)">
 						<comboitem label="Active"></comboitem>
 						<comboitem label="Inactive"></comboitem>
 					</combobox>
+					
+					<combobox value="@bind(v.lunchStatus)">
+						<comboitem label="Active"></comboitem>
+						<comboitem label="Inactive"></comboitem>
+					</combobox>
+					
 					
 					<button label="Update" onClick="@command('onClickUpdate', bean= v)"></button>	
 				</row>
