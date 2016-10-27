@@ -295,11 +295,13 @@ public class ManageKitchenItemsViewModel {
 			    	PreparedStatement preparedStatement = null;
 					String sql = null;
 					if(kitchenBean.categoryId==78 || kitchenBean.categoryId==79){//FOR A LA CARTE ITEMS
-						sql=	"INSERT INTO fapp_kitchen_items( item_code,item_id,kitchen_id,is_alacarte )"
-								+ " VALUES(?,?,?,'Y')";
+						sql=	"INSERT INTO fapp_kitchen_items( item_code,item_id,kitchen_id,is_alacarte,stock,dinner_stock"
+								+ " ,stock_tomorrow, dinner_stock_tomorrow )"
+								+ " VALUES(?,?,?,'Y',?,?,?,?)";
 					}else{
-						sql=	"INSERT INTO fapp_kitchen_items( item_code,item_id,kitchen_id )"
-								+ " VALUES(?,?,?)";
+						sql=	"INSERT INTO fapp_kitchen_items( item_code,item_id,kitchen_id,stock,dinner_stock"
+								+ " ,stock_tomorrow, dinner_stock_tomorrow  )"
+								+ " VALUES(?,?,?,?,?,?,?)";
 					}
 					
 					try {
@@ -309,6 +311,11 @@ public class ManageKitchenItemsViewModel {
 								preparedStatement.setString(1, itemBean.itemCode);
 								preparedStatement.setInt(2, itemBean.itemId);
 								preparedStatement.setInt(3, kitchenBean.kitchenId);
+								ManageKitchens kitchens = getStockOfKitchen(kitchenBean.kitchenId, connection);
+								preparedStatement.setInt(4, kitchens.getLunchStock());
+								preparedStatement.setInt(5, kitchens.getDinnerStock());
+								preparedStatement.setInt(6, kitchens.getLunchStock());
+								preparedStatement.setInt(7, kitchens.getDinnerStock());
 								preparedStatement.addBatch();
 							}
 							
@@ -341,6 +348,38 @@ public class ManageKitchenItemsViewModel {
 			refresh();
 		}
 		return isInserted;
+	}
+	
+	public ManageKitchens getStockOfKitchen(int kitchenId, Connection connection){
+		ManageKitchens kitchen = new ManageKitchens();
+		try {
+			SQL:{
+					PreparedStatement preparedStatement = null;
+					ResultSet resultSet = null;
+					String sql = "select lunch_stock,dinner_stock from fapp_kitchen where kitchen_id = ?";
+					try {
+						preparedStatement = connection.prepareStatement(sql);
+						preparedStatement.setInt(1, kitchenId);
+						resultSet = preparedStatement.executeQuery();
+						while (resultSet.next()) {
+							kitchen.lunchStock = resultSet.getInt("lunch_stock");
+							kitchen.dinnerStock = resultSet.getInt("dinner_stock");
+						}
+					} catch (Exception e) {
+						// TODO: handle exception
+						Messagebox.show("Error due to: "+e.getMessage(),"ERROR",Messagebox.OK,Messagebox.ERROR);
+						e.printStackTrace();
+					}finally{
+						if(preparedStatement!=null){
+							preparedStatement.close();
+						}
+					}
+					 
+				}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return kitchen;
 	}
 	
 	public boolean isCategoryAlreadySaved(ManageKitchens kitchen){

@@ -93,7 +93,7 @@ public class TimeSlotDAO {
 							preparedStatement.setString(1, boyUserId);
 							preparedStatement.setInt(2, slot.slotId);
 							String slotType = getSlotType(slot.slotId, connection);
-							if(slotType.equalsIgnoreCase("LUNCH")){
+							if(slotType.equalsIgnoreCase("Y")){
 								preparedStatement.setString(3, "Y");
 								preparedStatement.setString(4, "N");
 							}else{
