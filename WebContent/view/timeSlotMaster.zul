@@ -26,7 +26,7 @@
 					</combobox>
 					
 					
-					<button label="Update" onClick="@command('onClickUpdate', bean= v)"></button>	
+					<button label="Update" onClick="@command('onClickUpdate', bean= v)" sclass="mybutton"></button>	
 				</row>
 				</template>
 			</rows>
