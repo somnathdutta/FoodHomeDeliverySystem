@@ -222,7 +222,7 @@
 							style="padding: 1% 2% 1% 2%; border:#DADADA 1px groove;"
 							sclass="effect8">
 
-							<grid  model="@bind(vm.kitchenItemBeanList)">
+							<grid  model="@bind(vm.kitchenItemBeanList)" mold="paging" pageSize="8" height="400px">
 								<auxhead>
 									<auxheader colspan="2">
 										<combobox
