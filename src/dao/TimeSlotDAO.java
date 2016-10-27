@@ -229,16 +229,19 @@ public class TimeSlotDAO {
 							+ " where time_slot_id = ?";
 					try {
 						preparedStatement = connection.prepareStatement(sql);
-						if(timeSlot.getLunchStatus().equalsIgnoreCase("Y")){
+						if(timeSlot.getLunchStatus().equalsIgnoreCase("Active")){
 							preparedStatement.setString(1, "Y");
 							preparedStatement.setString(2, "N");
 						}else{
 							preparedStatement.setString(1, "N");
 							preparedStatement.setString(2, "Y");
 						}
-						preparedStatement.setString(3, timeSlot.status);
+						if(timeSlot.status.equalsIgnoreCase("Active")){
+							preparedStatement.setString(3, "Y");
+						}else{
+							preparedStatement.setString(3, "N");
+						}
 						preparedStatement.setInt(4, timeSlot.getSlotId());
-						
 						int count = preparedStatement.executeUpdate();
 						if(count>0){
 							System.out.println(count+ " rows updated in fapp_timeslot_driver_status");
@@ -261,14 +264,18 @@ public class TimeSlotDAO {
 							+ " where time_slot_id = ?";
 					try {
 						preparedStatement = connection.prepareStatement(sql);
-						if(timeSlot.status.equalsIgnoreCase("Y")){
+						if(timeSlot.getLunchStatus().equalsIgnoreCase("Active")){
 							preparedStatement.setString(1, "Y");
 							preparedStatement.setString(2, "N");
 						}else{
 							preparedStatement.setString(1, "N");
 							preparedStatement.setString(2, "Y");
 						}
-						preparedStatement.setString(3, timeSlot.status);
+						if(timeSlot.status.equalsIgnoreCase("Active")){
+							preparedStatement.setString(3, "Y");
+						}else{
+							preparedStatement.setString(3, "N");
+						}
 						preparedStatement.setInt(4, timeSlot.getSlotId());
 						int count = preparedStatement.executeUpdate();
 						if(count>0){

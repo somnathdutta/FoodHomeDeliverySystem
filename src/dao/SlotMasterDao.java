@@ -22,7 +22,7 @@ public class SlotMasterDao {
 			list.clear();
 		}
 		PreparedStatement preparedStatement = null;
-		String sql = "select time_slot_id, is_active, time_slot, is_lunch, is_dinner from fapp_timeslot ";
+		String sql = "select time_slot_id, is_active, time_slot, is_lunch, is_dinner from fapp_timeslot order by time_slot_id ";
 		try {
 			 preparedStatement = connection.prepareStatement(sql);
 			 ResultSet resultSet = preparedStatement.executeQuery();
