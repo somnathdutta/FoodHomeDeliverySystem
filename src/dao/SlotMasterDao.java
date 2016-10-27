@@ -94,6 +94,10 @@ public class SlotMasterDao {
 			Messagebox.show(msg, "Error", Messagebox.OK, Messagebox.ERROR);
 			e.printStackTrace();
 		}
+		if(i>0){
+		TimeSlotDAO.updateBikerSlots(bean, connection);
+		}
+		
 		return i;
 		
 	}
