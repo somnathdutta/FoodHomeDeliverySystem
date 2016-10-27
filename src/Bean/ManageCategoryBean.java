@@ -1,5 +1,7 @@
 package Bean;
 
+import java.util.ArrayList;
+
 import org.zkoss.image.AImage;
 
 public class ManageCategoryBean {
@@ -22,6 +24,10 @@ public class ManageCategoryBean {
 	public Boolean chkCategory=false;
 	public Integer qty = 0;
 	public Double price;
+	
+	public Item item = new Item();
+	public ArrayList<Item> itemBeanList = new ArrayList<Item>();
+	
 	public String getAreaName() {
 		return areaName;
 	}
@@ -135,6 +141,18 @@ public class ManageCategoryBean {
 	}
 	public void setPrice(Double price) {
 		this.price = price;
+	}
+	public Item getItem() {
+		return item;
+	}
+	public void setItem(Item item) {
+		this.item = item;
+	}
+	public ArrayList<Item> getItemBeanList() {
+		return itemBeanList;
+	}
+	public void setItemBeanList(ArrayList<Item> itemBeanList) {
+		this.itemBeanList = itemBeanList;
 	}
 	
 }

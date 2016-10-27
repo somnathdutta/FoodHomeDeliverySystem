@@ -26,8 +26,10 @@ import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zul.Messagebox;
 
+import service.ApiCallService;
 import dao.CreateOrderDAO;
 import Bean.DayBean;
+import Bean.ManageCategoryBean;
 import Bean.ManageCuisinBean;
 import Bean.MealBean;
 import Bean.RoadRunnrBean;
@@ -115,12 +117,29 @@ public class CreateNewOrderViewModel {
 	
 	@Command
 	@NotifyChange("*")
-	public void onSelectTypeName(){
+	public void onSelectTypeName() throws JSONException{
 		if(cuisinBeanList.size() > 0){
 			cuisinBeanList.clear();
 		}
 		
-		cuisinBeanList = CreateOrderDAO.onloadCuisinList(connection);
+		//cuisinBeanList = CreateOrderDAO.onloadCuisinList(connection);
+		cuisinBeanList = ApiCallService.getCuisineList(loactionBean.zipCode, dayBean.getDay());
+		for(ManageCuisinBean cuisinBean : cuisinBeanList){
+			System.out.println("Category list size:: "+cuisinBean.getCategoryBeanList());
+			for(ManageCategoryBean categoryBean : cuisinBean.categoryBeanList){
+				System.out.println("Item list size:: "+categoryBean.itemBeanList.size());
+			}
+		}
+	}
+	
+	@Command
+	@NotifyChange("*")
+	public void onSelectCuisine(){
+		System.out.println("PINCODE: "+loactionBean.zipCode);
+		System.out.println("Day:: "+dayBean.getDay());
+		System.out.println("Type:: "+mealBean.typeOfMeal);
+		System.out.println("cuisine id: "+cuisinBean.cuisinId);
+		
 	}
 	
 	@Command

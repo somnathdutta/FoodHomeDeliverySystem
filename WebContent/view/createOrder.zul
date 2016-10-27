@@ -41,7 +41,7 @@
 				model="@bind(vm.cuisinBeanList)" autodrop="true" autocomplete="true"
 				onSelect="@command('onSelectCuisine')"
 				value="@bind(vm.cuisinBean.cuisinName)"
-				selectedItem="@bind(vm.cuisinBean.cuisinName)">
+				selectedItem="@bind(vm.cuisinBean)">
 				<template name="model" var="v">
 					<comboitem value="@load(v.cuisinId)" label="@load(v.cuisinName)" />
 				</template>

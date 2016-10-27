@@ -100,7 +100,7 @@ public class CmsMasterDao {
 		int i = 0;
 		try {
 			PreparedStatement preparedStatement = null;
-			preparedStatement = FappPstm.createQuery(connection, CmsMasterSql.insertContactUsSql, Arrays.asList(bean.getContNo(), user, user));
+			preparedStatement = FappPstm.createQuery(connection, CmsMasterSql.insertContactUsSql, Arrays.asList(bean.getContNo(), bean.getContactMessage() ,user, user));
 			i = preparedStatement.executeUpdate();
 			
 		} catch (Exception e) {
@@ -125,7 +125,7 @@ public class CmsMasterDao {
 					ContactUsBean bean = new ContactUsBean();
 					bean.setContactusId(resultSet.getInt("fapp_contact_us_id"));
 					bean.setContNo(resultSet.getString("contct_no"));
-					
+					bean.setContactMessage(resultSet.getString("contact_message"));
 					list.add(bean);
 					
 				}
@@ -147,7 +147,7 @@ public class CmsMasterDao {
 		int i = 0;
 		try {
 			PreparedStatement preparedStatement = null;
-			preparedStatement = FappPstm.createQuery(connection, CmsMasterSql.updateContactUsSql, Arrays.asList(bean.getContNo(), user, bean.getContactusId()));
+			preparedStatement = FappPstm.createQuery(connection, CmsMasterSql.updateContactUsSql, Arrays.asList(bean.getContNo(), bean.getContactMessage() ,user, bean.getContactusId()));
 			i = preparedStatement.executeUpdate();
 			
 		} catch (Exception e) {

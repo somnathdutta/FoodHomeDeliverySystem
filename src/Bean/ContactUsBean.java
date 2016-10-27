@@ -3,7 +3,7 @@ package Bean;
 public class ContactUsBean {
 	
 	private Integer contactusId;
-	private String contNo;
+	private String contNo,contactMessage;
 	
 	private boolean insertDivVis;
 
@@ -29,6 +29,14 @@ public class ContactUsBean {
 
 	public void setInsertDivVis(boolean insertDivVis) {
 		this.insertDivVis = insertDivVis;
+	}
+
+	public String getContactMessage() {
+		return contactMessage;
+	}
+
+	public void setContactMessage(String contactMessage) {
+		this.contactMessage = contactMessage;
 	}
 
 }

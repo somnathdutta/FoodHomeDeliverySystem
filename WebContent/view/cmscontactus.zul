@@ -10,6 +10,7 @@
 			<rows>
 				<row>
 					<textbox value="@bind(vm.contactUsBean.contNo)" maxlength="14"></textbox>
+					<textbox value="@bind(vm.contactUsBean.contactMessage)" maxlength="14"></textbox>
 					<button label="Save" onClick="@command('insertContactUs')" sclass="mybutton"></button>
 			
 				</row>
@@ -27,12 +28,14 @@
 			<grid model="@bind(vm.contactUsBeanList)">
 				<columns>
 					<column label="Contact No" align="center"></column>
+					<column label="Contact Message" align="center"></column>
 					<column label="Action" align="center"></column>
 				</columns>
 				<rows>
 					<template name="model" var= "v">
 						<row>
 							<textbox value="@bind(v.contNo)"  maxlength="14"></textbox>
+							<textbox value="@bind(v.contactMessage)"  maxlength="14"></textbox>
 							<hlayout spacing="20px">
 								<button onClick="@command('updateContactUs', bean= v)" sclass="mybutton" label="Update"></button>
 								<button onClick="@command('deleteContactUs', bean= v)" sclass="mybutton" label="Delete"></button>

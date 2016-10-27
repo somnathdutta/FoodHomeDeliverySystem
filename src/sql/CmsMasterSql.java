@@ -16,11 +16,11 @@ public class CmsMasterSql {
 	
 	/******************************************************* Contact Us **************************************************************/
 	
-	public static final String insertContactUsSql = "insert into fapp_contact_us (contct_no, created_by, updated_by) values (?, ?, ?)";
+	public static final String insertContactUsSql = "insert into fapp_contact_us (contct_no,contact_message, created_by, updated_by) values (?,?, ?, ?)";
 	
-	public static final String loadContactUsSql = "select fapp_contact_us_id, contct_no from fapp_contact_us where is_delete = 'N' ";
+	public static final String loadContactUsSql = "select fapp_contact_us_id, contct_no,contact_message from fapp_contact_us where is_delete = 'N' ";
 	
-	public static final String updateContactUsSql = "update fapp_contact_us set contct_no = ?, updated_by = ? where fapp_contact_us_id = ? ";
+	public static final String updateContactUsSql = "update fapp_contact_us set contct_no = ?,contact_message=?, updated_by = ? where fapp_contact_us_id = ? ";
 	
 	public static final String deleteContactUsSql = "update fapp_contact_us set is_delete = 'Y', updated_by = ? where fapp_contact_us_id = ? ";
 	
