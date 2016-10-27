@@ -359,7 +359,7 @@
 										<treechildren>
 											<treeitem>
 												<treerow>
-													<treecell label="Slot Master" onClick='inclResults.setSrc("slotmaster.zul");'></treecell>
+													<treecell label="Slot Master" onClick='inclResults.setSrc("timeSlotMaster.zul");'></treecell>
 												</treerow>
 											</treeitem>
 											<treeitem>

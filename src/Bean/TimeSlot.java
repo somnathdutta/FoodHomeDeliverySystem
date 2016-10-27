@@ -7,6 +7,9 @@ public class TimeSlot {
 	public String status;
 	public boolean checked = false;
 	
+	private String lunchStatus;
+	private String dinnerStatus;
+	
 	public int getSlotId() {
 		return slotId;
 	}
@@ -30,6 +33,18 @@ public class TimeSlot {
 	}
 	public void setChecked(boolean checked) {
 		this.checked = checked;
+	}
+	public String getLunchStatus() {
+		return lunchStatus;
+	}
+	public void setLunchStatus(String lunchStatus) {
+		this.lunchStatus = lunchStatus;
+	}
+	public String getDinnerStatus() {
+		return dinnerStatus;
+	}
+	public void setDinnerStatus(String dinnerStatus) {
+		this.dinnerStatus = dinnerStatus;
 	}
 	
 	
