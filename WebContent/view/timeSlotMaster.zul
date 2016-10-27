@@ -15,12 +15,12 @@
 				<row>
 					<textbox value="@bind(v.timeSlot)"></textbox>
 					
-					<combobox value="@bind(v.status)">
+					<combobox value="@bind(v.status)" readonly="true">
 						<comboitem label="Active"></comboitem>
 						<comboitem label="Inactive"></comboitem>
 					</combobox>
 					
-					<combobox value="@bind(v.lunchStatus)">
+					<combobox value="@bind(v.lunchStatus)" readonly="true">
 						<comboitem label="Active"></comboitem>
 						<comboitem label="Inactive"></comboitem>
 					</combobox>
