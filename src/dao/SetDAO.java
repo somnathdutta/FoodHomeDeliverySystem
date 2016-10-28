@@ -315,6 +315,25 @@ public class SetDAO {
 		return i;
 	}
 	
+	public static int todayTomorrowStatusUpdate(Connection connection,String status, String itemCode){
+		int i = 0;
+		PreparedStatement preparedStatement = null;
+		try {
+			preparedStatement = FappPstm.createQuery(connection, SetMasterSql.updateKitchenItemSetStatus, Arrays.asList(status,status,itemCode));
+			i = preparedStatement.executeUpdate();
+			
+		} catch (Exception e) {
+			String msg = e.getMessage();
+			Messagebox.show(msg, "Error", Messagebox.OK,Messagebox.ERROR);
+			e.printStackTrace();
+			e.printStackTrace();
+		}
+		return i;
+	}
+	
+	
+	
+	
 	public static ArrayList<String> fetchExistingSetItemCode(Connection connection, Integer setId){
 		ArrayList<String> codeList = new ArrayList<String>();
 		if(codeList.size()>0){

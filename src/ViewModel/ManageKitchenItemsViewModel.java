@@ -29,6 +29,9 @@ public class ManageKitchenItemsViewModel {
 	public ManageKitchens kitchenBean = new ManageKitchens();
 	
 	public ArrayList<ManageKitchens> kitchenList = new ArrayList<ManageKitchens>();
+	public ArrayList<ManageKitchens> showItemskitchenList = new ArrayList<ManageKitchens>();
+	public ManageKitchens showItemkitchenBean = new ManageKitchens();
+	
 	
 	ManageCategoryBean categoryBean = new ManageCategoryBean();
 	
@@ -94,6 +97,7 @@ public class ManageKitchenItemsViewModel {
 							kitchen.kitchenName = resultSet.getString("kitchen_name");
 							kitchen.kitchenId = resultSet.getInt("kitchen_id");
 							kitchenList.add(kitchen);
+							showItemskitchenList.add(kitchen);
 						}
 					} catch (Exception e) {
 						// TODO: handle exception
@@ -134,6 +138,14 @@ public class ManageKitchenItemsViewModel {
 		
 		kitchenItemBeanList = KitchenItemsDAO.loadItemOfKitchen(connection, kitchenBean.kitchenId);
 	}
+	
+	@Command
+	@NotifyChange("*")
+	public void onSelectShowItemKitchen(){
+		
+		kitchenItemBeanList = KitchenItemsDAO.loadItemOfKitchen(connection, showItemkitchenBean.kitchenId);
+	}
+	
 	
 	public void loadCuisineForKitchen(int kitchenId){
 		if(cuisineBeanList.size()>0){
@@ -650,5 +662,22 @@ public class ManageKitchenItemsViewModel {
 
 	public void setKitchenItemBeanList(ArrayList<ItemBean> kitchenItemBeanList) {
 		this.kitchenItemBeanList = kitchenItemBeanList;
+	}
+
+	public ArrayList<ManageKitchens> getShowItemskitchenList() {
+		return showItemskitchenList;
+	}
+
+	public void setShowItemskitchenList(
+			ArrayList<ManageKitchens> showItemskitchenList) {
+		this.showItemskitchenList = showItemskitchenList;
+	}
+
+	public ManageKitchens getShowItemkitchenBean() {
+		return showItemkitchenBean;
+	}
+
+	public void setShowItemkitchenBean(ManageKitchens showItemkitchenBean) {
+		this.showItemkitchenBean = showItemkitchenBean;
 	}
 }

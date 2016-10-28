@@ -133,7 +133,9 @@ public class SetViewModel {
 		}
 		
 		int i = SetMasterService.updateStatus(connection, status, bean.getSetItemId());
-		if(i>0){
+		int j = SetMasterService.updateTodayTomorrowStatus(connection, status, bean.getItemBean().itemCode);
+		
+		if(i>0 && j>0){
 			Messagebox.show("Status Updated!", "Information", Messagebox.OK,Messagebox.INFORMATION);
 		}
 		

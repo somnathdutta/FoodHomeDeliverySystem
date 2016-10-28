@@ -225,7 +225,7 @@
 							<grid  model="@bind(vm.kitchenItemBeanList)" mold="paging" pageSize="8" height="400px">
 								<auxhead>
 									<auxheader colspan="2">
-										<combobox
+										<!-- <combobox
 											placeholder="[Choose Kitchen]"
 											selectedItem="@bind(vm.kitchenBean)"
 											value="@bind(vm.kitchenBean.kitchenName)"
@@ -236,7 +236,21 @@
 												<comboitem
 													value="@load(v.kitchenId)" label="@load(v.kitchenName)" />
 											</template>
+										</combobox> -->
+										
+										<combobox
+											placeholder="[Choose Kitchen]"
+											selectedItem="@bind(vm.showItemkitchenBean)"
+											value="@bind(vm.showItemkitchenBean.kitchenName)"
+											model="@bind(vm.showItemskitchenList)" autocomplete="true"
+											autodrop="true" onSelect="@command('onSelectShowItemKitchen')">
+											<template name="model"
+												var="v">
+												<comboitem
+													value="@load(v.kitchenId)" label="@load(v.kitchenName)" />
+											</template>
 										</combobox>
+										
 									</auxheader>
 									<auxheader>
 									<button visible="false"

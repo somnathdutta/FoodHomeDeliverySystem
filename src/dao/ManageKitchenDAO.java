@@ -156,9 +156,12 @@ public class ManageKitchenDAO {
 						preparedStatement.setInt(3, kitchen.lunchStock);
 						preparedStatement.setInt(4, kitchen.dinnerStock);
 						preparedStatement.setInt(5, kitchen.kitchenId);
+						
 						int count = preparedStatement.executeUpdate();
-						if(count>0)
+						if(count>0){
+							
 							System.out.println("Stock updated!");
+						}
 					} catch (Exception e) {
 						// TODO: handle exception
 						System.out.println(e);

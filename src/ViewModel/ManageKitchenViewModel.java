@@ -54,7 +54,7 @@ public class ManageKitchenViewModel {
 	
 	private ArrayList<ManageKitchens> kitchenBeanList = new ArrayList<ManageKitchens>();
 	
-	private ArrayList<ManageKitchens> lunchDinnerkitchenBeanList;
+	private ArrayList<ManageKitchens> lunchDinnerkitchenBeanList = new ArrayList<ManageKitchens>();;
 	ManageKitchens lunchDinnerBean = new ManageKitchens();
 	
 	private ArrayList<ManageKitchens> lunchDinnerDetailsBeanList = new ArrayList<ManageKitchens>();
@@ -923,7 +923,7 @@ public class ManageKitchenViewModel {
 		if(validateFields()){
 			if(upDateKitchenData()){
 				ManageKitchenDAO.updateStock(manageKitchensBean, connection);
-				System.out.println("SSSSSSSS TTTTTTT AAAAAAA UUUUUUUU SSSSSSS > " + manageKitchensBean.status);
+				
 				if(manageKitchensBean.status.equalsIgnoreCase("Deactive")){
 					ManageKitchenDAO.updateDeactiveKitchenStock(connection, manageKitchensBean.kitchenId);
 				}

@@ -17,7 +17,13 @@ public class KitchenItemsDAO {
 			SQL:{
 			 PreparedStatement preparedStatement = null;
 			 ResultSet resultSet = null;
-			 String sql = "select item_id,item_code,item_name,item_description,item_price from vw_category_item_details_from_kitchen where kitchen_id = ?";
+			 //String sql = "select item_id,item_code,item_name,item_description,item_price from vw_category_item_details_from_kitchen where kitchen_id = ?";
+			 
+			 String sql = "SELECT fki.item_id,fki.item_code,fi.item_name,fi.item_description,fi.item_price "
+						+" from fapp_kitchen_items fki "
+						+" JOIN food_items fi "
+						+" ON fi.item_id  = fki.item_id "
+						+" where fki.kitchen_id = ? order by item_code";
 			 try {
 				preparedStatement = connection.prepareStatement(sql);
 				preparedStatement.setInt(1, kitchenId);

@@ -43,6 +43,11 @@ public class SetMasterService {
 		return i = SetDAO.statusUpdate(connection, status, setItemId);
 	}
 	
+	public static int updateTodayTomorrowStatus(Connection connection,String status, String itemCome){
+		int i = 0;
+		return i = SetDAO.todayTomorrowStatusUpdate(connection, status, itemCome);
+	}
+	
 	public static ArrayList<String> fetchExistIngCodeList(Connection connection, Integer setId){
 		ArrayList<String> list = new ArrayList<String>();
 		return list = SetDAO.fetchExistingSetItemCode(connection, setId);
