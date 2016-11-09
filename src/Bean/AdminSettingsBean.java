@@ -5,6 +5,24 @@ import java.util.Date;
 
 public class AdminSettingsBean {
 
+	public int slotTimmingsId;
+	
+	public Date lunchSlotFromTime;
+	public String lunchSlotFromTimeStr;
+	
+	public Date lunchSlotToTime;
+	public String lunchSlotToTimeStr;
+	
+	public Date dinnerSlotFromTime;
+	public String dinnerSlotFromTimeStr;
+	
+	public Date dinnerSlotToTime;
+	public String dinnerSlotToTimeStr;
+	
+	public boolean slotTimeSaveDisabled;
+	public boolean slotTimeUpdateDisabled;
+	
+	
 	public Date bookingFromTime;
 	
 	public Date bookingToTime;
@@ -383,6 +401,96 @@ public class AdminSettingsBean {
 	public void setTimingID(int timingID) {
 		this.timingID = timingID;
 	}
+
+	public Date getLunchSlotFromTime() {
+		return lunchSlotFromTime;
+	}
+
+	public void setLunchSlotFromTime(Date lunchSlotFromTime) {
+		this.lunchSlotFromTime = lunchSlotFromTime;
+	}
+
+	public String getLunchSlotFromTimeStr() {
+		return lunchSlotFromTimeStr;
+	}
+
+	public void setLunchSlotFromTimeStr(String lunchSlotFromTimeStr) {
+		this.lunchSlotFromTimeStr = lunchSlotFromTimeStr;
+	}
+
+	public Date getLunchSlotToTime() {
+		return lunchSlotToTime;
+	}
+
+	public void setLunchSlotToTime(Date lunchSlotToTime) {
+		this.lunchSlotToTime = lunchSlotToTime;
+	}
+
+	public String getLunchSlotToTimeStr() {
+		return lunchSlotToTimeStr;
+	}
+
+	public void setLunchSlotToTimeStr(String lunchSlotToTimeStr) {
+		this.lunchSlotToTimeStr = lunchSlotToTimeStr;
+	}
+
+	public Date getDinnerSlotFromTime() {
+		return dinnerSlotFromTime;
+	}
+
+	public void setDinnerSlotFromTime(Date dinnerSlotFromTime) {
+		this.dinnerSlotFromTime = dinnerSlotFromTime;
+	}
+
+	public String getDinnerSlotFromTimeStr() {
+		return dinnerSlotFromTimeStr;
+	}
+
+	public void setDinnerSlotFromTimeStr(String dinnerSlotFromTimeStr) {
+		this.dinnerSlotFromTimeStr = dinnerSlotFromTimeStr;
+	}
+
+	public Date getDinnerSlotToTime() {
+		return dinnerSlotToTime;
+	}
+
+	public void setDinnerSlotToTime(Date dinnerSlotToTime) {
+		this.dinnerSlotToTime = dinnerSlotToTime;
+	}
+
+	public String getDinnerSlotToTimeStr() {
+		return dinnerSlotToTimeStr;
+	}
+
+	public void setDinnerSlotToTimeStr(String dinnerSlotToTimeStr) {
+		this.dinnerSlotToTimeStr = dinnerSlotToTimeStr;
+	}
+
+	public boolean isSlotTimeSaveDisabled() {
+		return slotTimeSaveDisabled;
+	}
+
+	public void setSlotTimeSaveDisabled(boolean slotTimeSaveDisabled) {
+		this.slotTimeSaveDisabled = slotTimeSaveDisabled;
+	}
+
+	public boolean isSlotTimeUpdateDisabled() {
+		return slotTimeUpdateDisabled;
+	}
+
+	public void setSlotTimeUpdateDisabled(boolean slotTimeUpdateDisabled) {
+		this.slotTimeUpdateDisabled = slotTimeUpdateDisabled;
+	}
+
+	public int getSlotTimmingsId() {
+		return slotTimmingsId;
+	}
+
+	public void setSlotTimmingsId(int slotTimmingsId) {
+		this.slotTimmingsId = slotTimmingsId;
+	}
+
+	
 
 	
 }

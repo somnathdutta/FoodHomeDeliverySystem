@@ -40,6 +40,39 @@ public class DatetoStringConverter {
 	   return dateString;
 	}
 	
+	public static String convert24DateToStringSlot(Date indate)
+	{
+	   String dateString = null;
+	   SimpleDateFormat sdfr = new SimpleDateFormat("HH:mm:ss");
+	   /*you can also use DateFormat reference instead of SimpleDateFormat 
+	    * like this: DateFormat df = new SimpleDateFormat("dd/MMM/yyyy");
+	    */
+	   try{
+		dateString = sdfr.format( indate );
+	   }catch (Exception ex ){
+		   ex.printStackTrace();
+	   }
+	   System.out.println("dateStringslot- "+dateString);
+	   return dateString;
+	}
+	
+	public static Date convertStringTo24DateSlot(String dateString)
+	{
+	    Date date = null;
+	   // Date formatteddate = null;
+	    DateFormat df = new SimpleDateFormat("HH:mm:ss");
+	    try{
+	        date = df.parse(dateString);
+	    //    formatteddate = df.format(date);
+	    }
+	    catch ( Exception ex ){
+	        ex.printStackTrace();
+	    }
+	 //   return formatteddate;
+	    System.out.println("Formated slot string to date: "+date);
+	    return date;
+	}
+	
 	public static Date convertStringTo24Date(String dateString)
 	{
 	    Date date = null;

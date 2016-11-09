@@ -74,6 +74,7 @@ apply="org.zkoss.bind.BindComposer"
 					<tab label="Early bird lunch time settings" onClick="@command('onClickTab2')"/>
 					<tab label="Early bird dinner time settings" onClick="@command('onClickTab3')"/>
 					<tab label="Credit settings" onClick="@command('onClickTab4')"/>
+					<tab label="Slot Timings" onClick="@command('onClickTab5')"></tab>
 				</tabs>
 				<tabpanels>
 				<!-- Lunch Dinner time settings starts here -->
@@ -363,6 +364,77 @@ apply="org.zkoss.bind.BindComposer"
 							</div>
 							
 						</div> 
+					</tabpanel>
+					
+					<tabpanel>
+					  <div>	
+						<div style="border:#DADADA 1px solid;background-color:#F5F5FF;" >
+							
+							<div style="padding: 1% 1% 1% 1%; border:#DADADA 1px groove;" sclass="effect8">
+								<grid>
+									<columns>
+										<column align="right" />
+										<column align="left" />
+									</columns>
+									<rows>
+										<row>
+											<label value="Lunch Slot Timings" style="font-weight:bold"/>
+											<hlayout>
+												<timebox value="@bind(vm.slotTimmingsBean.lunchSlotFromTime)" format="HH:mm:ss" placeholder="From" />
+												<timebox value="@bind(vm.slotTimmingsBean.lunchSlotToTime)" format="HH:mm:ss" placeholder="To" />
+											</hlayout>
+											
+										</row>
+										
+										<row>
+											<label value="Dinner Slot Timings" style="font-weight:bold"/>
+											<hlayout>
+												<timebox value="@bind(vm.slotTimmingsBean.dinnerSlotFromTime)" format="HH:mm:ss" placeholder="From" />
+												<timebox value="@bind(vm.slotTimmingsBean.dinnerSlotToTime)" format="HH:mm:ss" placeholder="To" />
+											</hlayout>
+											
+										</row>
+							
+										<row>
+											<button label="Save" disabled="@bind(vm.slotTimmingsBean.slotTimeSaveDisabled)" sclass="mybutton" onClick="@command('onClickSlotSave')"/>
+											<hbox>
+												<button label="Update" disabled="@bind(vm.slotTimmingsBean.slotTimeUpdateDisabled)"  sclass="mybutton" onClick="@command('onClickSlotUpdate')"/>
+												<button label="Clear" sclass="mybutton" visible="false"/>
+											</hbox>
+										</row>
+									</rows>
+								</grid>
+							</div>
+						</div>
+					
+					 <space/><space/>
+						<div style="border:#DADADA 1px solid;background-color:#F5F5FF;" >
+		
+							<div style="padding: 1% 1% 1% 1%; border:#DADADA 1px groove;" sclass="effect8">
+									<grid model="@bind(vm.slotTimmingsBeanList)">
+										<columns>
+											<column label="Lunch Slot from timing" align="center"/>
+											<column label="Lunch Slot to timing" align="center"/>
+											<column label="Dinner slot from timing" align="center"/>
+											<column label="Dinner slot to timing" align="center"/>
+											<column label="Action" align="center"/>
+										</columns>
+										<rows>
+										<template name="model" var="v">
+											<row>
+												<textbox value="@bind(v.lunchSlotFromTimeStr)" readonly="true"/>
+												<textbox value="@bind(v.lunchSlotToTimeStr)" readonly="true"/>
+												<textbox value="@bind(v.dinnerSlotFromTimeStr)" readonly="true"/>
+												<textbox value="@bind(v.dinnerSlotToTimeStr)" readonly="true"/>
+												<button label="Edit" sclass="mybutton" onClick="@command('onClickSlotEdit',bean= v)"/>
+											</row>
+										</template>	
+										</rows>
+									</grid>
+							</div>
+							
+						</div> 	
+					  </div>	
 					</tabpanel>
 				</tabpanels>
 			</tabbox>

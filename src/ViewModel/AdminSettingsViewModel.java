@@ -8,6 +8,8 @@ import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+import javafx.util.converter.DateStringConverter;
+
 import org.apache.poi.hssf.record.aggregates.CFRecordsAggregate;
 import org.zkoss.bind.BindContext;
 import org.zkoss.bind.annotation.AfterCompose;
@@ -29,6 +31,7 @@ import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
 import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
+import com.sun.org.apache.regexp.internal.recompile;
 import com.sun.xml.internal.ws.api.model.MEP;
 
 import dao.LunchDinnerTimingsDAO;
@@ -36,6 +39,9 @@ import utility.DatetoStringConverter;
 import Bean.AdminSettingsBean;
 import Bean.ManageCategoryBean;
 public class AdminSettingsViewModel {
+	
+	private AdminSettingsBean slotTimmingsBean = new AdminSettingsBean();
+	private ArrayList<AdminSettingsBean> slotTimmingsBeanList = new ArrayList<AdminSettingsBean>();
 	
 	private AdminSettingsBean adminSettingsbean =  new AdminSettingsBean();
 	
@@ -109,11 +115,20 @@ public class AdminSettingsViewModel {
 		//loadSavedSpecialTimings();
 		
 		//loadSavedCredits();
-		
+		System.out.println("zul page >> lunchdinnertimings.zul");
 		if(lunchDinnerTimingsbeanList.size()>1 || lunchDinnerTimingsbeanList.size()==1){
 			saveDisability = true;
 		}else{
 			saveDisability = false;
+		}
+		
+		slotTimmingsBeanList = timeSlotLoad();
+		if(slotTimmingsBeanList.size()==1){
+			slotTimmingsBean.slotTimeSaveDisabled = true;
+			slotTimmingsBean.slotTimeUpdateDisabled = true;
+		}else {
+			slotTimmingsBean.slotTimeSaveDisabled = false;
+			slotTimmingsBean.slotTimeUpdateDisabled = true;
 		}
 	}
 	
@@ -144,6 +159,15 @@ public class AdminSettingsViewModel {
 	public void onClickTab4(){
 		loadSavedCredits();
 	}
+	
+	@Command
+	@NotifyChange("*")
+	public void onClickTab5(){
+		
+	}
+	
+	
+	
 	
 	@Command
 	@NotifyChange("*")
@@ -660,6 +684,202 @@ public class AdminSettingsViewModel {
 		creditbeanList = LunchDinnerTimingsDAO.loadSavedCredits(connection);
 	}
 	
+	@Command
+	@NotifyChange("*")
+	public void onClickSlotSave(){
+		saveSlotTime();
+	}
+	
+	@Command
+	@NotifyChange("*")
+	public void onClickSlotUpdate(){
+	
+		int i = 0;
+		i = updateTimeSlot();
+		if(i>0){
+			Messagebox.show("Updated Successfully", "Information", Messagebox.OK, Messagebox.INFORMATION);
+			timeSlotClear();
+			slotTimmingsBeanList = timeSlotLoad();
+			if(slotTimmingsBeanList.size()==1){
+				slotTimmingsBean.slotTimeSaveDisabled = true;
+				slotTimmingsBean.slotTimeUpdateDisabled = true;
+			}else {
+				slotTimmingsBean.slotTimeSaveDisabled = false;
+				slotTimmingsBean.slotTimeUpdateDisabled = true;
+			}
+		 }
+	}
+
+	@Command
+	@NotifyChange("*")
+	public void onClickSlotEdit(@BindingParam("bean")AdminSettingsBean bean){
+		slotTimmingsBean.slotTimeUpdateDisabled = false;
+		
+		slotTimmingsBean.lunchSlotFromTime= DatetoStringConverter.convertStringTo24DateSlot(bean.lunchSlotFromTimeStr);
+		slotTimmingsBean.lunchSlotToTime = DatetoStringConverter.convertStringTo24DateSlot(bean.lunchSlotToTimeStr);
+		
+		slotTimmingsBean.dinnerSlotFromTime = DatetoStringConverter.convertStringTo24DateSlot(bean.dinnerSlotFromTimeStr);
+		slotTimmingsBean.dinnerSlotToTime = DatetoStringConverter.convertStringTo24DateSlot(bean.dinnerSlotToTimeStr);
+		
+		slotTimmingsBean.slotTimmingsId = bean.slotTimmingsId;
+		slotTimmingsBean.slotTimeUpdateDisabled = false;
+	}
+	
+	public void saveSlotTime(){
+		try {
+			PreparedStatement preparedStatement = null;
+			String sql = "insert into fapp_slot_timings (lunch_from,lunch_to,dinner_from,dinner_to) values(?,?,?,?)";
+			try {
+				if(slotTimmingsBean.lunchSlotFromTime !=null && slotTimmingsBean.lunchSlotToTime !=null 
+						&& slotTimmingsBean.dinnerSlotFromTime !=null && slotTimmingsBean.dinnerSlotToTime !=null){
+				
+					slotTimmingsBean.lunchSlotFromTimeStr = DatetoStringConverter.convert24DateToStringSlot(slotTimmingsBean.lunchSlotFromTime);
+					slotTimmingsBean.lunchSlotToTimeStr = DatetoStringConverter.convert24DateToStringSlot(slotTimmingsBean.lunchSlotToTime);
+					slotTimmingsBean.dinnerSlotFromTimeStr = DatetoStringConverter.convert24DateToStringSlot(slotTimmingsBean.dinnerSlotFromTime);
+					slotTimmingsBean.dinnerSlotToTimeStr = DatetoStringConverter.convert24DateToStringSlot(slotTimmingsBean.dinnerSlotToTime);
+					
+					preparedStatement = connection.prepareStatement(sql);
+					
+					preparedStatement= connection.prepareStatement(sql);
+					preparedStatement.setString(1, slotTimmingsBean.lunchSlotFromTimeStr);
+					preparedStatement.setString(2, slotTimmingsBean.lunchSlotToTimeStr);
+					preparedStatement.setString(3, slotTimmingsBean.dinnerSlotFromTimeStr);
+					preparedStatement.setString(4, slotTimmingsBean.dinnerSlotToTimeStr);
+					
+					int i = preparedStatement.executeUpdate();
+					if(i>0){
+						Messagebox.show("Saved Successfully", "Information", Messagebox.OK, Messagebox.INFORMATION);
+						timeSlotClear();
+						slotTimmingsBeanList = timeSlotLoad();
+						if(slotTimmingsBeanList.size()==1){
+							slotTimmingsBean.slotTimeSaveDisabled = true;
+							slotTimmingsBean.slotTimeUpdateDisabled = false;
+						}else {
+							slotTimmingsBean.slotTimeSaveDisabled = false;
+							slotTimmingsBean.slotTimeUpdateDisabled = true;
+						}
+					}
+				}else {
+					Messagebox.show("Select All fields", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				Messagebox.show(e.getMessage(), "Alert", Messagebox.OK, Messagebox.ERROR);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public ArrayList<AdminSettingsBean> timeSlotLoad(){
+		ArrayList<AdminSettingsBean> list = new ArrayList<AdminSettingsBean>();
+		if(list.size()>0){
+			list.clear();
+		}
+		String sql= "select slot_timings_id,lunch_from,lunch_to,dinner_from,dinner_to from fapp_slot_timings ";
+		try {
+				PreparedStatement preparedStatement = null;
+				preparedStatement = connection.prepareStatement(sql);
+				ResultSet resultSet = preparedStatement.executeQuery();
+				while (resultSet.next()) {
+					AdminSettingsBean bean = new AdminSettingsBean();
+					
+					bean.slotTimmingsId = resultSet.getInt("slot_timings_id");
+					bean.lunchSlotFromTimeStr = resultSet.getString("lunch_from");
+					bean.lunchSlotToTimeStr = resultSet.getString("lunch_to");
+					bean.dinnerSlotFromTimeStr = resultSet.getString("dinner_from");
+					bean.dinnerSlotToTimeStr = resultSet.getString("dinner_to");
+					
+					list.add(bean);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	public int updateTimeSlot(){
+		int i = 0;
+		PreparedStatement preparedStatement = null;
+		String sql = "update fapp_slot_timings set lunch_from = ? ,lunch_to = ?,dinner_from = ?,dinner_to = ? where slot_timings_id = ? ";
+		
+		try {
+			if(isSlotTimeNull()){
+				
+				slotTimmingsBean.lunchSlotFromTimeStr = DatetoStringConverter.convert24DateToStringSlot(slotTimmingsBean.lunchSlotFromTime);
+				slotTimmingsBean.lunchSlotToTimeStr = DatetoStringConverter.convert24DateToStringSlot(slotTimmingsBean.lunchSlotToTime);
+				slotTimmingsBean.dinnerSlotFromTimeStr = DatetoStringConverter.convert24DateToStringSlot(slotTimmingsBean.dinnerSlotFromTime);
+				slotTimmingsBean.dinnerSlotToTimeStr = DatetoStringConverter.convert24DateToStringSlot(slotTimmingsBean.dinnerSlotToTime);
+				
+				preparedStatement = connection.prepareStatement(sql);
+				preparedStatement.setString(1, slotTimmingsBean.lunchSlotFromTimeStr);
+				preparedStatement.setString(2, slotTimmingsBean.lunchSlotToTimeStr);
+				preparedStatement.setString(3, slotTimmingsBean.dinnerSlotFromTimeStr);
+				preparedStatement.setString(4, slotTimmingsBean.dinnerSlotToTimeStr);
+				preparedStatement.setInt(5, slotTimmingsBean.slotTimmingsId);
+				System.out.println("MMMMMMMMMMMMMMM " + preparedStatement);
+				i = preparedStatement.executeUpdate();
+				
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return i;
+		
+	}
+	
+	public boolean isSlotTimeNull(){
+		
+		if(slotTimmingsBean.lunchSlotFromTime !=null){
+			
+			if(slotTimmingsBean.lunchSlotToTime !=null){
+				
+				if(slotTimmingsBean.dinnerSlotFromTime !=null){
+					
+					if(slotTimmingsBean.dinnerSlotToTime !=null){
+						
+						return true;
+					}else {
+						
+						Messagebox.show("Enter Dinner Slot End Time", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+						return false;
+					}
+				}else {
+					
+					Messagebox.show("Enter Dinner Slot Start Time", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+					return false;
+				}
+			}else {
+				
+				Messagebox.show("Enter Lunch Slot End Time", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+				return false;
+			}
+		}else {
+			
+			Messagebox.show("Enter Lunch Slot Start Time", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+			return false;
+		}
+		
+	}
+
+	
+	public void timeSlotClear(){
+		slotTimmingsBean.lunchSlotFromTime = null;
+		slotTimmingsBean.lunchSlotToTime = null;
+		slotTimmingsBean.dinnerSlotFromTime = null;
+		slotTimmingsBean.dinnerSlotToTime = null;
+		
+		slotTimmingsBean.lunchSlotFromTimeStr = null;
+		slotTimmingsBean.lunchSlotToTimeStr = null;
+		slotTimmingsBean.dinnerSlotFromTimeStr = null;
+		slotTimmingsBean.dinnerSlotToTimeStr = null;
+		
+	}
+	
+	
+	
 	/*public void loadSavedCredits(){
 	if(creditbeanList.size()>0){
 		creditbeanList.clear();
@@ -1079,6 +1299,39 @@ public class AdminSettingsViewModel {
 
 	public void setUpdateDisability(boolean updateDisability) {
 		this.updateDisability = updateDisability;
+	}
+
+
+
+
+
+	public AdminSettingsBean getSlotTimmingsBean() {
+		return slotTimmingsBean;
+	}
+
+
+
+
+
+	public void setSlotTimmingsBean(AdminSettingsBean slotTimmingsBean) {
+		this.slotTimmingsBean = slotTimmingsBean;
+	}
+
+
+
+
+
+	public ArrayList<AdminSettingsBean> getSlotTimmingsBeanList() {
+		return slotTimmingsBeanList;
+	}
+
+
+
+
+
+	public void setSlotTimmingsBeanList(
+			ArrayList<AdminSettingsBean> slotTimmingsBeanList) {
+		this.slotTimmingsBeanList = slotTimmingsBeanList;
 	}
 
 	
