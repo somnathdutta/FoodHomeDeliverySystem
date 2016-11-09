@@ -49,13 +49,14 @@ public class ItemBean implements Comparable<ItemBean> {
 	
 	
 	public ItemBean(String itemName, String itemCode, String itemDescription,
-			int itemId,Double itemPrice) {
+			int itemId,Double itemPrice, int itemTypeId) {
 		super();
 		this.itemName = itemName;
 		this.itemCode = itemCode;
 		this.itemDescription = itemDescription;
 		this.itemId = itemId;
 		this.itemPrice = itemPrice;
+		this.itemTypeId = itemTypeId;
 	}
 	
 	@Override

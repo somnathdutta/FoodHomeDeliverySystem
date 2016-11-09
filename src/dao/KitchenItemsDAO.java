@@ -19,7 +19,7 @@ public class KitchenItemsDAO {
 			 ResultSet resultSet = null;
 			 //String sql = "select item_id,item_code,item_name,item_description,item_price from vw_category_item_details_from_kitchen where kitchen_id = ?";
 			 
-			 String sql = "SELECT fki.item_id,fki.item_code,fi.item_name,fi.item_description,fi.item_price "
+			 String sql = "SELECT fki.item_id,fki.item_code,fi.item_name,fi.item_description,fi.item_price, fki.item_type_id "
 						+" from fapp_kitchen_items fki "
 						+" JOIN food_items fi "
 						+" ON fi.item_id  = fki.item_id "
@@ -34,7 +34,8 @@ public class KitchenItemsDAO {
 					String itemName = resultSet.getString("item_name");
 					String itemDescription = resultSet.getString("item_description");
 					Double itemPrice = resultSet.getDouble("item_price");
-					itemBeanList.add(new ItemBean(itemName, itemCode, itemDescription, itemId, itemPrice));
+					int itemTypeId = resultSet.getInt("item_type_id");
+					itemBeanList.add(new ItemBean(itemName, itemCode, itemDescription, itemId, itemPrice,itemTypeId));
 				}
 			} catch (Exception e) {
 				// TODO: handle exception

@@ -231,7 +231,7 @@ public class ManageKitchenItemsViewModel {
 			SQL:{
 				 PreparedStatement preparedStatement = null;
 				 ResultSet resultSet = null;
-				 String sql = "select item_id,item_code,item_name,item_description,item_price from vw_food_item_details where category_id = ?";
+				 String sql = "select item_id,item_code,item_name,item_description,item_price,item_type_id from vw_food_item_details where category_id = ?";
 				 try {
 					preparedStatement = connection.prepareStatement(sql);
 					preparedStatement.setInt(1, categoryId);
@@ -242,7 +242,8 @@ public class ManageKitchenItemsViewModel {
 						String itemName = resultSet.getString("item_name");
 						String itemDescription = resultSet.getString("item_description");
 						Double itemPrice = resultSet.getDouble("item_price");
-						itemBeanList.add(new ItemBean(itemName, itemCode, itemDescription, itemId, itemPrice));
+						int itemTypeId = resultSet.getInt("item_type_id");
+						itemBeanList.add(new ItemBean(itemName, itemCode, itemDescription, itemId, itemPrice,itemTypeId));
 					}
 				} catch (Exception e) {
 					// TODO: handle exception
@@ -308,12 +309,12 @@ public class ManageKitchenItemsViewModel {
 					String sql = null;
 					if(kitchenBean.categoryId==78 || kitchenBean.categoryId==79){//FOR A LA CARTE ITEMS
 						sql=	"INSERT INTO fapp_kitchen_items( item_code,item_id,kitchen_id,is_alacarte,stock,dinner_stock"
-								+ " ,stock_tomorrow, dinner_stock_tomorrow )"
-								+ " VALUES(?,?,?,'Y',?,?,?,?)";
+								+ " ,stock_tomorrow, dinner_stock_tomorrow, item_type_id )"
+								+ " VALUES(?,?,?,'Y',?,?,?,?,?)";
 					}else{
 						sql=	"INSERT INTO fapp_kitchen_items( item_code,item_id,kitchen_id,stock,dinner_stock"
-								+ " ,stock_tomorrow, dinner_stock_tomorrow  )"
-								+ " VALUES(?,?,?,?,?,?,?)";
+								+ " ,stock_tomorrow, dinner_stock_tomorrow,item_type_id)"
+								+ " VALUES(?,?,?,?,?,?,?,?)";
 					}
 					
 					try {
@@ -328,6 +329,8 @@ public class ManageKitchenItemsViewModel {
 								preparedStatement.setInt(5, kitchens.getDinnerStock());
 								preparedStatement.setInt(6, kitchens.getLunchStock());
 								preparedStatement.setInt(7, kitchens.getDinnerStock());
+								preparedStatement.setInt(8, itemBean.itemTypeId);
+								System.out.println("QQUUEERRYY -- " + preparedStatement);
 								preparedStatement.addBatch();
 							}
 							
@@ -493,7 +496,7 @@ public class ManageKitchenItemsViewModel {
 			SQL:{
 					PreparedStatement preparedStatement = null;
 					ResultSet resultSet = null;
-					String sql = "SELECT fki.item_id,fki.item_code,fi.item_name,fi.item_description,fi.item_price "
+					String sql = "SELECT fki.item_id,fki.item_code,fi.item_name,fi.item_description,fi.item_price,fki.item_type_id "
 								+" from fapp_kitchen_items fki "
 								+" JOIN food_items fi "
 								+" ON fi.item_id  = fki.item_id "
@@ -508,8 +511,8 @@ public class ManageKitchenItemsViewModel {
 							String itemCode = resultSet.getString("item_code");
 							String itemDescription = resultSet.getString("item_description");
 							Double itemPrice = resultSet.getDouble("item_price"); 
-								
-							itemBeanList.add(new ItemBean(itemName, itemCode, itemDescription, itemId, itemPrice)) ;
+							int itemTypeId = resultSet.getInt("item_type_id");	
+							itemBeanList.add(new ItemBean(itemName, itemCode, itemDescription, itemId, itemPrice, itemTypeId)) ;
 						}
 					} catch (Exception e) {
 					e.printStackTrace();
