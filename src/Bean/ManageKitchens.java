@@ -50,6 +50,13 @@ public class ManageKitchens {
 	
 	public String dinnerStatus;
 	
+	public Integer bikerCapacityId;
+	
+	public Integer bikerCapacity;
+	
+	public Integer servingLocationPerSlot;
+	
+	
 	public ArrayList<ItemBean> itemBeanList = new ArrayList<ItemBean>();
 
 	public String getCityName() {
@@ -282,6 +289,30 @@ public class ManageKitchens {
 
 	public void setDinnerStatus(String dinnerStatus) {
 		this.dinnerStatus = dinnerStatus;
+	}
+
+	public Integer getBikerCapacityId() {
+		return bikerCapacityId;
+	}
+
+	public void setBikerCapacityId(Integer bikerCapacityId) {
+		this.bikerCapacityId = bikerCapacityId;
+	}
+
+	public Integer getBikerCapacity() {
+		return bikerCapacity;
+	}
+
+	public void setBikerCapacity(Integer bikerCapacity) {
+		this.bikerCapacity = bikerCapacity;
+	}
+
+	public Integer getServingLocationPerSlot() {
+		return servingLocationPerSlot;
+	}
+
+	public void setServingLocationPerSlot(Integer servingLocationPerSlot) {
+		this.servingLocationPerSlot = servingLocationPerSlot;
 	}
 	
 	

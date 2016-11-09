@@ -37,6 +37,11 @@ public class ManageBikerViewModel {
 	
 	private ArrayList<ManageDeliveryBoyBean> manageDeliveryBoyBeanList = new ArrayList<ManageDeliveryBoyBean>();
 	
+	private ManageDeliveryBoyBean bikerCapacityBean = new ManageDeliveryBoyBean();
+	private ArrayList<ManageDeliveryBoyBean> bikerCapacityBeanList = new ArrayList<ManageDeliveryBoyBean>();
+	
+	
+	
 	Session session = null;
 	
 	private Connection connection = null;
@@ -71,6 +76,16 @@ public class ManageBikerViewModel {
 		loadAllBiker();
 		
 		boyStatusList =  loadAllStatus();
+		
+		bikerCapacityBeanList = ManageBikerDAO.loadBikerCapacity(connection);
+		if(bikerCapacityBeanList.size() == 1){
+			bikerCapacityBean.setCapacityDivnew(false);
+			bikerCapacityBean.setCapacityDivExist(true);
+		}else {
+			bikerCapacityBean.setCapacityDivnew(true);
+			bikerCapacityBean.setCapacityDivExist(false);
+		}
+		
 	}
 
 	public void onLoadKitchens(){
@@ -273,6 +288,78 @@ public class ManageBikerViewModel {
 		
 	}
 	
+	@Command
+	@NotifyChange("*")
+	public void onClickSaveCapacity(){
+		int i =0;
+		if(bikerCapacityBean.getBikerCapacity() !=null){
+			if(bikerCapacityBean.getServingLocationPerSlot() !=null){
+				i = ManageBikerDAO.saveBikerCapacity(connection, bikerCapacityBean, userName);	
+				
+			}else {
+			   		Messagebox.show("Biker Capacity Required!","ALERT",Messagebox.OK,Messagebox.EXCLAMATION);
+		   		}
+		}else {
+			Messagebox.show("Serving Location Per Slot required!","ALERT",Messagebox.OK,Messagebox.EXCLAMATION);
+	  }
+		
+		if(i>0){
+			Messagebox.show("Saved SuccesFully!","Information",Messagebox.OK,Messagebox.INFORMATION);
+			bikerCapacityBeanList = ManageBikerDAO.loadBikerCapacity(connection);
+			if(bikerCapacityBeanList.size() == 1){
+				bikerCapacityBean.setCapacityDivnew(false);
+				bikerCapacityBean.setCapacityDivExist(true);
+			}else {
+				bikerCapacityBean.setCapacityDivnew(true);
+				bikerCapacityBean.setCapacityDivExist(false);
+			}
+		}
+		
+	}
+	
+	@Command
+	@NotifyChange("*")
+	public void onClickUpdateBikerCapacity(@BindingParam("bean") ManageDeliveryBoyBean bean){
+		bean.userName = userName;
+		int i = ManageBikerDAO.updateBikerCapacity(connection, bean, bean.userName);
+		
+		if(i>0){
+			Messagebox.show("Updated SuccesFully!","Information",Messagebox.OK,Messagebox.INFORMATION);
+			bikerCapacityBeanList = ManageBikerDAO.loadBikerCapacity(connection);
+			if(bikerCapacityBeanList.size() == 1){
+				bikerCapacityBean.setCapacityDivnew(false);
+				bikerCapacityBean.setCapacityDivExist(true);
+			}else {
+				bikerCapacityBean.setCapacityDivnew(true);
+				bikerCapacityBean.setCapacityDivExist(false);
+			}
+		}
+		
+	}
+	
+	@Command
+	@NotifyChange("*")
+	public void onclickDeleteCapacity(@BindingParam("bean") ManageDeliveryBoyBean bean){
+		bean.userName = userName;
+		int i = ManageBikerDAO.deleteBikerCapacity(connection, bean, bean.userName);
+		
+		if(i>0){
+			Messagebox.show("Deleted SuccesFully!","Information",Messagebox.OK,Messagebox.INFORMATION);
+			bikerCapacityBeanList = ManageBikerDAO.loadBikerCapacity(connection);
+			if(bikerCapacityBeanList.size()== 0){
+				bikerCapacityBean.setCapacityDivnew(true);
+				bikerCapacityBean.setCapacityDivExist(false);
+			}else {
+				bikerCapacityBean.setCapacityDivnew(false);
+				bikerCapacityBean.setCapacityDivExist(true);
+			}
+		}
+	}
+	
+	
+	
+	
+	
 	public ManageDeliveryBoyBean getManageDeliveryBoyBean() {
 		return manageDeliveryBoyBean;
 	}
@@ -376,6 +463,23 @@ public class ManageBikerViewModel {
 
 	public void setKicthenBean(ManageKitchens kicthenBean) {
 		this.kicthenBean = kicthenBean;
+	}
+
+	public ManageDeliveryBoyBean getBikerCapacityBean() {
+		return bikerCapacityBean;
+	}
+
+	public void setBikerCapacityBean(ManageDeliveryBoyBean bikerCapacityBean) {
+		this.bikerCapacityBean = bikerCapacityBean;
+	}
+
+	public ArrayList<ManageDeliveryBoyBean> getBikerCapacityBeanList() {
+		return bikerCapacityBeanList;
+	}
+
+	public void setBikerCapacityBeanList(
+			ArrayList<ManageDeliveryBoyBean> bikerCapacityBeanList) {
+		this.bikerCapacityBeanList = bikerCapacityBeanList;
 	}
 
 	

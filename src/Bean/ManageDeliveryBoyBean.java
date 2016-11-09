@@ -22,6 +22,13 @@ public class ManageDeliveryBoyBean {
 	public Boolean isActiveChecked=false;
 	public Integer deliveryBoyId;
 	
+	private Integer bikerCapacityId;
+	private Integer bikerCapacity;
+	private Integer servingLocationPerSlot;
+	private boolean capacityDivnew;
+	private boolean capacityDivExist;
+	
+	
 	public String deliveryBoyUserId,userName;
 	
 	public String password;
@@ -219,6 +226,37 @@ public class ManageDeliveryBoyBean {
 	public void setIsSingleOrderBoy(String isSingleOrderBoy) {
 		this.isSingleOrderBoy = isSingleOrderBoy;
 	}
+	public Integer getBikerCapacityId() {
+		return bikerCapacityId;
+	}
+	public void setBikerCapacityId(Integer bikerCapacityId) {
+		this.bikerCapacityId = bikerCapacityId;
+	}
+	public Integer getBikerCapacity() {
+		return bikerCapacity;
+	}
+	public void setBikerCapacity(Integer bikerCapacity) {
+		this.bikerCapacity = bikerCapacity;
+	}
+	public Integer getServingLocationPerSlot() {
+		return servingLocationPerSlot;
+	}
+	public void setServingLocationPerSlot(Integer servingLocationPerSlot) {
+		this.servingLocationPerSlot = servingLocationPerSlot;
+	}
+	public boolean isCapacityDivnew() {
+		return capacityDivnew;
+	}
+	public void setCapacityDivnew(boolean capacityDivnew) {
+		this.capacityDivnew = capacityDivnew;
+	}
+	public boolean isCapacityDivExist() {
+		return capacityDivExist;
+	}
+	public void setCapacityDivExist(boolean capacityDivExist) {
+		this.capacityDivExist = capacityDivExist;
+	}
+	
 	
 	
 }

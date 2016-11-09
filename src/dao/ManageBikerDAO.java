@@ -248,4 +248,109 @@ public class ManageBikerDAO {
 			// TODO: handle exception
 		}	
 	}
+	
+	public static int saveBikerCapacity(Connection connection, ManageDeliveryBoyBean deliveryBoyBean, String userName ){
+		int i = 0;
+		try {
+			PreparedStatement preparedStatement = null;
+			String sql = "insert into fapp_biker_capacity (biker_capacity, serving_location_per_slot, created_by, updated_by) values(?,?,?,?)";
+			try {
+				preparedStatement = connection.prepareStatement(sql);
+				preparedStatement.setInt(1, deliveryBoyBean.getBikerCapacity());
+				preparedStatement.setInt(2, deliveryBoyBean.getServingLocationPerSlot());
+				preparedStatement.setString(3, userName);
+				preparedStatement.setString(4, userName);
+				
+				i = preparedStatement.executeUpdate();
+				
+			} catch (Exception e) {
+				Messagebox.show("ERROR DUE TO:"+e.getMessage(),"ERROR",Messagebox.OK,Messagebox.ERROR);
+				e.printStackTrace();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return i;
+	}
+	
+	public static ArrayList<ManageDeliveryBoyBean> loadBikerCapacity(Connection connection){
+		ArrayList<ManageDeliveryBoyBean> list = new ArrayList<ManageDeliveryBoyBean>();
+		if(list.size()>0){
+			list.clear();
+		}
+		try {
+			PreparedStatement preparedStatement = null;
+			String sql = "select fapp_biker_capacity_id,biker_capacity, serving_location_per_slot from fapp_biker_capacity where is_delete = 'N'";
+			try {
+				preparedStatement = connection.prepareStatement(sql);
+				ResultSet resultSet = preparedStatement.executeQuery();
+				while (resultSet.next()) {
+					ManageDeliveryBoyBean bean = new ManageDeliveryBoyBean();
+					
+					bean.setBikerCapacityId(resultSet.getInt("fapp_biker_capacity_id"));
+					bean.setBikerCapacity(resultSet.getInt("biker_capacity"));
+					bean.setServingLocationPerSlot(resultSet.getInt("serving_location_per_slot"));
+					
+					list.add(bean);
+				}
+				
+				
+			} catch (Exception e) {
+				Messagebox.show("ERROR DUE TO:"+e.getMessage(),"ERROR",Messagebox.OK,Messagebox.ERROR);
+				e.printStackTrace();
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	public static int updateBikerCapacity(Connection connection, ManageDeliveryBoyBean deliveryBoyBean, String userName ){
+		int i = 0;
+		try {
+			PreparedStatement preparedStatement = null;
+			String sql = "update fapp_biker_capacity set biker_capacity = ? , serving_location_per_slot = ?, updated_by = ? where fapp_biker_capacity_id = ?";
+			try {
+				preparedStatement = connection.prepareStatement(sql);
+				preparedStatement.setInt(1, deliveryBoyBean.getBikerCapacity());
+				preparedStatement.setInt(2, deliveryBoyBean.getServingLocationPerSlot());
+				preparedStatement.setString(3, userName);
+				preparedStatement.setInt(4, deliveryBoyBean.getBikerCapacityId());
+				
+				i = preparedStatement.executeUpdate();
+				
+			} catch (Exception e) {
+				Messagebox.show("ERROR DUE TO:"+e.getMessage(),"ERROR",Messagebox.OK,Messagebox.ERROR);
+				e.printStackTrace();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return i;
+	}
+	
+	public static int deleteBikerCapacity(Connection connection, ManageDeliveryBoyBean deliveryBoyBean, String userName ){
+		int i = 0;
+		try {
+			PreparedStatement preparedStatement = null;
+			String sql = "update fapp_biker_capacity set is_delete = 'N', updated_by = ? where fapp_biker_capacity_id = ?";
+			try {
+				preparedStatement = connection.prepareStatement(sql);
+				preparedStatement.setString(1, userName);
+				preparedStatement.setInt(2, deliveryBoyBean.getBikerCapacityId());
+				
+				i = preparedStatement.executeUpdate();
+				
+			} catch (Exception e) {
+				Messagebox.show("ERROR DUE TO:"+e.getMessage(),"ERROR",Messagebox.OK,Messagebox.ERROR);
+				e.printStackTrace();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return i;
+	}
+	
+	
 }
