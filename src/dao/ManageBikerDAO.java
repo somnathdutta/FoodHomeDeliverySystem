@@ -84,6 +84,11 @@ public class ManageBikerDAO {
 						}else{
 							manageDeliveryBoybean.isPickJiBoy = "NO";
 						}
+						if(resultSet.getString("is_single_order_biker").equals("Y")){
+							manageDeliveryBoybean.isSingleOrderBoy = "YES";
+						}else{
+							manageDeliveryBoybean.isSingleOrderBoy = "NO";
+						}
 						 manageDeliveryBoybean.vehicleRegNo = resultSet.getString("delivery_boy_vehicle_reg_no");
 						 manageDeliveryBoybean.orderAssigned = resultSet.getString("order_assigned");
 						 manageDeliveryBoybean.kitchenId = resultSet.getInt("kitchen_id");
@@ -119,8 +124,8 @@ public class ManageBikerDAO {
 					String sql = "INSERT INTO fapp_delivery_boy( "
 					            +"delivery_boy_name, delivery_boy_phn_number, " 
 					            +"delivery_boy_user_id, password,delivery_boy_vehicle_reg_no,delivery_boy_status_id,"
-					            + "kitchen_id,is_pickji_boy,is_active, created_by)"
-							    +"VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"	;
+					            + "kitchen_id,is_pickji_boy,is_single_order_biker,is_active, created_by)"
+							    +"VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"	;
 				try {
 						preparedStatement =  connection.prepareStatement(sql);
 						preparedStatement.setString(1, manageDeliveryBoyBean.name);
@@ -139,14 +144,19 @@ public class ManageBikerDAO {
 						}else{
 							preparedStatement.setString(8, "N");
 						}
-						if(manageDeliveryBoyBean.status.equalsIgnoreCase("Active")){
+						if(manageDeliveryBoyBean.isSingleOrderBoy.equals("YES")){
 							preparedStatement.setString(9, "Y");
-						}
-						else{
+						}else{
 							preparedStatement.setString(9, "N");
 						}
+						if(manageDeliveryBoyBean.status.equalsIgnoreCase("Active")){
+							preparedStatement.setString(10, "Y");
+						}
+						else{
+							preparedStatement.setString(10, "N");
+						}
 					
-						preparedStatement.setString(10, manageDeliveryBoyBean.userName);
+						preparedStatement.setString(11, manageDeliveryBoyBean.userName);
 						int count = preparedStatement.executeUpdate();
 						if(count>0){
 							inserted = true;
@@ -181,7 +191,8 @@ public class ManageBikerDAO {
 			SQL:{
 					PreparedStatement preparedStatement = null;
 					String sql ="UPDATE fapp_delivery_boy SET delivery_boy_name=?, delivery_boy_phn_number=?,password=?,"
-							+ " delivery_boy_vehicle_reg_no=?,is_active=?,delivery_boy_status_id=?,kitchen_id=?,is_pickji_boy=?, updated_by=?"
+							+ " delivery_boy_vehicle_reg_no=?,is_active=?,delivery_boy_status_id=?,kitchen_id=?,is_pickji_boy=?, updated_by=?,"
+							+ " is_single_order_biker=? "
 						      +" WHERE delivery_boy_id=?";
 
 				try {
@@ -209,7 +220,12 @@ public class ManageBikerDAO {
 							preparedStatement.setString(8, "N");
 						}
 						preparedStatement.setString(9, manageDeliveryBoyBean.userName);
-						preparedStatement.setInt(10, manageDeliveryBoyBean.deliveryBoyId);
+						if(manageDeliveryBoyBean.isSingleOrderBoy.equals("YES")){
+							preparedStatement.setString(10, "Y");
+						}else{
+							preparedStatement.setString(10, "N");
+						}
+						preparedStatement.setInt(11, manageDeliveryBoyBean.deliveryBoyId);
 						int count = preparedStatement.executeUpdate();
 						if(count>0){
 							inserted = true;

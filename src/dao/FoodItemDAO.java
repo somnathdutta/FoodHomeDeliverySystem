@@ -86,11 +86,11 @@ public class FoodItemDAO {
 							}else{
 								bean.itemTypeName = "";
 							}
-							if(resultSet.getString("apply_new_user").equals("Y")){
-								bean.status = "YES";
+							/*if(resultSet.getString("apply_new_user").equals("Y")){
+								bean.status = "Active";
 							}else {
-								bean.status = "NO";
-							}
+								bean.status = "Deactive";
+							}*/
 							
 							
 							

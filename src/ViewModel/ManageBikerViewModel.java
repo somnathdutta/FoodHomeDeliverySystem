@@ -201,6 +201,7 @@ public class ManageBikerViewModel {
 		manageDeliveryBoyBean.kitchenId = managedeliveryboybean.kitchenId;
 		manageDeliveryBoyBean.kitchenName = managedeliveryboybean.kitchenName;
 		manageDeliveryBoyBean.isPickJiBoy = managedeliveryboybean.isPickJiBoy;
+		manageDeliveryBoyBean.isSingleOrderBoy = managedeliveryboybean.isSingleOrderBoy;
 	}
 	
 	/**
@@ -266,6 +267,7 @@ public class ManageBikerViewModel {
 		manageDeliveryBoyBean.vehicleRegNo = null;
 		manageDeliveryBoyBean.boyStatusBean.statusName = null;
 		manageDeliveryBoyBean.isPickJiBoy = null;
+		manageDeliveryBoyBean.isSingleOrderBoy = null;
 		kitchenList.clear();
 		boyStatusList = loadAllStatus();
 		

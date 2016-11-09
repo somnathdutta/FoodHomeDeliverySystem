@@ -45,6 +45,10 @@ public class FooditemVieModel {
 	
 	private ArrayList<ItemBean> alaCarteTypeList = new ArrayList<ItemBean>();
 	
+	private ItemBean itemTypeBean = new ItemBean();
+	
+	private ArrayList<ItemBean> ItemTypeList = new ArrayList<ItemBean>();
+	
 	ManageCategoryBean categoryBean = new ManageCategoryBean();
 	
 	ManageCuisinBean cuisinBean = new ManageCuisinBean();
@@ -95,11 +99,15 @@ public class FooditemVieModel {
 		
 		connection.setAutoCommit(true);
 		System.out.println("zul page >> fooditems.zul");
+		onPageLoad();
+	}
+	
+	public void onPageLoad(){
 		//loadQuery();
 		onLoadCuisineList();
+		ItemTypeList = FoodItemDAO.loadAlacarteTypeNameList(connection);
 		newUserCuisineBeanList = FoodItemService.fetchCuisineList(connection);
 		itemBean.itemCode = FoodItemDAO.getLastItemCode(connection);
-		
 	}
 	
 	public void loadQuery(){
@@ -277,6 +285,7 @@ public class FooditemVieModel {
 	public void onClickCancel(){
 		clear();
 		onLoadCuisineList();
+		itemBean.itemCode = FoodItemDAO.getLastItemCode(connection);
 	}
 	
 	
@@ -284,11 +293,15 @@ public class FooditemVieModel {
 	@NotifyChange("*")
 	public void onClickSaveCategoryItem(){		
 		if(validate()){
+			
+			System.out.println("Cat : "+categoryId);
+			System.out.println("item type id: "+itemTypeBean.itemTypeId);
 			saveItem();
 			clear();
 			loadAllSavedItems();
 			loadQuery();
 			onLoadCuisineList();
+			itemBean.itemCode = FoodItemDAO.getLastItemCode(connection);
 			System.out.println("Cat : "+categoryId);
 		}	
 	}
@@ -335,7 +348,10 @@ public class FooditemVieModel {
 						}else{
 							preparedStatement.setNull(7, Types.INTEGER);
 						}
-						preparedStatement.setInt(8, alaCarteTypeBean.itemTypeId);
+					//	if(categoryId==78 || categoryId==79)
+					//		preparedStatement.setInt(8, alaCarteTypeBean.itemTypeId);
+					//	else
+							preparedStatement.setInt(8, itemTypeBean.itemTypeId);
 						preparedStatement.setString(9, userName);
 						int count = preparedStatement.executeUpdate();
 						if(count>0){
@@ -370,17 +386,24 @@ public class FooditemVieModel {
 		itemBean.itemmagePath = bean.itemmagePath;
 		itemImage=bean.itemImage;
 		itemBean.status = bean.status;
-		alaCarteTypeBean.itemTypeId = bean.itemTypeId;
-		alaCarteTypeBean.itemTypeName = bean.itemTypeName;
+		
 		saveButtonVisibility = false;
 		updateButtonVisibility = true;
 		if(itemBean.categoryId==78 || itemBean.categoryId==79){
-			typeVisibility = true;
-			typeComboBoxVisibility = true;
+			//typeVisibility = true;
+			//typeComboBoxVisibility = true;
+			ItemTypeList = FoodItemDAO.loadAlacarteTypeNameList(connection);	
+			itemTypeBean.itemTypeName = bean.itemTypeName;
+			itemTypeBean.itemTypeId = bean.itemTypeId;
+			alaCarteTypeBean.itemTypeId = bean.itemTypeId;
+			alaCarteTypeBean.itemTypeName = bean.itemTypeName;
 			alaCarteTypeList = FoodItemDAO.loadAlacarteTypeNameList(connection);	
 		}else{
 			typeVisibility = false;
 			typeComboBoxVisibility = false;
+			ItemTypeList = FoodItemDAO.loadAlacarteTypeNameList(connection);	
+			itemTypeBean.itemTypeName = bean.itemTypeName;
+			itemTypeBean.itemTypeId = bean.itemTypeId;
 		}
 	}
 	
@@ -442,7 +465,11 @@ public class FooditemVieModel {
 						}else{
 							preparedStatement.setNull(7, Types.INTEGER);
 						}
-						preparedStatement.setInt(8, alaCarteTypeBean.itemTypeId);
+						
+					//	if(categoryId==78 || categoryId==79)
+					//		preparedStatement.setInt(8, alaCarteTypeBean.itemTypeId);
+					//	else
+							preparedStatement.setInt(8, itemTypeBean.itemTypeId);
 						preparedStatement.setString(9, userName);
 						preparedStatement.setInt(10, itemBean.itemId);
 						int count = preparedStatement.executeUpdate();
@@ -574,7 +601,12 @@ public class FooditemVieModel {
 						if(itemBean.itemPrice!=null){
 							if(itemBean.itemDescription!=null){
 								if(itemBean.status!=null){
-									return true;
+									if(itemTypeBean.itemTypeId!=0){
+										return true;
+									}else{
+										Messagebox.show("Item Type required!","Alert",Messagebox.OK,Messagebox.EXCLAMATION);
+										return false;
+									}
 								}else{
 									Messagebox.show("Status required!","Alert",Messagebox.OK,Messagebox.EXCLAMATION);
 									return false;
@@ -625,7 +657,7 @@ public class FooditemVieModel {
 		
 		int i = 0;
 		String localStatus = bean.status;
-		if(localStatus.equals("YES")){
+		if(localStatus.equals("Active")){
 			localStatus = "Y";
 		}else {
 			localStatus = "N";
@@ -647,16 +679,18 @@ public class FooditemVieModel {
 		itemBean.cusineName = null;
 		itemBean.categoryName = null;
 		itemBean.status = null;
-		itemBean.itemCode = null;
+		//itemBean.itemCode = null;
 		itemBean.itemDescription = null;
 		itemBean.itemId = 0;
 		itemImage = null;
 		itemBean.itemmagePath = null;
-		itemBean.itemCode = null;
+		//itemBean.itemCode = null;
 		itemBean.itemPrice =null;
 		categoryBeanList.clear();
 		alaCarteTypeList.clear();
 		alaCarteTypeBean.itemTypeName = null;
+		ItemTypeList.clear();
+		itemTypeBean.itemTypeName = null;
 	}
 	
 	public void loadAllSavedItems(){
@@ -882,6 +916,22 @@ public class FooditemVieModel {
 
 	public void setNewUserItemBeanList(ArrayList<ItemBean> newUserItemBeanList) {
 		this.newUserItemBeanList = newUserItemBeanList;
+	}
+
+	public ItemBean getItemTypeBean() {
+		return itemTypeBean;
+	}
+
+	public void setItemTypeBean(ItemBean itemTypeBean) {
+		this.itemTypeBean = itemTypeBean;
+	}
+
+	public ArrayList<ItemBean> getItemTypeList() {
+		return ItemTypeList;
+	}
+
+	public void setItemTypeList(ArrayList<ItemBean> itemTypeList) {
+		ItemTypeList = itemTypeList;
 	}
 
 	

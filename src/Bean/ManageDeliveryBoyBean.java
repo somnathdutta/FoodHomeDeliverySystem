@@ -26,7 +26,7 @@ public class ManageDeliveryBoyBean {
 	
 	public String password;
 	
-	public String status,isPickJiBoy;
+	public String status,isPickJiBoy,isSingleOrderBoy;
 	public String boyStatus;
 	public int boyStatusId;
 	public String orderAssigned;
@@ -212,6 +212,12 @@ public class ManageDeliveryBoyBean {
 	}
 	public void setUserName(String userName) {
 		this.userName = userName;
+	}
+	public String getIsSingleOrderBoy() {
+		return isSingleOrderBoy;
+	}
+	public void setIsSingleOrderBoy(String isSingleOrderBoy) {
+		this.isSingleOrderBoy = isSingleOrderBoy;
 	}
 	
 	

@@ -59,7 +59,7 @@
 					<tabs>
 						<tab label="Create New Item" />
 						<tab label="Show Items " />
-						<tab label="New User Items"></tab>
+						<tab label="New User Items" visible="false"></tab>
 					</tabs>
 
 					<tabpanels>
@@ -175,6 +175,19 @@
 											</vlayout>
 											
 											
+										</row>
+										<row>
+										<label value="Item Type"
+												style="font-weight:bold" />
+											<combobox readonly="true" model="@bind(vm.itemTypeList)"
+												placeholder="[Item Type]" width="130px"
+												value="@bind(vm.itemTypeBean.itemTypeName)"
+												selectedItem="@bind(vm.itemTypeBean)">
+												<template name="model" var="v">
+													<comboitem
+													label="@load(v.itemTypeName)" value="@bind(v.itemTypeId)" />
+												</template>
+											</combobox>
 										</row>
 										<row>
 											<!-- <div align="center"> -->
@@ -295,7 +308,7 @@
 							</grid>
 						</tabpanel>
 					
-						<tabpanel>
+						<tabpanel visible="false">
 							<hlayout spacing="30px">
 								<combobox placeholder="Choose Cuisine" model="@bind(vm.newUserCuisineBeanList)" 
 								   width="250px" readonly="true" onSelect="@command('onSelectNewUserFetchCuisine')" selectedItem="@bind(vm.manageCuisinBean)" value="@bind(vm.manageCuisinBean.cuisinName)">
@@ -329,8 +342,8 @@
 										<textbox value="@bind(v.itemName)" width="100%" readonly="true"></textbox>
 										<textbox value="@bind(v.itemDescription)" width="98%" multiline="true" readonly="true"></textbox>
 										<combobox width="100%" readonly="true" value="@bind(v.status)" onSelect="@command('onSelctNewUserStatus', bean = v)">
-											<comboitem label="YES"></comboitem>
-											<comboitem label="NO"></comboitem>
+											<comboitem label="Active"></comboitem>
+											<comboitem label="Deactive"></comboitem>
 										</combobox>
 									</row>
 								  </template>	

@@ -118,7 +118,7 @@
 								<label value="Is active"
 									style="font-weight:bold;" />
 								<combobox
-									placeholder="[Active/Deactive]" width="130px"
+									placeholder="[Active/Deactive]" width="130px" readonly="true"
 									value="@bind(vm.manageDeliveryBoyBean.status)">
 									<comboitem label="Active" />
 									<comboitem label="Deactive" />
@@ -129,12 +129,23 @@
 								<label value="Is pickJi BOY?"
 									style="font-weight:bold;" />
 								<combobox
-									placeholder="[YES/NO]" width="130px"
+									placeholder="[YES/NO]" width="130px" readonly="true"
 									value="@bind(vm.manageDeliveryBoyBean.isPickJiBoy)">
 									<comboitem label="YES" />
 									<comboitem label="NO" />
 								</combobox>
-								<div align="right">
+								<label value="Is single order BOY?"
+									style="font-weight:bold;" />
+								<combobox
+									placeholder="[YES/NO]" width="130px" readonly="true"
+									value="@bind(vm.manageDeliveryBoyBean.isSingleOrderBoy)">
+									<comboitem label="YES" />
+									<comboitem label="NO" />
+								</combobox>
+							</row>
+							<row>	
+								<label/>
+								
 									<vbox>
 										<button
 											label="Save Delivery Boy" sclass="mybutton"
@@ -145,11 +156,9 @@
 											onClick="@command('onClickUpdateDeliveryBoy')"
 											visible="@bind(vm.updateButtonVisibility)" />
 									</vbox>
-								</div>
-								<button
-											label="Cancel" sclass="mybutton"
-											onClick="@command('onClickCancel')"
-											 />
+								
+								<button label="Cancel" sclass="mybutton"
+									onClick="@command('onClickCancel')" />
 							</row>
 						</rows>
 					</grid>
