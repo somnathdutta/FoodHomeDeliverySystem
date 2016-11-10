@@ -580,6 +580,10 @@ public class ManageKitchenItemsViewModel {
 	@Command
 	@NotifyChange("*")
 	public void onSelectItemTypeKitchen(){
+		newItemTypeBean.setItemTypeId(null);
+		newItemTypeBean.setItemType(null);
+		newItemTypeBean.setDinnerStok(null);
+		newItemTypeBean.setLunchStock(null);
 		itemTypeExistingBeanList = ManageKitchenService.loadKitchenItemType(connection, itemCapacitymanageKitchenBean.kitchenId);
 		newitemTypeBeanList = ManageKitchenService.loadKitItTyNotInK(connection, itemCapacitymanageKitchenBean.kitchenId);
 	}
@@ -590,7 +594,7 @@ public class ManageKitchenItemsViewModel {
 		int i = 0;
 		i = ManageKitchenDAO.updateKitchenItemTypeStock(connection, bean);
 		if(i>0){
-			Messagebox.show("Saved Successfully", "Information", Messagebox.OK, Messagebox.INFORMATION);
+			Messagebox.show("Updated Successfully", "Information", Messagebox.OK, Messagebox.INFORMATION);
 			itemTypeExistingBeanList = ManageKitchenService.loadKitchenItemType(connection, itemCapacitymanageKitchenBean.kitchenId);
 		}
 		
@@ -608,6 +612,7 @@ public class ManageKitchenItemsViewModel {
 				if(i>0){
 					Messagebox.show("Saved Successfully", "Information", Messagebox.OK, Messagebox.INFORMATION);
 					newItemTypeBean.setItemType(null);
+					newItemTypeBean.setItemTypeId(null);
 					newItemTypeBean.setDinnerStok(null);
 					newItemTypeBean.setLunchStock(null);
 					newitemTypeBeanList.clear();
@@ -632,6 +637,7 @@ public class ManageKitchenItemsViewModel {
 		newItemTypeBean.setItemType(null);
 		newItemTypeBean.setDinnerStok(null);
 		newItemTypeBean.setLunchStock(null);
+		newItemTypeBean.setItemTypeId(null);
 		newitemTypeBeanList.clear();
 		itemCapacitymanageKitchenBean.kitchenId = null;
 		itemCapacitymanageKitchenBean.kitchenName = null;
