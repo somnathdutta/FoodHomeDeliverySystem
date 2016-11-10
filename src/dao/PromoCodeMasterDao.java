@@ -154,6 +154,14 @@ public class PromoCodeMasterDao {
 				}else {
 					bean.setStatus("Inactive");
 				}
+				bean.setVolumeQuantity(resultSet.getInt("volume_quantity"));
+				
+				if(bean.getPromoTypeBean().getPromoCodeTypeId() == 3){ //3 = ON VOLUME
+					bean.setVolumeQuantityDis(false);
+				}else {
+					bean.setVolumeQuantityDis(true);
+				}
+				System.out.println("");
 				list.add(bean);
 			}
 		} catch (Exception e) {
@@ -268,8 +276,8 @@ public class PromoCodeMasterDao {
 		PreparedStatement preparedStatement = null;
 		try {
 			preparedStatement = FappPstm.createQuery(connection, PromoCodeMasterSql.upDatePromoCodeDetailsSql, Arrays.asList(fromDate, toDate, bean.getPromoTypeBean().getPromoCodeTypeId(),
-													 bean.getPromoApplyBean().getApplyTypeId(), bean.getUser(), status, bean.getPromoValue(), bean.getPromocodeDetailsId()));
-			
+													 bean.getPromoApplyBean().getApplyTypeId(), bean.getUser(), status, bean.getPromoValue(),bean.getVolumeQuantity(), bean.getPromocodeDetailsId()));
+			System.out.println("QUERY -- " + preparedStatement);
 			i = preparedStatement.executeUpdate();
 			
 		} catch (Exception e) {

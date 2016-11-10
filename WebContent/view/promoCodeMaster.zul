@@ -60,12 +60,13 @@ viewModel="@id('vm') @init('ViewModel.PromoCodeMasterViewModel')">
 			</tabpanel>
 			<tabpanel>
 				<div>
-					<grid model="@bind(vm.promoCodeDetailsBeanList)">
+					<grid model="@bind(vm.promoCodeDetailsBeanList)" height="470px" mold="paging" pageSize="9">
 						<columns sizable="true">
 							<column label="Promo Code" style="font-weight: bold" align="center" width="120px"></column>
 							<column label="From Date" style="font-weight: bold" align="center" width="120px"></column>
 							<column label="To Date" style="font-weight: bold" align="center" width="120px"></column>
 							<column label="Promo Code Type" style="font-weight: bold" align="center" width="150px"></column>
+							<column label="Volume Quantity" style="font-weight: bold" align="center" width="150px"></column>
 							<column label="Promo Value" style="font-weight: bold" align="center" width="120px"></column>
 							<!-- <column label="Appled On" style="font-weight: bold" align="center" width="140px"></column> -->
 							<column label="Promo Code Status" style="font-weight: bold" align="center" width="150px"></column>
@@ -84,7 +85,7 @@ viewModel="@id('vm') @init('ViewModel.PromoCodeMasterViewModel')">
 										<comboitem label="@bind(v1.promocodeType)" value="@bind(v1.promoCodeTypeId)"></comboitem>
 									</template>
 								</combobox>
-								
+								<intbox value="@bind(v.volumeQuantity)" width="100%" disabled="@bind(v.volumeQuantityDis)"></intbox>
 								<doublebox value="@bind(v.promoValue)" width="100%"></doublebox>
 								
 								<!-- <combobox width="120px" readonly="true" model="@bind(v.applyBeanList)" 

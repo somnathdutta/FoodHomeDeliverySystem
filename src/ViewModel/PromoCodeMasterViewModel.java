@@ -157,8 +157,15 @@ public class PromoCodeMasterViewModel {
 	@Command
 	@NotifyChange()
 	public void onSelectPromoCodeTypeExist(@BindingParam("bean") PromoCodeMasterBean bean){
-		
-		//System.out.println("Type >> " + bean.getPromoCodeTypeBean().getPromoType());
+		if(bean.getPromoTypeBean().getPromoCodeTypeId()==3){
+			bean.setVolumeQuantity(3444);
+			bean.setVolumeQuantityDis(false);
+		}else {
+			bean.setVolumeQuantityDis(true);
+		}
+		System.out.println("BOOLEAN >> " + bean.isVolumeQuantityDis());
+		System.out.println("Id >> " +bean.getPromoTypeBean().getPromoCodeTypeId());
+		System.out.println("Type >> " + bean.getPromoTypeBean().getPromocodeType());
 		
 	}
 	

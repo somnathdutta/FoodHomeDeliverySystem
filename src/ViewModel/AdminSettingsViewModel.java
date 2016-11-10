@@ -730,8 +730,7 @@ public class AdminSettingsViewModel {
 			PreparedStatement preparedStatement = null;
 			String sql = "insert into fapp_slot_timings (lunch_from,lunch_to,dinner_from,dinner_to) values(?,?,?,?)";
 			try {
-				if(slotTimmingsBean.lunchSlotFromTime !=null && slotTimmingsBean.lunchSlotToTime !=null 
-						&& slotTimmingsBean.dinnerSlotFromTime !=null && slotTimmingsBean.dinnerSlotToTime !=null){
+				if(isSlotTimeNull()){
 				
 					slotTimmingsBean.lunchSlotFromTimeStr = DatetoStringConverter.convert24DateToStringSlot(slotTimmingsBean.lunchSlotFromTime);
 					slotTimmingsBean.lunchSlotToTimeStr = DatetoStringConverter.convert24DateToStringSlot(slotTimmingsBean.lunchSlotToTime);
@@ -818,7 +817,7 @@ public class AdminSettingsViewModel {
 				preparedStatement.setString(3, slotTimmingsBean.dinnerSlotFromTimeStr);
 				preparedStatement.setString(4, slotTimmingsBean.dinnerSlotToTimeStr);
 				preparedStatement.setInt(5, slotTimmingsBean.slotTimmingsId);
-				System.out.println("MMMMMMMMMMMMMMM " + preparedStatement);
+			    
 				i = preparedStatement.executeUpdate();
 				
 			}

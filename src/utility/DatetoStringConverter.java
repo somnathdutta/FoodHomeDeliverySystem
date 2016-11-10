@@ -52,7 +52,7 @@ public class DatetoStringConverter {
 	   }catch (Exception ex ){
 		   ex.printStackTrace();
 	   }
-	   System.out.println("dateStringslot- "+dateString);
+	   
 	   return dateString;
 	}
 	
@@ -69,7 +69,7 @@ public class DatetoStringConverter {
 	        ex.printStackTrace();
 	    }
 	 //   return formatteddate;
-	    System.out.println("Formated slot string to date: "+date);
+	    
 	    return date;
 	}
 	

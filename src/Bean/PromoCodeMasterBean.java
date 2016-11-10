@@ -33,6 +33,10 @@ public class PromoCodeMasterBean {
 	
 	private String user;
 	
+	private Integer volumeQuantity;
+	private boolean volumeQuantityDis;
+	
+	
 	private PromoCodeTypeBean promoTypeBean = new PromoCodeTypeBean();
 	private PromoCodeTypeBean promoApplyBean = new PromoCodeTypeBean();
 	
@@ -180,5 +184,18 @@ public class PromoCodeMasterBean {
 	public void setApplyBeanList(ArrayList<PromoCodeTypeBean> applyBeanList) {
 		this.applyBeanList = applyBeanList;
 	}
+	public Integer getVolumeQuantity() {
+		return volumeQuantity;
+	}
+	public void setVolumeQuantity(Integer volumeQuantity) {
+		this.volumeQuantity = volumeQuantity;
+	}
+	public boolean isVolumeQuantityDis() {
+		return volumeQuantityDis;
+	}
+	public void setVolumeQuantityDis(boolean volumeQuantityDis) {
+		this.volumeQuantityDis = volumeQuantityDis;
+	}
+	
 	
 }
