@@ -53,6 +53,8 @@
 		<tabbox>
 			<tabs>
 				<tab label="Add items" />
+				<tab label="Add Item Type"/>
+				<tab label="Kitchen items Capacity" />
 				<tab label="Show Items" />
 			</tabs>
 
@@ -213,6 +215,97 @@
 
 					</div>
 				</tabpanel>
+				
+				<tabpanel>
+					<div>
+						<div>
+							<hlayout spacing="50px">
+								<textbox width="180px" value="@bind(vm.itemtypeBean.itemType)" placeholder="Enter New Item Type"></textbox>
+								<button label="Save" width="100px" sclass="mybutton" onClick="@command('onClickItemTypeSave')"></button>
+							</hlayout>
+						</div>
+						<space></space>
+						<div>
+							<grid model="@bind(vm.itemTypeBeanList)" mold="paging" pageSize="10" height="450px">
+								<columns sizable="true">
+									<column label="Item Type" align="center"></column>
+									<column label = "Action" align="left"></column>
+								</columns>
+								<rows>
+								  <template name="model" var = "v">	
+									<row>
+									  <textbox value="@bind(v.itemType)" width="100%"></textbox>	
+									  <button onClick="@command('onClickItemTypeUpdate', bean=v)" label="Update" sclass="mybutton"></button>	
+									</row>
+								  </template>		
+								</rows>
+							
+							</grid>
+						</div>
+					</div>
+				</tabpanel>
+				
+				<tabpanel>
+					<div>
+						<div>
+							<hlayout spacing="20px">
+								<label value="Kitchen" style="font-size:bold; color:black"></label>
+								<combobox model="@bind(vm.itemCapacityKitchenList)" value="@bind(vm.itemCapacitymanageKitchenBean.kitchenName)" 
+									selectedItem="@bind(vm.itemCapacitymanageKitchenBean)" onSelect="@command('onSelectItemTypeKitchen')" readonly="true">
+									   <template name="model" var = "v">
+										  <comboitem label="@bind(v.kitchenName)" value="@bind(v.kitchenId)"></comboitem>
+										</template>
+								</combobox>
+								
+								<label value="Item Type" style="font-size:bold; color:black"></label>
+								<combobox readonly="true" model="@bind(vm.newitemTypeBeanList)" selectedItem="@bind(vm.newItemTypeBean)" 
+								    value="@bind(vm.newItemTypeBean.itemType)">
+								     <template name="model" var = "v">	
+									   <comboitem value="@bind(v.itemTypeId)" label="@bind(v.itemType)"></comboitem>
+								     </template>	
+								</combobox>
+								
+								<label value="Lunch Stock" style="font-size:bold; color:black"></label>
+								<intbox value="@bind(vm.newItemTypeBean.lunchStock)"></intbox>
+								
+								<label value="Dinner Stock" style="font-size:bold; color:black"></label>
+								<intbox value="@bind(vm.newItemTypeBean.dinnerStok)"></intbox>
+								
+								<button label="Add" sclass="mybutton" onClick="@command('onClcikAddItemType')"></button>
+								<button label="Clear" sclass="mybutton" onClick="@command('onClickClearKITQ')"></button>
+								
+								
+							</hlayout>
+						</div>
+						<space></space>
+						<div>
+							<grid model="@bind(vm.itemTypeExistingBeanList)">
+								<columns sizable="true">
+									<column label="Kitchen Name" align="center" style="font-size:bold; color:black"></column>
+									<column label="Item Type" align="center" style="font-size:bold; color:black"></column>
+									<column label="Lunch Stock" align="center" style="font-size:bold; color:black"></column>
+									<column label="Dinner Stock" align="center" style="font-size:bold; color:black"></column>
+									<column label="Action" align="center" style="font-size:bold; color:black"></column>
+								</columns>
+								
+								<rows>
+								   <template name="model" var = "v">
+									<row>
+									   <textbox readonly="true" value="@bind(v.kitchenName)"></textbox>		
+									   <textbox readonly="true" value="@bind(v.itemType)"></textbox>		
+									   <intbox value="@bind(v.lunchStock)"></intbox>
+									   <intbox value="@bind(v.dinnerStok)"></intbox>
+									   <button label="Update" onClick="@command('onClickUpdateExistingItemType', bean=v)" sclass="mybutton"></button>		
+									</row>
+								   </template>		
+								</rows>
+				
+							</grid>
+						</div>
+				
+					</div>
+				</tabpanel>
+				
 
 				<tabpanel>
 					<div

@@ -9,8 +9,10 @@ import java.util.Arrays;
 
 import org.zkoss.zul.Messagebox;
 
+import sql.ManageKitchenSql;
 import utility.FappPstm;
 import Bean.ItemBean;
+import Bean.ItemTypeBean;
 import Bean.ManageKitchens;
 
 public class ManageKitchenDAO {
@@ -282,5 +284,140 @@ public class ManageKitchenDAO {
 		return i;
 	}
 	
+	public static ArrayList<ItemTypeBean> loadItemTypes(Connection connection){
+		ArrayList<ItemTypeBean> list = new ArrayList<ItemTypeBean>();
+		if(list.size()>0){
+			list.clear();
+		}
+		PreparedStatement preparedStatement = null;
+		try {
+			preparedStatement = FappPstm.createQuery(connection, ManageKitchenSql.LOADITEMTYPES, null);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				ItemTypeBean bean = new ItemTypeBean();
+				bean.setItemTypeId(resultSet.getInt("item_type_id"));
+				bean.setItemType(resultSet.getString("type_name"));
+				list.add(bean);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			Messagebox.show(e.getMessage(), "Error", Messagebox.OK, Messagebox.ERROR);
+			
+		}
+		return list;
+	}
+	
+	public static int updateItemType(Connection connection, ItemTypeBean bean, String userName){
+		int i = 0;
+		PreparedStatement preparedStatement = null;
+		
+		try {
+			preparedStatement = FappPstm.createQuery(connection, ManageKitchenSql.UPDATEITEMTYPES, Arrays.asList(bean.getItemType(),userName, bean.getItemTypeId()));
+			i = preparedStatement.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			Messagebox.show(e.getMessage(), "Error", Messagebox.OK, Messagebox.ERROR);
+		}
+		return i;
+	}
+	
+	public static int SaveItemType(Connection connection, ItemTypeBean bean, String userName){
+		int i = 0;
+		PreparedStatement preparedStatement = null;
+		try {
+			preparedStatement = FappPstm.createQuery(connection, ManageKitchenSql.INSERTITEMTYPESSQL, Arrays.asList(bean.getItemType(), userName, userName));
+			i = preparedStatement.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			Messagebox.show(e.getMessage(), "Error", Messagebox.OK, Messagebox.ERROR);
+		}
+		return i;
+		
+	}
+	
+	public static ArrayList<ItemTypeBean> loadItemTypeKitchen(Connection connection, Integer kitchenId){
+		ArrayList<ItemTypeBean> list= new ArrayList<ItemTypeBean>();
+		if(list.size()>0){
+			list.clear();
+		}
+		try {
+			PreparedStatement preparedStatement = null;
+			preparedStatement = FappPstm.createQuery(connection, ManageKitchenSql.LOADIEMTYPEKITCHENSQL, Arrays.asList(kitchenId));
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				ItemTypeBean bean = new ItemTypeBean();
+				
+				bean.setStockUpdationId(resultSet.getInt("stock_updation_id"));
+				bean.setKitchenName(resultSet.getString("kitchen_name"));
+				bean.setItemType(resultSet.getString("type_name"));
+				bean.setLunchStock(resultSet.getInt("lunch_stock"));
+				bean.setDinnerStok(resultSet.getInt("dinner_stock"));
+				
+				list.add(bean);
+				
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			Messagebox.show(e.getMessage(), "Error", Messagebox.OK, Messagebox.ERROR);
+		}
+		return list;
+		
+	}
+	
+	public static ArrayList<ItemTypeBean> loadKitchenItemTypeNotInKitchen(Connection connection, Integer kitchenId){
+		ArrayList<ItemTypeBean> list = new ArrayList<ItemTypeBean>();
+		if(list.size()>0){
+			list.clear();
+		}
+		try {
+			PreparedStatement preparedStatement = null;
+			preparedStatement = FappPstm.createQuery(connection, ManageKitchenSql.LOADITEMTYPENOTEXISTINKITCHEN, Arrays.asList(kitchenId));
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				ItemTypeBean bean = new ItemTypeBean();
+				bean.setItemTypeId(resultSet.getInt("item_type_id"));
+				bean.setItemType(resultSet.getString("type_name"));
+				
+				list.add(bean);
+				
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			Messagebox.show(e.getMessage(), "Error", Messagebox.OK, Messagebox.ERROR);
+			
+		}
+		return list;
+	}
+	
+	public static int AddNewItemTypeToKitchen(Connection connection,Integer kId, ItemTypeBean bean){
+		int i = 0;
+		PreparedStatement preparedStatement = null;
+		try {
+			preparedStatement = FappPstm.createQuery(connection, ManageKitchenSql.INSERTITEMKITCHENTYPE, Arrays.asList(kId, bean.getItemTypeId(),bean.getLunchStock(), bean.getDinnerStok()));
+			i = preparedStatement.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			Messagebox.show(e.getMessage(), "Error", Messagebox.OK, Messagebox.ERROR);
+		}
+		return i;
+	}
+	
+	public static int updateKitchenItemTypeStock(Connection connection, ItemTypeBean bean){
+		int i = 0;
+		PreparedStatement preparedStatement = null;
+		try {
+			preparedStatement = FappPstm.createQuery(connection, ManageKitchenSql.UPDATEITEMTYPENOTEXISTINKITCHEN, Arrays.asList(bean.getLunchStock(), bean.getDinnerStok(), bean.getStockUpdationId()));
+			i = preparedStatement.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			Messagebox.show(e.getMessage(), "Error", Messagebox.OK, Messagebox.ERROR);
+		}
+		return i;
+	}
 	
 }

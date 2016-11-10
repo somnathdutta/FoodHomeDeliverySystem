@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import org.zkoss.bind.annotation.AfterCompose;
+import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
@@ -16,10 +17,14 @@ import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zul.Messagebox;
 
+import service.ManageKitchenService;
+
 import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
 
 import dao.KitchenItemsDAO;
+import dao.ManageKitchenDAO;
 import Bean.ItemBean;
+import Bean.ItemTypeBean;
 import Bean.ManageCategoryBean;
 import Bean.ManageCuisinBean;
 import Bean.ManageKitchens;
@@ -32,6 +37,18 @@ public class ManageKitchenItemsViewModel {
 	public ArrayList<ManageKitchens> showItemskitchenList = new ArrayList<ManageKitchens>();
 	public ManageKitchens showItemkitchenBean = new ManageKitchens();
 	
+	private ArrayList<ManageKitchens> itemCapacityKitchenList = new ArrayList<ManageKitchens>();
+	private ManageKitchens itemCapacitymanageKitchenBean = new ManageKitchens();
+	
+	
+	public ItemTypeBean itemtypeBean = new ItemTypeBean();
+	private ItemTypeBean newItemTypeBean = new ItemTypeBean();
+	private ItemTypeBean itemTypeExistingBean = new ItemTypeBean();
+	
+	
+	private ArrayList<ItemTypeBean> newitemTypeBeanList = new ArrayList<ItemTypeBean>();
+	private ArrayList<ItemTypeBean> itemTypeBeanList = new ArrayList<ItemTypeBean>();
+	private ArrayList<ItemTypeBean> itemTypeExistingBeanList = new ArrayList<ItemTypeBean>();
 	
 	ManageCategoryBean categoryBean = new ManageCategoryBean();
 	
@@ -77,6 +94,10 @@ public class ManageKitchenItemsViewModel {
 		connection.setAutoCommit(true);
 		
 		loadKitchenList();
+		itemTypeBeanList = ManageKitchenService.loadItemType(connection);
+		
+		itemCapacityKitchenList = ManageKitchenDAO.fetchKitchens(connection);
+		
 		System.out.println("zul page >> kitchenitem.zul");
 	}
 	
@@ -98,6 +119,7 @@ public class ManageKitchenItemsViewModel {
 							kitchen.kitchenId = resultSet.getInt("kitchen_id");
 							kitchenList.add(kitchen);
 							showItemskitchenList.add(kitchen);
+							
 						}
 					} catch (Exception e) {
 						// TODO: handle exception
@@ -523,6 +545,104 @@ public class ManageKitchenItemsViewModel {
 		}
 	}
 	
+	
+	@Command
+	@NotifyChange("*")
+	public void onClickItemTypeUpdate(@BindingParam("bean") ItemTypeBean bean){
+		int i = 0;
+		i = ManageKitchenService.updateItemType(connection, bean,userName);
+		if(i>0){
+			Messagebox.show("Updated Successfully", "Information", Messagebox.OK, Messagebox.INFORMATION);
+			itemTypeBeanList = ManageKitchenService.loadItemType(connection);
+		}
+		
+	}
+	
+	@Command
+	@NotifyChange("*")
+	public void onClickItemTypeSave(){
+		int i = 0;
+		if(itemtypeBean.getItemType() !=null){
+			i = ManageKitchenService.saveItemType(connection, itemtypeBean, userName);
+		}else {
+			Messagebox.show("Enter Item Type!", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+		}
+		if(i>0){
+			Messagebox.show("Saved Successfully", "Information", Messagebox.OK, Messagebox.INFORMATION);
+			  itemTypeBeanList = ManageKitchenService.loadItemType(connection);
+			  
+			  itemtypeBean.setItemType(null);
+		}
+		
+		
+	}
+	
+	@Command
+	@NotifyChange("*")
+	public void onSelectItemTypeKitchen(){
+		itemTypeExistingBeanList = ManageKitchenService.loadKitchenItemType(connection, itemCapacitymanageKitchenBean.kitchenId);
+		newitemTypeBeanList = ManageKitchenService.loadKitItTyNotInK(connection, itemCapacitymanageKitchenBean.kitchenId);
+	}
+	
+	@Command
+	@NotifyChange("*")
+	public void onClickUpdateExistingItemType(@BindingParam("bean") ItemTypeBean bean){
+		int i = 0;
+		i = ManageKitchenDAO.updateKitchenItemTypeStock(connection, bean);
+		if(i>0){
+			Messagebox.show("Saved Successfully", "Information", Messagebox.OK, Messagebox.INFORMATION);
+			itemTypeExistingBeanList = ManageKitchenService.loadKitchenItemType(connection, itemCapacitymanageKitchenBean.kitchenId);
+		}
+		
+	}
+	
+	
+	@Command
+	@NotifyChange("*")
+	public void onClcikAddItemType(){
+		int i = 0;
+		if(itemCapacitymanageKitchenBean.kitchenId !=null){
+			if(newItemTypeBean.getItemTypeId() != null){
+				i = ManageKitchenService.insertItemTypeKitchenQty(connection, itemCapacitymanageKitchenBean.kitchenId, newItemTypeBean);
+				
+				if(i>0){
+					Messagebox.show("Saved Successfully", "Information", Messagebox.OK, Messagebox.INFORMATION);
+					newItemTypeBean.setItemType(null);
+					newItemTypeBean.setDinnerStok(null);
+					newItemTypeBean.setLunchStock(null);
+					newitemTypeBeanList.clear();
+					//itemCapacitymanageKitchenBean.kitchenId = null;
+					//itemCapacitymanageKitchenBean.kitchenName = null;
+					itemCapacityKitchenList = ManageKitchenDAO.fetchKitchens(connection);
+					itemTypeExistingBeanList = ManageKitchenService.loadKitchenItemType(connection, itemCapacitymanageKitchenBean.kitchenId);
+					
+				}
+				
+			}else {
+				Messagebox.show("Select Item type!", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+			}
+		}else {
+			Messagebox.show("Select Kitchen Type!", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+		}
+	}
+	
+	@Command
+	@NotifyChange("*")
+	public void onClickClearKITQ(){
+		newItemTypeBean.setItemType(null);
+		newItemTypeBean.setDinnerStok(null);
+		newItemTypeBean.setLunchStock(null);
+		newitemTypeBeanList.clear();
+		itemCapacitymanageKitchenBean.kitchenId = null;
+		itemCapacitymanageKitchenBean.kitchenName = null;
+		itemCapacityKitchenList = ManageKitchenDAO.fetchKitchens(connection);
+		itemTypeExistingBeanList.clear();
+		
+	}
+	
+	
+	
+	
 	public ManageKitchens getKitchenBean() {
 		return kitchenBean;
 	}
@@ -682,5 +802,72 @@ public class ManageKitchenItemsViewModel {
 
 	public void setShowItemkitchenBean(ManageKitchens showItemkitchenBean) {
 		this.showItemkitchenBean = showItemkitchenBean;
+	}
+
+	public ArrayList<ManageKitchens> getItemCapacityKitchenList() {
+		return itemCapacityKitchenList;
+	}
+
+	public void setItemCapacityKitchenList(
+			ArrayList<ManageKitchens> itemCapacityKitchenList) {
+		this.itemCapacityKitchenList = itemCapacityKitchenList;
+	}
+
+	public ManageKitchens getItemCapacitymanageKitchenBean() {
+		return itemCapacitymanageKitchenBean;
+	}
+
+	public void setItemCapacitymanageKitchenBean(
+			ManageKitchens itemCapacitymanageKitchenBean) {
+		this.itemCapacitymanageKitchenBean = itemCapacitymanageKitchenBean;
+	}
+
+	public ItemTypeBean getItemtypeBean() {
+		return itemtypeBean;
+	}
+
+	public void setItemtypeBean(ItemTypeBean itemtypeBean) {
+		this.itemtypeBean = itemtypeBean;
+	}
+
+	public ArrayList<ItemTypeBean> getItemTypeBeanList() {
+		return itemTypeBeanList;
+	}
+
+	public void setItemTypeBeanList(ArrayList<ItemTypeBean> itemTypeBeanList) {
+		this.itemTypeBeanList = itemTypeBeanList;
+	}
+
+	public ItemTypeBean getItemTypeExistingBean() {
+		return itemTypeExistingBean;
+	}
+
+	public void setItemTypeExistingBean(ItemTypeBean itemTypeExistingBean) {
+		this.itemTypeExistingBean = itemTypeExistingBean;
+	}
+
+	public ArrayList<ItemTypeBean> getItemTypeExistingBeanList() {
+		return itemTypeExistingBeanList;
+	}
+
+	public void setItemTypeExistingBeanList(
+			ArrayList<ItemTypeBean> itemTypeExistingBeanList) {
+		this.itemTypeExistingBeanList = itemTypeExistingBeanList;
+	}
+
+	public ItemTypeBean getNewItemTypeBean() {
+		return newItemTypeBean;
+	}
+
+	public void setNewItemTypeBean(ItemTypeBean newItemTypeBean) {
+		this.newItemTypeBean = newItemTypeBean;
+	}
+
+	public ArrayList<ItemTypeBean> getNewitemTypeBeanList() {
+		return newitemTypeBeanList;
+	}
+
+	public void setNewitemTypeBeanList(ArrayList<ItemTypeBean> newitemTypeBeanList) {
+		this.newitemTypeBeanList = newitemTypeBeanList;
 	}
 }
