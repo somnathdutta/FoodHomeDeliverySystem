@@ -289,7 +289,7 @@ public class OrderDashBoardViewModel {
 							
 							dashBoardBean.picked = resultSet.getString("order_picked");
 							
-							/*if(resultSet.getString("driver_name")!=null){
+							if(resultSet.getString("driver_name")!=null){
 								dashBoardBean.driverName = resultSet.getString("driver_name");
 							}else{
 								dashBoardBean.driverName = "No Driver assigned!";
@@ -298,7 +298,7 @@ public class OrderDashBoardViewModel {
 								dashBoardBean.driverNumber = resultSet.getString("driver_number");
 							}else{
 								dashBoardBean.driverNumber = "NA";
-							}*/
+							}
 							if(dashBoardBean.orderNo.equals(orderNo)){
 								dashBoardBean.orderNoVisibiliity= false;
 								dashBoardBean.orderDateVisibility = false;
@@ -407,7 +407,7 @@ public class OrderDashBoardViewModel {
 							
 							dashBoardBean.picked = resultSet.getString("order_picked");
 							
-							/*if(resultSet.getString("driver_name")!=null){
+							if(resultSet.getString("driver_name")!=null){
 								dashBoardBean.driverName = resultSet.getString("driver_name");
 							}else{
 								dashBoardBean.driverName = "No Driver assigned!";
@@ -416,7 +416,7 @@ public class OrderDashBoardViewModel {
 								dashBoardBean.driverNumber = resultSet.getString("driver_number");
 							}else{
 								dashBoardBean.driverNumber = "NA";
-							}*/
+							}
 							if(dashBoardBean.orderNo.equals(orderNo)){
 								dashBoardBean.orderNoVisibiliity= false;
 								dashBoardBean.orderDateVisibility = false;
@@ -510,7 +510,7 @@ public class OrderDashBoardViewModel {
 								
 								dashBoardBean.picked = resultSet.getString("order_picked");
 								
-								/*if(resultSet.getString("driver_name")!=null){
+								if(resultSet.getString("driver_name")!=null){
 									dashBoardBean.driverName = resultSet.getString("driver_name");
 								}else{
 									dashBoardBean.driverName = "No Driver assigned!";
@@ -519,7 +519,7 @@ public class OrderDashBoardViewModel {
 									dashBoardBean.driverNumber = resultSet.getString("driver_number");
 								}else{
 									dashBoardBean.driverNumber = "NA";
-								}*/
+								}
 								if(dashBoardBean.orderNo.equals(orderNo)){
 									dashBoardBean.orderNoVisibiliity= false;
 									dashBoardBean.orderDateVisibility = false;
@@ -586,7 +586,7 @@ public class OrderDashBoardViewModel {
 		           /* w.write("ORDER NO,ORDER DATE,ORDER STATUS,ORDER BY,MEAL TYPE,DELIVERY DATE,CONTACT NO,ORDER ITEM,ITEM CODE,ITEM DESC,QUANTITY,"
 		            		+ "VENDOR NAME,RECEIVED,NOTIFIED,REJECTED,PICKED,DELIVERED,DRIVER NAME,DRIVER NUMBER\n");*/
 		            w.write("ORDER NO,ORDER DATE,ORDER STATUS,ORDER BY,MEAL TYPE,DELIVERY DATE,CONTACT NO,ORDER ITEM,ITEM CODE,ITEM DESC,QUANTITY,"
-		            		+ "VENDOR NAME,RECEIVED,NOTIFIED,REJECTED,PICKED,DELIVERED\n");
+		            		+ "VENDOR NAME,RECEIVED,NOTIFIED,REJECTED,PICKED,DELIVERED,DRIVER NAME,DRIVER NUMBER\n");
 		            for(int i=0;i<orderDashBoardBeanList.size();i++){
 		            	w.write(orderDashBoardBeanList.get(i).orderNo+","+orderDashBoardBeanList.get(i).orderDateValue
 		            			+","+orderDashBoardBeanList.get(i).orderStatus+","+orderDashBoardBeanList.get(i).orderBy
@@ -599,8 +599,8 @@ public class OrderDashBoardViewModel {
 		            			+","+orderDashBoardBeanList.get(i).notified
 		            			+","+orderDashBoardBeanList.get(i).rejected
 		            			+","+orderDashBoardBeanList.get(i).picked
-		            			+","+orderDashBoardBeanList.get(i).delivered+"\n");
-		            			//+","+orderDashBoardBeanList.get(i).driverName+","+orderDashBoardBeanList.get(i).driverNumber+"\n");
+		            			+","+orderDashBoardBeanList.get(i).delivered
+		            			+","+orderDashBoardBeanList.get(i).driverName+","+orderDashBoardBeanList.get(i).driverNumber+"\n");
 		            }
 		            
 		            /*for(OrderDashBoardBean bean:orderDashBoardBeanList){
