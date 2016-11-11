@@ -116,17 +116,21 @@
 			  <space></space>	
 			  <div visible="@bind(vm.existingBannerName.divVis)">	
 			   <div>	
-				 <grid model="@bind(vm.existingUrlList)">
+				 <grid model="@bind(vm.existingUrlList)" height="400px" mold="paging" pageSize="8">
 					<columns sizable="true">
-						<column label="Banner Name" width="250px" style="font-weight:bold" align="center"></column>
+						<column label="Sl No" width="50px" style="font-weight:bold" align="center"></column>
+						<column label="Banner Name" width="200px" style="font-weight:bold" align="center"></column>
+						<column label="Image Name" width="200px" style="font-weight:bold" align="center"></column>
 						<column label="Image Url" width="350px" style="font-weight:bold" align="center"></column>
-						<column label="Action" width="450px" style="font-weight:bold" align="center"></column>
+						<column label="Action" width="350px" style="font-weight:bold" align="center"></column>
 						
 					</columns>
 					<rows>
 					  <template name="model" var ="v">	
 						<row>
-						   <textbox width="100%" readonly="true" value="@bind(v.bannerName)"></textbox>	
+						   <label width="100%" value="@bind(v.urlId)"></label>	
+						   <textbox width="100%" readonly="true" value="@bind(v.bannerName)"></textbox>
+						   <textbox width="100%" value="@bind(v.imageName)" onChange="@command('onCh', bean=v)"></textbox>	
 						   <textbox width="100%" value="@bind(v.urlName)"></textbox>
 						   <combobox width="50" value="@bind(v.activeStatus)" readonly="true" onSelect="@command('onclickStatus', bean = v)">
 						   	 <comboitem label="Active"></comboitem>

@@ -516,6 +516,14 @@ public class BannerViewModel {
 	
 	@Command
 	@NotifyChange("*")
+	public void onCh(@BindingParam("bean") UrlBean bean){
+		System.out.println("Image Name - " + bean.imageName);
+	}
+	
+	
+	
+	@Command
+	@NotifyChange("*")
 	public void onclickEdit(@BindingParam("Bean") UrlBean bean){
 		int i =0;
 		i = BannerService.upDateBannerUrl(connection, bean.bannerId);

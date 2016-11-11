@@ -119,6 +119,7 @@ public class BannerDao {
 				bean.urlName = resultSet.getString("banner_image");
 				bean.bannerName = resultSet.getString("banner_title");
 				bean.bannerId = resultSet.getInt("banner_id");
+				bean.imageName = resultSet.getString("image_name");
 				String status = resultSet.getString("is_active");
 				if(status.equalsIgnoreCase("Y")){
 					bean.activeStatus = "Active";
@@ -175,20 +176,20 @@ public class BannerDao {
 		try {
 			
 			for(UrlBean bean : list){
-				
+				System.out.println("IMAGE -- " + bean.imageName);
 				if(bean.urlId !=null && bean.urlName != null){
 					PreparedStatement preparedStatement = null;
-					preparedStatement = FappPstm.createQuery(connection, BannerSql.updateBannerUrl, Arrays.asList(bean.urlName, bannerId));
+					preparedStatement = FappPstm.createQuery(connection, BannerSql.updateBannerUrl, Arrays.asList(bean.urlName,bean.imageName, bean.urlId));
 					
 					i = preparedStatement.executeUpdate();
 					
 				}if(bean.urlId ==null && bean.urlName != null) {
 					PreparedStatement preparedStatement = null;
-					preparedStatement = FappPstm.createQuery(connection, BannerSql.insertBannerListQuery, Arrays.asList(bannerId, bean.urlName));
-					
+					preparedStatement = FappPstm.createQuery(connection, BannerSql.insertBannerListQuery, Arrays.asList(bannerId, bean.urlName,bean.imageName));
 					j =preparedStatement.executeUpdate();
 				}
 			}
+			connection.commit();
 		} catch (Exception e) {
 			String msg = e.getMessage();
 			Messagebox.show(msg,"Error", Messagebox.OK, Messagebox.ERROR);

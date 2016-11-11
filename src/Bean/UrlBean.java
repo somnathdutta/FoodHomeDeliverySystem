@@ -7,6 +7,8 @@ public class UrlBean {
 	public Integer bannerId;
 	public boolean divVis;
 	public String activeStatus;
+	public String imageName;
+	
 	
 	public boolean checkedUrl = false;
 	public UrlBean() {
@@ -74,6 +76,14 @@ public class UrlBean {
 
 	public void setActiveStatus(String activeStatus) {
 		this.activeStatus = activeStatus;
+	}
+
+	public String getImageName() {
+		return imageName;
+	}
+
+	public void setImageName(String imageName) {
+		this.imageName = imageName;
 	}
 	
 }
