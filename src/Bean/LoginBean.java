@@ -27,6 +27,17 @@ public class LoginBean implements Serializable {
 	public Integer departmentId;
 	
 	public String departmentName;
+	
+	public String contactNo;
+	
+	public String confirmPassword;
+	
+	public boolean newPasswordDis;
+	public boolean confirmPasswordDis; 
+	
+	public boolean oldPasswordDis;
+	
+	public boolean saveDis;
 
 	public String getUserName() {
 		return userName;
@@ -118,6 +129,54 @@ public class LoginBean implements Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getConfirmPassword() {
+		return confirmPassword;
+	}
+
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
+	}
+
+	public boolean isNewPasswordDis() {
+		return newPasswordDis;
+	}
+
+	public void setNewPasswordDis(boolean newPasswordDis) {
+		this.newPasswordDis = newPasswordDis;
+	}
+
+	public boolean isOldPasswordDis() {
+		return oldPasswordDis;
+	}
+
+	public void setOldPasswordDis(boolean oldPasswordDis) {
+		this.oldPasswordDis = oldPasswordDis;
+	}
+
+	public String getContactNo() {
+		return contactNo;
+	}
+
+	public void setContactNo(String contactNo) {
+		this.contactNo = contactNo;
+	}
+
+	public boolean isConfirmPasswordDis() {
+		return confirmPasswordDis;
+	}
+
+	public void setConfirmPasswordDis(boolean confirmPasswordDis) {
+		this.confirmPasswordDis = confirmPasswordDis;
+	}
+
+	public boolean isSaveDis() {
+		return saveDis;
+	}
+
+	public void setSaveDis(boolean saveDis) {
+		this.saveDis = saveDis;
 	}
 	
 }

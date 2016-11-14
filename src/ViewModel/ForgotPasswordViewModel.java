@@ -1,6 +1,7 @@
 package ViewModel;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Random;
@@ -52,7 +53,9 @@ public class ForgotPasswordViewModel {
 		connection=(Connection) session.getAttribute("sessionConnection");
 		username = userName;
 		System.out.println("zul page >> forGotPassWord.zul");
-		
+		loginBean.newPasswordDis = true;
+		loginBean.confirmPasswordDis = true;
+		loginBean.saveDis = true;
 	}
 	
 	@Command
@@ -106,7 +109,7 @@ public class ForgotPasswordViewModel {
 	 
 	 
 	 private Boolean isValidate() {
-		  if(loginBean.userName!=null){
+		  if(loginBean.contactNo!=null){
 			  if(loginBean.oldPassword!=null){
 				  if(loginBean.newPassword!=null){
 					  return true;
@@ -126,6 +129,61 @@ public class ForgotPasswordViewModel {
 			  return false;
 		  }
 	  }
+	 
+	 @Command
+	 @NotifyChange("*")
+	 public void onChangeContactNo(){
+		 boolean isContainsSpace = false;
+		 /*if(loginBean.contactNo.contains(" ")){
+			 isContainsSpace = true;
+			 loginBean.newPasswordDis = true;
+			 loginBean.confirmPasswordDis = true;
+			 Messagebox.show("Space Not Allowed!", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+			 
+		 }else {
+			 if(!isContainsSpace){
+				 if(loginBean.contactNo.length() != 10){
+					 Messagebox.show("Shoud Enter Ten Digit Contact No", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+				 }
+				 
+			 }
+			 loginBean.newPasswordDis = false;
+		}*/
+		 
+		 if(!loginBean.contactNo.contains(" ") && loginBean.contactNo.length()==10){
+			 loginBean.newPasswordDis = false;
+		 }else {
+			 loginBean.newPasswordDis = true;
+			 loginBean.confirmPasswordDis = true;
+			 Messagebox.show("Enter Proper Mobile Number!", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+		}
+		 
+	 }
+	 
+	 @Command
+	 @NotifyChange("*")
+	 public void onChangeNewPassword(){
+		 if(!loginBean.newPassword.contains(" ")){
+			 loginBean.confirmPasswordDis = false; 
+		 }else {
+			 loginBean.confirmPasswordDis = true;
+			 Messagebox.show("Enter Proper Mobile Number!", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+		}
+	 }
+	 
+	 @Command
+	 @NotifyChange("*")
+	 public void onChangeConfirmPassword(){
+		 if(!loginBean.newPassword.equals(loginBean.confirmPassword)){
+			 Messagebox.show("New Password and Confirm Password Not Matched!", "Error", Messagebox.OK, Messagebox.ERROR);
+			 loginBean.saveDis = true;
+		 }else {
+			loginBean.saveDis = false;
+		}
+	 }
+	 
+	 
+	 
 	 
 	/*@Command
 	@NotifyChange("*")
@@ -186,6 +244,80 @@ public class ForgotPasswordViewModel {
 		}
 	}*/
 	
+	 @Command
+	 @NotifyChange("*")
+	 public void onClickResetPassword(){
+		 int i = 0;
+		 if(loginBean.newPassword != null && loginBean.confirmPassword != null && loginBean.contactNo != null){
+		 
+		 String sql = "UPDATE fapp_accounts SET password = ? WHERE mobile_no = ? ";
+		 
+		 	try {
+		 		Connection con = null;
+		 		PreparedStatement preparedStatement = null;
+			 try {
+				Class.forName("org.postgresql.Driver"); 
+				con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/foodhomedelivery", "postgres", "password"); 
+				preparedStatement = con.prepareStatement(sql); 
+				preparedStatement = con.prepareStatement(sql);
+				preparedStatement.setString(1, loginBean.confirmPassword);
+				preparedStatement.setString(2, loginBean.contactNo);
+				
+				i = preparedStatement.executeUpdate();
+				if(i>0){
+					Messagebox.show("Password Successfully Updated /n close the window", "Information", Messagebox.OK, Messagebox.INFORMATION);
+					
+					winForgotPassword.detach();
+					loginBean.contactNo = null;
+					loginBean.confirmPassword = null;
+					loginBean.confirmPasswordDis = true;
+					
+					loginBean.newPassword = null;
+					loginBean.newPasswordDis= true;
+					
+					loginBean.saveDis = true;
+					loginBean.contactNo = null;
+					
+				}else {
+					loginBean.contactNo = null;
+					loginBean.confirmPassword = null;
+					loginBean.confirmPasswordDis = true;
+					
+					loginBean.newPassword = null;
+					loginBean.newPasswordDis= true;
+					
+					loginBean.saveDis = true;
+					loginBean.contactNo = null;
+					
+					Messagebox.show("Enter Proper Data", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+				}
+				
+			 } catch (Exception e) {
+				e.printStackTrace();
+				Messagebox.show(e.getMessage(), "Error", Messagebox.OK, Messagebox.ERROR);
+			}finally{
+				if(preparedStatement != null){
+					preparedStatement.close();
+				}
+				if(con != null){
+					con.close();
+				}
+			}
+			 
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			} 
+		 
+		}else {
+			Messagebox.show("Enter All Fields", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+		} 
+		 
+		 
+	 }
+	 
+	 
+	 
 	@Command
 	@NotifyChange("*")
 	public void onClickOkButton(){
