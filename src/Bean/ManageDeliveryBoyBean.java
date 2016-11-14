@@ -24,6 +24,7 @@ public class ManageDeliveryBoyBean {
 	
 	private Integer bikerCapacityId;
 	private Integer bikerCapacity;
+	private Integer maximumCartCapacity;
 	private Integer servingLocationPerSlot;
 	private boolean capacityDivnew;
 	private boolean capacityDivExist;
@@ -255,6 +256,12 @@ public class ManageDeliveryBoyBean {
 	}
 	public void setCapacityDivExist(boolean capacityDivExist) {
 		this.capacityDivExist = capacityDivExist;
+	}
+	public Integer getMaximumCartCapacity() {
+		return maximumCartCapacity;
+	}
+	public void setMaximumCartCapacity(Integer maximumCartCapacity) {
+		this.maximumCartCapacity = maximumCartCapacity;
 	}
 	
 	

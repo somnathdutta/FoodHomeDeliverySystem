@@ -56,6 +56,10 @@ public class ManageKitchens {
 	
 	public Integer servingLocationPerSlot;
 	
+	private Integer noOfSingleOrderDinner;
+	
+	private Integer noOfSingleOrderLunch;
+	
 	
 	public ArrayList<ItemBean> itemBeanList = new ArrayList<ItemBean>();
 
@@ -313,6 +317,22 @@ public class ManageKitchens {
 
 	public void setServingLocationPerSlot(Integer servingLocationPerSlot) {
 		this.servingLocationPerSlot = servingLocationPerSlot;
+	}
+
+	public Integer getNoOfSingleOrderDinner() {
+		return noOfSingleOrderDinner;
+	}
+
+	public void setNoOfSingleOrderDinner(Integer noOfSingleOrderDinner) {
+		this.noOfSingleOrderDinner = noOfSingleOrderDinner;
+	}
+
+	public Integer getNoOfSingleOrderLunch() {
+		return noOfSingleOrderLunch;
+	}
+
+	public void setNoOfSingleOrderLunch(Integer noOfSingleOrderLunch) {
+		this.noOfSingleOrderLunch = noOfSingleOrderLunch;
 	}
 	
 	

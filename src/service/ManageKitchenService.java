@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import dao.ManageKitchenDAO;
 import Bean.ItemTypeBean;
+import Bean.ManageKitchens;
 
 public class ManageKitchenService {
 
@@ -50,6 +51,18 @@ public class ManageKitchenService {
 		i = ManageKitchenDAO.updateKitchenItemTypeStock(connection, bean);
 		return i;
 		
+	}
+	
+	public static int updateKitchenSingleOrder(Connection connection, ManageKitchens kitchens){
+		int i = 0;
+		i = ManageKitchenDAO.updateKitchenSingleOrder(connection, kitchens);
+		return i;
+	}
+	
+	public static ArrayList<ManageKitchens> loadKitchenSingleOrder(Connection connection){
+		ArrayList<ManageKitchens> list = new ArrayList<ManageKitchens>();
+		list = ManageKitchenDAO.loadKitchenSingleOrder(connection);
+		return list;
 	}
 	
 }

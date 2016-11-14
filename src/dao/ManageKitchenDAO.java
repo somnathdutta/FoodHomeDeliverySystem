@@ -420,4 +420,48 @@ public class ManageKitchenDAO {
 		return i;
 	}
 	
+	public static int updateKitchenSingleOrder(Connection connection, ManageKitchens kitchens){
+		int i= 0;
+		PreparedStatement preparedStatement = null;
+		try {
+			preparedStatement = FappPstm.createQuery(connection, ManageKitchenSql.UPDATESINGLEORDER, Arrays.asList(kitchens.getNoOfSingleOrderLunch(), kitchens.getNoOfSingleOrderDinner(), kitchens.kitchenId));
+			
+			i = preparedStatement.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+			Messagebox.show(e.getMessage(), "Error", Messagebox.OK, Messagebox.ERROR);
+		}
+		return i;
+		
+	}
+	
+	public static ArrayList<ManageKitchens> loadKitchenSingleOrder(Connection connection){
+		ArrayList<ManageKitchens> list = new ArrayList<ManageKitchens>();
+		if(list.size()>0){
+			list.clear(); 
+		}
+		
+		PreparedStatement preparedStatement = null;
+		try {
+			preparedStatement = FappPstm.createQuery(connection, ManageKitchenSql.LOADSINGLEORDERKITCHEN, null);
+			
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				ManageKitchens kitchens = new ManageKitchens();
+				kitchens.kitchenId = resultSet.getInt("kitchen_id");
+				kitchens.kitchenName = resultSet.getString("kitchen_name");
+				kitchens.setNoOfSingleOrderLunch(resultSet.getInt("no_of_single_order_lunch"));
+				kitchens.setNoOfSingleOrderDinner(resultSet.getInt("no_of_single_order_dinner"));
+				
+				list.add(kitchens);		
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			Messagebox.show(e.getMessage(), "Error", Messagebox.OK, Messagebox.ERROR);
+		}
+		return list;
+	}
+	
+	
+	
 }

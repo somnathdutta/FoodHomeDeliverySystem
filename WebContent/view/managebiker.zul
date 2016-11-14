@@ -51,7 +51,8 @@
 			<tabbox>
 				<tabs>
 					<tab label="New Biker"></tab>
-					<tab label="Biker Capacity"></tab>
+					<tab label="Biker Capacity And Maximum Cart Capacity"></tab>
+					
 				</tabs>
 				<tabpanels>
 					<tabpanel>
@@ -222,6 +223,7 @@
 							<hlayout spacing="20px">
 								<intbox value="@bind(vm.bikerCapacityBean.bikerCapacity)" placeholder="Biker Capacity" width="200px"></intbox>
 								<intbox value="@bind(vm.bikerCapacityBean.servingLocationPerSlot)" placeholder="Serving Location Per Slot" width="200px"></intbox>
+								<intbox value="@bind(vm.bikerCapacityBean.maximumCartCapacity)" placeholder="Maximum Cart Capacity"></intbox>
 								<button onClick="@command('onClickSaveCapacity')" label="Save Biker Capacity" sclass="mybutton"></button>
 							</hlayout>
 						</div>
@@ -230,6 +232,7 @@
 								<columns >
 									<column label="Biker Capacity" align="center"></column>
 									<column label="Serving Area Per Slot" align="center"></column>
+									<column label="Maximum Cart Capacity" align="center"></column>
 									<column label="Action" align="center"></column>
 								</columns>
 								<rows>
@@ -237,6 +240,7 @@
 									<row>
 									   <intbox value="@bind(v.bikerCapacity)"></intbox>
 									   <intbox value="@bind(v.servingLocationPerSlot)"></intbox>
+									   <intbox value="@bind(v.maximumCartCapacity)"></intbox>
 									   <hlayout spacing="20px">
 									   		<button label="Update" sclass="mybutton" onClick="@command('onClickUpdateBikerCapacity', bean= v)"></button>
 									   		<button label="Delete" sclass="mybutton" onClick="@command('onclickDeleteCapacity', bean = v)" visible="false"></button>
@@ -249,6 +253,7 @@
 						</div>
 						
 					</tabpanel>
+					
 				</tabpanels>
 			</tabbox>
 			

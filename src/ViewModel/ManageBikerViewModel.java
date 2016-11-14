@@ -85,7 +85,7 @@ public class ManageBikerViewModel {
 			bikerCapacityBean.setCapacityDivnew(true);
 			bikerCapacityBean.setCapacityDivExist(false);
 		}
-		
+		System.out.println("zul page >> managebiker.zul");
 	}
 
 	public void onLoadKitchens(){
@@ -294,8 +294,11 @@ public class ManageBikerViewModel {
 		int i =0;
 		if(bikerCapacityBean.getBikerCapacity() !=null){
 			if(bikerCapacityBean.getServingLocationPerSlot() !=null){
-				i = ManageBikerDAO.saveBikerCapacity(connection, bikerCapacityBean, userName);	
-				
+				if(bikerCapacityBean.getMaximumCartCapacity() != null){
+					i = ManageBikerDAO.saveBikerCapacity(connection, bikerCapacityBean, userName);
+				}else {
+					Messagebox.show("Maximum Cart Capacity Required!","ALERT",Messagebox.OK,Messagebox.EXCLAMATION);
+				}
 			}else {
 			   		Messagebox.show("Biker Capacity Required!","ALERT",Messagebox.OK,Messagebox.EXCLAMATION);
 		   		}

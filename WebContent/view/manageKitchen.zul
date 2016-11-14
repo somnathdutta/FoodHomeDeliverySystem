@@ -69,7 +69,8 @@ viewModel="@id('vm') @init('ViewModel.ManageKitchenViewModel')">
 				<tab label="Create New Kitchen "/>
 				<tab label="Show Kitchens "/>
 				<tab label="Item management" onClick="@command('onClickLoadItem')"/>
-				<tab label="Lunch Dinner"></tab>
+				<tab label="Lunch Dinner Categories"></tab>
+				<tab label="Single Oder Quantity"></tab>
 			</tabs>
 			
 			<tabpanels>
@@ -462,6 +463,48 @@ viewModel="@id('vm') @init('ViewModel.ManageKitchenViewModel')">
 								</template>
 							</rows>
 						</grid>
+					</div>
+				</tabpanel>
+				
+				<tabpanel>
+					<div>
+						<div>
+						   <hlayout spacing="20px">	
+							<combobox readonly="true" model="@bind(vm.lunchDinnerkitchenBeanList)" selectedItem="@bind(vm.singleOrderLunchDinner)" value="@bind(vm.singleOrderLunchDinner.kitchenName)" 
+							   placeholder="Select Kitchen" onSelect="@command('onSelectSingleOrder')">
+								<template name="model" var ="v">
+									<comboitem value="@bind(v.kitchenId)" label="@bind(v.kitchenName)"></comboitem>
+								</template>
+							</combobox>
+							<intbox placeholder="Enter No Of Single Order Lunch" value="@bind(vm.singleOrderLunchDinner.noOfSingleOrderLunch)" width="200px"></intbox>
+							<intbox placeholder="Enter No Of Single Order Dinner" value="@bind(vm.singleOrderLunchDinner.noOfSingleOrderDinner)" width="200px"></intbox>
+						  	<button onClick="@command('onClickSaveSingleOrderKitchen')" label="Save" sclass="mybutton"></button>
+						  	<button onClick="@command('onClickClearSingleOrder')" label="Clear" sclass="mybutton"></button>
+				          </hlayout>  
+						</div>
+						<space></space>
+						<div>
+							<grid model="@bind(vm.singleOrderLunchDinnerList)">
+								<columns>
+									<column label="Kitchen Name" align="center"></column>
+									<column label="No Of Single Order Lunch" align="center"></column>
+									<column label="No Of Single Order Diner" align="center"></column>
+									<column label="Action" align="center"></column>
+								</columns>
+								<rows>
+								  <template name="model" var = "v">
+									<row>
+										<textbox value="@bind(v.kitchenName)" width="100%" readonly="true"></textbox>
+										<intbox value="@bind(v.noOfSingleOrderLunch)" width="100%"></intbox>
+										<intbox value="@bind(v.noOfSingleOrderDinner)" width="100%"></intbox>
+										<button label="Update" onClick="@command('onClickSingleOrderUpdate', bean = v)" sclass="mybutton"></button>
+									</row>
+								  </template>	
+								</rows>
+								
+						
+							</grid>
+						</div>
 					</div>
 				</tabpanel>
 			</tabpanels>	

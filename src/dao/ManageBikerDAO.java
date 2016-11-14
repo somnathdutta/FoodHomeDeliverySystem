@@ -253,13 +253,14 @@ public class ManageBikerDAO {
 		int i = 0;
 		try {
 			PreparedStatement preparedStatement = null;
-			String sql = "insert into fapp_biker_capacity (biker_capacity, serving_location_per_slot, created_by, updated_by) values(?,?,?,?)";
+			String sql = "insert into fapp_biker_capacity (biker_capacity, serving_location_per_slot,max_cart_capacity, created_by, updated_by) values(?,?,?,?,?)";
 			try {
 				preparedStatement = connection.prepareStatement(sql);
 				preparedStatement.setInt(1, deliveryBoyBean.getBikerCapacity());
 				preparedStatement.setInt(2, deliveryBoyBean.getServingLocationPerSlot());
-				preparedStatement.setString(3, userName);
+				preparedStatement.setInt(3, deliveryBoyBean.getMaximumCartCapacity());
 				preparedStatement.setString(4, userName);
+				preparedStatement.setString(5, userName);
 				
 				i = preparedStatement.executeUpdate();
 				
@@ -280,7 +281,7 @@ public class ManageBikerDAO {
 		}
 		try {
 			PreparedStatement preparedStatement = null;
-			String sql = "select fapp_biker_capacity_id,biker_capacity, serving_location_per_slot from fapp_biker_capacity where is_delete = 'N'";
+			String sql = "select fapp_biker_capacity_id,biker_capacity, serving_location_per_slot,max_cart_capacity from fapp_biker_capacity where is_delete = 'N'";
 			try {
 				preparedStatement = connection.prepareStatement(sql);
 				ResultSet resultSet = preparedStatement.executeQuery();
@@ -290,6 +291,7 @@ public class ManageBikerDAO {
 					bean.setBikerCapacityId(resultSet.getInt("fapp_biker_capacity_id"));
 					bean.setBikerCapacity(resultSet.getInt("biker_capacity"));
 					bean.setServingLocationPerSlot(resultSet.getInt("serving_location_per_slot"));
+					bean.setMaximumCartCapacity(resultSet.getInt("max_cart_capacity"));
 					
 					list.add(bean);
 				}
@@ -310,13 +312,14 @@ public class ManageBikerDAO {
 		int i = 0;
 		try {
 			PreparedStatement preparedStatement = null;
-			String sql = "update fapp_biker_capacity set biker_capacity = ? , serving_location_per_slot = ?, updated_by = ? where fapp_biker_capacity_id = ?";
+			String sql = "update fapp_biker_capacity set biker_capacity = ? , serving_location_per_slot = ?, max_cart_capacity = ?, updated_by = ? where fapp_biker_capacity_id = ?";
 			try {
 				preparedStatement = connection.prepareStatement(sql);
 				preparedStatement.setInt(1, deliveryBoyBean.getBikerCapacity());
 				preparedStatement.setInt(2, deliveryBoyBean.getServingLocationPerSlot());
-				preparedStatement.setString(3, userName);
-				preparedStatement.setInt(4, deliveryBoyBean.getBikerCapacityId());
+				preparedStatement.setInt(3, deliveryBoyBean.getMaximumCartCapacity());
+				preparedStatement.setString(4, userName);
+				preparedStatement.setInt(5, deliveryBoyBean.getBikerCapacityId());
 				
 				i = preparedStatement.executeUpdate();
 				

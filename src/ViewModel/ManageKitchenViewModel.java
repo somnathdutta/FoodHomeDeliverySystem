@@ -35,6 +35,8 @@ import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
+import service.ManageKitchenService;
+
 import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
 
 import dao.ManageKitchenDAO;
@@ -71,6 +73,13 @@ public class ManageKitchenViewModel {
 
 	private ArrayList<ManageCategoryBean> categoryBeanList = new ArrayList<ManageCategoryBean>();
 	
+	private ManageKitchens singleOrderLunchDinner = new ManageKitchens();
+	
+	private ArrayList<ManageKitchens> singleOrderLunchDinnerList = new ArrayList<ManageKitchens>();
+	
+	
+	
+	
 	Session session = null;
 	
 	private Connection connection = null;
@@ -105,6 +114,8 @@ public class ManageKitchenViewModel {
 		
 		System.out.println("zul page >> manageKitchen.zul");
 		lunchDinnerkitchenBeanList = ManageKitchenDAO.fetchKitchens(connection);
+		
+		singleOrderLunchDinnerList = ManageKitchenService.loadKitchenSingleOrder(connection);
 		loadAllKitchenList();
 		onLoadCityList();
 		loadCuisinList();
@@ -1496,6 +1507,55 @@ public class ManageKitchenViewModel {
 	}
 	
 	
+	@Command
+	@NotifyChange("*")
+	public void onSelectSingleOrder(){
+		//System.out.println("Selected Kitechen " + singleOrderLunchDinner.kitchenName + " -- " + singleOrderLunchDinner.kitchenId);
+	}
+	
+	@Command
+	@NotifyChange("*")
+	public void onClickSaveSingleOrderKitchen(){
+		int i =0;
+		
+		if(singleOrderLunchDinner.kitchenId != null){
+			i = ManageKitchenDAO.updateKitchenSingleOrder(connection, singleOrderLunchDinner);
+			if(i>0){
+				singleOrderLunchDinnerList = ManageKitchenDAO.loadKitchenSingleOrder(connection);
+				Messagebox.show("Saved Successfully", "Inforation", Messagebox.OK, Messagebox.INFORMATION);
+				onClickClearSingleOrder();
+		}
+		}else {
+			Messagebox.show("Select Kitchen", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+		}
+	}
+	
+	@Command
+	@NotifyChange("*")
+	public void onClickClearSingleOrder(){
+		singleOrderLunchDinner.kitchenId = null;
+		singleOrderLunchDinner.kitchenName = null;
+		lunchDinnerkitchenBeanList = ManageKitchenDAO.fetchKitchens(connection);
+		singleOrderLunchDinner.setNoOfSingleOrderLunch(null);
+		singleOrderLunchDinner.setNoOfSingleOrderDinner(null);
+	}
+	
+	@Command
+	@NotifyChange("*")
+	public void onClickSingleOrderUpdate(@BindingParam("bean") ManageKitchens bean){
+		int i = 0;
+		
+		i = ManageKitchenService.updateKitchenSingleOrder(connection, bean);
+		if(i>0){
+			singleOrderLunchDinnerList = ManageKitchenDAO.loadKitchenSingleOrder(connection);
+			Messagebox.show("Saved Successfully", "Inforation", Messagebox.OK, Messagebox.INFORMATION);
+		}
+		
+	}
+	
+	
+	
+	
 	public ManageKitchens getManageKitchensBean() {
 		return manageKitchensBean;
 	}
@@ -1724,6 +1784,27 @@ public class ManageKitchenViewModel {
 
 	public void setLunchDinnerDetailsBean(ManageKitchens lunchDinnerDetailsBean) {
 		this.lunchDinnerDetailsBean = lunchDinnerDetailsBean;
+	}
+
+
+	public ManageKitchens getSingleOrderLunchDinner() {
+		return singleOrderLunchDinner;
+	}
+
+
+	public void setSingleOrderLunchDinner(ManageKitchens singleOrderLunchDinner) {
+		this.singleOrderLunchDinner = singleOrderLunchDinner;
+	}
+
+
+	public ArrayList<ManageKitchens> getSingleOrderLunchDinnerList() {
+		return singleOrderLunchDinnerList;
+	}
+
+
+	public void setSingleOrderLunchDinnerList(
+			ArrayList<ManageKitchens> singleOrderLunchDinnerList) {
+		this.singleOrderLunchDinnerList = singleOrderLunchDinnerList;
 	}
 	
 	

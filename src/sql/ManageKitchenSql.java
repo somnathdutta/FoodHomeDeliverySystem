@@ -16,4 +16,7 @@ public class ManageKitchenSql {
 	
 	public static final String UPDATEITEMTYPENOTEXISTINKITCHEN = "update stock_updation set lunch_stock = ?, dinner_stock = ? where stock_updation_id = ? ";
 	
+	public static final String UPDATESINGLEORDER = "update fapp_kitchen set no_of_single_order_lunch = ? , no_of_single_order_dinner = ? where kitchen_id = ? ";
+	
+	public static final String LOADSINGLEORDERKITCHEN = "select kitchen_id, kitchen_name, no_of_single_order_lunch, no_of_single_order_dinner from fapp_kitchen where is_active = 'Y' order by kitchen_id ";
 }
