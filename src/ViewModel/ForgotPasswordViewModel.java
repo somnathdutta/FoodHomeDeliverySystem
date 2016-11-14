@@ -41,22 +41,64 @@ public class ForgotPasswordViewModel {
 	private String password;
 	
 	private Boolean okBtnDisability = false;
-	
+	private String label;
 	@AfterCompose
 	public void initSetup(@ContextParam(ContextType.VIEW) Component view, 
-				@ExecutionArgParam("connectionParent") Connection connectionParent,
-				@ExecutionArgParam("username")String userName) {
+				@ExecutionArgParam("hashcode") String hascode) {
 
 		Selectors.wireComponents(view, this, false);
 		session = Sessions.getCurrent();
-		//connection = connectionParent;
-		connection=(Connection) session.getAttribute("sessionConnection");
-		username = userName;
+		
 		System.out.println("zul page >> forGotPassWord.zul");
 		loginBean.newPasswordDis = true;
 		loginBean.confirmPasswordDis = true;
 		loginBean.saveDis = true;
+		
+		loginBean.hashcode = hascode;
+		loginBean.contactNoDis = true;
+		loadEmailId(hascode);
+		label = "Reset password for the email "+ loginBean.email;
 	}
+	
+	public void loadEmailId(String hc){
+		PreparedStatement preparedStatement = null;
+		Connection conn = null;
+		
+		String sql = "select email, mobile_no from fapp_accounts where hash_code = ? ";
+		
+		try {
+			
+		
+		try {
+			Class.forName("org.postgresql.Driver"); 
+			conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/foodhomedelivery", "postgres", "password"); 
+			preparedStatement  = conn.prepareStatement(sql);
+			
+			preparedStatement.setString(1, hc);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			
+			while (resultSet.next()) {
+				loginBean.email = resultSet.getString("email");
+				loginBean.contactNo = resultSet.getString("mobile_no");
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			if(preparedStatement != null){
+				preparedStatement.close();
+			}if(conn != null){
+				conn.close();
+			}
+		}
+		
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
 	
 	@Command
 	@NotifyChange("*")
@@ -248,46 +290,29 @@ public class ForgotPasswordViewModel {
 	 @NotifyChange("*")
 	 public void onClickResetPassword(){
 		 int i = 0;
-		 if(loginBean.newPassword != null && loginBean.confirmPassword != null && loginBean.contactNo != null){
+		 if(validation()){
+		 	 
+			 String sql = "UPDATE fapp_accounts SET password = ? WHERE mobile_no = ? ";
 		 
-		 String sql = "UPDATE fapp_accounts SET password = ? WHERE mobile_no = ? ";
-		 
-		 	try {
+		 		try {
 		 		Connection con = null;
 		 		PreparedStatement preparedStatement = null;
-			 try {
-				Class.forName("org.postgresql.Driver"); 
-				con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/foodhomedelivery", "postgres", "password"); 
-				preparedStatement = con.prepareStatement(sql); 
-				preparedStatement = con.prepareStatement(sql);
-				preparedStatement.setString(1, loginBean.confirmPassword);
-				preparedStatement.setString(2, loginBean.contactNo);
-				
-				i = preparedStatement.executeUpdate();
+			    try {
+					Class.forName("org.postgresql.Driver"); 
+					con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/foodhomedelivery", "postgres", "password"); 
+					preparedStatement = con.prepareStatement(sql); 
+					preparedStatement = con.prepareStatement(sql);
+					preparedStatement.setString(1, loginBean.confirmPassword);
+					preparedStatement.setString(2, loginBean.contactNo);
+					
+					i = preparedStatement.executeUpdate();
 				if(i>0){
-					Messagebox.show("Password Successfully Updated /n close the window", "Information", Messagebox.OK, Messagebox.INFORMATION);
+					Messagebox.show("Password Successfully Updated \n close the window", "Information", Messagebox.OK, Messagebox.INFORMATION);
 					
 					winForgotPassword.detach();
-					loginBean.contactNo = null;
-					loginBean.confirmPassword = null;
-					loginBean.confirmPasswordDis = true;
 					
-					loginBean.newPassword = null;
-					loginBean.newPasswordDis= true;
-					
-					loginBean.saveDis = true;
-					loginBean.contactNo = null;
 					
 				}else {
-					loginBean.contactNo = null;
-					loginBean.confirmPassword = null;
-					loginBean.confirmPasswordDis = true;
-					
-					loginBean.newPassword = null;
-					loginBean.newPasswordDis= true;
-					
-					loginBean.saveDis = true;
-					loginBean.contactNo = null;
 					
 					Messagebox.show("Enter Proper Data", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
 				}
@@ -307,14 +332,50 @@ public class ForgotPasswordViewModel {
 
 			} catch (Exception e) {
 				e.printStackTrace();
-			} 
-		 
-		}else {
-			Messagebox.show("Enter All Fields", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
-		} 
+			} 	
+		 	
+		}
+	 }
+	 
+	 
+	 public boolean validation(){
+		 if(loginBean.newPassword != null){
+			 if(loginBean.confirmPassword != null){
+				 if(loginBean.newPassword.matches("^[^\\d\\s]+$")){
+					 if(loginBean.confirmPassword.matches("^[^\\d\\s]+$")){
+						 if(loginBean.newPassword.equals(loginBean.confirmPassword)){
+							 return true;
+						 }else {
+							 loginBean.confirmPassword = null;
+							 loginBean.newPassword  = null;
+							 Messagebox.show("Confirm PassWord And New Password Not Matched", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+							 return false;
+						}
+						 
+					 }else {
+						 loginBean.confirmPassword = null;
+						 loginBean.newPassword  = null;
+						 Messagebox.show("Entered Confirm Password Fields Should Not Cotains any space ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+						 return false;
+					}
+				 }else {
+					 loginBean.confirmPassword = null;
+					 loginBean.newPassword  = null;
+					 Messagebox.show("Entered New Password Fields Should Not Cotains any space ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+					 return false;
+				}
+			 }else {
+				 Messagebox.show("Enter Confirm Password Fields", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+				 return false;
+			}
+		 }else {
+			 Messagebox.show("Enter New Password Fields", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+			 return false;
+		}
 		 
 		 
 	 }
+	 
 	 
 	 
 	 
@@ -469,6 +530,14 @@ public class ForgotPasswordViewModel {
 
 	public void setOkBtnDisability(Boolean okBtnDisability) {
 		this.okBtnDisability = okBtnDisability;
+	}
+
+	public String getLabel() {
+		return label;
+	}
+
+	public void setLabel(String label) {
+		this.label = label;
 	}
 	
 	

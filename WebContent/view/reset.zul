@@ -6,7 +6,7 @@
 
 <div>
 
-Load from EL [ <label value="${param.test}" />]
+<label value="${param.rc}" visible="false"/>
 
 </div>
 

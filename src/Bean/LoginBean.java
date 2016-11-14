@@ -34,11 +34,15 @@ public class LoginBean implements Serializable {
 	
 	public boolean newPasswordDis;
 	public boolean confirmPasswordDis; 
-	
+	public boolean contactNoDis;
 	public boolean oldPasswordDis;
 	
 	public boolean saveDis;
 
+	public String hashcode;
+	public String email;
+	
+	
 	public String getUserName() {
 		return userName;
 	}
@@ -177,6 +181,30 @@ public class LoginBean implements Serializable {
 
 	public void setSaveDis(boolean saveDis) {
 		this.saveDis = saveDis;
+	}
+
+	public String getHashcode() {
+		return hashcode;
+	}
+
+	public void setHashcode(String hashcode) {
+		this.hashcode = hashcode;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public boolean isContactNoDis() {
+		return contactNoDis;
+	}
+
+	public void setContactNoDis(boolean contactNoDis) {
+		this.contactNoDis = contactNoDis;
 	}
 	
 }
