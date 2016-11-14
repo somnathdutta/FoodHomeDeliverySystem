@@ -59,7 +59,11 @@ public class ForgotPasswordViewModel {
 		loadEmailId(hascode);
 		if(loginBean.email == null){
 			Messagebox.show("Invalid Link!","Error",Messagebox.OK,Messagebox.ERROR);
-			winForgotPassword.detach();
+			loginBean.saveDis = true;
+			//winForgotPassword.detach();
+			
+		}else {
+			loginBean.saveDis = false;
 		}
 		label = "Reset password for the email "+ loginBean.email;
 	}
