@@ -2,7 +2,6 @@
 <zk>
 	<window title="Kitchen Item" border="normal"
 		contentStyle="overflow:scroll;" apply="org.zkoss.bind.BindComposer"
-		style="background:transparent"
 		viewModel="@id('vm')@init('ViewModel.ManageKitchenItemsViewModel')">
 		<style>
 			.fgrid tr.z-row td.z-row-inner,tr.z-row,div.z-grid-body
@@ -189,7 +188,7 @@
 											<hlayout>
 											<label value="Is active" style="font-weight:bold;"/>
 											<combobox placeholder="[Active/Deactive]" width="130px" value="@bind(vm.kitchenBean.status)">
-											<comboitem  label="Active"/>
+											<comboitem  label="Active"/>style="background:transparent"
 											<comboitem label="Deactive"/>
 											</combobox>
 											</hlayout>

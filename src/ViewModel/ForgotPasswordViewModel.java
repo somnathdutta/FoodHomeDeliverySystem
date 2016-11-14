@@ -51,7 +51,7 @@ public class ForgotPasswordViewModel {
 		//connection = connectionParent;
 		connection=(Connection) session.getAttribute("sessionConnection");
 		username = userName;
-	
+		System.out.println("zul page >> forGotPassWord.zul");
 		
 	}
 	
@@ -111,15 +111,18 @@ public class ForgotPasswordViewModel {
 				  if(loginBean.newPassword!=null){
 					  return true;
 				  }else{
-					  Messagebox.show("New password required!");
+					  
+					  Messagebox.show("New password required!", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
 					  return false;
 				  }
 			  }else{
-				  Messagebox.show("Old password required!");
+				  
+				  Messagebox.show("Old password required!", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
 				  return false;
 			  }
 		  }else{
-			  Messagebox.show("User name required!");
+			  
+			  Messagebox.show("User name required!", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
 			  return false;
 		  }
 	  }
