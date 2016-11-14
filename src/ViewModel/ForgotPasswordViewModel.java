@@ -57,6 +57,10 @@ public class ForgotPasswordViewModel {
 		loginBean.hashcode = hascode;
 		loginBean.contactNoDis = true;
 		loadEmailId(hascode);
+		if(loginBean.email == null){
+			Messagebox.show("Invalid Link!","Error",Messagebox.OK,Messagebox.ERROR);
+			winForgotPassword.detach();
+		}
 		label = "Reset password for the email "+ loginBean.email;
 	}
 	
@@ -310,11 +314,6 @@ public class ForgotPasswordViewModel {
 					Messagebox.show("Password Successfully Updated \n close the window", "Information", Messagebox.OK, Messagebox.INFORMATION);
 					
 					winForgotPassword.detach();
-					
-					
-				}else {
-					
-					Messagebox.show("Enter Proper Data", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
 				}
 				
 			 } catch (Exception e) {
@@ -355,21 +354,21 @@ public class ForgotPasswordViewModel {
 					 }else {
 						 loginBean.confirmPassword = null;
 						 loginBean.newPassword  = null;
-						 Messagebox.show("Entered Confirm Password Fields Should Not Cotains any space ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+						 Messagebox.show("Entered Confirm Password Field Should Not Cotains any space ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
 						 return false;
 					}
 				 }else {
 					 loginBean.confirmPassword = null;
 					 loginBean.newPassword  = null;
-					 Messagebox.show("Entered New Password Fields Should Not Cotains any space ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+					 Messagebox.show("Entered New Password Field Should Not Cotains any space ", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
 					 return false;
 				}
 			 }else {
-				 Messagebox.show("Enter Confirm Password Fields", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+				 Messagebox.show("Enter Confirm Password Field", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
 				 return false;
 			}
 		 }else {
-			 Messagebox.show("Enter New Password Fields", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+			 Messagebox.show("Enter New Password Field", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
 			 return false;
 		}
 		 
