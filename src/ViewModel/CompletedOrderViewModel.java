@@ -133,15 +133,17 @@ public class CompletedOrderViewModel {
 	@Command
 	@NotifyChange("*")
 	public void onClickSearch(){
-		if(completedOrderBeanList.size()>0){
-			completedOrderBeanList.clear();
-		}
+		
 		
 		if(completedOrderBean.fromDeliveryDateUtil != null){
 			if(completedOrderBean.toDeliveryDateUtil != null){
 				//if(completedOrderBean.toDeliveryDateUtil.after(completedOrderBean.fromDeliveryDateUtil) || completedOrderBean.toDeliveryDateUtil.equals(completedOrderBean.fromDeliveryDateUtil)){
 				if(!completedOrderBean.toDeliveryDateUtil.before(completedOrderBean.fromDeliveryDateUtil)){	
-				 String sql = "select * from vw_completed_order_list where delivery_date >= ? AND delivery_date <= ?";
+					if(completedOrderBeanList.size()>0){
+						completedOrderBeanList.clear();
+					}
+					
+					String sql = "select * from vw_completed_order_list where delivery_date >= ? AND delivery_date <= ?";
 					try {
 							SQL:{
 									PreparedStatement preparedStatement = null;
@@ -195,10 +197,10 @@ public class CompletedOrderViewModel {
 					Messagebox.show("To Date Should be Greter Than From Date", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
 				}
 			}else {
-				Messagebox.show("Select Delivery To", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+				Messagebox.show("Select Delivery To Date", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
 			}
 		}else {
-			Messagebox.show("Select Delivery From", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+			Messagebox.show("Select Delivery From Date", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
 		}
 		
 	}
