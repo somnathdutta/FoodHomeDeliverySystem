@@ -1,0 +1,54 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window title="Order Contact Us" border="normal" apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('ViewModel.OrderContactUsViewModel')">
+
+	<div visible="@bind(vm.contactUsBean.insertDivVis)">
+		<grid>
+			<columns>
+				<column label="Contact No" align="center"></column>
+				<column label="Message" align="center"></column>
+				<column label="Save" align="center"></column>
+			</columns>
+			<rows>
+				<row>
+					<textbox value="@bind(vm.contactUsBean.contNo)" maxlength="14"></textbox>
+					<textbox multiline="true" value="@bind(vm.contactUsBean.contactMessage)" width="98%"></textbox>
+					<button label="Save" onClick="@command('insertOrderContactUs')" sclass="mybutton"></button>
+			
+				</row>
+			</rows>
+		</grid>
+		</div>
+		
+		<space></space>
+		<div align="center" height="20px">
+			<label value="Update Order Contact No" style="font-weight: bold"></label>
+		</div>
+		
+		<space></space>
+		<div>
+			<grid model="@bind(vm.contactUsBeanList)">
+				<columns>
+					<column label="Contact No" align="center"></column>
+					<column label="Contact Message" align="center"></column>
+					<column label="Action" align="center"></column>
+				</columns>
+				<rows>
+					<template name="model" var= "v">
+						<row>
+							<textbox value="@bind(v.contNo)"  maxlength="14"></textbox>
+							<textbox multiline="true" value="@bind(v.contactMessage)" width="98%"></textbox>
+							<hlayout spacing="20px">
+								<button onClick="@command('updateOrderContactUs', bean= v)" sclass="mybutton" label="Update"></button>
+								<button onClick="@command('deleteOrderContactUs', bean= v)" sclass="mybutton" label="Delete"></button>
+							</hlayout>
+						</row>
+					</template>	
+				
+				</rows>
+			</grid>
+	    </div>
+
+
+</window>
+</zk>

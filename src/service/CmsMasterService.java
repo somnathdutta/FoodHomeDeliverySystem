@@ -169,6 +169,31 @@ public class CmsMasterService {
 		i = CmsMasterDao.deletePrivacyPolicy(connection, bean, user);
 		return i;
 	}
-		
+	
+	//order contact us
+	
+	public static int insertOrderContactUs(Connection connection, ContactUsBean bean, String user){
+		int i = 0;
+		i = CmsMasterDao.insertOrderContactUs(connection, bean, user);
+		return i;
+	}
+
+	public static ArrayList<ContactUsBean> loadOrderContactUs(Connection connection){
+		ArrayList<ContactUsBean> list = new ArrayList<ContactUsBean>();
+		list = CmsMasterDao.loadOrderContactUs(connection);
+		return list;
+	}
+
+	public static int updateOrderContactUs(Connection connection, ContactUsBean bean, String user){
+		int i = 0;
+		i = CmsMasterDao.updateOrderContactUs(connection, bean, user);
+		return i;
+	}
+
+	public static int deleteOrderContactUs(Connection connection, ContactUsBean bean, String user){
+		int i = 0;
+		i = CmsMasterDao.deleteOrderContactUs(connection, bean, user);
+		return i;
+	}
 	
 }

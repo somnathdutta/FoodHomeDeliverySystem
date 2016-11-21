@@ -60,4 +60,16 @@ public class CmsMasterSql {
 	public static final String deletePrivacyPolicySql = "update fapp_privacy_policy set is_delete = 'Y', updated_by = ? where fapp_privacy_policy_id = ? ";
 	
 	
+	/******************************************************* Order Contact Us **************************************************************/
+	
+	public static final String insertOrderContactUsSql = "insert into fapp_order_contact_us (contact_no,order_contact_message, created_by, updated_by) values (?, ?, ?, ?)";
+	
+	public static final String loadOrderContactUsSql = "select fapp_order_contact_us_id, contact_no,order_contact_message from fapp_order_contact_us where is_delete = 'N' ";
+	
+	public static final String updateOrderContactUsSql = "update fapp_order_contact_us set contact_no = ?,order_contact_message=?, updated_by = ? where fapp_order_contact_us_id = ? ";
+	
+	public static final String deleteOrderContactUsSql = "update fapp_order_contact_us set is_delete = 'Y', updated_by = ? where fapp_order_contact_us_id = ? ";
+	
+	
+	
 }

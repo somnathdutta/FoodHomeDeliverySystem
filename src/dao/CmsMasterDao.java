@@ -416,6 +416,89 @@ public class CmsMasterDao {
 	
 	}
 	
+	// order contact us
+	public static int insertOrderContactUs(Connection connection, ContactUsBean bean, String user){
+		int i = 0;
+		try {
+			PreparedStatement preparedStatement = null;
+			preparedStatement = FappPstm.createQuery(connection, CmsMasterSql.insertOrderContactUsSql, Arrays.asList(bean.getContNo(), bean.getContactMessage() ,user, user));
+			i = preparedStatement.executeUpdate();
+			
+		} catch (Exception e) {
+			String msg = e.getMessage();
+			Messagebox.show(msg, "Error", Messagebox.OK, Messagebox.ERROR);
+			e.printStackTrace();
+		}
+		return i;
+	}
+	
+	public static ArrayList<ContactUsBean> loadOrderContactUs(Connection connection){
+		ArrayList<ContactUsBean> list = new ArrayList<ContactUsBean>();
+		if(list.size()>0){
+			list.clear();
+		}
+		try {
+			PreparedStatement preparedStatement = null;
+			try {
+				preparedStatement = FappPstm.createQuery(connection, CmsMasterSql.loadOrderContactUsSql, null);
+				ResultSet resultSet = preparedStatement.executeQuery();
+				while (resultSet.next()) {
+					ContactUsBean bean = new ContactUsBean();
+					bean.setContactusId(resultSet.getInt("fapp_order_contact_us_id"));
+					bean.setContNo(resultSet.getString("contact_no"));
+					bean.setContactMessage(resultSet.getString("order_contact_message"));
+					list.add(bean);
+					
+				}
+				
+			} catch (Exception e) {
+				String msg = e.getMessage();
+				Messagebox.show(msg, "Error", Messagebox.OK, Messagebox.ERROR);
+				e.printStackTrace();
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	public static int updateOrderContactUs(Connection connection, ContactUsBean bean, String user){
+
+		int i = 0;
+		try {
+			PreparedStatement preparedStatement = null;
+			preparedStatement = FappPstm.createQuery(connection, CmsMasterSql.updateOrderContactUsSql, Arrays.asList(bean.getContNo(), bean.getContactMessage() ,user, bean.getContactusId()));
+			i = preparedStatement.executeUpdate();
+			
+		} catch (Exception e) {
+			String msg = e.getMessage();
+			Messagebox.show(msg, "Error", Messagebox.OK, Messagebox.ERROR);
+			e.printStackTrace();
+		}
+		return i;
+	
+	}
+	
+	public static int deleteOrderContactUs(Connection connection, ContactUsBean bean, String user){
+
+		int i = 0;
+		try {
+			PreparedStatement preparedStatement = null;
+			preparedStatement = FappPstm.createQuery(connection, CmsMasterSql.deleteOrderContactUsSql, Arrays.asList(user, bean.getContactusId()));
+			i = preparedStatement.executeUpdate();
+			
+		} catch (Exception e) {
+			String msg = e.getMessage();
+			Messagebox.show(msg, "Error", Messagebox.OK, Messagebox.ERROR);
+			e.printStackTrace();
+		}
+		return i;
+	
+	}
+	
+	
+	
 	
 }
 
