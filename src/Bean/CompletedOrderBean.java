@@ -1,5 +1,7 @@
 package Bean;
 
+import java.sql.Date;
+
 public class CompletedOrderBean {
 	
 	public String orderNo;
@@ -17,6 +19,18 @@ public class CompletedOrderBean {
 	public String deliveryBoy;
 	
 	public String deliveryBoyPhone;
+	
+	public Date fromDeliveryDateSql;
+	public java.util.Date fromDeliveryDateUtil;
+	public String fromDeliveryDateStr;
+	
+	public Date toDeliveryDateSql;
+	public java.util.Date toDeliveryDateUtil;
+	public String toDeliveryDateStr;
+	
+	public Date deliveryDateSql;
+	public java.util.Date deliveryDateUtil;
+	public String deliveryDateStr;
 	
 	public String city;
 	public String area;
@@ -93,6 +107,60 @@ public class CompletedOrderBean {
 	}
 	public void setOrderNo(String orderNo) {
 		this.orderNo = orderNo;
+	}
+	public Date getDeliveryDateSql() {
+		return deliveryDateSql;
+	}
+	public void setDeliveryDateSql(Date deliveryDateSql) {
+		this.deliveryDateSql = deliveryDateSql;
+	}
+	public java.util.Date getDeliveryDateUtil() {
+		return deliveryDateUtil;
+	}
+	public void setDeliveryDateUtil(java.util.Date deliveryDateUtil) {
+		this.deliveryDateUtil = deliveryDateUtil;
+	}
+	public String getDeliveryDateStr() {
+		return deliveryDateStr;
+	}
+	public void setDeliveryDateStr(String deliveryDateStr) {
+		this.deliveryDateStr = deliveryDateStr;
+	}
+	public Date getFromDeliveryDateSql() {
+		return fromDeliveryDateSql;
+	}
+	public void setFromDeliveryDateSql(Date fromDeliveryDateSql) {
+		this.fromDeliveryDateSql = fromDeliveryDateSql;
+	}
+	public java.util.Date getFromDeliveryDateUtil() {
+		return fromDeliveryDateUtil;
+	}
+	public void setFromDeliveryDateUtil(java.util.Date fromDeliveryDateUtil) {
+		this.fromDeliveryDateUtil = fromDeliveryDateUtil;
+	}
+	public String getFromDeliveryDateStr() {
+		return fromDeliveryDateStr;
+	}
+	public void setFromDeliveryDateStr(String fromDeliveryDateStr) {
+		this.fromDeliveryDateStr = fromDeliveryDateStr;
+	}
+	public Date getToDeliveryDateSql() {
+		return toDeliveryDateSql;
+	}
+	public void setToDeliveryDateSql(Date toDeliveryDateSql) {
+		this.toDeliveryDateSql = toDeliveryDateSql;
+	}
+	public java.util.Date getToDeliveryDateUtil() {
+		return toDeliveryDateUtil;
+	}
+	public void setToDeliveryDateUtil(java.util.Date toDeliveryDateUtil) {
+		this.toDeliveryDateUtil = toDeliveryDateUtil;
+	}
+	public String getToDeliveryDateStr() {
+		return toDeliveryDateStr;
+	}
+	public void setToDeliveryDateStr(String toDeliveryDateStr) {
+		this.toDeliveryDateStr = toDeliveryDateStr;
 	}
 	
 	

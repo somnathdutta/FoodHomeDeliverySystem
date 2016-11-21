@@ -69,9 +69,20 @@
 	
 	<div style="padding: 1% 1% 1% 1%; border:#DADADA 1px groove;" sclass="effect8">
 	
-		<grid model="@bind(vm.completedOrderBeanList)" mold="paging" pageSize="10">
+		<grid model="@bind(vm.completedOrderBeanList)" mold="paging" pageSize="10" height="450px">
+			<auxhead>
+				<auxheader colspan="4">
+					<datebox placeholder="From Date" value="@bind(vm.completedOrderBean.fromDeliveryDateUtil)" format="dd-MM-yyyy"></datebox>
+					<datebox placeholder="To Date" value="@bind(vm.completedOrderBean.toDeliveryDateUtil)" format="dd-MM-yyyy"></datebox>
+					<space></space>
+					<button label="Search" sclass="mybutton" onClick="@command('onClickSearch')"></button>
+					<button label="Clear" sclass="mybutton" onClick="@command('onClickClear')"></button>
+				</auxheader>
+		
+			</auxhead>
 			<columns sizable="true">
 				<column label="Order Number" align="center" width="145px" style="background-color:#FFCC99;color:white"/>
+				<column label="Delivery Date" align="center" width="140px" style="background-color:#FFCC99;color:white"></column>
 				<column label="Order By" width="160px"  align="center" style="background-color:#FFCC99;color:white"/>
 				<column label="Contact Number" width="110px" align="center" style="background-color:#FFCC99;color:white"/>
 				<column label="Email Id" width="190px" align="center" style="background-color:#FFCC99;color:white"/>
@@ -79,12 +90,13 @@
 				<!-- <column label="Delivery Boy" align="center" style="background-color:#FFCC99;color:white"/>
 				<column label="Delivery Boy Contact " align="center" width="190px" style="background-color:#FFCC99;color:white"/>
 				<column label="Status" align="center" width="110px" style="background-color:#FFCC99;color:white"/> -->
-				<column label="Show" align="center" style="background-color:#FFCC99;color:white"/>
+				<column label="Show" align="center" style="background-color:#FFCC99;color:white" width="150px"/>
 			</columns>
 			<rows>
 				 <template name="model" var="v"> 
 					<row>
 						<textbox width="100%" value="@bind(v.orderNo)" readonly="true"/>
+						<textbox width="100%" value="@bind(v.deliveryDateStr)" readonly="true"></textbox>
 						<textbox width="100%" value="@bind(v.orderBy)" readonly="true"/>
 						<textbox width="100%" value="@bind(v.contactNumber)" readonly="true"/>
 						<textbox width="100%" value="@bind(v.emailId)" readonly="true"/>
@@ -92,7 +104,7 @@
 						<!-- <textbox width="100%" value="@bind(v.deliveryBoy)" readonly="true"/>
 						<textbox width="100%" value="@bind(v.deliveryBoyPhone)" readonly="true"/>
 						<textbox width="100%" value="@bind(v.orderStatus)" readonly="true"/> -->
-						<button sclass="mybutton" label="Order Details" onClick="@command('onClickOrderDetails',bean=v)"/>
+						<button width="100%" sclass="mybutton" label="Order Details" onClick="@command('onClickOrderDetails',bean=v)"/>
 					</row>
 				 </template> 
 			</rows>
