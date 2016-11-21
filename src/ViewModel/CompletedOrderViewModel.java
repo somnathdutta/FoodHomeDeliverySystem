@@ -139,8 +139,9 @@ public class CompletedOrderViewModel {
 		
 		if(completedOrderBean.fromDeliveryDateUtil != null){
 			if(completedOrderBean.toDeliveryDateUtil != null){
-				if(completedOrderBean.toDeliveryDateUtil.after(completedOrderBean.fromDeliveryDateUtil)){
-					String sql = "select * from vw_completed_order_list where delivery_date >= ? AND delivery_date <= ?";
+				//if(completedOrderBean.toDeliveryDateUtil.after(completedOrderBean.fromDeliveryDateUtil) || completedOrderBean.toDeliveryDateUtil.equals(completedOrderBean.fromDeliveryDateUtil)){
+				if(!completedOrderBean.toDeliveryDateUtil.before(completedOrderBean.fromDeliveryDateUtil)){	
+				 String sql = "select * from vw_completed_order_list where delivery_date >= ? AND delivery_date <= ?";
 					try {
 							SQL:{
 									PreparedStatement preparedStatement = null;
