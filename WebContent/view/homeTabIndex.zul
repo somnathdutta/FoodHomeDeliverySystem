@@ -158,6 +158,13 @@
 									   		
 									   		<treeitem>
 												<treerow>
+													<treecell label="Order Contact Us"
+														onClick='inclResults.setSrc("orderContactUs.zul");' />
+												</treerow>
+									   		</treeitem>
+									   		
+									   		<treeitem>
+												<treerow>
 													<treecell label="Terms and Conditions"
 														onClick='inclResults.setSrc("cmstandc.zul");' />
 												</treerow>
@@ -170,12 +177,7 @@
 												</treerow>
 									   		</treeitem>
 										
-											<treeitem>
-												<treerow>
-													<treecell label="Order Contact Us"
-														onClick='inclResults.setSrc("orderContactUs.zul");' />
-												</treerow>
-									   		</treeitem>
+											
 										
 										
 										</treechildren>
