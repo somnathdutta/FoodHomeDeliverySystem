@@ -123,7 +123,7 @@ public class KitchenDeliverOrderDAO {
 								 receivedorderbean.orderNo = "";
 								 receivedorderbean.status = "";
 								 receivedorderbean.orderDateValue="";
-								 receivedorderbean.deliveryDateValue = null;
+								 receivedorderbean.deliveryDateValue = "";
 							 }
 						 }
 						

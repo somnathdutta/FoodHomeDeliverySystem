@@ -79,6 +79,8 @@
 							<button label="Find" sclass="mybutton" onClick="@command('onClickFind')"/>
 							<space></space>
 							<button label="Clear" sclass="mybutton" onClick="@command('onClickClear')"/>
+							<space></space>
+							<button label="Generate Excel" sclass="mybutton" onClick="@command('generateExcelSheet')"/>
 						</auxheader>
 					</auxhead>
 					<columns sizable="true">
