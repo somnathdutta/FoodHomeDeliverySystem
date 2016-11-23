@@ -71,6 +71,12 @@ public class ItemPackMasterViewModel {
 	@NotifyChange("*")
 	public void onClickSave(){
 		saveItemPack();
+		clear();
+	}
+	
+	public void clear(){
+		itemPackMaster.setItemPackName(null);
+		itemPackMaster.setStatus(null);
 	}
 	
 	@Command
