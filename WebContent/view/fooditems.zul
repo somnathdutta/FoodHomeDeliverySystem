@@ -188,6 +188,18 @@
 													label="@load(v.itemTypeName)" value="@bind(v.itemTypeId)" />
 												</template>
 											</combobox>
+											
+											<label value="Item Pack Type"
+												style="font-weight:bold" />
+											<combobox readonly="true" model="@bind(vm.itemPackTypeList)"
+												placeholder="[Item Pack Type]" width="130px"
+												value="@bind(vm.itemPackTypeBean.packingName)"
+												selectedItem="@bind(vm.itemPackTypeBean)">
+												<template name="model" var="v">
+													<comboitem
+													label="@load(v.packingName)" value="@bind(v.packingId)" />
+												</template>
+											</combobox>
 										</row>
 										<row>
 											<!-- <div align="center"> -->

@@ -49,6 +49,10 @@ public class FooditemVieModel {
 	
 	private ArrayList<ItemBean> ItemTypeList = new ArrayList<ItemBean>();
 	
+	private ItemBean itemPackTypeBean = new ItemBean();
+	
+	private ArrayList<ItemBean> itemPackTypeList = new ArrayList<ItemBean>();
+	
 	ManageCategoryBean categoryBean = new ManageCategoryBean();
 	
 	ManageCuisinBean cuisinBean = new ManageCuisinBean();
@@ -106,6 +110,7 @@ public class FooditemVieModel {
 		//loadQuery();
 		onLoadCuisineList();
 		ItemTypeList = FoodItemDAO.loadAlacarteTypeNameList(connection);
+		itemPackTypeList = FoodItemDAO.loadItemPackingTypeList(connection);
 		newUserCuisineBeanList = FoodItemService.fetchCuisineList(connection);
 		itemBean.itemCode = FoodItemDAO.getLastItemCode(connection);
 	}
@@ -157,6 +162,13 @@ public class FooditemVieModel {
 							}else{
 								bean.status = "Deactive";
 							}
+							bean.packingId = resultSet.getInt("packing_type_id");
+							if(resultSet.getString("pack_type") != null){
+								bean.packingName = resultSet.getString("pack_type");
+							}else{
+								bean.packingName = "";
+							}
+							
 							itemBeanList.add(bean);
 						}
 					} catch (Exception e) {
@@ -313,8 +325,8 @@ public class FooditemVieModel {
 			SQL:{
 					PreparedStatement preparedStatement = null;
 					String sql = "INSERT INTO food_items(category_id, item_name, item_image, item_price, "
-					           +" item_description, is_active, item_code,item_type_id,created_by) "
-					           +" VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+					           +" item_description, is_active, item_code,item_type_id,created_by,packing_type_id) "
+					           +" VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 					try {
 						preparedStatement = connection.prepareStatement(sql);
 						preparedStatement.setInt(1, categoryId);
@@ -353,6 +365,7 @@ public class FooditemVieModel {
 					//	else
 							preparedStatement.setInt(8, itemTypeBean.itemTypeId);
 						preparedStatement.setString(9, userName);
+						preparedStatement.setInt(10, itemPackTypeBean.packingId);
 						int count = preparedStatement.executeUpdate();
 						if(count>0){
 							isInserted = true;
@@ -386,9 +399,12 @@ public class FooditemVieModel {
 		itemBean.itemmagePath = bean.itemmagePath;
 		itemImage=bean.itemImage;
 		itemBean.status = bean.status;
-		
+		itemBean.packingId = bean.packingId;
+		itemBean.packingName = bean.packingName;
 		saveButtonVisibility = false;
 		updateButtonVisibility = true;
+		itemPackTypeBean.packingId = bean.packingId;
+		itemPackTypeBean.packingName = bean.packingName;
 		if(itemBean.categoryId==78 || itemBean.categoryId==79){
 			//typeVisibility = true;
 			//typeComboBoxVisibility = true;
@@ -405,6 +421,7 @@ public class FooditemVieModel {
 			itemTypeBean.itemTypeName = bean.itemTypeName;
 			itemTypeBean.itemTypeId = bean.itemTypeId;
 		}
+		itemPackTypeList = FoodItemDAO.loadItemPackingTypeList(connection);
 	}
 	
 	@Command
@@ -426,12 +443,12 @@ public class FooditemVieModel {
 	
 	public void updateItem(){
 		boolean isUpdated = false;
-		System.out.println(alaCarteTypeBean.itemTypeId);
+		System.out.println(itemTypeBean.packingId);
 		try {
 			SQL:{
 					PreparedStatement preparedStatement = null;
 					String sql = "UPDATE food_items set category_id=?, item_name=?, item_image=?, item_price=?, "
-					           +" item_description=?, is_active=?, item_code=?,item_type_id=?,updated_by=? where item_id = ? ";
+					           +" item_description=?, is_active=?, item_code=?,item_type_id=?,updated_by=?,packing_type_id = ? where item_id = ? ";
 					try {
 						preparedStatement = connection.prepareStatement(sql);
 						preparedStatement.setInt(1, categoryId);
@@ -471,7 +488,8 @@ public class FooditemVieModel {
 					//	else
 							preparedStatement.setInt(8, itemTypeBean.itemTypeId);
 						preparedStatement.setString(9, userName);
-						preparedStatement.setInt(10, itemBean.itemId);
+						preparedStatement.setInt(10, itemPackTypeBean.packingId);
+						preparedStatement.setInt(11, itemBean.itemId);
 						int count = preparedStatement.executeUpdate();
 						if(count>0){
 							isUpdated = true;
@@ -691,6 +709,7 @@ public class FooditemVieModel {
 		alaCarteTypeBean.itemTypeName = null;
 		ItemTypeList.clear();
 		itemTypeBean.itemTypeName = null;
+		itemPackTypeBean.packingName = null;
 	}
 	
 	public void loadAllSavedItems(){
@@ -932,6 +951,22 @@ public class FooditemVieModel {
 
 	public void setItemTypeList(ArrayList<ItemBean> itemTypeList) {
 		ItemTypeList = itemTypeList;
+	}
+
+	public ItemBean getItemPackTypeBean() {
+		return itemPackTypeBean;
+	}
+
+	public void setItemPackTypeBean(ItemBean itemPackTypeBean) {
+		this.itemPackTypeBean = itemPackTypeBean;
+	}
+
+	public ArrayList<ItemBean> getItemPackTypeList() {
+		return itemPackTypeList;
+	}
+
+	public void setItemPackTypeList(ArrayList<ItemBean> itemPackTypeList) {
+		this.itemPackTypeList = itemPackTypeList;
 	}
 
 	

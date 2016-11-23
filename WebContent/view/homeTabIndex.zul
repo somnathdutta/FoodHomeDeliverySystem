@@ -253,11 +253,37 @@
 										</treerow>
 									</treeitem>
 									
-									<treeitem>
+									<treeitem open="false">
+										<treerow>
+											<treecell
+												label="Manage Items"
+												visible="@bind(vm.manageServiceAreaVisibility)" />
+										</treerow>
+										<treechildren>
+											<treeitem>
+												<treerow>
+													<treecell
+														label="Item Settings Master"
+														onClick='inclResults.setSrc("itemSettingMaster.zul");'>
+													</treecell>
+												</treerow>
+											</treeitem>
+											<treeitem>
+												<treerow>
+													<treecell
+														label="Manage Food Items"
+														onClick='inclResults.setSrc("fooditems.zul");'
+														visible="@bind(vm.managecategoryitemsVisibility)" />
+												</treerow>
+											</treeitem>
+										</treechildren>
+									</treeitem>
+
+									<!-- <treeitem>
 										<treerow>
 											<treecell label="Manage Food Items" onClick='inclResults.setSrc("fooditems.zul");' visible="@bind(vm.managecategoryitemsVisibility)"/>
 										</treerow>
-									</treeitem>
+									</treeitem> -->
 									
 									
 									<treeitem open="false">

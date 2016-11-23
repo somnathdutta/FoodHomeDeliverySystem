@@ -91,7 +91,12 @@ public class FoodItemDAO {
 							}else {
 								bean.status = "Deactive";
 							}*/
-							
+							bean.packingId = resultSet.getInt("packing_type_id");
+							if(resultSet.getString("pack_type")!=null){
+								bean.packingName = resultSet.getString("pack_type");
+							}else{
+								bean.packingName = "";
+							}
 							
 							
 							itemBeanList.add(bean);
@@ -136,6 +141,36 @@ public class FoodItemDAO {
 			// TODO: handle exception
 		}
 		return alaCarteTypeList;
+	}
+	
+	public static ArrayList<ItemBean> loadItemPackingTypeList(Connection connection){
+		ArrayList<ItemBean> itemPackingTypeList = new ArrayList<ItemBean>();
+		try {
+			SQL:{
+					PreparedStatement preparedStatement = null;
+					ResultSet resultSet = null;
+					String sql = "select item_pack_type_id,pack_type from fapp_item_pack_type_master where "
+							+ " is_active ='Y' and is_delete='N'";
+					try {
+						preparedStatement = connection.prepareStatement(sql);
+						resultSet = preparedStatement.executeQuery();
+						while (resultSet.next() ) {
+							ItemBean packType = new ItemBean();
+							packType.packingId = resultSet.getInt("item_pack_type_id");
+							packType.packingName = resultSet.getString("pack_type");
+									
+							itemPackingTypeList.add(packType);
+						}
+					} catch (Exception e) {
+						// TODO: handle exception
+						e.printStackTrace();
+						Messagebox.show("ERROR DUE TO : "+e.getMessage(),"ERROR",Messagebox.OK,Messagebox.ERROR);
+					}
+				}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return itemPackingTypeList;
 	}
 
 	public static ArrayList<ManageCuisinBean> loadCuisineList(Connection connection){
