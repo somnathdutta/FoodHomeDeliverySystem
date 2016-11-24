@@ -71,7 +71,7 @@ viewModel="@id('vm') @init('ViewModel.ItemPackMasterViewModel')">
 							<space></space>
 							<div align="center">
 								<grid width="70%" model="@bind(vm.itemPackMasterList)">
-								<columns>
+								<columns sizable="true">
 									<column label="Pack Type Name" align="center"/>
 									<column label="Status" align="center"/>
 									<column label="Actions" align="center"/>
@@ -79,7 +79,7 @@ viewModel="@id('vm') @init('ViewModel.ItemPackMasterViewModel')">
 								<rows>
 								<template name="model" var="v">
 								<row>
-										<textbox value="@bind(v.itemPackName)"/>
+										<textbox width="100%" value="@bind(v.itemPackName)"/>
 										<combobox readonly="true" value="@bind(v.status)"
 												placeholder="[Active/Deactive]" width="130px">
 												<comboitem
