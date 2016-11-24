@@ -405,6 +405,24 @@
 										</treechildren>
 									</treeitem>
 									
+									<treeitem open="false">
+										<treerow>
+											<treecell label="Manage Inventory" visible="@bind(vm.manageServiceAreaVisibility)"/>
+										</treerow>
+										<treechildren>
+											<treeitem>
+												<treerow>
+													<treecell label="Inventory" onClick='inclResults.setSrc("inventory.zul");'></treecell>
+												</treerow>
+											</treeitem>
+											<treeitem>
+										<treerow>
+												<treecell label="Slot assignment" visible="false"></treecell>
+										</treerow>
+									</treeitem>
+										</treechildren>
+									</treeitem>
+									
 									
 									
 									<treeitem>

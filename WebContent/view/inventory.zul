@@ -1,0 +1,125 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window title="Inventory" border="normal" apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('ViewModel.InventoryViewModel')">
+	
+	<div>
+	   <tabbox>
+	   <tabs>		
+	   		<tab label="Package Allocation"></tab>
+	   		<tab label="Package Update"></tab>
+		</tabs>
+		
+		<tabpanels>
+		<tabpanel>
+
+		<div>
+			<hlayout spacing="20px">		    	
+				<label value="Kitchens" style="font-weight : bold; color: black"></label>
+				<combobox readonly="true" placeholder="Select Kitchen" model="@bind(vm.kitchenAllocationList)" 
+				   selectedItem="@bind(vm.kitchenAllocationBean)" onSelect="@command('onSelctKitchenAllocate')"
+				    value="@bind(vm.kitchenAllocationBean.kitchenName)">
+					<template name="model" var="v">
+						<comboitem value="@bind(v.kitchenId)" label="@bind(v.kitchenName)"></comboitem>
+					</template>
+				</combobox>
+				
+				<label value="Packaging Type" style="font-weight : bold; color: black"></label>
+				<combobox readonly="true" value="@bind(vm.itemPackMasterBean.itemPackName)" model="@bind(vm.itemPackMasterBeanList)" selectedItem="@bind(vm.itemPackMasterBean)" width="350px">
+					<template name="model" var = "v">
+						<comboitem label="@bind(v.itemPackName)" value="@bind(v.itemPackId)"></comboitem>
+					</template>
+				</combobox>
+				<button label="Save" style="font-weight : bold; color: black" sclass="mybutton" onClick="@command('onClickSavePackAllocation')"></button>
+				<button label="Clear" style="font-weight : bold; color: black" sclass="mybutton" onClick="@command('onClickPackAllocationClear')"></button>
+				
+			</hlayout>
+			<space></space>
+			<grid model="@bind(vm.inventoryAllocationBeanList)">
+				<columns>
+					<column label="Kitchen" style="font-weight : bold; color: black"></column>
+					<column label="Packageing Type" style="font-weight : bold; color: black"></column>
+					<!-- <column label="Action" style="font-weight : bold; color: black"></column> -->
+				</columns>
+				<rows>
+					<template name="model" var = "v">
+					<row>
+						<textbox value="@bind(v.kitchenName)" readonly="true"></textbox>
+						<textbox value="@bind(v.packagingType)" readonly="true" width="90%"></textbox>
+						<!-- <button label="Update" sclass="mybutton" visible="false"></button> -->
+					
+					</row>
+				  </template>		
+				</rows>
+			
+			</grid>
+			
+		</div>
+		</tabpanel>
+		<tabpanel>
+			<div>
+				<div>
+					<hlayout spacing="20px">
+						<label value="Kitchens"
+							style="font-weight : bold; color: black">
+						</label>
+						<combobox placeholder="Select Kitchen"
+							model="@bind(vm.kitchenList)"
+							selectedItem="@bind(vm.kitchenBean)"
+							onSelect="@command('onSelectKitchen')" value="@bind(vm.kitchenBean.kitchenName)" readonly="true">
+							<template name="model" var="v">
+								<comboitem value="@bind(v.kitchenId)"
+									label="@bind(v.kitchenName)">
+								</comboitem>
+							</template>
+						</combobox>
+					</hlayout>
+				</div>
+				<space></space>
+				<div>
+					<grid model="@bind(vm.inventoryBeanList)">
+						<columns>
+							<column label="Packaging Type"
+								align="center" style="font-weight : bold; color: black">
+							</column>
+							<column label="Stock" align="center"
+								style="font-weight : bold; color: black">
+							</column>
+							<column label="Sold" align="center"
+								style="font-weight : bold; color: black">
+							</column>
+							<column label="Action" align="center"
+								style="font-weight : bold; color: black">
+							</column>
+						</columns>
+						<rows>
+						  <template name="model" var = "v">
+							<row>
+								<textbox
+									value="@bind(v.packagingType)" width="98%"
+									readonly="true">
+								</textbox>
+								<intbox
+									value="@bind(v.stock)">
+								</intbox>
+								<textbox
+									value="@bind(v.sold)" readonly="true">
+								</textbox>
+								<button label="Update"
+									style="font-weight : bold; color: black"
+									onClick="@command('onClickUpdate', bean=v)" sclass="mybutton">
+								</button>
+							</row>
+						  </template>
+						</rows>
+					</grid>
+				</div>
+			</div>
+
+
+		</tabpanel>
+		</tabpanels>
+	</tabbox>
+	</div>
+	
+</window>
+</zk>
