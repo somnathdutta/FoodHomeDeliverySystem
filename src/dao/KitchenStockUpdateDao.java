@@ -3,13 +3,9 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Types;
 import java.util.ArrayList;
-
 import org.zkoss.zul.Messagebox;
-
 import Bean.KitchenStockUpdateViewBean;
-import Bean.ManageDeliveryBoyBean;
 
 public class KitchenStockUpdateDao {
 	
@@ -116,6 +112,5 @@ public class KitchenStockUpdateDao {
 		}
 		return inserted;	
 	}
-
 	
 }
