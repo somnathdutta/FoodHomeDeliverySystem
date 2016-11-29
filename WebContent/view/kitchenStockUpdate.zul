@@ -1,0 +1,42 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window title="KITCHEN STOCK UPDATE" border="none" apply="org.zkoss.bind.BindComposer" 
+																				       viewModel="@id('vm')@init('ViewModel.KitchenStockUpdateViewModel')">
+<div align="center">
+   <hlayout spacing="12px">
+      				 <hlayout>
+    					<label value="* " style="font-weight:bold; color:red; font-size:large;" />
+    					<combobox model="@bind(vm.kitchenNameList)" selectedItem="@bind(vm.kitchenBean.kitchenName)" readonly="true"
+		             		value="@bind(vm.kitchenBean.kitchenName)" onSelect="@command('onSelectKitchenName')" placeholder="Kitchen Name">
+		             		<template name="model" var="p">
+		             		  <comboitem value="@bind(p.kitchenName)" label="@bind(p.kitchenName)"/>
+		             		</template>
+		             	</combobox>	
+    				</hlayout>	
+       </hlayout>
+</div>
+   <space></space>
+			<div visible="@bind(vm.kitchenBean.kitchenStockDivVisibility)">
+    			<grid model="@bind(vm.kitchenStockList)" mold="paging" pageSize="10" height="400px">	
+    				<columns sizable="true">
+    					<column width="200px" label="Kichen Name" style="font-weight:bold; color: black" align="center"></column>
+    					<column width="200px" label="Item Type Name" style="font-weight:bold; color: black" align="center"></column>
+    					<column width="150px"  label="Lunch Stock" style="font-weight:bold; color: black" align="center"></column>
+    					<column width="150px" label="Dinner Stock" style="font-weight:bold; color: black" align="center"></column>
+    					<column width="150px" label="Operation" style="font-weight:bold; color: black" align="center"></column>
+    				</columns>
+    				<rows>
+    				  <template name="model" var = "v">
+    					<row>
+    				  		<label value="@bind(v.kitchenName)" width="99%"></label>
+    				  		<label value="@bind(v.itemTypeName)" width="99%"></label>
+    				  		<intbox value="@bind(v.lunchStock)" width="99%" style="text-align: right;"></intbox>
+    				  		<intbox value="@bind(v.dinnerStock)" width="99%" style="text-align: right;"></intbox>
+    				  		<button label="Update" width="99%" onClick="@command('onClickUpdateButton', bean = v)"></button>
+    				  	</row>
+    				  </template>	
+    				</rows>
+    			</grid>
+    		</div>
+	</window>
+</zk>

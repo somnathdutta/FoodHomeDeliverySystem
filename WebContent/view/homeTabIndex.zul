@@ -316,6 +316,12 @@
 										</treerow>
 									</treeitem>
 									
+									<treeitem>
+										<treerow>
+											<treecell label="Kitchen Stock Update" onClick='inclResults.setSrc("kitchenStockUpdate.zul");'/>
+										</treerow>
+									</treeitem>
+									
 									<!-- <treeitem>
 										<treerow>
 											<treecell label="Manage Category Items" onClick='inclResults.setSrc("manageCategoryItems.zul");' visible="@bind(vm.managecategoryitemsVisibility)"/>
