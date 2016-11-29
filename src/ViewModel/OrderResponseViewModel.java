@@ -142,8 +142,8 @@ public class OrderResponseViewModel {
 							}else{
 								orderResponseBean.orderResponseTimeValue = "NA";
 							}
-							if(resultSet.getString("delay_in_response")!=null){
-								orderResponseBean.delayInResponse = resultSet.getString("delay_in_response");
+							if(resultSet.getString("delay_in_pickup")!=null){
+								orderResponseBean.delayInResponse = resultSet.getString("delay_in_pickup");
 								int minutes =toMins(orderResponseBean.delayInResponse);
 								orderResponseBean.delayInMinutes = minutes;
 								orderResponseBean.delayByBoy = orderResponseBean.delayInResponse;
