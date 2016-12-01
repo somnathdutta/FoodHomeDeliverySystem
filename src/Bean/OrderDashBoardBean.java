@@ -33,8 +33,10 @@ public class OrderDashBoardBean {
 	public String notified;
 	public String rejected,picked;
 	public String delivered;
-	
-	
+	public String orderCreationTime;
+	public boolean orderCreationTimeVis;
+	public boolean orderAssignTimeVis;
+	public boolean timeSlotVis;
 	public Date orderAssignTime;
 	
 	public String orderAssignTimeValue;
@@ -298,6 +300,30 @@ public class OrderDashBoardBean {
 	}
 	public void setDeliverVisibility(boolean deliverVisibility) {
 		this.deliverVisibility = deliverVisibility;
+	}
+	public String getOrderCreationTime() {
+		return orderCreationTime;
+	}
+	public void setOrderCreationTime(String orderCreationTime) {
+		this.orderCreationTime = orderCreationTime;
+	}
+	public boolean isOrderCreationTimeVis() {
+		return orderCreationTimeVis;
+	}
+	public void setOrderCreationTimeVis(boolean orderCreationTimeVis) {
+		this.orderCreationTimeVis = orderCreationTimeVis;
+	}
+	public boolean isOrderAssignTimeVis() {
+		return orderAssignTimeVis;
+	}
+	public void setOrderAssignTimeVis(boolean orderAssignTimeVis) {
+		this.orderAssignTimeVis = orderAssignTimeVis;
+	}
+	public boolean isTimeSlotVis() {
+		return timeSlotVis;
+	}
+	public void setTimeSlotVis(boolean timeSlotVis) {
+		this.timeSlotVis = timeSlotVis;
 	}
 	
 	

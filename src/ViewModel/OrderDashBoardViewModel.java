@@ -163,7 +163,10 @@ public class OrderDashBoardViewModel {
 						dashBoardBean.notified = resultSet.getString("notify");
 						dashBoardBean.picked = resultSet.getString("order_picked");
 						dashBoardBean.rejected = resultSet.getString("rejected");
+						dashBoardBean.timeSlot = resultSet.getString("time_slot");
 						String itemDesc = resultSet.getString("item_description");
+						dashBoardBean.orderCreationTime= resultSet.getString("assigned_time");
+						
 						if(itemDesc!=null){
 							if(itemDesc.contains(","))
 								itemDesc = itemDesc.replace(",", ";");
@@ -195,6 +198,8 @@ public class OrderDashBoardViewModel {
 							dashBoardBean.orderByVisibility = false;
 							dashBoardBean.contactNoVisibility = false;
 							dashBoardBean.mealTypeVisibility = false;
+							dashBoardBean.orderCreationTimeVis = false;
+							dashBoardBean.timeSlotVis = false;
 						}	
 						orderNo = tempOrderNo ;
 						orderDashBoardBeanList.add(dashBoardBean);
@@ -274,6 +279,9 @@ public class OrderDashBoardViewModel {
 							dashBoardBean.notified = resultSet.getString("notify");
 							dashBoardBean.rejected = resultSet.getString("rejected");
 							String itemDesc = resultSet.getString("item_description");
+							dashBoardBean.timeSlot = resultSet.getString("time_slot");
+							dashBoardBean.orderCreationTime= resultSet.getString("assigned_time");
+							System.out.println("DAAAAA " + dashBoardBean.orderCreationTime);
 							if(itemDesc!=null){
 								if(itemDesc.contains(","))
 									itemDesc = itemDesc.replace(",", ";");
@@ -306,6 +314,8 @@ public class OrderDashBoardViewModel {
 								dashBoardBean.orderByVisibility = false;
 								dashBoardBean.contactNoVisibility = false;
 								dashBoardBean.mealTypeVisibility = false;
+								dashBoardBean.orderCreationTimeVis = false;
+								dashBoardBean.timeSlotVis = false;
 							}	
 							orderNo = tempOrderNo ;
 							orderDashBoardBeanList.add(dashBoardBean);
@@ -392,6 +402,9 @@ public class OrderDashBoardViewModel {
 							dashBoardBean.notified = resultSet.getString("notify");
 							dashBoardBean.rejected = resultSet.getString("rejected");
 							String itemDesc = resultSet.getString("item_description");
+							dashBoardBean.timeSlot = resultSet.getString("time_slot");
+							dashBoardBean.orderCreationTime= resultSet.getString("assigned_time");
+							
 							if(itemDesc!=null){
 								if(itemDesc.contains(","))
 									itemDesc = itemDesc.replace(",", ";");
@@ -424,6 +437,8 @@ public class OrderDashBoardViewModel {
 								dashBoardBean.orderByVisibility = false;
 								dashBoardBean.contactNoVisibility = false;
 								dashBoardBean.mealTypeVisibility = false;
+								dashBoardBean.orderCreationTimeVis = false;
+								dashBoardBean.timeSlotVis = false;
 							}	
 							orderNo = tempOrderNo ;
 							orderDashBoardBeanList.add(dashBoardBean);
@@ -495,6 +510,8 @@ public class OrderDashBoardViewModel {
 								dashBoardBean.notified = resultSet.getString("notify");
 								dashBoardBean.rejected = resultSet.getString("rejected");
 								String itemDesc = resultSet.getString("item_description");
+								dashBoardBean.orderCreationTime= resultSet.getString("assigned_time");
+								
 								if(itemDesc!=null){
 									if(itemDesc.contains(","))
 										itemDesc = itemDesc.replace(",", ";");
@@ -527,6 +544,8 @@ public class OrderDashBoardViewModel {
 									dashBoardBean.orderByVisibility = false;
 									dashBoardBean.contactNoVisibility = false;
 									dashBoardBean.mealTypeVisibility = false;
+									dashBoardBean.orderCreationTimeVis = false;
+									dashBoardBean.timeSlotVis = false;
 								}	
 								orderNo = tempOrderNo ;
 								orderDashBoardBeanList.add(dashBoardBean);

@@ -94,6 +94,7 @@
 						<column label="Order Status" align="center" width="130px"/>
 						<column label="Order By" align="center" width="140px"/>
 						<column label="Meal Type" align="center" width="120px"/>
+						<column label="Slot" align="center" width="200px"></column>
 						<column label="Delivery Date" align="center" width="90px"/>
 						<column label="Contact No." align="center" width="140px"/>
 						<column label="Order Item(s)" align="center" width="160px"/>
@@ -109,6 +110,7 @@
 						<column label="Delivered" align="center" width="70px"/>
 						<column label="Driver Name" align="center" width="140px" visible="true"/>
 						<column label="Driver Number" align="center" width="140px" visible="true"/>
+						<column label="Order Creation Time" align="center" width="240px"></column>
 					</columns>
 					
 					<rows >
@@ -119,6 +121,7 @@
 								<textbox width="100%" value="@bind(v.orderStatus)" readonly="true"/>
 								<textbox width="100%" value="@bind(v.orderBy)" visible="@bind(v.orderByVisibility)" readonly="true"/>
 								<textbox width="100%" value="@bind(v.mealType)" visible="@bind(v.mealTypeVisibility)" readonly="true"/>
+								<textbox width="100%" value="@bind(v.timeSlot)" readonly="true"></textbox>
 								<textbox width="100%" value="@bind(v.deliveryDateValue)" visible="@bind(v.deliveryDateVisibility)" readonly="true"/>
 								<textbox width="100%" value="@bind(v.contactNo)" visible="@bind(v.contactNoVisibility)" readonly="true"/>
 								<textbox width="100%" value="@bind(v.orderItem)" readonly="true"/>
@@ -134,6 +137,7 @@
 								<textbox width="100%" value="@bind(v.delivered)" readonly="true"/>
 								<textbox width="100%" value="@bind(v.driverName)" readonly="true"/>
 								<textbox width="100%" value="@bind(v.driverNumber)" readonly="true"/>
+								<textbox width="100%" value="@bind(v.orderCreationTime)" readonly="true"></textbox>
 							</row>
 						</template>
 					</rows>
