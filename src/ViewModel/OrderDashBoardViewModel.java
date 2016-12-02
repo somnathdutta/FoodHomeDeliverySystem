@@ -177,12 +177,15 @@ public class OrderDashBoardViewModel {
 						int orderStatusId = resultSet.getInt("order_status_id"); 
 						if(orderStatusId == 10){
 							dashBoardBean.statusStyle = "font-weight:bold; color:#ff3300; ";
+							dashBoardBean.rowStyle = "background-color: #ff3300";
 						}
 						if(orderStatusId == 7){
 							dashBoardBean.statusStyle = "font-weight:bold; color:#39e600; ";
+							//dashBoardBean.rowStyle = "background-color: #39e600";
 						}
 						if(orderStatusId != 10 && orderStatusId != 7 ){
 							dashBoardBean.statusStyle = "font-weight:bold; color:#ff9900; ";
+							//dashBoardBean.rowStyle = "background-color: #ff9900";
 						}
 						dashBoardBean.orderBy = resultSet.getString("order_by");
 						String deliveryZone = resultSet.getString("delivery_zone");

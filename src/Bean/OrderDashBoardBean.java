@@ -5,7 +5,7 @@ import java.sql.Date;
 public class OrderDashBoardBean {
 
 	public Integer orderId;
-	public String orderNo,timeSlot,statusStyle;
+	public String orderNo,timeSlot,statusStyle,rowStyle="background-color: #ffffe6";
 	public boolean orderNoVisibiliity = true;
 	public boolean orderDateVisibility = true;
 	public boolean orderByVisibility = true;
@@ -369,6 +369,12 @@ public class OrderDashBoardBean {
 	}
 	public void setStatusStyle(String statusStyle) {
 		this.statusStyle = statusStyle;
+	}
+	public String getRowStyle() {
+		return rowStyle;
+	}
+	public void setRowStyle(String rowStyle) {
+		this.rowStyle = rowStyle;
 	}
 	
 	

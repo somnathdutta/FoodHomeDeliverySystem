@@ -129,7 +129,7 @@
 					
 					<rows >
 						 <template name="model" var="v" > 
-							<row>
+							<row style="@bind(v.rowStyle)" >
 								<textbox width="100%" value="@bind(v.orderNo)" visible="@bind(v.orderNoVisibiliity)" readonly="true"/>
 								<textbox width="100%" value="@bind(v.price)" visible="@bind(v.orderDateVisibility)" readonly="true"/>
 								<textbox width="100%" value="@bind(v.orderDateValue)" visible="@bind(v.orderDateVisibility)" readonly="true"/>
