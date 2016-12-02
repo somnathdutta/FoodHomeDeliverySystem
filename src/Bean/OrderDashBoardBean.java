@@ -14,12 +14,14 @@ public class OrderDashBoardBean {
 	public boolean deliveryDateVisibility = true,
 			orderReceived = false,orderNotified = false,
 			orderDelivered = false,receiveVisibility = true,
-			notifyVisibility= true,deliverVisibility = true;
+			notifyVisibility= true,deliverVisibility = true,
+			deliveryZoneVisibility = true, deliveryAddressVisibility = true,
+			deliveryInstructionVisibility = true;
 	public Date orderdate;
 	public String orderDateValue;
 	public String orderStatus;
 	public String orderBy;
-	public String mealType,itemCode;
+	public String mealType,itemCode,deliveryZone,deliveryAddress,deliveryInstruction;
 	public Date deliveryDate;
 	public String deliveryDateValue;
 	public String contactNo;
@@ -324,6 +326,43 @@ public class OrderDashBoardBean {
 	}
 	public void setTimeSlotVis(boolean timeSlotVis) {
 		this.timeSlotVis = timeSlotVis;
+	}
+	public String getDeliveryZone() {
+		return deliveryZone;
+	}
+	public void setDeliveryZone(String deliveryZone) {
+		this.deliveryZone = deliveryZone;
+	}
+	public String getDeliveryAddress() {
+		return deliveryAddress;
+	}
+	public void setDeliveryAddress(String deliveryAddress) {
+		this.deliveryAddress = deliveryAddress;
+	}
+	public String getDeliveryInstruction() {
+		return deliveryInstruction;
+	}
+	public void setDeliveryInstruction(String deliveryInstruction) {
+		this.deliveryInstruction = deliveryInstruction;
+	}
+	public boolean isDeliveryZoneVisibility() {
+		return deliveryZoneVisibility;
+	}
+	public void setDeliveryZoneVisibility(boolean deliveryZoneVisibility) {
+		this.deliveryZoneVisibility = deliveryZoneVisibility;
+	}
+	public boolean isDeliveryAddressVisibility() {
+		return deliveryAddressVisibility;
+	}
+	public void setDeliveryAddressVisibility(boolean deliveryAddressVisibility) {
+		this.deliveryAddressVisibility = deliveryAddressVisibility;
+	}
+	public boolean isDeliveryInstructionVisibility() {
+		return deliveryInstructionVisibility;
+	}
+	public void setDeliveryInstructionVisibility(
+			boolean deliveryInstructionVisibility) {
+		this.deliveryInstructionVisibility = deliveryInstructionVisibility;
 	}
 	
 	

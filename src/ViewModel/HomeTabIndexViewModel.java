@@ -138,16 +138,24 @@ public class HomeTabIndexViewModel {
 	
 	@Command
 	@NotifyChange("*")
-	public void onClickSignOut()throws SQLException{
+	public void onClickSignOut(){
 			
 		if(session != null){
-			
+			System.out.println("Removing session attribute login. . .");
 			session.removeAttribute("login");
 			
 			Connection connection = (Connection) session.getAttribute("sessionConnection");
+			System.out.println("Getting session connection login. . .");
 			
-			connection.close();
-			
+			try {
+				System.out.println("Closing connection session. . . ");
+				connection.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				System.out.println("Exception on sign out button. . . ");
+				e.printStackTrace();
+			}
+			System.out.println("Removing sessionConnection. . . ");
 			session.removeAttribute("sessionConnection");
 			
 			Messagebox.show("Logged out!", "Information", Messagebox.OK, Messagebox.INFORMATION);
