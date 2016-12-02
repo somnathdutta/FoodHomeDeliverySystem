@@ -295,7 +295,7 @@ public class PromoCodeMasterDao {
 		try {
 			preparedStatement = FappPstm.createQuery(connection, PromoCodeMasterSql.upDatePromoCodeDetailsSql, Arrays.asList(bean.getPromocodeDescription(), reusable, fromDate, toDate, bean.getPromoTypeBean().getPromoCodeTypeId(),
 													 bean.getPromoApplyBean().getApplyTypeId(), bean.getUser(), status, bean.getPromoValue(),bean.getVolumeQuantity(), bean.getPromocodeDetailsId()));
-			System.out.println("QUERY -- " + preparedStatement);
+			//System.out.println("QUERY -- " + preparedStatement);
 			i = preparedStatement.executeUpdate();
 			
 		} catch (Exception e) {
