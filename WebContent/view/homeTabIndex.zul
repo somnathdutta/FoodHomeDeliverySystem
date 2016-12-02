@@ -591,6 +591,12 @@
 									
 									<treeitem>
 										<treerow>
+											<treecell label="Logistics Payment Report" onClick='inclResults.setSrc("logisticPaymentReport.zul")' ></treecell>
+										</treerow>
+									</treeitem>
+									
+									<treeitem>
+										<treerow>
 											<treecell label="Downtime analysis" ></treecell>
 										</treerow>
 									</treeitem>
