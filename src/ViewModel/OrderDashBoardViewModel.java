@@ -331,6 +331,7 @@ public class OrderDashBoardViewModel {
 							int orderStatusId = resultSet.getInt("order_status_id"); 
 							if(orderStatusId == 10){
 								dashBoardBean.statusStyle = "font-weight:bold; color:#ff3300; ";
+								dashBoardBean.rowStyle = "background-color: #ff3300";
 							}
 							if(orderStatusId == 7){
 								dashBoardBean.statusStyle = "font-weight:bold; color:#39e600; ";
@@ -489,6 +490,7 @@ public class OrderDashBoardViewModel {
 							int orderStatusId = resultSet.getInt("order_status_id"); 
 							if(orderStatusId == 10){
 								dashBoardBean.statusStyle = "font-weight:bold; color:#ff3300; ";
+								dashBoardBean.rowStyle = "background-color: #ff3300";
 							}
 							if(orderStatusId == 7){
 								dashBoardBean.statusStyle = "font-weight:bold; color:#39e600; ";
@@ -632,6 +634,7 @@ public class OrderDashBoardViewModel {
 								int orderStatusId = resultSet.getInt("order_status_id"); 
 								if(orderStatusId == 10){
 									dashBoardBean.statusStyle = "font-weight:bold; color:#ff3300; ";
+									dashBoardBean.rowStyle = "background-color: #ff3300";
 								}
 								if(orderStatusId == 7){
 									dashBoardBean.statusStyle = "font-weight:bold; color:#39e600; ";
@@ -853,6 +856,7 @@ public class OrderDashBoardViewModel {
 	public void onClickClear(){
 		startDate = null;
 		endDate = null;
+		kitchenName = null;
 		onLoadQuery();
 	}
 	
