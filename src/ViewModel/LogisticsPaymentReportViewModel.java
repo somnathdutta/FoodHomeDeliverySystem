@@ -8,6 +8,7 @@ import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.sql.Connection;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -137,7 +138,9 @@ public class LogisticsPaymentReportViewModel {
 
 		    			}
 
-		    			final AMedia amedia = new AMedia("paymey_mode_report", "csv", "application/csv", bios.toByteArray());
+		    			SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+		    			String date = dateFormat.format(new Date());
+		    			final AMedia amedia = new AMedia("paymey_mode_report--"+date, "csv", "application/csv", bios.toByteArray());
 
 		    			Filedownload.save(amedia);
 		    		}catch(Exception exception){
