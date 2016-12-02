@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
@@ -27,6 +28,7 @@ import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zul.Messagebox;
 
+import dao.OrderDashBoardDAO;
 import Bean.OrderDashBoardBean;
 
 public class OrderDashBoardViewModel {
@@ -38,6 +40,8 @@ public class OrderDashBoardViewModel {
 	public ArrayList<String> kitchenList =  new ArrayList<String>();
 	
 	public String kitchenName = null;
+	
+	public String orderno = null;
 	
 	Session session = null;
 	
@@ -74,6 +78,26 @@ public class OrderDashBoardViewModel {
 	@Command
 	@NotifyChange("*")
 	public void refresh(){
+		orderno = null;
+		startDate = null;
+		endDate = null;
+		onLoadQuery();
+	}
+	
+	/**
+	 * Search by order no
+	 */
+	@Command
+	@NotifyChange("*")
+	public void onClickFindByOrder(){
+		orderDashBoardBeanList = OrderDashBoardDAO.findOrdersByOrderNo(orderno, connection);
+	}
+	
+	@Command
+	@NotifyChange("*")
+	public void onClickClearByOrder(){
+		orderno = null;
+		
 		onLoadQuery();
 	}
 	
@@ -673,7 +697,7 @@ public class OrderDashBoardViewModel {
 		         // create new file
 		    	 String realPath = Executions.getCurrent().getDesktop().getWebApp().getRealPath("/");
 		  		
-		  		String reportNamewithPath = realPath + "report.csv";
+		  		String reportNamewithPath = realPath + "orderDashBoardReport.csv";
 		  		System.out.println(reportNamewithPath);
 		         //f = new File("C:/Users/somnathd/Desktop/report.csv");
 		  		f = new File(reportNamewithPath);
@@ -764,7 +788,7 @@ public class OrderDashBoardViewModel {
 
 		    			}
 
-		    			final AMedia amedia = new AMedia("report", "csv", "application/csv", bios.toByteArray());
+		    			final AMedia amedia = new AMedia("orderDashBoardReport", "csv", "application/csv", bios.toByteArray());
 
 		    			Filedownload.save(amedia);
 		    		}catch(Exception exception){
@@ -883,6 +907,14 @@ public class OrderDashBoardViewModel {
 	public void setOrderDashBoardBeanList(
 			ArrayList<OrderDashBoardBean> orderDashBoardBeanList) {
 		this.orderDashBoardBeanList = orderDashBoardBeanList;
+	}
+
+	public String getOrderno() {
+		return orderno;
+	}
+
+	public void setOrderno(String orderno) {
+		this.orderno = orderno;
 	}
 
 	
