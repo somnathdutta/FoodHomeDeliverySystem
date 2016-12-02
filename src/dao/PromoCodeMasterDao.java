@@ -154,6 +154,14 @@ public class PromoCodeMasterDao {
 				}else {
 					bean.setStatus("Inactive");
 				}
+				
+				String reusable = resultSet.getString("is_reusable");
+				if(reusable.equalsIgnoreCase("Y")){
+					bean.setIsreUsable("YES");
+				}else {
+					bean.setIsreUsable("NO");
+				}
+				
 				bean.setVolumeQuantity(resultSet.getInt("volume_quantity"));
 				
 				if(bean.getPromoTypeBean().getPromoCodeTypeId() == 3){ //3 = ON VOLUME
@@ -273,9 +281,17 @@ public class PromoCodeMasterDao {
 		}else {
 			status = "N";
 		}
+		
+		String reusable = bean.getIsreUsable();
+		if(reusable.equalsIgnoreCase("YES")){
+			reusable = "Y";
+		}else {
+			reusable = "N";
+		}
+		
 		PreparedStatement preparedStatement = null;
 		try {
-			preparedStatement = FappPstm.createQuery(connection, PromoCodeMasterSql.upDatePromoCodeDetailsSql, Arrays.asList(fromDate, toDate, bean.getPromoTypeBean().getPromoCodeTypeId(),
+			preparedStatement = FappPstm.createQuery(connection, PromoCodeMasterSql.upDatePromoCodeDetailsSql, Arrays.asList(reusable, fromDate, toDate, bean.getPromoTypeBean().getPromoCodeTypeId(),
 													 bean.getPromoApplyBean().getApplyTypeId(), bean.getUser(), status, bean.getPromoValue(),bean.getVolumeQuantity(), bean.getPromocodeDetailsId()));
 			System.out.println("QUERY -- " + preparedStatement);
 			i = preparedStatement.executeUpdate();
