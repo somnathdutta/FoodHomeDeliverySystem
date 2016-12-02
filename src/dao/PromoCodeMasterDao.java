@@ -164,6 +164,8 @@ public class PromoCodeMasterDao {
 				
 				bean.setVolumeQuantity(resultSet.getInt("volume_quantity"));
 				
+				bean.setPromocodeDescription(resultSet.getString("description"));
+				
 				if(bean.getPromoTypeBean().getPromoCodeTypeId() == 3){ //3 = ON VOLUME
 					bean.setVolumeQuantityDis(false);
 				}else {
@@ -291,7 +293,7 @@ public class PromoCodeMasterDao {
 		
 		PreparedStatement preparedStatement = null;
 		try {
-			preparedStatement = FappPstm.createQuery(connection, PromoCodeMasterSql.upDatePromoCodeDetailsSql, Arrays.asList(reusable, fromDate, toDate, bean.getPromoTypeBean().getPromoCodeTypeId(),
+			preparedStatement = FappPstm.createQuery(connection, PromoCodeMasterSql.upDatePromoCodeDetailsSql, Arrays.asList(bean.getPromocodeDescription(), reusable, fromDate, toDate, bean.getPromoTypeBean().getPromoCodeTypeId(),
 													 bean.getPromoApplyBean().getApplyTypeId(), bean.getUser(), status, bean.getPromoValue(),bean.getVolumeQuantity(), bean.getPromocodeDetailsId()));
 			System.out.println("QUERY -- " + preparedStatement);
 			i = preparedStatement.executeUpdate();
