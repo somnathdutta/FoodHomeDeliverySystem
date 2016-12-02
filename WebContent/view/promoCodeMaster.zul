@@ -71,6 +71,7 @@ viewModel="@id('vm') @init('ViewModel.PromoCodeMasterViewModel')">
 							<!-- <column label="Appled On" style="font-weight: bold" align="center" width="140px"></column> -->
 							<column label="Promo Code Status" style="font-weight: bold" align="center" width="150px"></column>
 							<column label="Reusable" style="font-weight: bold" align="center" width="150px"></column>
+							<column label="Description" style="font-weight: bold" align="center" width="350px"></column>
 							<column label="Action" style="font-weight: bold" align="center" width="180px"></column>
 						</columns>
 						<rows>
@@ -105,6 +106,8 @@ viewModel="@id('vm') @init('ViewModel.PromoCodeMasterViewModel')">
 									<comboitem label="YES"></comboitem>
 									<comboitem label="NO"></comboitem>
 								</combobox>
+								
+								<textbox value="@bind(v.promocodeDescription)" width="100%"></textbox>
 								
 								<hlayout spacing="10px">
 									<button label="Update" sclass="mybutton" onClick="@command('onclickUpdateDetails', bean= v)"></button>

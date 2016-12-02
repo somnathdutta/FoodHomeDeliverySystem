@@ -37,6 +37,7 @@ public class PromoCodeMasterBean {
 	private boolean volumeQuantityDis;
 	
 	private String isreUsable;
+	private String promocodeDescription;
 	
 	private PromoCodeTypeBean promoTypeBean = new PromoCodeTypeBean();
 	private PromoCodeTypeBean promoApplyBean = new PromoCodeTypeBean();
@@ -202,6 +203,12 @@ public class PromoCodeMasterBean {
 	}
 	public void setIsreUsable(String isreUsable) {
 		this.isreUsable = isreUsable;
+	}
+	public String getPromocodeDescription() {
+		return promocodeDescription;
+	}
+	public void setPromocodeDescription(String promocodeDescription) {
+		this.promocodeDescription = promocodeDescription;
 	}
 	
 	
