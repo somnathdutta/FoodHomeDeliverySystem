@@ -65,7 +65,7 @@
 		<div style="border:#DADADA 1px solid;background-color:#F5F5FF;">	
 			<div style="padding:1% 1% 1% 1%;border:#DADADA 1px groove;" sclass="effect8">
 		
-			<grid model="@bind(vm.userQueryList)">
+			<grid model="@bind(vm.userQueryList)" mold="paging" pageSize="10" height="450px">
 				<columns sizable="tr">
 					<column align="center" label="Query Type" />
 					<column align="center" label="User Name" />
