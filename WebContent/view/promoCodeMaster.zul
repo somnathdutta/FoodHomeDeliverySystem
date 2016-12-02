@@ -70,6 +70,7 @@ viewModel="@id('vm') @init('ViewModel.PromoCodeMasterViewModel')">
 							<column label="Promo Value" style="font-weight: bold" align="center" width="120px"></column>
 							<!-- <column label="Appled On" style="font-weight: bold" align="center" width="140px"></column> -->
 							<column label="Promo Code Status" style="font-weight: bold" align="center" width="150px"></column>
+							<column label="Reusable" style="font-weight: bold" align="center" width="150px"></column>
 							<column label="Action" style="font-weight: bold" align="center" width="180px"></column>
 						</columns>
 						<rows>
@@ -98,6 +99,11 @@ viewModel="@id('vm') @init('ViewModel.PromoCodeMasterViewModel')">
 								<combobox value="@bind(v.status)" width="120px" readonly="true">
 									<comboitem label="Active"></comboitem>
 									<comboitem label="Inactive"></comboitem>
+								</combobox>
+								
+								<combobox value="@bind(v.isreUsable)" width="120px" readonly="true">
+									<comboitem label="YES"></comboitem>
+									<comboitem label="NO"></comboitem>
 								</combobox>
 								
 								<hlayout spacing="10px">
