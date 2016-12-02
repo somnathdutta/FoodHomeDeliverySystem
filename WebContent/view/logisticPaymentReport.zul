@@ -1,0 +1,62 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window title="Order Payments Report" border="normal" apply="org.zkoss.bind.BindComposer" 
+	viewModel="@id('vm') @init('ViewModel.LogisticsPaymentReportViewModel')">
+	
+	<div>
+	  <div>
+	  	<hlayout spacing="20px">
+	  		<combobox model="@bind(vm.manaDeliveryBoyBeanList)" value="@bind(vm.manageDeliveryBoyBean.name)" 
+	  		   readonly="true" placeholder="Select Delivery Boy" selectedItem="@bind(vm.manageDeliveryBoyBean)" visible="false">
+	  			<template name="model" var = "v">
+	  				<comboitem value="@bind(v.deliveryBoyId)" label="@bind(v.name)"></comboitem>
+	  			</template>
+	  		</combobox>
+	  		
+	  		<combobox readonly="true" placeholder="Select Payment Mode" model="@bind(vm.paymentModeBeanList)" 
+	  				value="@bind(vm.paymentModeBean.paymentMode)" selectedItem="@bind(vm.paymentModeBean)" visible="false">
+	  			<template name="model" var = "v">
+	  				<comboitem value="@bind(v.paymentModeId)" label="@bind(v.paymentMode)"></comboitem>
+	  			</template>
+	  		</combobox>
+	  		
+	  		
+	  		<datebox width="150px" readonly="true" placeholder="Delivery From Date" value="@bind(vm.logisticsPaymentReportBean.deliveryFormDateUtil)"></datebox>
+	  		<datebox width="150px" readonly="true" placeholder="Delivery To Date" value="@bind(vm.logisticsPaymentReportBean.deliveryToDateUtil)"></datebox>
+	  		
+	  		<button label="Find" sclass="mybutton" onClick="@command('onClickFind')"></button>
+	  		<button label="Generate Excel" sclass="mybutton" onClick="@command('onClickGenerateExcel')"></button>
+	  		<button label="Clear" sclass="mybutton" onClick="@command('onClickClear')"></button>
+	  		
+	  
+	  	</hlayout>
+	  </div>	
+	
+	  <space></space>		
+	  <div>		
+		<grid model="@bind(vm.logisticsPaymentReportBeanList)" height="400px" mold="paging" pageSize="10">
+			<columns>
+				<column align="center" label ="Biker Name" style="font-weight : bold; color : black"></column>
+				<column align="center" label="Order No" style="font-weight : bold; color : black"></column>
+				<column align="center" label="Delivery Date" style="font-weight : bold; color : black"></column>
+				<column align="center" label="Payment Mode" style="font-weight : bold; color : black"></column>
+				<column align="center" label="Amount" style="font-weight : bold; color : black"></column>
+			</columns>
+			<rows>
+			  <template name="model" var="v">
+				<row>
+					<textbox value="@bind(v.bikerName)" readonly="true" width="100%"></textbox>
+					<textbox value="@bind(v.orderNo)" readonly="true" width="100%"></textbox>
+					<textbox value="@bind(v.deliveryDateStr)" readonly="true" width="100%"></textbox>
+					<textbox value="@bind(v.paymentMode)" readonly="true" width="100%"></textbox>
+					<textbox value="@bind(v.amount)" readonly="true" width="100%"></textbox>
+				</row>
+			  </template>	
+			</rows>
+		
+		</grid>
+	  </div>		
+
+	</div>
+</window>
+</zk>
