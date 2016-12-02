@@ -90,6 +90,7 @@
 					</auxhead>
 					<columns sizable="true">
 						<column label="Order Number" align="center" width="145px"/>
+						<column label="Final Price" align="center" width="75px"/>
 						<column label="Order Date" align="center" width="90px"/>
 						<column label="Order Status" align="center" width="130px"/>
 						<column label="Order By" align="center" width="140px"/>
@@ -104,7 +105,7 @@
 						<column label="Item Code" align="center" width="65px"/>
 						<column label="Item desc." align="center" width="160px"/>
 						<column label="Quantity" align="center" width="60px"/>
-						<column label="Order Price" align="center" />
+						<!-- <column label="Order Price" align="center" /> -->
 						<column label="Vendor Name" align="center" width="140px"/>
 						<column label="Received" align="center" width="70px"/>
 						<column label="Notified" align="center" width="70px"/>
@@ -120,6 +121,7 @@
 						 <template name="model" var="v" > 
 							<row>
 								<textbox width="100%" value="@bind(v.orderNo)" visible="@bind(v.orderNoVisibiliity)" readonly="true"/>
+								<textbox width="100%" value="@bind(v.price)" visible="@bind(v.orderDateVisibility)" readonly="true"/>
 								<textbox width="100%" value="@bind(v.orderDateValue)" visible="@bind(v.orderDateVisibility)" readonly="true"/>
 								<textbox width="100%" value="@bind(v.orderStatus)" readonly="true"/>
 								<textbox width="100%" value="@bind(v.orderBy)" visible="@bind(v.orderByVisibility)" readonly="true"/>
@@ -134,7 +136,7 @@
 								<textbox width="100%" value="@bind(v.itemCode)" readonly="true"/>
 								<textbox width="100%" multiline="true" value="@bind(v.itemDescription)" readonly="true"/>
 								<textbox width="100%" value="@bind(v.quantity)" readonly="true"/>
-								<textbox width="100%" value="@bind(v.price)" readonly="true"/>
+								<!-- <textbox width="100%" value="@bind(v.price)" readonly="true"/> -->
 								<textbox width="100%" value="@bind(v.kitchenName)" readonly="true"/>
 								<textbox width="100%" value="@bind(v.received)" readonly="true"/>
 								<textbox width="100%" value="@bind(v.notified)" readonly="true"/>

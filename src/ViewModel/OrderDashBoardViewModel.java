@@ -125,6 +125,7 @@ public class OrderDashBoardViewModel {
 					while (resultSet.next()) {
 						OrderDashBoardBean dashBoardBean = new OrderDashBoardBean();
 						dashBoardBean.orderNo = resultSet.getString("order_no");
+						dashBoardBean.price = resultSet.getDouble("final_price");
 						String itemCode = resultSet.getString("item_code");
 						if(itemCode!=null){
 							dashBoardBean.itemCode = itemCode;
@@ -148,9 +149,30 @@ public class OrderDashBoardViewModel {
 						dashBoardBean.deliveryDateValue = reformattedDeliveryOrderDate;
 						dashBoardBean.orderStatus= resultSet.getString("order_status");
 						dashBoardBean.orderBy = resultSet.getString("order_by");
-						dashBoardBean.deliveryZone = resultSet.getString("delivery_zone");
-						dashBoardBean.deliveryAddress = resultSet.getString("delivery_address");
-						dashBoardBean.deliveryInstruction = resultSet.getString("instruction");
+						String deliveryZone = resultSet.getString("delivery_zone");
+						if(deliveryZone!=null){
+							if(deliveryZone.contains(","))
+								deliveryZone = deliveryZone.replace(",", ";");
+							dashBoardBean.deliveryZone = deliveryZone;
+						}else{
+							dashBoardBean.deliveryZone = "NA";
+						}
+						String deliveryAddress = resultSet.getString("delivery_address");
+						if(deliveryAddress!=null){
+							if(deliveryAddress.contains(","))
+								deliveryAddress = deliveryAddress.replace(",", ";");
+							dashBoardBean.deliveryAddress = deliveryAddress;
+						}else{
+							dashBoardBean.deliveryAddress = "NA";
+						}
+						String deliveryInstruction = resultSet.getString("instruction");
+						if(deliveryInstruction!=null){
+							if(deliveryInstruction.contains(","))
+								deliveryInstruction = deliveryInstruction.replace(",", ";");
+							dashBoardBean.deliveryInstruction = deliveryInstruction;
+						}else{
+							dashBoardBean.deliveryInstruction = "NA";
+						}
 						dashBoardBean.mealType = resultSet.getString("meal_type");
 						dashBoardBean.deliveryDate = resultSet.getDate("delivery_date");
 						dashBoardBean.contactNo = resultSet.getString("contact_number");
@@ -245,6 +267,7 @@ public class OrderDashBoardViewModel {
 						while (resultSet.next()) {
 							OrderDashBoardBean dashBoardBean = new OrderDashBoardBean();
 							dashBoardBean.orderNo = resultSet.getString("order_no");
+							dashBoardBean.price = resultSet.getDouble("final_price");
 							String itemCode = resultSet.getString("item_code");
 							if(itemCode!=null){
 								dashBoardBean.itemCode = itemCode;
@@ -267,9 +290,30 @@ public class OrderDashBoardViewModel {
 							dashBoardBean.deliveryDateValue = reformattedDeliveryOrderDate;
 							dashBoardBean.orderStatus= resultSet.getString("order_status");
 							dashBoardBean.orderBy = resultSet.getString("order_by");
-							dashBoardBean.deliveryZone = resultSet.getString("delivery_zone");
-							dashBoardBean.deliveryAddress = resultSet.getString("delivery_address");
-							dashBoardBean.deliveryInstruction = resultSet.getString("instruction");
+							String deliveryZone = resultSet.getString("delivery_zone");
+							if(deliveryZone!=null){
+								if(deliveryZone.contains(","))
+									deliveryZone = deliveryZone.replace(",", ";");
+								dashBoardBean.deliveryZone = deliveryZone;
+							}else{
+								dashBoardBean.deliveryZone = "NA";
+							}
+							String deliveryAddress = resultSet.getString("delivery_address");
+							if(deliveryAddress!=null){
+								if(deliveryAddress.contains(","))
+									deliveryAddress = deliveryAddress.replace(",", ";");
+								dashBoardBean.deliveryAddress = deliveryAddress;
+							}else{
+								dashBoardBean.deliveryAddress = "NA";
+							}
+							String deliveryInstruction = resultSet.getString("instruction");
+							if(deliveryInstruction!=null){
+								if(deliveryInstruction.contains(","))
+									deliveryInstruction = deliveryInstruction.replace(",", ";");
+								dashBoardBean.deliveryInstruction = deliveryInstruction;
+							}else{
+								dashBoardBean.deliveryInstruction = "NA";
+							}
 							dashBoardBean.mealType = resultSet.getString("meal_type");
 							dashBoardBean.deliveryDate = resultSet.getDate("delivery_date");
 							dashBoardBean.contactNo = resultSet.getString("contact_number");
@@ -371,6 +415,7 @@ public class OrderDashBoardViewModel {
 						while (resultSet.next()) {
 							OrderDashBoardBean dashBoardBean = new OrderDashBoardBean();
 							dashBoardBean.orderNo = resultSet.getString("order_no");
+							dashBoardBean.price = resultSet.getDouble("final_price");
 							String itemCode = resultSet.getString("item_code");
 							if(itemCode!=null){
 								dashBoardBean.itemCode = itemCode;
@@ -393,9 +438,30 @@ public class OrderDashBoardViewModel {
 							dashBoardBean.deliveryDateValue = reformattedDeliveryOrderDate;
 							dashBoardBean.orderStatus= resultSet.getString("order_status");
 							dashBoardBean.orderBy = resultSet.getString("order_by");
-							dashBoardBean.deliveryZone = resultSet.getString("delivery_zone");
-							dashBoardBean.deliveryAddress = resultSet.getString("delivery_address");
-							dashBoardBean.deliveryInstruction = resultSet.getString("instruction");
+							String deliveryZone = resultSet.getString("delivery_zone");
+							if(deliveryZone!=null){
+								if(deliveryZone.contains(","))
+									deliveryZone = deliveryZone.replace(",", ";");
+								dashBoardBean.deliveryZone = deliveryZone;
+							}else{
+								dashBoardBean.deliveryZone = "NA";
+							}
+							String deliveryAddress = resultSet.getString("delivery_address");
+							if(deliveryAddress!=null){
+								if(deliveryAddress.contains(","))
+									deliveryAddress = deliveryAddress.replace(",", ";");
+								dashBoardBean.deliveryAddress = deliveryAddress;
+							}else{
+								dashBoardBean.deliveryAddress = "NA";
+							}
+							String deliveryInstruction = resultSet.getString("instruction");
+							if(deliveryInstruction!=null){
+								if(deliveryInstruction.contains(","))
+									deliveryInstruction = deliveryInstruction.replace(",", ";");
+								dashBoardBean.deliveryInstruction = deliveryInstruction;
+							}else{
+								dashBoardBean.deliveryInstruction = "NA";
+							}
 							dashBoardBean.mealType = resultSet.getString("meal_type");
 							dashBoardBean.deliveryDate = resultSet.getDate("delivery_date");
 							dashBoardBean.contactNo = resultSet.getString("contact_number");
@@ -482,6 +548,7 @@ public class OrderDashBoardViewModel {
 							while (resultSet.next()) {
 								OrderDashBoardBean dashBoardBean = new OrderDashBoardBean();
 								dashBoardBean.orderNo = resultSet.getString("order_no");
+								dashBoardBean.price = resultSet.getDouble("final_price");
 								String itemCode = resultSet.getString("item_code");
 								if(itemCode!=null){
 									dashBoardBean.itemCode = itemCode;
@@ -504,9 +571,30 @@ public class OrderDashBoardViewModel {
 								dashBoardBean.deliveryDateValue = reformattedDeliveryOrderDate;
 								dashBoardBean.orderStatus= resultSet.getString("order_status");
 								dashBoardBean.orderBy = resultSet.getString("order_by");
-								dashBoardBean.deliveryZone = resultSet.getString("delivery_zone");
-								dashBoardBean.deliveryAddress = resultSet.getString("delivery_address");
-								dashBoardBean.deliveryInstruction = resultSet.getString("instruction");
+								String deliveryZone = resultSet.getString("delivery_zone");
+								if(deliveryZone!=null){
+									if(deliveryZone.contains(","))
+										deliveryZone = deliveryZone.replace(",", ";");
+									dashBoardBean.deliveryZone = deliveryZone;
+								}else{
+									dashBoardBean.deliveryZone = "NA";
+								}
+								String deliveryAddress = resultSet.getString("delivery_address");
+								if(deliveryAddress!=null){
+									if(deliveryAddress.contains(","))
+										deliveryAddress = deliveryAddress.replace(",", ";");
+									dashBoardBean.deliveryAddress = deliveryAddress;
+								}else{
+									dashBoardBean.deliveryAddress = "NA";
+								}
+								String deliveryInstruction = resultSet.getString("instruction");
+								if(deliveryInstruction!=null){
+									if(deliveryInstruction.contains(","))
+										deliveryInstruction = deliveryInstruction.replace(",", ";");
+									dashBoardBean.deliveryInstruction = deliveryInstruction;
+								}else{
+									dashBoardBean.deliveryInstruction = "NA";
+								}
 								dashBoardBean.mealType = resultSet.getString("meal_type");
 								dashBoardBean.deliveryDate = resultSet.getDate("delivery_date");
 								dashBoardBean.contactNo = resultSet.getString("contact_number");
@@ -611,19 +699,27 @@ public class OrderDashBoardViewModel {
 		            Writer w = new BufferedWriter(osw);
 		           /* w.write("ORDER NO,ORDER DATE,ORDER STATUS,ORDER BY,MEAL TYPE,DELIVERY DATE,CONTACT NO,ORDER ITEM,ITEM CODE,ITEM DESC,QUANTITY,"
 		            		+ "VENDOR NAME,RECEIVED,NOTIFIED,REJECTED,PICKED,DELIVERED,DRIVER NAME,DRIVER NUMBER\n");*/
-		            w.write("ORDER NO,ORDER DATE,ORDER STATUS,ORDER BY,MEAL TYPE,SLOT,DELIVERY DATE,CONTACT NO,ORDER ITEM,ITEM CODE,ITEM DESC,QUANTITY,"
+		            w.write("ORDER NO,FINAL PRICE,ORDER DATE,ORDER STATUS,ORDER BY,DELIVERY ZONE,DELIVERY ADDRESS,DELIVERY INSTRUCTION,MEAL TYPE,SLOT,DELIVERY DATE,CONTACT NO,ORDER ITEM,ITEM CODE,ITEM DESC,QUANTITY,"
 		            		+ "VENDOR NAME,RECEIVED,NOTIFIED,REJECTED,PICKED,DELIVERED,DRIVER NAME,DRIVER NUMBER,ORDER TIME\n");
 		            for(int i=0;i<orderDashBoardBeanList.size();i++){
-		            	w.write(orderDashBoardBeanList.get(i).orderNo+","+orderDashBoardBeanList.get(i).orderDateValue
-		            			+","+orderDashBoardBeanList.get(i).orderStatus+","+orderDashBoardBeanList.get(i).orderBy
+		            	w.write(orderDashBoardBeanList.get(i).orderNo
+		            			+","+orderDashBoardBeanList.get(i).price
+		            			+","+orderDashBoardBeanList.get(i).orderDateValue
+		            			+","+orderDashBoardBeanList.get(i).orderStatus
+		            			+","+orderDashBoardBeanList.get(i).orderBy
+		            			+","+orderDashBoardBeanList.get(i).deliveryZone
+		            			+","+orderDashBoardBeanList.get(i).deliveryAddress
+		            			+","+orderDashBoardBeanList.get(i).deliveryInstruction
 		            			+","+orderDashBoardBeanList.get(i).mealType
 		            			+","+orderDashBoardBeanList.get(i).timeSlot
 		            			+","+orderDashBoardBeanList.get(i).deliveryDateValue
-		            			+","+orderDashBoardBeanList.get(i).contactNo+","+orderDashBoardBeanList.get(i).orderItem
+		            			+","+orderDashBoardBeanList.get(i).contactNo
+		            			+","+orderDashBoardBeanList.get(i).orderItem
 		            			+","+orderDashBoardBeanList.get(i).itemCode
 		            			+","+orderDashBoardBeanList.get(i).itemDescription
 		            			+","+orderDashBoardBeanList.get(i).quantity
-		            			+","+orderDashBoardBeanList.get(i).kitchenName+","+orderDashBoardBeanList.get(i).received
+		            			+","+orderDashBoardBeanList.get(i).kitchenName
+		            			+","+orderDashBoardBeanList.get(i).received
 		            			+","+orderDashBoardBeanList.get(i).notified
 		            			+","+orderDashBoardBeanList.get(i).rejected
 		            			+","+orderDashBoardBeanList.get(i).picked
