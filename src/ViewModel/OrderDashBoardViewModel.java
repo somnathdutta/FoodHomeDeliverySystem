@@ -1,6 +1,5 @@
 package ViewModel;
 
-import java.awt.Desktop;
 import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -14,9 +13,6 @@ import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
-
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
@@ -31,7 +27,6 @@ import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zul.Messagebox;
 
-import pdfHandler.PdfDesignerHandler;
 import Bean.OrderDashBoardBean;
 
 public class OrderDashBoardViewModel {
@@ -153,6 +148,9 @@ public class OrderDashBoardViewModel {
 						dashBoardBean.deliveryDateValue = reformattedDeliveryOrderDate;
 						dashBoardBean.orderStatus= resultSet.getString("order_status");
 						dashBoardBean.orderBy = resultSet.getString("order_by");
+						dashBoardBean.deliveryZone = resultSet.getString("delivery_zone");
+						dashBoardBean.deliveryAddress = resultSet.getString("delivery_address");
+						dashBoardBean.deliveryInstruction = resultSet.getString("instruction");
 						dashBoardBean.mealType = resultSet.getString("meal_type");
 						dashBoardBean.deliveryDate = resultSet.getDate("delivery_date");
 						dashBoardBean.contactNo = resultSet.getString("contact_number");
@@ -269,6 +267,9 @@ public class OrderDashBoardViewModel {
 							dashBoardBean.deliveryDateValue = reformattedDeliveryOrderDate;
 							dashBoardBean.orderStatus= resultSet.getString("order_status");
 							dashBoardBean.orderBy = resultSet.getString("order_by");
+							dashBoardBean.deliveryZone = resultSet.getString("delivery_zone");
+							dashBoardBean.deliveryAddress = resultSet.getString("delivery_address");
+							dashBoardBean.deliveryInstruction = resultSet.getString("instruction");
 							dashBoardBean.mealType = resultSet.getString("meal_type");
 							dashBoardBean.deliveryDate = resultSet.getDate("delivery_date");
 							dashBoardBean.contactNo = resultSet.getString("contact_number");
@@ -392,6 +393,9 @@ public class OrderDashBoardViewModel {
 							dashBoardBean.deliveryDateValue = reformattedDeliveryOrderDate;
 							dashBoardBean.orderStatus= resultSet.getString("order_status");
 							dashBoardBean.orderBy = resultSet.getString("order_by");
+							dashBoardBean.deliveryZone = resultSet.getString("delivery_zone");
+							dashBoardBean.deliveryAddress = resultSet.getString("delivery_address");
+							dashBoardBean.deliveryInstruction = resultSet.getString("instruction");
 							dashBoardBean.mealType = resultSet.getString("meal_type");
 							dashBoardBean.deliveryDate = resultSet.getDate("delivery_date");
 							dashBoardBean.contactNo = resultSet.getString("contact_number");
@@ -500,6 +504,9 @@ public class OrderDashBoardViewModel {
 								dashBoardBean.deliveryDateValue = reformattedDeliveryOrderDate;
 								dashBoardBean.orderStatus= resultSet.getString("order_status");
 								dashBoardBean.orderBy = resultSet.getString("order_by");
+								dashBoardBean.deliveryZone = resultSet.getString("delivery_zone");
+								dashBoardBean.deliveryAddress = resultSet.getString("delivery_address");
+								dashBoardBean.deliveryInstruction = resultSet.getString("instruction");
 								dashBoardBean.mealType = resultSet.getString("meal_type");
 								dashBoardBean.deliveryDate = resultSet.getDate("delivery_date");
 								dashBoardBean.contactNo = resultSet.getString("contact_number");
@@ -604,12 +611,14 @@ public class OrderDashBoardViewModel {
 		            Writer w = new BufferedWriter(osw);
 		           /* w.write("ORDER NO,ORDER DATE,ORDER STATUS,ORDER BY,MEAL TYPE,DELIVERY DATE,CONTACT NO,ORDER ITEM,ITEM CODE,ITEM DESC,QUANTITY,"
 		            		+ "VENDOR NAME,RECEIVED,NOTIFIED,REJECTED,PICKED,DELIVERED,DRIVER NAME,DRIVER NUMBER\n");*/
-		            w.write("ORDER NO,ORDER DATE,ORDER STATUS,ORDER BY,MEAL TYPE,DELIVERY DATE,CONTACT NO,ORDER ITEM,ITEM CODE,ITEM DESC,QUANTITY,"
-		            		+ "VENDOR NAME,RECEIVED,NOTIFIED,REJECTED,PICKED,DELIVERED,DRIVER NAME,DRIVER NUMBER\n");
+		            w.write("ORDER NO,ORDER DATE,ORDER STATUS,ORDER BY,MEAL TYPE,SLOT,DELIVERY DATE,CONTACT NO,ORDER ITEM,ITEM CODE,ITEM DESC,QUANTITY,"
+		            		+ "VENDOR NAME,RECEIVED,NOTIFIED,REJECTED,PICKED,DELIVERED,DRIVER NAME,DRIVER NUMBER,ORDER TIME\n");
 		            for(int i=0;i<orderDashBoardBeanList.size();i++){
 		            	w.write(orderDashBoardBeanList.get(i).orderNo+","+orderDashBoardBeanList.get(i).orderDateValue
 		            			+","+orderDashBoardBeanList.get(i).orderStatus+","+orderDashBoardBeanList.get(i).orderBy
-		            			+","+orderDashBoardBeanList.get(i).mealType+","+orderDashBoardBeanList.get(i).deliveryDateValue
+		            			+","+orderDashBoardBeanList.get(i).mealType
+		            			+","+orderDashBoardBeanList.get(i).timeSlot
+		            			+","+orderDashBoardBeanList.get(i).deliveryDateValue
 		            			+","+orderDashBoardBeanList.get(i).contactNo+","+orderDashBoardBeanList.get(i).orderItem
 		            			+","+orderDashBoardBeanList.get(i).itemCode
 		            			+","+orderDashBoardBeanList.get(i).itemDescription
@@ -619,7 +628,10 @@ public class OrderDashBoardViewModel {
 		            			+","+orderDashBoardBeanList.get(i).rejected
 		            			+","+orderDashBoardBeanList.get(i).picked
 		            			+","+orderDashBoardBeanList.get(i).delivered
-		            			+","+orderDashBoardBeanList.get(i).driverName+","+orderDashBoardBeanList.get(i).driverNumber+"\n");
+		            			+","+orderDashBoardBeanList.get(i).driverName
+		            			+","+orderDashBoardBeanList.get(i).driverNumber
+		            			+","+orderDashBoardBeanList.get(i).orderCreationTime
+		            			+"\n");
 		            }
 		            
 		            /*for(OrderDashBoardBean bean:orderDashBoardBeanList){

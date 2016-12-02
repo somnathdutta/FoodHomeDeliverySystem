@@ -62,7 +62,7 @@
 							<label style="font-weight:bold;font-size:20px;color:#00AAAA;" value="@bind(vm.username)"/>
 							<image src="images/eaze.png"  onClick='inclResults.setSrc("blank.zul")' style="cursor:pointer;cursor:hand;"/>
 							<hlayout>
-								<button sclass="mybutton" label="Change password"  onClick="@command('onClickChangePassword')" />
+								<button sclass="mybutton" label="Change password" visible="false"  onClick="@command('onClickChangePassword')" />
 								<button sclass="mybutton" image="images/signout.png"  label="Sign Out"  onClick="@command('onClickSignOut')"/>
 							</hlayout>
 						</row>
@@ -306,7 +306,7 @@
 									
 									<treeitem>
 										<treerow>
-											<treecell label="Manage Kitchens" onClick='inclResults.setSrc("managekitchen.zul");' visible="@bind(vm.managekitchensVisibility)"/>
+											<treecell label="Manage Kitchens" onClick='inclResults.setSrc("manageKitchen.zul");' visible="@bind(vm.managekitchensVisibility)"/>
 										</treerow>
 									</treeitem>
 									

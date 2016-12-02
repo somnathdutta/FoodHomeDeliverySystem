@@ -2,7 +2,7 @@ package sql;
 
 public class FaqSql {
 
-	public static String loadAllFaqsQuery = "select * from fapp_faq_master WHERE is_delete = 'N'";
+	public static String loadAllFaqsQuery = "select * from fapp_faq_master WHERE is_delete = 'N' order by faq_id";
 	
 	public static String saveFaqQuery = "INSERT INTO fapp_faq_master("
 	           +" faq_question, faq_answer, is_active, created_by) VALUES (?, ?, ?, ?)";
