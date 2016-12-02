@@ -54,6 +54,16 @@ public class OrderDashBoardDAO {
 						dashBoardBean.orderDateValue = reformattedOrderDate;
 						dashBoardBean.deliveryDateValue = reformattedDeliveryOrderDate;
 						dashBoardBean.orderStatus= resultSet.getString("order_status");
+						int orderStatusId = resultSet.getInt("order_status_id"); 
+						if(orderStatusId == 10){
+							dashBoardBean.statusStyle = "font-weight:bold; color:#ff3300; ";
+						}
+						if(orderStatusId == 7){
+							dashBoardBean.statusStyle = "font-weight:bold; color:#39e600; ";
+						}
+						if(orderStatusId != 10 && orderStatusId != 7 ){
+							dashBoardBean.statusStyle = "font-weight:bold; color:#ff9900; ";
+						}
 						dashBoardBean.orderBy = resultSet.getString("order_by");
 						String deliveryZone = resultSet.getString("delivery_zone");
 						if(deliveryZone!=null){

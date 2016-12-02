@@ -50,7 +50,7 @@ public class OrderDashBoardViewModel {
 	
 	private Integer roleId = 0;
 	
-	private String userName ;
+	private String userName, statusStyle = "font-weight:bold;";
 	
 	private Date startDate;
 	
@@ -174,6 +174,16 @@ public class OrderDashBoardViewModel {
 						dashBoardBean.orderDateValue = reformattedOrderDate;
 						dashBoardBean.deliveryDateValue = reformattedDeliveryOrderDate;
 						dashBoardBean.orderStatus= resultSet.getString("order_status");
+						int orderStatusId = resultSet.getInt("order_status_id"); 
+						if(orderStatusId == 10){
+							dashBoardBean.statusStyle = "font-weight:bold; color:#ff3300; ";
+						}
+						if(orderStatusId == 7){
+							dashBoardBean.statusStyle = "font-weight:bold; color:#39e600; ";
+						}
+						if(orderStatusId != 10 && orderStatusId != 7 ){
+							dashBoardBean.statusStyle = "font-weight:bold; color:#ff9900; ";
+						}
 						dashBoardBean.orderBy = resultSet.getString("order_by");
 						String deliveryZone = resultSet.getString("delivery_zone");
 						if(deliveryZone!=null){
@@ -315,6 +325,16 @@ public class OrderDashBoardViewModel {
 							dashBoardBean.orderDateValue = reformattedOrderDate;
 							dashBoardBean.deliveryDateValue = reformattedDeliveryOrderDate;
 							dashBoardBean.orderStatus= resultSet.getString("order_status");
+							int orderStatusId = resultSet.getInt("order_status_id"); 
+							if(orderStatusId == 10){
+								dashBoardBean.statusStyle = "font-weight:bold; color:#ff3300; ";
+							}
+							if(orderStatusId == 7){
+								dashBoardBean.statusStyle = "font-weight:bold; color:#39e600; ";
+							}
+							if(orderStatusId != 10 && orderStatusId != 7 ){
+								dashBoardBean.statusStyle = "font-weight:bold; color:#ff9900; ";
+							}
 							dashBoardBean.orderBy = resultSet.getString("order_by");
 							String deliveryZone = resultSet.getString("delivery_zone");
 							if(deliveryZone!=null){
@@ -463,6 +483,16 @@ public class OrderDashBoardViewModel {
 							dashBoardBean.orderDateValue = reformattedOrderDate;
 							dashBoardBean.deliveryDateValue = reformattedDeliveryOrderDate;
 							dashBoardBean.orderStatus= resultSet.getString("order_status");
+							int orderStatusId = resultSet.getInt("order_status_id"); 
+							if(orderStatusId == 10){
+								dashBoardBean.statusStyle = "font-weight:bold; color:#ff3300; ";
+							}
+							if(orderStatusId == 7){
+								dashBoardBean.statusStyle = "font-weight:bold; color:#39e600; ";
+							}
+							if(orderStatusId != 10 && orderStatusId != 7 ){
+								dashBoardBean.statusStyle = "font-weight:bold; color:#ff9900; ";
+							}
 							dashBoardBean.orderBy = resultSet.getString("order_by");
 							String deliveryZone = resultSet.getString("delivery_zone");
 							if(deliveryZone!=null){
@@ -596,6 +626,16 @@ public class OrderDashBoardViewModel {
 								dashBoardBean.orderDateValue = reformattedOrderDate;
 								dashBoardBean.deliveryDateValue = reformattedDeliveryOrderDate;
 								dashBoardBean.orderStatus= resultSet.getString("order_status");
+								int orderStatusId = resultSet.getInt("order_status_id"); 
+								if(orderStatusId == 10){
+									dashBoardBean.statusStyle = "font-weight:bold; color:#ff3300; ";
+								}
+								if(orderStatusId == 7){
+									dashBoardBean.statusStyle = "font-weight:bold; color:#39e600; ";
+								}
+								if(orderStatusId != 10 && orderStatusId != 7 ){
+									dashBoardBean.statusStyle = "font-weight:bold; color:#ff9900; ";
+								}
 								dashBoardBean.orderBy = resultSet.getString("order_by");
 								String deliveryZone = resultSet.getString("delivery_zone");
 								if(deliveryZone!=null){
@@ -917,6 +957,14 @@ public class OrderDashBoardViewModel {
 
 	public void setOrderno(String orderno) {
 		this.orderno = orderno;
+	}
+
+	public String getStatusStyle() {
+		return statusStyle;
+	}
+
+	public void setStatusStyle(String statusStyle) {
+		this.statusStyle = statusStyle;
 	}
 
 	

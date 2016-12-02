@@ -102,7 +102,7 @@
 						<column label="Final Price" align="center" width="75px"/>
 						<column label="Order Date" align="center" width="90px"/>
 						<column label="Delivery Date" align="center" width="90px"/>
-						<column label="Order Status" align="center" width="130px"/>
+						<column label="Order Status"  align="center" width="130px"/>
 						<column label="Order By" align="center" width="140px"/>
 						<column label="Delivery Zone" align="center" width="140px"/>
 						<column label="Address" align="center" width="160px"/>
@@ -134,7 +134,7 @@
 								<textbox width="100%" value="@bind(v.price)" visible="@bind(v.orderDateVisibility)" readonly="true"/>
 								<textbox width="100%" value="@bind(v.orderDateValue)" visible="@bind(v.orderDateVisibility)" readonly="true"/>
 								<textbox width="100%" value="@bind(v.deliveryDateValue)" visible="@bind(v.deliveryDateVisibility)" readonly="true"/>
-								<textbox width="100%" value="@bind(v.orderStatus)" readonly="true"/>
+								<textbox width="100%" value="@bind(v.orderStatus)" style="@bind(v.statusStyle)" readonly="true"/>
 								<textbox width="100%" value="@bind(v.orderBy)" visible="@bind(v.orderByVisibility)" readonly="true"/>
 								<textbox width="100%" multiline="true" value="@bind(v.deliveryZone)" visible="@bind(v.orderByVisibility)" readonly="true"/>
 								<textbox width="100%" multiline="true" value="@bind(v.deliveryAddress)" visible="@bind(v.orderByVisibility)" readonly="true"/>
