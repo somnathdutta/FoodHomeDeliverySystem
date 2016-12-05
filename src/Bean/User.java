@@ -1,11 +1,14 @@
 package Bean;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 public class User {
 
 	private String userName,emailId,mobileNo,startDateValue,endDateValue,creationDateValue,password;
 	private Date startDate,endDate,creationDate;
+	private int noOfOrders;
+	private Timestamp registrationTime;
 	public String getUserName() {
 		return userName;
 	}
@@ -65,6 +68,18 @@ public class User {
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	public int getNoOfOrders() {
+		return noOfOrders;
+	}
+	public void setNoOfOrders(int noOfOrders) {
+		this.noOfOrders = noOfOrders;
+	}
+	public Timestamp getRegistrationTime() {
+		return registrationTime;
+	}
+	public void setRegistrationTime(Timestamp registrationTime) {
+		this.registrationTime = registrationTime;
 	}
 	
 	

@@ -38,6 +38,8 @@ public class UserDAO {
 							user.setEmailId(resultSet.getString("email"));
 							user.setMobileNo(resultSet.getString("mobile_no"));
 							user.setPassword(resultSet.getString("password"));
+							user.setNoOfOrders(resultSet.getInt("no_of_orders"));
+							user.setRegistrationTime(resultSet.getTimestamp("registration_date"));
 							newUserList.add(user);
 						}
 					} catch (Exception e) {
@@ -74,6 +76,8 @@ public class UserDAO {
 							user.setEmailId(resultSet.getString("email"));
 							user.setMobileNo(resultSet.getString("mobile_no"));
 							user.setPassword(resultSet.getString("password"));
+							user.setNoOfOrders(resultSet.getInt("no_of_orders"));
+							user.setRegistrationTime(resultSet.getTimestamp("registration_date"));
 							newUserList.add(user);
 						}
 					} catch (Exception e) {
@@ -111,6 +115,8 @@ public class UserDAO {
 							user.setEmailId(resultSet.getString("email"));
 							user.setMobileNo(resultSet.getString("mobile_no"));
 							user.setPassword(resultSet.getString("password"));
+							user.setNoOfOrders(resultSet.getInt("no_of_orders"));
+							user.setRegistrationTime(resultSet.getTimestamp("registration_date"));
 							newUserList.add(user);
 						}
 					} catch (Exception e) {
@@ -163,10 +169,14 @@ public class UserDAO {
 		            Writer w = new BufferedWriter(osw);
 		           /* w.write("ORDER NO,ORDER DATE,ORDER STATUS,ORDER BY,MEAL TYPE,DELIVERY DATE,CONTACT NO,ORDER ITEM,ITEM CODE,ITEM DESC,QUANTITY,"
 		            		+ "VENDOR NAME,RECEIVED,NOTIFIED,REJECTED,PICKED,DELIVERED,DRIVER NAME,DRIVER NUMBER\n");*/
-		            w.write("USER NAME,MOBILE NUMBER,EMAIL ID\n");
+		            w.write("USER NAME,MOBILE NUMBER,EMAIL ID,NO OF ORDERS\n");
 		            for(int i=0;i<userList.size();i++){
-		            	w.write(userList.get(i).getUserName()+","+userList.get(i).getMobileNo()
-		            			+","+userList.get(i).getEmailId()+"\n");
+		            	w.write(userList.get(i).getUserName()
+		            			+","+userList.get(i).getMobileNo()
+		            			+","+userList.get(i).getEmailId()
+		            		//	+","+userList.get(i).getRegistrationTime()
+		            			+","+userList.get(i).getNoOfOrders()
+		            			+"\n");
 		            }
 		           
 		            w.close();

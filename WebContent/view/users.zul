@@ -4,7 +4,7 @@
  apply="org.zkoss.bind.BindComposer" viewModel="@id('vm')@init('ViewModel.UserViewModel')">
 	<grid model="@bind(vm.userList)" mold="paging" pageSize="10">
 		<auxhead>
-			<auxheader colspan="4">
+			<auxheader colspan="6">
 			 	<button sclass="mybutton"
 						style="border:none;background:transparent"
 						image="images/refresh.png" onClick="@command('onClickRefresh')"
@@ -17,19 +17,23 @@
 				<button label="Generate Sheet" sclass="mybutton" onClick="@command('onClickGenerate')"/>			
 			</auxheader>
 		</auxhead>
-		<columns>
+		<columns sizable="true">
 			<column align="center" label="User Name"/>
-			<column align="center" label="Mobile No"/>
+			<column align="center" label="Mobile No" width="105px"/>
 			<column align="center" label="EmailID"/>
 			<column align="center" label="Password"/>
+			<column align="center" label="Sign up time"/>
+			<column align="center" label="No Of Orders" width="95px"/>
 		</columns>
 		<rows>
 			<template name="model" var="v">
 			<row>
-				<textbox value="@bind(v.userName)" readonly="true"/>
-				<textbox value="@bind(v.mobileNo)" readonly="true"/>
-				<textbox value="@bind(v.emailId)" readonly="true"/>
-				<textbox value="@bind(v.password)" readonly="true"></textbox>
+				<textbox value="@bind(v.userName)" readonly="true" width="100%"/>
+				<textbox value="@bind(v.mobileNo)" readonly="true" width="100%"/>
+				<textbox value="@bind(v.emailId)" readonly="true" width="100%"/>
+				<textbox value="@bind(v.password)" readonly="true" width="100%"/>
+				<textbox value="@bind(v.registrationTime)" readonly="true" width="100%"/>
+				<textbox value="@bind(v.noOfOrders)" readonly="true" width="100%"/>
 			</row>
 			</template>
 		</rows>
