@@ -1,5 +1,5 @@
 <?page title="Users" contentType="text/html;charset=UTF-8"?>
-<zk>
+<zk xmlns:h='http://www.w3.org/1999/xhtml'>
 <window title="Users" border="normal" contentStyle="overflow:scroll;"
  apply="org.zkoss.bind.BindComposer" viewModel="@id('vm')@init('ViewModel.UserViewModel')">
 	<grid model="@bind(vm.userList)" mold="paging" pageSize="10">
@@ -18,12 +18,12 @@
 			</auxheader>
 		</auxhead>
 		<columns sizable="true">
-			<column align="center" label="User Name" sort="auto(userName)"/>
-			<column align="center" label="Mobile No" width="105px" sort="auto(mobileNo)"/>
-			<column align="center" label="EmailID" sort="auto(emailId)"/>
-			<column align="center" label="Password" sort="auto(password)"/>
-			<column align="center" label="Sign up time" sort="auto(registrationTime)"/>
-			<column align="center" label="No Of Orders" width="95px" sort="auto(noOfOrders)"/>
+			<column align="center" sort="auto(userName)" width="195px">User Name<h:br/>(Click to sort alphabetically)</column>
+			<column align="center" sort="auto(mobileNo)" width="145px">Mobile No<h:br/>(Click to sort numerically)</column>
+			<column align="center" sort="auto(emailId)" width="290px">EmailID<h:br/>(Click to sort alphabetically)</column>
+			<column align="center" sort="auto(password)"  width="170px">Password<h:br/>(Click to sort)</column>
+			<column align="center" sort="auto(registrationTime)" width="180px">Sign up time<h:br/>(Click to sort)</column>
+			<column align="center" sort="auto(noOfOrders)" width="110px" >No Of Orders<h:br/>(Click to sort)</column>
 		</columns>
 		<rows>
 			<template name="model" var="v">
