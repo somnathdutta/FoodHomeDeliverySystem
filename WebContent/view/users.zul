@@ -18,12 +18,12 @@
 			</auxheader>
 		</auxhead>
 		<columns sizable="true">
-			<column align="center" label="User Name"/>
-			<column align="center" label="Mobile No" width="105px"/>
-			<column align="center" label="EmailID"/>
-			<column align="center" label="Password"/>
-			<column align="center" label="Sign up time"/>
-			<column align="center" label="No Of Orders" width="95px"/>
+			<column align="center" label="User Name" sort="auto(userName)"/>
+			<column align="center" label="Mobile No" width="105px" sort="auto(mobileNo)"/>
+			<column align="center" label="EmailID" sort="auto(emailId)"/>
+			<column align="center" label="Password" sort="auto(password)"/>
+			<column align="center" label="Sign up time" sort="auto(registrationTime)"/>
+			<column align="center" label="No Of Orders" width="95px" sort="auto(noOfOrders)"/>
 		</columns>
 		<rows>
 			<template name="model" var="v">
