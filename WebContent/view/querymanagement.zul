@@ -1,5 +1,5 @@
 <?page title="Query Management" contentType="text/html;charset=UTF-8"?>
-<zk  xmlns:h='http://www.w3.org/1999/xhtml'>
+<zk xmlns:h='http://www.w3.org/1999/xhtml'>
 	<style>
 			.fgrid tr.z-row td.z-row-inner,tr.z-row,div.z-grid-body
 			div.z-cell,div.z-grid { border: none; overflow: hidden;
@@ -71,7 +71,7 @@
 					<column align="center" label="User Name" width="130px" />
 					<column align="center" label="User MailId" width="210px"/>
 					<column align="center" label="User Message" width="240px" />
-					<column align="center" width="170px" sort="auto(queryTime)">Query time<h:br/>(Click to sort)</column>
+					<column align="center" width="170px" sort="auto(queryTime)"><h:b>Query time<h:br/>(Click to sort)</h:b></column>
 					<column align="center" label="Reply" width="90px" />
 					<column align="center" label="Active/Closed" width="90px"  />
 					<column align="center" label="Send" />

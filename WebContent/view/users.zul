@@ -18,12 +18,12 @@
 			</auxheader>
 		</auxhead>
 		<columns sizable="true">
-			<column align="center" sort="auto(userName)" width="195px">User Name<h:br/>(Click to sort alphabetically)</column>
-			<column align="center" sort="auto(mobileNo)" width="145px">Mobile No<h:br/>(Click to sort numerically)</column>
-			<column align="center" sort="auto(emailId)" width="290px">EmailID<h:br/>(Click to sort alphabetically)</column>
-			<column align="center" sort="auto(password)"  width="170px">Password<h:br/>(Click to sort)</column>
-			<column align="center" sort="auto(registrationTime)" width="180px">Sign up time<h:br/>(Click to sort)</column>
-			<column align="center" sort="auto(noOfOrders)" width="110px" >No Of Orders<h:br/>(Click to sort)</column>
+			<column align="center" sort="auto(userName)" width="195px"><h:b>User Name<h:br/>(Click to sort alphabetically)</h:b></column>
+			<column align="center" sort="auto(mobileNo)" width="153px"><h:b>Mobile No<h:br/>(Click to sort numerically)</h:b></column>
+			<column align="center" sort="auto(emailId)" width="290px"><h:b>EmailID<h:br/>(Click to sort alphabetically)</h:b></column>
+			<column align="center" sort="auto(password)"  width="170px"><h:b>Password<h:br/>(Click to sort)</h:b></column>
+			<column align="center" sort="auto(registrationTime)" width="180px"><h:b>Sign up time<h:br/>(Click to sort)</h:b></column>
+			<column align="center" sort="auto(noOfOrders)" width="110px" ><h:b>No Of Orders<h:br/>(Click to sort)</h:b></column>
 		</columns>
 		<rows>
 			<template name="model" var="v">
