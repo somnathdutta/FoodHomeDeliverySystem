@@ -7,7 +7,7 @@ public class Query {
 	private int queryID;
 	private String queryName,status, userName, userEmailId, userMessage,replyMessage;
 	private Timestamp queryTime;
-	private boolean isClosed = false;
+	private boolean isClosed = false,sendButtonDisability = false;
 	
 	public int getQueryID() {
 		return queryID;
@@ -62,5 +62,11 @@ public class Query {
 	}
 	public void setQueryTime(Timestamp queryTime) {
 		this.queryTime = queryTime;
+	}
+	public boolean isSendButtonDisability() {
+		return sendButtonDisability;
+	}
+	public void setSendButtonDisability(boolean sendButtonDisability) {
+		this.sendButtonDisability = sendButtonDisability;
 	}
 }

@@ -51,9 +51,10 @@ public class QueryManagementDAO {
 							
 							String staus = resultSet.getString("is_active");
 							if(staus.equalsIgnoreCase("Y")){
-								query.setStatus("Active");
+								query.setStatus("UNREPLIED");
 							}else{
-								query.setStatus("Deactive");
+								query.setSendButtonDisability(true);
+								query.setStatus("REPLIED");
 							}
 							
 							queryList.add(query);

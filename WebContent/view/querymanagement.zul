@@ -73,7 +73,7 @@
 					<column align="center" label="User Message" width="240px" />
 					<column align="center" width="170px" sort="auto(queryTime)"><h:b>Query time<h:br/>(Click to sort)</h:b></column>
 					<column align="center" label="Reply" width="90px" />
-					<column align="center" label="Active/Closed" width="90px"  />
+					<column align="center" label="Active/Closed" width="94px"  />
 					<column align="center" label="Send" />
 				</columns>
 				<rows>
@@ -86,7 +86,7 @@
 						<textbox value="@bind(v.queryTime)" readonly="true" width="100%" />
 						<textbox value="@bind(v.replyMessage)" multiline="true" readonly="false" width="100%" />
 						<textbox value="@bind(v.status)" readonly="true" width="100%" />
-						<button label="Send" sclass="mybutton" onClick="@command('onClickSend',bean=v)"/>
+						<button label="Send" sclass="mybutton" onClick="@command('onClickSend',bean=v)" disabled="@bind(v.sendButtonDisability)"/>
 					</row>
 				</template>
 					
