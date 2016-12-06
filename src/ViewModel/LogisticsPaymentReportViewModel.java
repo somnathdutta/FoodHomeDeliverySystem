@@ -65,7 +65,7 @@ public class LogisticsPaymentReportViewModel {
 		paymentModeBeanList = LogisticsPaymentReportService.onLoadPaymentMode(connection);
 		manaDeliveryBoyBeanList = LogisticsPaymentReportService.onLoadDriver(connection);
 		logisticsPaymentReportBeanList = LogisticsPaymentReportService.onload(connection);
-		System.out.println("zul page >> logisticsPaymentReport.zul");
+		System.out.println("zul page >> logisticPaymentReport.zul");
 	}
 	
 	
