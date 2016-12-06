@@ -32,6 +32,7 @@ public class OrderDashBoardDAO {
 						OrderDashBoardBean dashBoardBean = new OrderDashBoardBean();
 						dashBoardBean.orderNo = resultSet.getString("order_no");
 						dashBoardBean.price = resultSet.getDouble("final_price");
+						dashBoardBean.userType = resultSet.getString("user_type");
 						String itemCode = resultSet.getString("item_code");
 						if(itemCode!=null){
 							dashBoardBean.itemCode = itemCode;

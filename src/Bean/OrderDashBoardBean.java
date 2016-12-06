@@ -29,7 +29,7 @@ public class OrderDashBoardBean {
 	public Integer quantity;
 	public Double price;
 	public String kitchenName;
-	public String driverName;
+	public String driverName,userType;
 	public String driverNumber;
 	public String received;
 	public String notified;
@@ -375,6 +375,12 @@ public class OrderDashBoardBean {
 	}
 	public void setRowStyle(String rowStyle) {
 		this.rowStyle = rowStyle;
+	}
+	public String getUserType() {
+		return userType;
+	}
+	public void setUserType(String userType) {
+		this.userType = userType;
 	}
 	
 	

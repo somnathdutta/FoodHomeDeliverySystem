@@ -152,6 +152,7 @@ public class OrderDashBoardViewModel {
 						OrderDashBoardBean dashBoardBean = new OrderDashBoardBean();
 						dashBoardBean.orderNo = resultSet.getString("order_no");
 						dashBoardBean.price = resultSet.getDouble("final_price");
+						dashBoardBean.userType = resultSet.getString("user_type");
 						String itemCode = resultSet.getString("item_code");
 						if(itemCode!=null){
 							dashBoardBean.itemCode = itemCode;
@@ -307,6 +308,7 @@ public class OrderDashBoardViewModel {
 							OrderDashBoardBean dashBoardBean = new OrderDashBoardBean();
 							dashBoardBean.orderNo = resultSet.getString("order_no");
 							dashBoardBean.price = resultSet.getDouble("final_price");
+							dashBoardBean.userType = resultSet.getString("user_type");
 							String itemCode = resultSet.getString("item_code");
 							if(itemCode!=null){
 								dashBoardBean.itemCode = itemCode;
@@ -376,7 +378,7 @@ public class OrderDashBoardViewModel {
 							String itemDesc = resultSet.getString("item_description");
 							dashBoardBean.timeSlot = resultSet.getString("time_slot");
 							dashBoardBean.orderCreationTime= resultSet.getString("assigned_time");
-							System.out.println("DAAAAA " + dashBoardBean.orderCreationTime);
+						//	System.out.println("DAAAAA " + dashBoardBean.orderCreationTime);
 							if(itemDesc!=null){
 								if(itemDesc.contains(","))
 									itemDesc = itemDesc.replace(",", ";");
@@ -466,6 +468,7 @@ public class OrderDashBoardViewModel {
 							OrderDashBoardBean dashBoardBean = new OrderDashBoardBean();
 							dashBoardBean.orderNo = resultSet.getString("order_no");
 							dashBoardBean.price = resultSet.getDouble("final_price");
+							dashBoardBean.userType = resultSet.getString("user_type");
 							String itemCode = resultSet.getString("item_code");
 							if(itemCode!=null){
 								dashBoardBean.itemCode = itemCode;
@@ -610,6 +613,7 @@ public class OrderDashBoardViewModel {
 								OrderDashBoardBean dashBoardBean = new OrderDashBoardBean();
 								dashBoardBean.orderNo = resultSet.getString("order_no");
 								dashBoardBean.price = resultSet.getDouble("final_price");
+								dashBoardBean.userType = resultSet.getString("user_type");
 								String itemCode = resultSet.getString("item_code");
 								if(itemCode!=null){
 									dashBoardBean.itemCode = itemCode;
@@ -771,7 +775,7 @@ public class OrderDashBoardViewModel {
 		            Writer w = new BufferedWriter(osw);
 		           /* w.write("ORDER NO,ORDER DATE,ORDER STATUS,ORDER BY,MEAL TYPE,DELIVERY DATE,CONTACT NO,ORDER ITEM,ITEM CODE,ITEM DESC,QUANTITY,"
 		            		+ "VENDOR NAME,RECEIVED,NOTIFIED,REJECTED,PICKED,DELIVERED,DRIVER NAME,DRIVER NUMBER\n");*/
-		            w.write("ORDER NO,FINAL PRICE,ORDER DATE,ORDER STATUS,ORDER BY,DELIVERY ZONE,DELIVERY ADDRESS,DELIVERY INSTRUCTION,MEAL TYPE,SLOT,DELIVERY DATE,CONTACT NO,ORDER ITEM,ITEM CODE,ITEM DESC,QUANTITY,"
+		            w.write("ORDER NO,FINAL PRICE,ORDER DATE,ORDER STATUS,ORDER BY,USER TYPE,DELIVERY ZONE,DELIVERY ADDRESS,DELIVERY INSTRUCTION,MEAL TYPE,SLOT,DELIVERY DATE,CONTACT NO,ORDER ITEM,ITEM CODE,ITEM DESC,QUANTITY,"
 		            		+ "VENDOR NAME,RECEIVED,NOTIFIED,REJECTED,PICKED,DELIVERED,DRIVER NAME,DRIVER NUMBER,ORDER TIME\n");
 		            for(int i=0;i<orderDashBoardBeanList.size();i++){
 		            	w.write(orderDashBoardBeanList.get(i).orderNo
@@ -779,6 +783,7 @@ public class OrderDashBoardViewModel {
 		            			+","+orderDashBoardBeanList.get(i).orderDateValue
 		            			+","+orderDashBoardBeanList.get(i).orderStatus
 		            			+","+orderDashBoardBeanList.get(i).orderBy
+		            			+","+orderDashBoardBeanList.get(i).userType
 		            			+","+orderDashBoardBeanList.get(i).deliveryZone
 		            			+","+orderDashBoardBeanList.get(i).deliveryAddress
 		            			+","+orderDashBoardBeanList.get(i).deliveryInstruction
