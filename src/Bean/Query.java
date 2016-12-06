@@ -1,9 +1,12 @@
 package Bean;
 
+import java.sql.Timestamp;
+
 public class Query {
 
 	private int queryID;
 	private String queryName,status, userName, userEmailId, userMessage,replyMessage;
+	private Timestamp queryTime;
 	private boolean isClosed = false;
 	
 	public int getQueryID() {
@@ -53,5 +56,11 @@ public class Query {
 	}
 	public void setUserMessage(String userMessage) {
 		this.userMessage = userMessage;
+	}
+	public Timestamp getQueryTime() {
+		return queryTime;
+	}
+	public void setQueryTime(Timestamp queryTime) {
+		this.queryTime = queryTime;
 	}
 }

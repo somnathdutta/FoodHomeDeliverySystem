@@ -316,7 +316,7 @@
 										</treerow>
 									</treeitem>
 									
-									<treeitem>
+									<treeitem visible="false">
 										<treerow>
 											<treecell label="Kitchen Stock Update" onClick='inclResults.setSrc("kitchenStockUpdate.zul");'/>
 										</treerow>

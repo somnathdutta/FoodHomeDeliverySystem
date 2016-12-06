@@ -41,6 +41,7 @@ public class QueryManagementDAO {
 							query.setUserName(resultSet.getString("user_name"));
 							query.setUserEmailId(resultSet.getString("user_email"));
 							query.setUserMessage(resultSet.getString("user_message"));
+							query.setQueryTime(resultSet.getTimestamp("created_date"));
 							String replyMessage = resultSet.getString("eazelyf_message");
 							if(replyMessage!=null){
 								query.setReplyMessage(replyMessage);
