@@ -72,7 +72,7 @@ public class OrderResponseViewModel {
 		roleId = (Integer) session.getAttribute("userRoleId");
 		
 		connection.setAutoCommit(true);
-		
+		System.out.println("zul page >> orderresponse.zul");
 	}
 	
 	public void onLoadQuery(Boolean avg, Boolean high, Boolean dategiven){
@@ -286,7 +286,7 @@ public class OrderResponseViewModel {
 		            			+","+orderResponseBeanList.get(i).orderResponseTimeValue+","+orderResponseBeanList.get(i).delayInMinutes+"\n");
 		            }
 		            w.close();
-		           Desktop.getDesktop().open(f);
+		           //Desktop.getDesktop().open(f);
 		           
 		            FileInputStream fis = new FileInputStream(new File(reportNamewithPath));
 		    		byte[] ba1 = new byte[1024];
