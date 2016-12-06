@@ -77,6 +77,8 @@ public class DelayInProductionViewModel {
 		connection.setAutoCommit(true);
 		
 		onLoadKitchenList();
+		
+		System.out.println("zul page >> delayinproduction.zul");
 		/*onLoadQuery();*/
 	}
 
