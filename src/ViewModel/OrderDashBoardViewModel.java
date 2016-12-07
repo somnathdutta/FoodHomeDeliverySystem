@@ -147,11 +147,16 @@ public class OrderDashBoardViewModel {
 				 try {
 					preparedStatement = connection.prepareStatement(sql);
 					resultSet = preparedStatement.executeQuery();
-					String orderNo = null;
+					String orderNo = null;double itemTotalPriceValue = 0.0,finalPrice = 0.0; 
 					while (resultSet.next()) {
 						OrderDashBoardBean dashBoardBean = new OrderDashBoardBean();
 						dashBoardBean.orderNo = resultSet.getString("order_no");
 						dashBoardBean.price = resultSet.getDouble("final_price");
+						dashBoardBean.itemTotalPrice = resultSet.getDouble("total_price");
+						dashBoardBean.deliveryCharges = resultSet.getDouble("delivery_charges");
+						//System.out.println("Discount : "+resultSet.getDouble("discount_amount"));
+						//dashBoardBean.discountAmount = dashBoardBean.itemTotalPrice - dashBoardBean.price;
+						dashBoardBean.discountAmount = resultSet.getDouble("discount_amount");
 						dashBoardBean.userType = resultSet.getString("user_type");
 						String itemCode = resultSet.getString("item_code");
 						if(itemCode!=null){
@@ -159,7 +164,11 @@ public class OrderDashBoardViewModel {
 						}else{
 							dashBoardBean.itemCode = "-NA-";
 						}
+						
 						String tempOrderNo = dashBoardBean.orderNo;
+						double tempItemPrice = dashBoardBean.itemTotalPrice;
+						double tempFinalPrice = dashBoardBean.price;
+						
 						String orderDate="",reformattedOrderDate="",deliveryDate="",reformattedDeliveryOrderDate="";
 						SimpleDateFormat fromDB = new SimpleDateFormat("yyyy-MM-dd");
 						SimpleDateFormat myFormat = new SimpleDateFormat("dd-MM-yyyy");
@@ -261,8 +270,14 @@ public class OrderDashBoardViewModel {
 							dashBoardBean.mealTypeVisibility = false;
 							dashBoardBean.orderCreationTimeVis = false;
 							dashBoardBean.timeSlotVis = false;
+							//System.out.println("Total price: ===> "+(itemTotalPriceValue+dashBoardBean.itemTotalPrice));
+							//System.out.println("Final price : == >"+finalPrice);
+							//System.out.println("Discount == > "+((itemTotalPriceValue+dashBoardBean.itemTotalPrice) - dashBoardBean.price ));
+							//dashBoardBean.discountAmount = ((itemTotalPriceValue+dashBoardBean.itemTotalPrice) - dashBoardBean.price );
 						}	
 						orderNo = tempOrderNo ;
+						itemTotalPriceValue = tempItemPrice;
+						finalPrice = tempFinalPrice;
 						orderDashBoardBeanList.add(dashBoardBean);
 					}
 				} catch (Exception e) {
@@ -304,11 +319,15 @@ public class OrderDashBoardViewModel {
 						}
 						
 						resultSet = preparedStatement.executeQuery();
-						String orderNo=null;
+						String orderNo=null;double itemTotalPriceValue = 0.0,finalPrice = 0.0; 
 						while (resultSet.next()) {
 							OrderDashBoardBean dashBoardBean = new OrderDashBoardBean();
 							dashBoardBean.orderNo = resultSet.getString("order_no");
 							dashBoardBean.price = resultSet.getDouble("final_price");
+							dashBoardBean.itemTotalPrice = resultSet.getDouble("total_price");
+							dashBoardBean.deliveryCharges = resultSet.getDouble("delivery_charges");
+							dashBoardBean.discountAmount = resultSet.getDouble("discount_amount");
+							//dashBoardBean.discountAmount = dashBoardBean.itemTotalPrice - dashBoardBean.price;
 							dashBoardBean.userType = resultSet.getString("user_type");
 							String itemCode = resultSet.getString("item_code");
 							if(itemCode!=null){
@@ -317,6 +336,8 @@ public class OrderDashBoardViewModel {
 								dashBoardBean.itemCode = "-NA-";
 							}
 							String tempOrderNo = dashBoardBean.orderNo;
+							double tempItemPrice = dashBoardBean.itemTotalPrice;
+							double tempFinalPrice = dashBoardBean.price;
 							String orderDate="",reformattedOrderDate="",deliveryDate="",reformattedDeliveryOrderDate="";
 							SimpleDateFormat fromDB = new SimpleDateFormat("yyyy-MM-dd");
 							SimpleDateFormat myFormat = new SimpleDateFormat("dd-MM-yyyy");
@@ -415,8 +436,11 @@ public class OrderDashBoardViewModel {
 								dashBoardBean.mealTypeVisibility = false;
 								dashBoardBean.orderCreationTimeVis = false;
 								dashBoardBean.timeSlotVis = false;
+								//dashBoardBean.discountAmount = ((itemTotalPriceValue+dashBoardBean.itemTotalPrice) - dashBoardBean.price );
 							}	
 							orderNo = tempOrderNo ;
+							itemTotalPriceValue = tempItemPrice;
+							finalPrice = tempFinalPrice;
 							orderDashBoardBeanList.add(dashBoardBean);
 						}
 					}  catch (Exception e) {
@@ -465,11 +489,15 @@ public class OrderDashBoardViewModel {
 						}
 						
 						resultSet = preparedStatement.executeQuery();
-						String orderNo=null;
+						String orderNo=null;double itemTotalPriceValue = 0.0,finalPrice = 0.0; 
 						while (resultSet.next()) {
 							OrderDashBoardBean dashBoardBean = new OrderDashBoardBean();
 							dashBoardBean.orderNo = resultSet.getString("order_no");
 							dashBoardBean.price = resultSet.getDouble("final_price");
+							dashBoardBean.itemTotalPrice = resultSet.getDouble("total_price");
+							dashBoardBean.deliveryCharges = resultSet.getDouble("delivery_charges");
+							dashBoardBean.discountAmount = resultSet.getDouble("discount_amount");
+							//dashBoardBean.discountAmount = dashBoardBean.itemTotalPrice - dashBoardBean.price;
 							dashBoardBean.userType = resultSet.getString("user_type");
 							String itemCode = resultSet.getString("item_code");
 							if(itemCode!=null){
@@ -478,6 +506,9 @@ public class OrderDashBoardViewModel {
 								dashBoardBean.itemCode = "-NA-";
 							}
 							String tempOrderNo = dashBoardBean.orderNo;
+							double tempItemPrice = dashBoardBean.itemTotalPrice;
+							double tempFinalPrice = dashBoardBean.price;
+							
 							String orderDate="",reformattedOrderDate="",deliveryDate="",reformattedDeliveryOrderDate="";
 							SimpleDateFormat fromDB = new SimpleDateFormat("yyyy-MM-dd");
 							SimpleDateFormat myFormat = new SimpleDateFormat("dd-MM-yyyy");
@@ -576,8 +607,11 @@ public class OrderDashBoardViewModel {
 								dashBoardBean.mealTypeVisibility = false;
 								dashBoardBean.orderCreationTimeVis = false;
 								dashBoardBean.timeSlotVis = false;
+							//	dashBoardBean.discountAmount = ((itemTotalPriceValue+dashBoardBean.itemTotalPrice) - dashBoardBean.price );
 							}	
 							orderNo = tempOrderNo ;
+							itemTotalPriceValue = tempItemPrice;
+							finalPrice = tempFinalPrice;
 							orderDashBoardBeanList.add(dashBoardBean);
 						}
 					}  catch (Exception e) {
@@ -611,11 +645,15 @@ public class OrderDashBoardViewModel {
 							}
 							
 							resultSet = preparedStatement.executeQuery();
-							String orderNo=null;
+							String orderNo=null;double itemTotalPriceValue = 0.0,finalPrice = 0.0; 
 							while (resultSet.next()) {
 								OrderDashBoardBean dashBoardBean = new OrderDashBoardBean();
 								dashBoardBean.orderNo = resultSet.getString("order_no");
 								dashBoardBean.price = resultSet.getDouble("final_price");
+								dashBoardBean.itemTotalPrice = resultSet.getDouble("total_price");
+								dashBoardBean.deliveryCharges = resultSet.getDouble("delivery_charges");
+								dashBoardBean.discountAmount = resultSet.getDouble("discount_amount");
+								//dashBoardBean.discountAmount = dashBoardBean.itemTotalPrice - dashBoardBean.price;
 								dashBoardBean.userType = resultSet.getString("user_type");
 								String itemCode = resultSet.getString("item_code");
 								if(itemCode!=null){
@@ -624,6 +662,9 @@ public class OrderDashBoardViewModel {
 									dashBoardBean.itemCode = "-NA-";
 								}
 								String tempOrderNo = dashBoardBean.orderNo;
+								double tempItemPrice = dashBoardBean.itemTotalPrice;
+								double tempFinalPrice = dashBoardBean.price;
+								
 								String orderDate="",reformattedOrderDate="",deliveryDate="",reformattedDeliveryOrderDate="";
 								SimpleDateFormat fromDB = new SimpleDateFormat("yyyy-MM-dd");
 								SimpleDateFormat myFormat = new SimpleDateFormat("dd-MM-yyyy");
@@ -721,8 +762,11 @@ public class OrderDashBoardViewModel {
 									dashBoardBean.mealTypeVisibility = false;
 									dashBoardBean.orderCreationTimeVis = false;
 									dashBoardBean.timeSlotVis = false;
+									//dashBoardBean.discountAmount = ((itemTotalPriceValue+dashBoardBean.itemTotalPrice) - dashBoardBean.price );
 								}	
 								orderNo = tempOrderNo ;
+								itemTotalPriceValue = tempItemPrice;
+								finalPrice = tempFinalPrice;
 								orderDashBoardBeanList.add(dashBoardBean);
 							}
 						}  catch (Exception e) {
@@ -779,16 +823,15 @@ public class OrderDashBoardViewModel {
 		            Writer w = new BufferedWriter(osw);
 		           /* w.write("ORDER NO,ORDER DATE,ORDER STATUS,ORDER BY,MEAL TYPE,DELIVERY DATE,CONTACT NO,ORDER ITEM,ITEM CODE,ITEM DESC,QUANTITY,"
 		            		+ "VENDOR NAME,RECEIVED,NOTIFIED,REJECTED,PICKED,DELIVERED,DRIVER NAME,DRIVER NUMBER\n");*/
-		            w.write("ORDER NO,FINAL PRICE,PAYMENT BY,ORDER DATE,ORDER STATUS,ORDER BY,USER TYPE,DELIVERY ZONE,DELIVERY ADDRESS,DELIVERY INSTRUCTION,MEAL TYPE,SLOT,DELIVERY DATE,CONTACT NO,ORDER ITEM,ITEM CODE,ITEM DESC,QUANTITY,"
-		            		+ "VENDOR NAME,RECEIVED,NOTIFIED,REJECTED,PICKED,DELIVERED,DRIVER NAME,DRIVER NUMBER,ORDER TIME\n");
+		            w.write("ORDER NO,ORDER DATE,ORDER STATUS,ORDER BY,DELIVERY ZONE,DELIVERY ADDRESS,DELIVERY INSTRUCTION,"
+		            		+ "MEAL TYPE,SLOT,DELIVERY DATE,CONTACT NO,USER TYPE,ORDER ITEM,ITEM CODE,ITEM DESC,QUANTITY,"
+		            		+ "VENDOR NAME,RECEIVED,NOTIFIED,REJECTED,PICKED,DELIVERED,DRIVER NAME,DRIVER NUMBER,ORDER TIME,"
+		            		+ "PRICE,DISCOUNT,DELIVERY CHARGES,FINAL PRICE,PAYMENT MODE\n");
 		            for(int i=0;i<orderDashBoardBeanList.size();i++){
 		            	w.write(orderDashBoardBeanList.get(i).orderNo
-		            			+","+orderDashBoardBeanList.get(i).price
-		            			+","+orderDashBoardBeanList.get(i).paymentName
 		            			+","+orderDashBoardBeanList.get(i).orderDateValue
 		            			+","+orderDashBoardBeanList.get(i).orderStatus
 		            			+","+orderDashBoardBeanList.get(i).orderBy
-		            			+","+orderDashBoardBeanList.get(i).userType
 		            			+","+orderDashBoardBeanList.get(i).deliveryZone
 		            			+","+orderDashBoardBeanList.get(i).deliveryAddress
 		            			+","+orderDashBoardBeanList.get(i).deliveryInstruction
@@ -796,6 +839,8 @@ public class OrderDashBoardViewModel {
 		            			+","+orderDashBoardBeanList.get(i).timeSlot
 		            			+","+orderDashBoardBeanList.get(i).deliveryDateValue
 		            			+","+orderDashBoardBeanList.get(i).contactNo
+		            			+","+orderDashBoardBeanList.get(i).userType
+		            			
 		            			+","+orderDashBoardBeanList.get(i).orderItem
 		            			+","+orderDashBoardBeanList.get(i).itemCode
 		            			+","+orderDashBoardBeanList.get(i).itemDescription
@@ -809,6 +854,11 @@ public class OrderDashBoardViewModel {
 		            			+","+orderDashBoardBeanList.get(i).driverName
 		            			+","+orderDashBoardBeanList.get(i).driverNumber
 		            			+","+orderDashBoardBeanList.get(i).orderCreationTime
+		            			+","+orderDashBoardBeanList.get(i).itemTotalPrice
+		            			+","+orderDashBoardBeanList.get(i).discountAmount
+		            			+","+orderDashBoardBeanList.get(i).deliveryCharges
+		            			+","+orderDashBoardBeanList.get(i).price
+		            			+","+orderDashBoardBeanList.get(i).paymentName
 		            			+"\n");
 		            }
 		            

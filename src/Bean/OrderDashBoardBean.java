@@ -25,9 +25,9 @@ public class OrderDashBoardBean {
 	public Date deliveryDate;
 	public String deliveryDateValue;
 	public String contactNo;
-	public String orderItem,itemDescription,paymentName;
+	public String orderItem,itemDescription,paymentName,appliedPromoCode;
 	public Integer quantity;
-	public Double price;
+	public Double price,itemTotalPrice,discountAmount,deliveryCharges;
 	public String kitchenName;
 	public String driverName,userType;
 	public String driverNumber;
@@ -387,6 +387,30 @@ public class OrderDashBoardBean {
 	}
 	public void setPaymentName(String paymentName) {
 		this.paymentName = paymentName;
+	}
+	public Double getItemTotalPrice() {
+		return itemTotalPrice;
+	}
+	public void setItemTotalPrice(Double itemTotalPrice) {
+		this.itemTotalPrice = itemTotalPrice;
+	}
+	public Double getDiscountAmount() {
+		return discountAmount;
+	}
+	public void setDiscountAmount(Double discountAmount) {
+		this.discountAmount = discountAmount;
+	}
+	public Double getDeliveryCharges() {
+		return deliveryCharges;
+	}
+	public void setDeliveryCharges(Double deliveryCharges) {
+		this.deliveryCharges = deliveryCharges;
+	}
+	public String getAppliedPromoCode() {
+		return appliedPromoCode;
+	}
+	public void setAppliedPromoCode(String appliedPromoCode) {
+		this.appliedPromoCode = appliedPromoCode;
 	}
 	
 	

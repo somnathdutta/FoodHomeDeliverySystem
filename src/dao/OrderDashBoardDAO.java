@@ -27,11 +27,15 @@ public class OrderDashBoardDAO {
 					preparedStatement = connection.prepareStatement(sql);
 					preparedStatement.setString(1, "%"+orderno);
 					resultSet = preparedStatement.executeQuery();
-					String orderNo = null;
+					String orderNo = null;double itemTotalPriceValue = 0.0,finalPrice = 0.0; 
 					while (resultSet.next()) {
 						OrderDashBoardBean dashBoardBean = new OrderDashBoardBean();
 						dashBoardBean.orderNo = resultSet.getString("order_no");
 						dashBoardBean.price = resultSet.getDouble("final_price");
+						dashBoardBean.itemTotalPrice = resultSet.getDouble("total_price");
+						dashBoardBean.deliveryCharges = resultSet.getDouble("delivery_charges");
+						dashBoardBean.discountAmount = resultSet.getDouble("discount_amount");
+						//dashBoardBean.discountAmount = dashBoardBean.itemTotalPrice - dashBoardBean.price;
 						dashBoardBean.userType = resultSet.getString("user_type");
 						String itemCode = resultSet.getString("item_code");
 						if(itemCode!=null){
@@ -40,6 +44,9 @@ public class OrderDashBoardDAO {
 							dashBoardBean.itemCode = "-NA-";
 						}
 						String tempOrderNo = dashBoardBean.orderNo;
+						double tempItemPrice = dashBoardBean.itemTotalPrice;
+						double tempFinalPrice = dashBoardBean.price;
+						
 						String orderDate="",reformattedOrderDate="",deliveryDate="",reformattedDeliveryOrderDate="";
 						SimpleDateFormat fromDB = new SimpleDateFormat("yyyy-MM-dd");
 						SimpleDateFormat myFormat = new SimpleDateFormat("dd-MM-yyyy");
@@ -139,8 +146,11 @@ public class OrderDashBoardDAO {
 							dashBoardBean.mealTypeVisibility = false;
 							dashBoardBean.orderCreationTimeVis = false;
 							dashBoardBean.timeSlotVis = false;
+							//dashBoardBean.discountAmount = ((itemTotalPriceValue+dashBoardBean.itemTotalPrice) - dashBoardBean.price );
 						}	
 						orderNo = tempOrderNo ;
+						itemTotalPriceValue = tempItemPrice;
+						finalPrice = tempFinalPrice;
 						orderDashBoardBeanList.add(dashBoardBean);
 					}
 				} catch (Exception e) {

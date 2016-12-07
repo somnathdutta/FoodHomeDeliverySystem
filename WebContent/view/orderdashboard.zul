@@ -1,5 +1,5 @@
 <?page title="Order dashboard" contentType="text/html;charset=UTF-8"?>
-<zk>
+<zk xmlns:h='http://www.w3.org/1999/xhtml'>
 <window title="Order dashboard" border="none" contentStyle="overflow:scroll;"
  apply="org.zkoss.bind.BindComposer" viewModel="@id('vm')@init('ViewModel.OrderDashBoardViewModel')">
  <!-- <timer id="timer" delay="20000" repeats="true" onTimer="@command('refresh')"/> --> 
@@ -64,10 +64,10 @@
 		</style>
 		<div style="border:#DADADA 1px solid;background-color:#F5F5FF;" >
 			<div style="border:#DADADA 1px groove;" sclass="effect8">
-				<grid height="490px" mold="paging" pageSize="10" hflex="2"
+				<grid height="525px" mold="paging" pageSize="10" hflex="2"
 				model="@bind(vm.orderDashBoardBeanList)">
 					<auxhead>
-						<auxheader colspan="25">
+						<auxheader colspan="30">
 						<button onClick="@command('refresh')" sclass="mybutton"
 						style="border:none;background:transparent"
 						image="images/refresh.png"
@@ -89,7 +89,7 @@
 						</auxheader>
 					</auxhead>
 					<auxhead>
-						<auxheader colspan="25">
+						<auxheader colspan="30">
 							<label value="SEARCH BY ORDER NUMBER" style="font-weight:bold;"/>
 							<textbox value="@bind(vm.orderno)" placeholder="e.g.3"/>
 							<button label="Find" sclass="mybutton" onClick="@command('onClickFindByOrder')" />
@@ -99,26 +99,22 @@
 					</auxhead>
 					<columns sizable="true">
 						<column label="Order Number" align="center" width="145px"/>
-						<column label="Final Price" align="center" width="75px"/>
-						<column label="Payment By" align="center" width="125px"/>
 						<column label="Order Date" align="center" width="90px"/>
-						<column label="Delivery Date" align="center" width="90px"/>
 						<column label="Order Status"  align="center" width="130px"/>
 						<column label="Order By" align="center" width="140px"/>
-						<column label="User Type" align="center" width="140px"/>
 						<column label="Delivery Zone" align="center" width="140px"/>
 						<column label="Address" align="center" width="160px"/>
 						<column label="Instruction" align="center" width="140px"/>
 						<column label="Meal Type" align="center" width="120px"/>
 						<column label="Slot" align="center" width="200px"></column>
-						
+						<column label="Delivery Date" align="center" width="90px"/>
 						<column label="Contact No." align="center" width="140px"/>
+						<column label="User Type" align="center" width="140px"/>
 						<column label="Order Item(s)" align="center" width="160px"/>
 						<column label="Item Code" align="center" width="65px"/>
 						<column label="Item desc." align="center" width="160px"/>
 						<column label="Quantity" align="center" width="60px"/>
-						<!-- <column label="Order Price" align="center" /> -->
-						<column label="Vendor Name" align="center" width="140px"/>
+					    <column label="Vendor Name" align="center" width="140px"/>
 						<column label="Received" align="center" width="70px"/>
 						<column label="Notified" align="center" width="70px"/>
 						<column label="Picked" align="center" width="70px"/>
@@ -127,31 +123,34 @@
 						<column label="Driver Name" align="center" width="140px" visible="true"/>
 						<column label="Driver Number" align="center" width="140px" visible="true"/>
 						<column label="Order Creation Time" align="center" width="240px"></column>
+						
+						<column label="Price" align="center" width="60px"/> 
+						<column label="Discount" align="center" width="75px"/>
+						<column align="center" width="75px"><h:b>Delivery<h:br/>Charges</h:b></column>
+						<column label="Final Price" align="center" width="75px"/>
+						<column label="Payment Mode" align="center" width="135px"/>
+					
 					</columns>
 					
 					<rows >
 						 <template name="model" var="v" > 
-							<row  >
+							<row>
 								<textbox width="100%" value="@bind(v.orderNo)" visible="@bind(v.orderNoVisibiliity)" readonly="true"/>
-								<textbox width="100%" value="@bind(v.price)" visible="@bind(v.orderDateVisibility)" readonly="true"/>
-								<textbox width="100%" value="@bind(v.paymentName)" visible="@bind(v.orderDateVisibility)" readonly="true"/>
 								<textbox width="100%" value="@bind(v.orderDateValue)" visible="@bind(v.orderDateVisibility)" readonly="true"/>
-								<textbox width="100%" value="@bind(v.deliveryDateValue)" visible="@bind(v.deliveryDateVisibility)" readonly="true"/>
 								<textbox width="100%" value="@bind(v.orderStatus)" style="@bind(v.statusStyle)" readonly="true"/>
 								<textbox width="100%" value="@bind(v.orderBy)" visible="@bind(v.orderByVisibility)" readonly="true"/>
-								<textbox width="100%" value="@bind(v.userType)" visible="@bind(v.orderNoVisibiliity)" readonly="true"/>
 								<textbox width="100%" multiline="true" value="@bind(v.deliveryZone)" visible="@bind(v.orderByVisibility)" readonly="true"/>
 								<textbox width="100%" multiline="true" value="@bind(v.deliveryAddress)" visible="@bind(v.orderByVisibility)" readonly="true"/>
 								<textbox width="100%" multiline="true" value="@bind(v.deliveryInstruction)" visible="@bind(v.orderByVisibility)" readonly="true"/>
 								<textbox width="100%" value="@bind(v.mealType)" visible="@bind(v.mealTypeVisibility)" readonly="true"/>
 								<textbox width="100%" value="@bind(v.timeSlot)" readonly="true"></textbox>
-								
+								<textbox width="100%" value="@bind(v.deliveryDateValue)" visible="@bind(v.deliveryDateVisibility)" readonly="true"/>
 								<textbox width="100%" value="@bind(v.contactNo)" visible="@bind(v.contactNoVisibility)" readonly="true"/>
+								<textbox width="100%" value="@bind(v.userType)" visible="@bind(v.orderNoVisibiliity)" readonly="true"/>
 								<textbox width="100%" value="@bind(v.orderItem)" readonly="true"/>
 								<textbox width="100%" value="@bind(v.itemCode)" readonly="true"/>
 								<textbox width="100%" multiline="true" value="@bind(v.itemDescription)" readonly="true"/>
 								<textbox width="100%" value="@bind(v.quantity)" readonly="true"/>
-								<!-- <textbox width="100%" value="@bind(v.price)" readonly="true"/> -->
 								<textbox width="100%" value="@bind(v.kitchenName)" readonly="true"/>
 								<textbox width="100%" value="@bind(v.received)" readonly="true"/>
 								<textbox width="100%" value="@bind(v.notified)" readonly="true"/>
@@ -161,6 +160,14 @@
 								<textbox width="100%" value="@bind(v.driverName)" readonly="true"/>
 								<textbox width="100%" value="@bind(v.driverNumber)" readonly="true"/>
 								<textbox width="100%" value="@bind(v.orderCreationTime)" readonly="true"></textbox>
+								
+								<textbox width="100%" value="@bind(v.itemTotalPrice)" readonly="true"/> 	
+								<textbox width="100%" value="@bind(v.discountAmount)" visible="@bind(v.orderNoVisibiliity)" readonly="true"/>	
+								<textbox width="100%" value="@bind(v.deliveryCharges)" visible="@bind(v.orderNoVisibiliity)" readonly="true"/>
+								<textbox width="100%" value="@bind(v.price)" visible="@bind(v.orderDateVisibility)" readonly="true"/>
+								<textbox width="100%" value="@bind(v.paymentName)" visible="@bind(v.orderDateVisibility)" readonly="true"/>
+								
+								
 							</row>
 						</template>
 					</rows>
