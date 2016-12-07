@@ -67,6 +67,7 @@ public class OrderDashBoardDAO {
 							dashBoardBean.statusStyle = "font-weight:bold; color:#ff9900; ";
 						}
 						dashBoardBean.orderBy = resultSet.getString("order_by");
+						dashBoardBean.paymentName = resultSet.getString("payment_name");
 						String deliveryZone = resultSet.getString("delivery_zone");
 						if(deliveryZone!=null){
 							if(deliveryZone.contains(","))

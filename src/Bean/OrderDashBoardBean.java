@@ -25,7 +25,7 @@ public class OrderDashBoardBean {
 	public Date deliveryDate;
 	public String deliveryDateValue;
 	public String contactNo;
-	public String orderItem,itemDescription;
+	public String orderItem,itemDescription,paymentName;
 	public Integer quantity;
 	public Double price;
 	public String kitchenName;
@@ -381,6 +381,12 @@ public class OrderDashBoardBean {
 	}
 	public void setUserType(String userType) {
 		this.userType = userType;
+	}
+	public String getPaymentName() {
+		return paymentName;
+	}
+	public void setPaymentName(String paymentName) {
+		this.paymentName = paymentName;
 	}
 	
 	

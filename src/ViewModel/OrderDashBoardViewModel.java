@@ -189,6 +189,7 @@ public class OrderDashBoardViewModel {
 							//dashBoardBean.rowStyle = "background-color: #ff9900";
 						}
 						dashBoardBean.orderBy = resultSet.getString("order_by");
+						dashBoardBean.paymentName = resultSet.getString("payment_name");
 						String deliveryZone = resultSet.getString("delivery_zone");
 						if(deliveryZone!=null){
 							if(deliveryZone.contains(","))
@@ -342,6 +343,7 @@ public class OrderDashBoardViewModel {
 								dashBoardBean.statusStyle = "font-weight:bold; color:#ff9900; ";
 							}
 							dashBoardBean.orderBy = resultSet.getString("order_by");
+							dashBoardBean.paymentName = resultSet.getString("payment_name");
 							String deliveryZone = resultSet.getString("delivery_zone");
 							if(deliveryZone!=null){
 								if(deliveryZone.contains(","))
@@ -502,6 +504,7 @@ public class OrderDashBoardViewModel {
 								dashBoardBean.statusStyle = "font-weight:bold; color:#ff9900; ";
 							}
 							dashBoardBean.orderBy = resultSet.getString("order_by");
+							dashBoardBean.paymentName = resultSet.getString("payment_name");
 							String deliveryZone = resultSet.getString("delivery_zone");
 							if(deliveryZone!=null){
 								if(deliveryZone.contains(","))
@@ -647,6 +650,7 @@ public class OrderDashBoardViewModel {
 									dashBoardBean.statusStyle = "font-weight:bold; color:#ff9900; ";
 								}
 								dashBoardBean.orderBy = resultSet.getString("order_by");
+								dashBoardBean.paymentName = resultSet.getString("payment_name");
 								String deliveryZone = resultSet.getString("delivery_zone");
 								if(deliveryZone!=null){
 									if(deliveryZone.contains(","))
@@ -775,11 +779,12 @@ public class OrderDashBoardViewModel {
 		            Writer w = new BufferedWriter(osw);
 		           /* w.write("ORDER NO,ORDER DATE,ORDER STATUS,ORDER BY,MEAL TYPE,DELIVERY DATE,CONTACT NO,ORDER ITEM,ITEM CODE,ITEM DESC,QUANTITY,"
 		            		+ "VENDOR NAME,RECEIVED,NOTIFIED,REJECTED,PICKED,DELIVERED,DRIVER NAME,DRIVER NUMBER\n");*/
-		            w.write("ORDER NO,FINAL PRICE,ORDER DATE,ORDER STATUS,ORDER BY,USER TYPE,DELIVERY ZONE,DELIVERY ADDRESS,DELIVERY INSTRUCTION,MEAL TYPE,SLOT,DELIVERY DATE,CONTACT NO,ORDER ITEM,ITEM CODE,ITEM DESC,QUANTITY,"
+		            w.write("ORDER NO,FINAL PRICE,PAYMENT BY,ORDER DATE,ORDER STATUS,ORDER BY,USER TYPE,DELIVERY ZONE,DELIVERY ADDRESS,DELIVERY INSTRUCTION,MEAL TYPE,SLOT,DELIVERY DATE,CONTACT NO,ORDER ITEM,ITEM CODE,ITEM DESC,QUANTITY,"
 		            		+ "VENDOR NAME,RECEIVED,NOTIFIED,REJECTED,PICKED,DELIVERED,DRIVER NAME,DRIVER NUMBER,ORDER TIME\n");
 		            for(int i=0;i<orderDashBoardBeanList.size();i++){
 		            	w.write(orderDashBoardBeanList.get(i).orderNo
 		            			+","+orderDashBoardBeanList.get(i).price
+		            			+","+orderDashBoardBeanList.get(i).paymentName
 		            			+","+orderDashBoardBeanList.get(i).orderDateValue
 		            			+","+orderDashBoardBeanList.get(i).orderStatus
 		            			+","+orderDashBoardBeanList.get(i).orderBy
