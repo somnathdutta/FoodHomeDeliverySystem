@@ -171,7 +171,7 @@ public class PromoCodeMasterDao {
 				}else {
 					bean.setVolumeQuantityDis(true);
 				}
-				System.out.println("");
+				//System.out.println("");
 				list.add(bean);
 			}
 		} catch (Exception e) {

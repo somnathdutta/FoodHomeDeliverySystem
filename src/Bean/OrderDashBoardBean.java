@@ -21,7 +21,7 @@ public class OrderDashBoardBean {
 	public String orderDateValue;
 	public String orderStatus;
 	public String orderBy;
-	public String mealType,itemCode,deliveryZone,deliveryAddress,deliveryInstruction;
+	public String mealType,itemCode,deliveryZone,deliveryAddress,deliveryInstruction,creditApplied;
 	public Date deliveryDate;
 	public String deliveryDateValue;
 	public String contactNo;
@@ -411,6 +411,12 @@ public class OrderDashBoardBean {
 	}
 	public void setAppliedPromoCode(String appliedPromoCode) {
 		this.appliedPromoCode = appliedPromoCode;
+	}
+	public String getCreditApplied() {
+		return creditApplied;
+	}
+	public void setCreditApplied(String creditApplied) {
+		this.creditApplied = creditApplied;
 	}
 	
 	

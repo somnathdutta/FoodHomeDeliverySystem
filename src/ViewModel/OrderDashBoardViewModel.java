@@ -152,6 +152,7 @@ public class OrderDashBoardViewModel {
 						OrderDashBoardBean dashBoardBean = new OrderDashBoardBean();
 						dashBoardBean.orderNo = resultSet.getString("order_no");
 						dashBoardBean.price = resultSet.getDouble("final_price");
+						dashBoardBean.creditApplied = resultSet.getString("is_credit_applied");
 						dashBoardBean.itemTotalPrice = resultSet.getDouble("total_price");
 						dashBoardBean.deliveryCharges = resultSet.getDouble("delivery_charges");
 						//System.out.println("Discount : "+resultSet.getDouble("discount_amount"));
@@ -324,6 +325,7 @@ public class OrderDashBoardViewModel {
 							OrderDashBoardBean dashBoardBean = new OrderDashBoardBean();
 							dashBoardBean.orderNo = resultSet.getString("order_no");
 							dashBoardBean.price = resultSet.getDouble("final_price");
+							dashBoardBean.creditApplied = resultSet.getString("is_credit_applied");
 							dashBoardBean.itemTotalPrice = resultSet.getDouble("total_price");
 							dashBoardBean.deliveryCharges = resultSet.getDouble("delivery_charges");
 							dashBoardBean.discountAmount = resultSet.getDouble("discount_amount");
@@ -494,6 +496,7 @@ public class OrderDashBoardViewModel {
 							OrderDashBoardBean dashBoardBean = new OrderDashBoardBean();
 							dashBoardBean.orderNo = resultSet.getString("order_no");
 							dashBoardBean.price = resultSet.getDouble("final_price");
+							dashBoardBean.creditApplied = resultSet.getString("is_credit_applied");
 							dashBoardBean.itemTotalPrice = resultSet.getDouble("total_price");
 							dashBoardBean.deliveryCharges = resultSet.getDouble("delivery_charges");
 							dashBoardBean.discountAmount = resultSet.getDouble("discount_amount");
@@ -650,6 +653,7 @@ public class OrderDashBoardViewModel {
 								OrderDashBoardBean dashBoardBean = new OrderDashBoardBean();
 								dashBoardBean.orderNo = resultSet.getString("order_no");
 								dashBoardBean.price = resultSet.getDouble("final_price");
+								dashBoardBean.creditApplied = resultSet.getString("is_credit_applied");
 								dashBoardBean.itemTotalPrice = resultSet.getDouble("total_price");
 								dashBoardBean.deliveryCharges = resultSet.getDouble("delivery_charges");
 								dashBoardBean.discountAmount = resultSet.getDouble("discount_amount");
@@ -826,7 +830,7 @@ public class OrderDashBoardViewModel {
 		            w.write("ORDER NO,ORDER DATE,ORDER STATUS,ORDER BY,DELIVERY ZONE,DELIVERY ADDRESS,DELIVERY INSTRUCTION,"
 		            		+ "MEAL TYPE,SLOT,DELIVERY DATE,CONTACT NO,USER TYPE,ORDER ITEM,ITEM CODE,ITEM DESC,QUANTITY,"
 		            		+ "VENDOR NAME,RECEIVED,NOTIFIED,REJECTED,PICKED,DELIVERED,DRIVER NAME,DRIVER NUMBER,ORDER TIME,"
-		            		+ "PRICE,DISCOUNT,DELIVERY CHARGES,FINAL PRICE,PAYMENT MODE\n");
+		            		+ "PRICE,DISCOUNT,DELIVERY CHARGES,CREDIT APPLIED,FINAL PRICE,PAYMENT MODE\n");
 		            for(int i=0;i<orderDashBoardBeanList.size();i++){
 		            	w.write(orderDashBoardBeanList.get(i).orderNo
 		            			+","+orderDashBoardBeanList.get(i).orderDateValue
@@ -857,6 +861,7 @@ public class OrderDashBoardViewModel {
 		            			+","+orderDashBoardBeanList.get(i).itemTotalPrice
 		            			+","+orderDashBoardBeanList.get(i).discountAmount
 		            			+","+orderDashBoardBeanList.get(i).deliveryCharges
+		            			+","+orderDashBoardBeanList.get(i).creditApplied
 		            			+","+orderDashBoardBeanList.get(i).price
 		            			+","+orderDashBoardBeanList.get(i).paymentName
 		            			+"\n");

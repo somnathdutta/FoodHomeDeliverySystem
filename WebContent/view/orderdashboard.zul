@@ -67,7 +67,7 @@
 				<grid height="525px" mold="paging" pageSize="10" hflex="2"
 				model="@bind(vm.orderDashBoardBeanList)">
 					<auxhead>
-						<auxheader colspan="30">
+						<auxheader colspan="31">
 						<button onClick="@command('refresh')" sclass="mybutton"
 						style="border:none;background:transparent"
 						image="images/refresh.png"
@@ -89,7 +89,7 @@
 						</auxheader>
 					</auxhead>
 					<auxhead>
-						<auxheader colspan="30">
+						<auxheader colspan="31">
 							<label value="SEARCH BY ORDER NUMBER" style="font-weight:bold;"/>
 							<textbox value="@bind(vm.orderno)" placeholder="e.g.3"/>
 							<button label="Find" sclass="mybutton" onClick="@command('onClickFindByOrder')" />
@@ -105,10 +105,10 @@
 						<column label="Delivery Zone" align="center" width="140px"/>
 						<column label="Address" align="center" width="160px"/>
 						<column label="Instruction" align="center" width="140px"/>
-						<column label="Meal Type" align="center" width="120px"/>
+						<column label="Meal Type" align="center" width="80px"/>
 						<column label="Slot" align="center" width="200px"></column>
 						<column label="Delivery Date" align="center" width="90px"/>
-						<column label="Contact No." align="center" width="140px"/>
+						<column label="Contact No." align="center" width="93px"/>
 						<column label="User Type" align="center" width="140px"/>
 						<column label="Order Item(s)" align="center" width="160px"/>
 						<column label="Item Code" align="center" width="65px"/>
@@ -121,12 +121,13 @@
 						<column label="Rejected" align="center" width="70px"/>	
 						<column label="Delivered" align="center" width="70px"/>
 						<column label="Driver Name" align="center" width="140px" visible="true"/>
-						<column label="Driver Number" align="center" width="140px" visible="true"/>
-						<column label="Order Creation Time" align="center" width="240px"></column>
+						<column label="Driver Number" align="center" width="95px" visible="true"/>
+						<column label="Order Creation Time" align="center" width="190px"></column>
 						
 						<column label="Price" align="center" width="60px"/> 
 						<column label="Discount" align="center" width="75px"/>
 						<column align="center" width="75px"><h:b>Delivery<h:br/>Charges</h:b></column>
+						<column align="center" width="75px"><h:b>Credit<h:br/>Applied</h:b></column>
 						<column label="Final Price" align="center" width="75px"/>
 						<column label="Payment Mode" align="center" width="135px"/>
 					
@@ -164,6 +165,7 @@
 								<textbox width="100%" value="@bind(v.itemTotalPrice)" readonly="true"/> 	
 								<textbox width="100%" value="@bind(v.discountAmount)" visible="@bind(v.orderNoVisibiliity)" readonly="true"/>	
 								<textbox width="100%" value="@bind(v.deliveryCharges)" visible="@bind(v.orderNoVisibiliity)" readonly="true"/>
+								<textbox width="100%" value="@bind(v.creditApplied)" visible="@bind(v.orderNoVisibiliity)" readonly="true"/>
 								<textbox width="100%" value="@bind(v.price)" visible="@bind(v.orderDateVisibility)" readonly="true"/>
 								<textbox width="100%" value="@bind(v.paymentName)" visible="@bind(v.orderDateVisibility)" readonly="true"/>
 								
