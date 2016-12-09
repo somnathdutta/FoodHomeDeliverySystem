@@ -51,6 +51,17 @@ public class OrderDashBoardBean {
 	
 	public String notifyTimeValue;
 	
+	public String referredBy;
+	public String walletAmt;
+	public String menu;
+	public String taste;
+	public String portion;
+	public String packing;
+	public String timelyDeliverd;
+	public String comment;
+	
+	
+	
 	public Integer getOrderId() {
 		return orderId;
 	}
@@ -417,6 +428,54 @@ public class OrderDashBoardBean {
 	}
 	public void setCreditApplied(String creditApplied) {
 		this.creditApplied = creditApplied;
+	}
+	public String getReferredBy() {
+		return referredBy;
+	}
+	public void setReferredBy(String referredBy) {
+		this.referredBy = referredBy;
+	}
+	public String getWalletAmt() {
+		return walletAmt;
+	}
+	public void setWalletAmt(String walletAmt) {
+		this.walletAmt = walletAmt;
+	}
+	public String getMenu() {
+		return menu;
+	}
+	public void setMenu(String menu) {
+		this.menu = menu;
+	}
+	public String getPortion() {
+		return portion;
+	}
+	public void setPortion(String portion) {
+		this.portion = portion;
+	}
+	public String getPacking() {
+		return packing;
+	}
+	public void setPacking(String packing) {
+		this.packing = packing;
+	}
+	public String getTimelyDeliverd() {
+		return timelyDeliverd;
+	}
+	public void setTimelyDeliverd(String timelyDeliverd) {
+		this.timelyDeliverd = timelyDeliverd;
+	}
+	public String getComment() {
+		return comment;
+	}
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
+	public String getTaste() {
+		return taste;
+	}
+	public void setTaste(String taste) {
+		this.taste = taste;
 	}
 	
 	
