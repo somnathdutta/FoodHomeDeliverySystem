@@ -1040,7 +1040,8 @@ public class OrderDashBoardViewModel {
 		            w.write("ORDER NO,ORDER DATE,ORDER STATUS,ORDER BY,DELIVERY ZONE,DELIVERY ADDRESS,DELIVERY INSTRUCTION,"
 		            		+ "MEAL TYPE,SLOT,DELIVERY DATE,CONTACT NO,USER TYPE,ORDER ITEM,ITEM CODE,ITEM DESC,QUANTITY,"
 		            		+ "VENDOR NAME,RECEIVED,NOTIFIED,REJECTED,PICKED,DELIVERED,DRIVER NAME,DRIVER NUMBER,ORDER TIME,"
-		            		+ "PRICE,DISCOUNT,DELIVERY CHARGES,CREDIT APPLIED,FINAL PRICE,PAYMENT MODE\n");
+		            		+ "PRICE,DISCOUNT,DELIVERY CHARGES,CREDIT APPLIED,CREDIT AMOUNT,FINAL PRICE,PAYMENT MODE,"
+		            		+ "MENU,TASTE,PORTION,PACKAGING,TIMELY DELIVERED,COMMENT\n");
 		            for(int i=0;i<orderDashBoardBeanList.size();i++){
 		            	w.write(orderDashBoardBeanList.get(i).orderNo
 		            			+","+orderDashBoardBeanList.get(i).orderDateValue
@@ -1071,8 +1072,15 @@ public class OrderDashBoardViewModel {
 		            			+","+orderDashBoardBeanList.get(i).discountAmount
 		            			+","+orderDashBoardBeanList.get(i).deliveryCharges
 		            			+","+orderDashBoardBeanList.get(i).creditApplied
+		            			+","+orderDashBoardBeanList.get(i).walletAmt
 		            			+","+orderDashBoardBeanList.get(i).price
 		            			+","+orderDashBoardBeanList.get(i).paymentName
+		            			+","+orderDashBoardBeanList.get(i).menu
+		            			+","+orderDashBoardBeanList.get(i).taste
+		            			+","+orderDashBoardBeanList.get(i).portion
+		            			+","+orderDashBoardBeanList.get(i).packing
+		            			+","+orderDashBoardBeanList.get(i).timelyDeliverd
+		            			+","+orderDashBoardBeanList.get(i).comment
 		            			+"\n");
 		            }
 		            

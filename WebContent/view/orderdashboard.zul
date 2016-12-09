@@ -89,7 +89,7 @@
 						</auxheader>
 					</auxhead>
 					<auxhead>
-						<auxheader colspan="31">
+						<auxheader colspan="39">
 							<label value="SEARCH BY ORDER NUMBER" style="font-weight:bold;"/>
 							<textbox value="@bind(vm.orderno)" placeholder="e.g.3"/>
 							<button label="Find" sclass="mybutton" onClick="@command('onClickFindByOrder')" />
@@ -128,11 +128,12 @@
 						<column label="Discount" align="center" width="75px"/>
 						<column align="center" width="75px"><h:b>Delivery<h:br/>Charges</h:b></column>
 						<column align="center" width="75px"><h:b>Credit<h:br/>Applied</h:b></column>
+						<column align="center" width="70px"><h:b>Credit<h:br/>Amount</h:b></column>
 						<column label="Final Price" align="center" width="75px"/>
 						<column label="Payment Mode" align="center" width="135px"/>
 					
-						<column label="Referred By" align="center" width="140px"/> 
-						<column label="Wallet Amount" align="center" width="120px"/>
+						<column label="Referred By" align="center" width="140px" visible="false"/> 
+						
 						<column label="Menu" width="50px" align="center"/>
 						<column label="Taste" width="75px" align="center"/>
 						<column label="Portion" align="center" width="75px"/>
@@ -177,11 +178,12 @@
 								<textbox width="100%" value="@bind(v.discountAmount)" visible="@bind(v.orderNoVisibiliity)" readonly="true"/>	
 								<textbox width="100%" value="@bind(v.deliveryCharges)" visible="@bind(v.orderNoVisibiliity)" readonly="true"/>
 								<textbox width="100%" value="@bind(v.creditApplied)" visible="@bind(v.orderNoVisibiliity)" readonly="true"/>
+								<textbox width="100%" value="@bind(v.walletAmt)" readonly="true"/>
 								<textbox width="100%" value="@bind(v.price)" visible="@bind(v.orderDateVisibility)" readonly="true"/>
 								<textbox width="100%" value="@bind(v.paymentName)" visible="@bind(v.orderDateVisibility)" readonly="true"/>
 								
 								<textbox width="100%" value="@bind(v.referredBy)" readonly="true"/>
-								<textbox width="100%" value="@bind(v.walletAmt)" readonly="true"/>
+								
 								<textbox width="100%" value="@bind(v.menu)" readonly="true"/>
 								<textbox width="100%" value="@bind(v.taste)" readonly="true"/>
 								<textbox width="100%" value="@bind(v.portion)" readonly="true"/>
