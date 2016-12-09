@@ -204,6 +204,8 @@ public class OrderDashBoardViewModel {
 						if(deliveryZone!=null){
 							if(deliveryZone.contains(","))
 								deliveryZone = deliveryZone.replace(",", ";");
+								deliveryZone = deliveryZone.replace("\n", "").replace("\r", "");
+							
 							dashBoardBean.deliveryZone = deliveryZone;
 						}else{
 							dashBoardBean.deliveryZone = "NA";
@@ -212,6 +214,7 @@ public class OrderDashBoardViewModel {
 						if(deliveryAddress!=null){
 							if(deliveryAddress.contains(","))
 								deliveryAddress = deliveryAddress.replace(",", ";");
+							deliveryAddress = deliveryAddress.replace("\n", "").replace("\r", "");
 							dashBoardBean.deliveryAddress = deliveryAddress;
 						}else{
 							dashBoardBean.deliveryAddress = "NA";
@@ -220,6 +223,7 @@ public class OrderDashBoardViewModel {
 						if(deliveryInstruction!=null){
 							if(deliveryInstruction.contains(","))
 								deliveryInstruction = deliveryInstruction.replace(",", ";");
+								deliveryInstruction = deliveryInstruction.replace("\n", "").replace("\r", "");
 							dashBoardBean.deliveryInstruction = deliveryInstruction;
 						}else{
 							dashBoardBean.deliveryInstruction = "NA";
@@ -421,6 +425,7 @@ public class OrderDashBoardViewModel {
 							if(deliveryZone!=null){
 								if(deliveryZone.contains(","))
 									deliveryZone = deliveryZone.replace(",", ";");
+									deliveryZone = deliveryZone.replace("\n", "").replace("\r", "");
 								dashBoardBean.deliveryZone = deliveryZone;
 							}else{
 								dashBoardBean.deliveryZone = "NA";
@@ -429,6 +434,7 @@ public class OrderDashBoardViewModel {
 							if(deliveryAddress!=null){
 								if(deliveryAddress.contains(","))
 									deliveryAddress = deliveryAddress.replace(",", ";");
+									deliveryAddress = deliveryAddress.replace("\n", "").replace("\r", "");
 								dashBoardBean.deliveryAddress = deliveryAddress;
 							}else{
 								dashBoardBean.deliveryAddress = "NA";
@@ -437,6 +443,7 @@ public class OrderDashBoardViewModel {
 							if(deliveryInstruction!=null){
 								if(deliveryInstruction.contains(","))
 									deliveryInstruction = deliveryInstruction.replace(",", ";");
+									deliveryInstruction = deliveryInstruction.replace("\n", "").replace("\r", "");
 								dashBoardBean.deliveryInstruction = deliveryInstruction;
 							}else{
 								dashBoardBean.deliveryInstruction = "NA";
@@ -642,6 +649,7 @@ public class OrderDashBoardViewModel {
 							if(deliveryZone!=null){
 								if(deliveryZone.contains(","))
 									deliveryZone = deliveryZone.replace(",", ";");
+									deliveryZone = deliveryZone.replace("\n", "").replace("\r", "");
 								dashBoardBean.deliveryZone = deliveryZone;
 							}else{
 								dashBoardBean.deliveryZone = "NA";
@@ -650,6 +658,7 @@ public class OrderDashBoardViewModel {
 							if(deliveryAddress!=null){
 								if(deliveryAddress.contains(","))
 									deliveryAddress = deliveryAddress.replace(",", ";");
+									deliveryAddress = deliveryAddress.replace("\n", "").replace("\r", "");
 								dashBoardBean.deliveryAddress = deliveryAddress;
 							}else{
 								dashBoardBean.deliveryAddress = "NA";
@@ -658,6 +667,7 @@ public class OrderDashBoardViewModel {
 							if(deliveryInstruction!=null){
 								if(deliveryInstruction.contains(","))
 									deliveryInstruction = deliveryInstruction.replace(",", ";");
+									deliveryInstruction = deliveryInstruction.replace("\n", "").replace("\r", "");
 								dashBoardBean.deliveryInstruction = deliveryInstruction;
 							}else{
 								dashBoardBean.deliveryInstruction = "NA";
@@ -848,6 +858,7 @@ public class OrderDashBoardViewModel {
 								if(deliveryZone!=null){
 									if(deliveryZone.contains(","))
 										deliveryZone = deliveryZone.replace(",", ";");
+										deliveryZone = deliveryZone.replace("\n", "").replace("\r", "");
 									dashBoardBean.deliveryZone = deliveryZone;
 								}else{
 									dashBoardBean.deliveryZone = "NA";
@@ -856,6 +867,7 @@ public class OrderDashBoardViewModel {
 								if(deliveryAddress!=null){
 									if(deliveryAddress.contains(","))
 										deliveryAddress = deliveryAddress.replace(",", ";");
+										deliveryAddress = deliveryAddress.replace("\n", "").replace("\r", "");
 									dashBoardBean.deliveryAddress = deliveryAddress;
 								}else{
 									dashBoardBean.deliveryAddress = "NA";
@@ -864,6 +876,7 @@ public class OrderDashBoardViewModel {
 								if(deliveryInstruction!=null){
 									if(deliveryInstruction.contains(","))
 										deliveryInstruction = deliveryInstruction.replace(",", ";");
+										deliveryInstruction = deliveryInstruction.replace("\n", "").replace("\r", "");
 									dashBoardBean.deliveryInstruction = deliveryInstruction;
 								}else{
 									dashBoardBean.deliveryInstruction = "NA";
