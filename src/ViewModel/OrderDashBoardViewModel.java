@@ -143,7 +143,7 @@ public class OrderDashBoardViewModel {
 			SQL:{
 				 PreparedStatement preparedStatement = null;
 				 ResultSet resultSet = null;
-				 String sql = "SELECT * FROM vw_order_dashboard";
+				 String sql = "SELECT * FROM vw_order_dashboard where order_date between current_date-2 and current_date  ;";
 				 try {
 					preparedStatement = connection.prepareStatement(sql);
 					resultSet = preparedStatement.executeQuery();
@@ -843,8 +843,7 @@ public class OrderDashBoardViewModel {
 		            			+","+orderDashBoardBeanList.get(i).timeSlot
 		            			+","+orderDashBoardBeanList.get(i).deliveryDateValue
 		            			+","+orderDashBoardBeanList.get(i).contactNo
-		            			+","+orderDashBoardBeanList.get(i).userType
-		            			
+		            			+","+orderDashBoardBeanList.get(i).userType	
 		            			+","+orderDashBoardBeanList.get(i).orderItem
 		            			+","+orderDashBoardBeanList.get(i).itemCode
 		            			+","+orderDashBoardBeanList.get(i).itemDescription

@@ -50,6 +50,7 @@ public class ForgotPasswordViewModel {
 		session = Sessions.getCurrent();
 		
 		System.out.println("zul page >> forGotPassWord.zul");
+		System.out.println("HAS CODE: "+hascode);
 		loginBean.newPasswordDis = true;
 		loginBean.confirmPasswordDis = true;
 		loginBean.saveDis = true;
@@ -83,6 +84,7 @@ public class ForgotPasswordViewModel {
 			preparedStatement  = conn.prepareStatement(sql);
 			
 			preparedStatement.setString(1, hc);
+			System.out.println(preparedStatement);
 			ResultSet resultSet = preparedStatement.executeQuery();
 			
 			while (resultSet.next()) {
@@ -300,7 +302,7 @@ public class ForgotPasswordViewModel {
 		 int i = 0;
 		 if(validation()){
 		 	 
-			 String sql = "UPDATE fapp_accounts SET password = ? WHERE mobile_no = ? ";
+			 String sql = "UPDATE fapp_accounts SET password = ?,hash_code= null WHERE mobile_no = ? ";
 		 
 		 		try {
 		 		Connection con = null;
