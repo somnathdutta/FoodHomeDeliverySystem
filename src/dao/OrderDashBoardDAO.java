@@ -137,6 +137,54 @@ public class OrderDashBoardDAO {
 						}else{
 							dashBoardBean.driverNumber = "NA";
 						}
+
+						if(resultSet.getString("referred_by") != null){
+							dashBoardBean.referredBy = resultSet.getString("referred_by");
+						}else {
+							dashBoardBean.referredBy = "NA";
+						}
+						
+						if(resultSet.getString("vallet_amount") != null){
+							dashBoardBean.walletAmt = resultSet.getString("vallet_amount");
+						}else {
+							dashBoardBean.walletAmt = "NA";
+						}
+						
+						if(resultSet.getString("menu") != null){
+							dashBoardBean.menu = resultSet.getString("menu");
+						}else {
+							dashBoardBean.menu = "NA";
+						}
+						
+						if(resultSet.getString("taste") != null){
+							dashBoardBean.taste = resultSet.getString("taste");
+						}else {
+							dashBoardBean.taste = "NA";
+						}
+						
+						if(resultSet.getString("portion") != null){
+							dashBoardBean.portion = resultSet.getString("portion");
+						}else {
+							dashBoardBean.portion = "NA";
+						}
+						
+						if(resultSet.getString("packing") != null){
+							dashBoardBean.packing = resultSet.getString("packing");
+						}else {
+							dashBoardBean.packing = "NA";
+						}
+						
+						if(resultSet.getString("timely_delivered") != null){
+							dashBoardBean.timelyDeliverd = resultSet.getString("timely_delivered");
+						}else {
+							dashBoardBean.timelyDeliverd = "NA";
+						}
+						
+						if(resultSet.getString("comment") != null){
+							dashBoardBean.comment = resultSet.getString("comment");
+						}else {
+							dashBoardBean.comment = "NA";
+						}
 						
 						if(dashBoardBean.orderNo.equals(orderNo)){
 							dashBoardBean.orderNoVisibiliity= false;
