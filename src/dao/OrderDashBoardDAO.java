@@ -32,6 +32,8 @@ public class OrderDashBoardDAO {
 						OrderDashBoardBean dashBoardBean = new OrderDashBoardBean();
 						dashBoardBean.orderNo = resultSet.getString("order_no");
 						dashBoardBean.price = resultSet.getDouble("final_price");
+						dashBoardBean.itemRate = resultSet.getDouble("rate");
+						dashBoardBean.totalDiscount = resultSet.getDouble("total_discount");
 						dashBoardBean.creditApplied = resultSet.getString("is_credit_applied");
 						dashBoardBean.itemTotalPrice = resultSet.getDouble("total_price");
 						dashBoardBean.deliveryCharges = resultSet.getDouble("delivery_charges");

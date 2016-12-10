@@ -23,11 +23,11 @@ public class OrderDashBoardBean {
 	public String orderBy;
 	public String mealType,itemCode,deliveryZone,deliveryAddress,deliveryInstruction,creditApplied;
 	public Date deliveryDate;
-	public String deliveryDateValue;
+	public String deliveryDateValue,deliveryDayName;
 	public String contactNo;
 	public String orderItem,itemDescription,paymentName,appliedPromoCode;
 	public Integer quantity;
-	public Double price,itemTotalPrice,discountAmount,deliveryCharges;
+	public Double price,itemTotalPrice,discountAmount,deliveryCharges,itemRate,totalDiscount;
 	public String kitchenName;
 	public String driverName,userType;
 	public String driverNumber;
@@ -476,6 +476,24 @@ public class OrderDashBoardBean {
 	}
 	public void setTaste(String taste) {
 		this.taste = taste;
+	}
+	public Double getItemRate() {
+		return itemRate;
+	}
+	public void setItemRate(Double itemRate) {
+		this.itemRate = itemRate;
+	}
+	public Double getTotalDiscount() {
+		return totalDiscount;
+	}
+	public void setTotalDiscount(Double totalDiscount) {
+		this.totalDiscount = totalDiscount;
+	}
+	public String getDeliveryDayName() {
+		return deliveryDayName;
+	}
+	public void setDeliveryDayName(String deliveryDayName) {
+		this.deliveryDayName = deliveryDayName;
 	}
 	
 	

@@ -29,6 +29,7 @@ import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zul.Messagebox;
 
+import utility.DayFinder;
 import dao.OrderDashBoardDAO;
 import Bean.OrderDashBoardBean;
 
@@ -152,6 +153,8 @@ public class OrderDashBoardViewModel {
 						OrderDashBoardBean dashBoardBean = new OrderDashBoardBean();
 						dashBoardBean.orderNo = resultSet.getString("order_no");
 						dashBoardBean.price = resultSet.getDouble("final_price");
+						dashBoardBean.itemRate = resultSet.getDouble("rate");
+						dashBoardBean.totalDiscount = resultSet.getDouble("total_discount");
 						dashBoardBean.creditApplied = resultSet.getString("is_credit_applied");
 						dashBoardBean.itemTotalPrice = resultSet.getDouble("total_price");
 						dashBoardBean.deliveryCharges = resultSet.getDouble("delivery_charges");
@@ -379,6 +382,8 @@ public class OrderDashBoardViewModel {
 							OrderDashBoardBean dashBoardBean = new OrderDashBoardBean();
 							dashBoardBean.orderNo = resultSet.getString("order_no");
 							dashBoardBean.price = resultSet.getDouble("final_price");
+							dashBoardBean.itemRate = resultSet.getDouble("rate");
+							dashBoardBean.totalDiscount = resultSet.getDouble("total_discount");
 							dashBoardBean.creditApplied = resultSet.getString("is_credit_applied");
 							dashBoardBean.itemTotalPrice = resultSet.getDouble("total_price");
 							dashBoardBean.deliveryCharges = resultSet.getDouble("delivery_charges");
@@ -602,6 +607,8 @@ public class OrderDashBoardViewModel {
 							OrderDashBoardBean dashBoardBean = new OrderDashBoardBean();
 							dashBoardBean.orderNo = resultSet.getString("order_no");
 							dashBoardBean.price = resultSet.getDouble("final_price");
+							dashBoardBean.itemRate = resultSet.getDouble("rate");
+							dashBoardBean.totalDiscount = resultSet.getDouble("total_discount");
 							dashBoardBean.creditApplied = resultSet.getString("is_credit_applied");
 							dashBoardBean.itemTotalPrice = resultSet.getDouble("total_price");
 							dashBoardBean.deliveryCharges = resultSet.getDouble("delivery_charges");
@@ -811,6 +818,8 @@ public class OrderDashBoardViewModel {
 								OrderDashBoardBean dashBoardBean = new OrderDashBoardBean();
 								dashBoardBean.orderNo = resultSet.getString("order_no");
 								dashBoardBean.price = resultSet.getDouble("final_price");
+								dashBoardBean.itemRate = resultSet.getDouble("rate");
+								dashBoardBean.totalDiscount = resultSet.getDouble("total_discount");
 								dashBoardBean.creditApplied = resultSet.getString("is_credit_applied");
 								dashBoardBean.itemTotalPrice = resultSet.getDouble("total_price");
 								dashBoardBean.deliveryCharges = resultSet.getDouble("delivery_charges");
@@ -1037,50 +1046,53 @@ public class OrderDashBoardViewModel {
 		            Writer w = new BufferedWriter(osw);
 		           /* w.write("ORDER NO,ORDER DATE,ORDER STATUS,ORDER BY,MEAL TYPE,DELIVERY DATE,CONTACT NO,ORDER ITEM,ITEM CODE,ITEM DESC,QUANTITY,"
 		            		+ "VENDOR NAME,RECEIVED,NOTIFIED,REJECTED,PICKED,DELIVERED,DRIVER NAME,DRIVER NUMBER\n");*/
-		            w.write("ORDER NO,ORDER DATE,ORDER STATUS,ORDER BY,DELIVERY ZONE,DELIVERY ADDRESS,DELIVERY INSTRUCTION,"
-		            		+ "MEAL TYPE,SLOT,DELIVERY DATE,CONTACT NO,USER TYPE,ORDER ITEM,ITEM CODE,ITEM DESC,QUANTITY,"
-		            		+ "VENDOR NAME,RECEIVED,NOTIFIED,REJECTED,PICKED,DELIVERED,DRIVER NAME,DRIVER NUMBER,ORDER TIME,"
-		            		+ "PRICE,DISCOUNT,DELIVERY CHARGES,CREDIT APPLIED,CREDIT AMOUNT,FINAL PRICE,PAYMENT MODE,"
-		            		+ "MENU,TASTE,PORTION,PACKAGING,TIMELY DELIVERED,COMMENT\n");
+		            w.write("ORDER NO,ORDER DATE,ORDER STATUS,ORDER BY,DELIVERY ZONE,"
+		            		+ "MEAL TYPE,SLOT,DELIVERY DATE,CONTACT NO,ORDER ITEM,ITEM CODE,QUANTITY,"
+		            		+ "VENDOR NAME,DRIVER NAME,DRIVER NUMBER,FINAL PRICE,PAYMENT MODE,DAY,"
+		            		+ "CHOICE OF MENU,FOOD TASTE,QUANTITY,PACKAGING,TIMING,"
+		            		+ "RATE,VALUE,DISCOUNT,SHARE,PROMO VALUE,CREDIT APPLIED,FINAL PRICE"
+		            		+ "\n");
 		            for(int i=0;i<orderDashBoardBeanList.size();i++){
 		            	w.write(orderDashBoardBeanList.get(i).orderNo
 		            			+","+orderDashBoardBeanList.get(i).orderDateValue
 		            			+","+orderDashBoardBeanList.get(i).orderStatus
 		            			+","+orderDashBoardBeanList.get(i).orderBy
 		            			+","+orderDashBoardBeanList.get(i).deliveryZone
-		            			+","+orderDashBoardBeanList.get(i).deliveryAddress
-		            			+","+orderDashBoardBeanList.get(i).deliveryInstruction
+		            	
 		            			+","+orderDashBoardBeanList.get(i).mealType
 		            			+","+orderDashBoardBeanList.get(i).timeSlot
 		            			+","+orderDashBoardBeanList.get(i).deliveryDateValue
 		            			+","+orderDashBoardBeanList.get(i).contactNo
-		            			+","+orderDashBoardBeanList.get(i).userType	
+		            		
 		            			+","+orderDashBoardBeanList.get(i).orderItem
 		            			+","+orderDashBoardBeanList.get(i).itemCode
-		            			+","+orderDashBoardBeanList.get(i).itemDescription
+		            		
 		            			+","+orderDashBoardBeanList.get(i).quantity
 		            			+","+orderDashBoardBeanList.get(i).kitchenName
-		            			+","+orderDashBoardBeanList.get(i).received
-		            			+","+orderDashBoardBeanList.get(i).notified
-		            			+","+orderDashBoardBeanList.get(i).rejected
-		            			+","+orderDashBoardBeanList.get(i).picked
-		            			+","+orderDashBoardBeanList.get(i).delivered
+		            		
 		            			+","+orderDashBoardBeanList.get(i).driverName
 		            			+","+orderDashBoardBeanList.get(i).driverNumber
-		            			+","+orderDashBoardBeanList.get(i).orderCreationTime
-		            			+","+orderDashBoardBeanList.get(i).itemTotalPrice
-		            			+","+orderDashBoardBeanList.get(i).discountAmount
-		            			+","+orderDashBoardBeanList.get(i).deliveryCharges
-		            			+","+orderDashBoardBeanList.get(i).creditApplied
-		            			+","+orderDashBoardBeanList.get(i).walletAmt
+		            		
 		            			+","+orderDashBoardBeanList.get(i).price
 		            			+","+orderDashBoardBeanList.get(i).paymentName
+		            			+","+DayFinder.getDayName(orderDashBoardBeanList.get(i).deliveryDateValue) 
+		            			
 		            			+","+orderDashBoardBeanList.get(i).menu
 		            			+","+orderDashBoardBeanList.get(i).taste
 		            			+","+orderDashBoardBeanList.get(i).portion
 		            			+","+orderDashBoardBeanList.get(i).packing
 		            			+","+orderDashBoardBeanList.get(i).timelyDeliverd
-		            			+","+orderDashBoardBeanList.get(i).comment
+		            			
+		            			+","+orderDashBoardBeanList.get(i).itemRate
+		            			+","+orderDashBoardBeanList.get(i).itemTotalPrice
+		            			+","+orderDashBoardBeanList.get(i).totalDiscount
+		            			
+		            			+","+orderDashBoardBeanList.get(i).walletAmt
+		            			+","+orderDashBoardBeanList.get(i).discountAmount
+		            			+","+orderDashBoardBeanList.get(i).creditApplied
+		            			
+		            			+","+orderDashBoardBeanList.get(i).price
+		            		//	+","+orderDashBoardBeanList.get(i).paymentName
 		            			+"\n");
 		            }
 		            
