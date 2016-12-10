@@ -46,8 +46,8 @@ public class DayFinder {
 		Date startDate = null;
 		try {
 			startDate = df.parse(startDateString);
-			String newDateString = df.format(startDate);
-			System.out.println(newDateString);
+			//String newDateString = df.format(startDate);
+			//System.out.println(newDateString);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}

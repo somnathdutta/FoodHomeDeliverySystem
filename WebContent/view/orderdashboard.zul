@@ -67,7 +67,7 @@
 				<grid height="515px" mold="paging" pageSize="10" hflex="2"
 				model="@bind(vm.orderDashBoardBeanList)">
 					<auxhead>
-						<auxheader colspan="40">
+						<auxheader colspan="41">
 						<button onClick="@command('refresh')" sclass="mybutton"
 						style="border:none;background:transparent"
 						image="images/refresh.png"
@@ -89,7 +89,7 @@
 						</auxheader>
 					</auxhead>
 					<auxhead>
-						<auxheader colspan="40">
+						<auxheader colspan="41">
 							<label value="SEARCH BY ORDER NUMBER" style="font-weight:bold;"/>
 							<textbox value="@bind(vm.orderno)" placeholder="e.g.3"/>
 							<button label="Find" sclass="mybutton" onClick="@command('onClickFindByOrder')" />
