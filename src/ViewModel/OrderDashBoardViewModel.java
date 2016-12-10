@@ -187,6 +187,7 @@ public class OrderDashBoardViewModel {
 						}
 						dashBoardBean.orderDateValue = reformattedOrderDate;
 						dashBoardBean.deliveryDateValue = reformattedDeliveryOrderDate;
+						dashBoardBean.deliveryDayName = DayFinder.getDayName(dashBoardBean.deliveryDateValue);
 						dashBoardBean.orderStatus= resultSet.getString("order_status");
 						int orderStatusId = resultSet.getInt("order_status_id"); 
 						if(orderStatusId == 10){
@@ -638,6 +639,7 @@ public class OrderDashBoardViewModel {
 							}
 							dashBoardBean.orderDateValue = reformattedOrderDate;
 							dashBoardBean.deliveryDateValue = reformattedDeliveryOrderDate;
+							dashBoardBean.deliveryDayName = DayFinder.getDayName(dashBoardBean.deliveryDateValue);
 							dashBoardBean.orderStatus= resultSet.getString("order_status");
 							int orderStatusId = resultSet.getInt("order_status_id"); 
 							if(orderStatusId == 10){
@@ -849,6 +851,7 @@ public class OrderDashBoardViewModel {
 								}
 								dashBoardBean.orderDateValue = reformattedOrderDate;
 								dashBoardBean.deliveryDateValue = reformattedDeliveryOrderDate;
+								dashBoardBean.deliveryDayName = DayFinder.getDayName(dashBoardBean.deliveryDateValue);
 								dashBoardBean.orderStatus= resultSet.getString("order_status");
 								int orderStatusId = resultSet.getInt("order_status_id"); 
 								if(orderStatusId == 10){
@@ -1075,7 +1078,7 @@ public class OrderDashBoardViewModel {
 		            		
 		            			+","+orderDashBoardBeanList.get(i).price
 		            			+","+orderDashBoardBeanList.get(i).paymentName
-		            			+","+DayFinder.getDayName(orderDashBoardBeanList.get(i).deliveryDateValue) 
+		            			+","+orderDashBoardBeanList.get(i).deliveryDayName
 		            			
 		            			+","+orderDashBoardBeanList.get(i).menu
 		            			+","+orderDashBoardBeanList.get(i).taste

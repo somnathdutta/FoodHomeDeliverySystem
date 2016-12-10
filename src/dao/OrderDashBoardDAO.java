@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import org.zkoss.zul.Messagebox;
 
+import utility.DayFinder;
 import Bean.OrderDashBoardBean;
 
 public class OrderDashBoardDAO {
@@ -64,6 +65,7 @@ public class OrderDashBoardDAO {
 						}
 						dashBoardBean.orderDateValue = reformattedOrderDate;
 						dashBoardBean.deliveryDateValue = reformattedDeliveryOrderDate;
+						dashBoardBean.deliveryDayName = DayFinder.getDayName(dashBoardBean.deliveryDateValue);
 						dashBoardBean.orderStatus= resultSet.getString("order_status");
 						int orderStatusId = resultSet.getInt("order_status_id"); 
 						if(orderStatusId == 10){

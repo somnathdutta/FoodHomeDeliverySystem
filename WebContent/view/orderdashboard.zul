@@ -108,6 +108,7 @@
 						<column label="Meal Type" align="center" width="80px"/>
 						<column label="Slot" align="center" width="200px"></column>
 						<column label="Delivery Date" align="center" width="90px"/>
+						<column label="Delivery Day" align="center" width="90px"/>
 						<column label="Contact No." align="center" width="93px"/>
 						<column label="User Type" align="center" width="140px"/>
 						<column label="Order Item(s)" align="center" width="160px"/>
@@ -166,6 +167,8 @@
 								<textbox width="100%" value="@bind(v.mealType)" visible="@bind(v.mealTypeVisibility)" readonly="true"/>
 								<textbox width="100%" value="@bind(v.timeSlot)" readonly="true"></textbox>
 								<textbox width="100%" value="@bind(v.deliveryDateValue)" visible="@bind(v.deliveryDateVisibility)" readonly="true"/>
+								<textbox width="100%" value="@bind(v.deliveryDayName)" visible="@bind(v.deliveryDateVisibility)" readonly="true"/>
+								
 								<textbox width="100%" value="@bind(v.contactNo)" visible="@bind(v.contactNoVisibility)" readonly="true"/>
 								<textbox width="100%" value="@bind(v.userType)" visible="@bind(v.orderNoVisibiliity)" readonly="true"/>
 								<textbox width="100%" value="@bind(v.orderItem)" readonly="true"/>
