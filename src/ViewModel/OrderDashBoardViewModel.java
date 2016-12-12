@@ -144,7 +144,8 @@ public class OrderDashBoardViewModel {
 			SQL:{
 				 PreparedStatement preparedStatement = null;
 				 ResultSet resultSet = null;
-				 String sql = "SELECT * FROM vw_order_dashboard where order_date between current_date-2 and current_date  ;";
+			//	 String sql = "SELECT * FROM vw_order_dashboard where order_date between current_date-2 and current_date  ;";
+				 String sql = "SELECT * FROM vw_order_dashboard ";
 				 try {
 					preparedStatement = connection.prepareStatement(sql);
 					resultSet = preparedStatement.executeQuery();
