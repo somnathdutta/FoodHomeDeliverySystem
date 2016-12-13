@@ -210,7 +210,7 @@ public class OrderDashBoardDAO {
 							dashBoardBean.orderCreationTimeVis = false;
 							dashBoardBean.timeSlotVis = false;
 							dashBoardBean.price = 0.0;
-							dashBoardBean.orderNo = "";
+							/*dashBoardBean.orderNo = "";
 							dashBoardBean.orderDateValue = "";
 							dashBoardBean.orderBy = "";
 							dashBoardBean.orderStatus = "";
@@ -219,7 +219,7 @@ public class OrderDashBoardDAO {
 							dashBoardBean.deliveryDateValue = "";
 							dashBoardBean.contactNo = "";
 							dashBoardBean.paymentName ="";
-							dashBoardBean.deliveryDayName = "";
+							dashBoardBean.deliveryDayName = "";*/
 							//dashBoardBean.discountAmount = ((itemTotalPriceValue+dashBoardBean.itemTotalPrice) - dashBoardBean.price );
 						}	
 						orderNo = tempOrderNo ;

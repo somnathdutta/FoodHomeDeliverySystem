@@ -338,7 +338,7 @@ public class OrderDashBoardViewModel {
 							dashBoardBean.orderCreationTimeVis = false;
 							dashBoardBean.timeSlotVis = false;
 							dashBoardBean.price = 0.0;
-							dashBoardBean.orderNo = "";
+							/*dashBoardBean.orderNo = "";
 							dashBoardBean.orderDateValue = "";
 							dashBoardBean.orderBy = "";
 							dashBoardBean.orderStatus = "";
@@ -347,7 +347,7 @@ public class OrderDashBoardViewModel {
 							dashBoardBean.deliveryDateValue = "";
 							dashBoardBean.contactNo = "";
 							dashBoardBean.paymentName ="";
-							dashBoardBean.deliveryDayName = "";
+							dashBoardBean.deliveryDayName = "";*/
 							//System.out.println("Total price: ===> "+(itemTotalPriceValue+dashBoardBean.itemTotalPrice));
 							//System.out.println("Final price : == >"+finalPrice);
 							//System.out.println("Discount == > "+((itemTotalPriceValue+dashBoardBean.itemTotalPrice) - dashBoardBean.price ));
@@ -578,7 +578,7 @@ public class OrderDashBoardViewModel {
 								dashBoardBean.orderCreationTimeVis = false;
 								dashBoardBean.timeSlotVis = false;
 								dashBoardBean.price = 0.0;
-								dashBoardBean.orderNo = "";
+								/*dashBoardBean.orderNo = "";
 								dashBoardBean.orderDateValue = "";
 								dashBoardBean.orderBy = "";
 								dashBoardBean.orderStatus = "";
@@ -587,7 +587,7 @@ public class OrderDashBoardViewModel {
 								dashBoardBean.deliveryDateValue = "";
 								dashBoardBean.contactNo = "";
 								dashBoardBean.paymentName ="";
-								dashBoardBean.deliveryDayName = "";
+								dashBoardBean.deliveryDayName = "";*/
 								//dashBoardBean.discountAmount = ((itemTotalPriceValue+dashBoardBean.itemTotalPrice) - dashBoardBean.price );
 							}	
 							orderNo = tempOrderNo ;
@@ -824,7 +824,7 @@ public class OrderDashBoardViewModel {
 								dashBoardBean.timeSlotVis = false;
 								dashBoardBean.price = 0.0;
 								dashBoardBean.orderNo = "";
-								dashBoardBean.orderDateValue = "";
+								/*dashBoardBean.orderDateValue = "";
 								dashBoardBean.orderBy = "";
 								dashBoardBean.orderStatus = "";
 								dashBoardBean.deliveryZone  = "";
@@ -832,7 +832,7 @@ public class OrderDashBoardViewModel {
 								dashBoardBean.deliveryDateValue = "";
 								dashBoardBean.contactNo = "";
 								dashBoardBean.paymentName ="";
-								dashBoardBean.deliveryDayName = "";
+								dashBoardBean.deliveryDayName = "";*/
 							//	dashBoardBean.discountAmount = ((itemTotalPriceValue+dashBoardBean.itemTotalPrice) - dashBoardBean.price );
 							}	
 							orderNo = tempOrderNo ;
@@ -1052,7 +1052,7 @@ public class OrderDashBoardViewModel {
 									dashBoardBean.orderCreationTimeVis = false;
 									dashBoardBean.timeSlotVis = false;
 									dashBoardBean.price = 0.0;
-									dashBoardBean.orderNo = "";
+									/*dashBoardBean.orderNo = "";
 									dashBoardBean.orderDateValue = "";
 									dashBoardBean.orderBy = "";
 									dashBoardBean.orderStatus = "";
@@ -1061,7 +1061,7 @@ public class OrderDashBoardViewModel {
 									dashBoardBean.deliveryDateValue = "";
 									dashBoardBean.contactNo = "";
 									dashBoardBean.paymentName ="";
-									dashBoardBean.deliveryDayName = "";
+									dashBoardBean.deliveryDayName = "";*/
 									//dashBoardBean.discountAmount = ((itemTotalPriceValue+dashBoardBean.itemTotalPrice) - dashBoardBean.price );
 								}	
 								orderNo = tempOrderNo ;
