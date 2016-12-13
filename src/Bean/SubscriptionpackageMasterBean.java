@@ -6,6 +6,13 @@ public class SubscriptionpackageMasterBean {
 	private String packageName;
 	private Integer noOfDays;
 	private String buttonName;
+	
+	
+	private Integer mealTypeId;
+	private String mealType;
+	
+	
+	
 	public Integer getPackageId() {
 		return packageId;
 	}
@@ -29,6 +36,18 @@ public class SubscriptionpackageMasterBean {
 	}
 	public void setButtonName(String buttonName) {
 		this.buttonName = buttonName;
+	}
+	public Integer getMealTypeId() {
+		return mealTypeId;
+	}
+	public void setMealTypeId(Integer mealTypeId) {
+		this.mealTypeId = mealTypeId;
+	}
+	public String getMealType() {
+		return mealType;
+	}
+	public void setMealType(String mealType) {
+		this.mealType = mealType;
 	}
 	
 	

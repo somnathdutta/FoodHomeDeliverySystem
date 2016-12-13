@@ -23,13 +23,15 @@ public class SubscriptionPackageMasterViewModel {
 
 
 	private SubscriptionpackageMasterBean subscriptionpackageMasterBean = new SubscriptionpackageMasterBean();
+	private SubscriptionpackageMasterBean mealTypeMasterBean = new SubscriptionpackageMasterBean();
 	
 	
 	
 	
-	
+	private ArrayList<SubscriptionpackageMasterBean> mealTypeMasterBeanList = new ArrayList<SubscriptionpackageMasterBean>();
 	private ArrayList<SubscriptionpackageMasterBean> subscriptionpackageMasterBeanList = new ArrayList<SubscriptionpackageMasterBean>(); 
 			
+	
 	
 	Session session = null;
 	private Connection connection = null;
@@ -50,6 +52,8 @@ public class SubscriptionPackageMasterViewModel {
 		
 		subscriptionpackageMasterBeanList = SubscriptionpackageMasterDAO.loadpackagemaster(connection);
 		
+		mealTypeMasterBeanList = SubscriptionpackageMasterDAO.loadMealType(connection);
+		
 		System.out.println("zul page >> subscriptionpackageMaster.zul");
 	}
 
@@ -61,13 +65,20 @@ public class SubscriptionPackageMasterViewModel {
 		if(subscriptionpackageMasterBean.getPackageName() != null && subscriptionpackageMasterBean.getPackageName().trim().length() >0){
 			if(subscriptionpackageMasterBean.getNoOfDays() != null){
 				if(subscriptionpackageMasterBean.getButtonName() != null && subscriptionpackageMasterBean.getButtonName().trim().length() >0){
+					if(mealTypeMasterBean.getMealTypeId() != null){
+					
 					i = SubscriptionpackageMasterDAO.insertPackageMaster(connection, userName, subscriptionpackageMasterBean);
 					if(i>0){
+						subscriptionpackageMasterBean.setPackageId(i);
+						System.out.println("IIIIIIIIIIII >>> >> > " + subscriptionpackageMasterBean.getPackageId());
 						subscriptionpackageMasterBean.setPackageName(null);
 						subscriptionpackageMasterBean.setNoOfDays(null);
 						subscriptionpackageMasterBean.setButtonName(null);
 						subscriptionpackageMasterBeanList = SubscriptionpackageMasterDAO.loadpackagemaster(connection);
 					}
+				  }else {
+					  Messagebox.show("Select Meal Type", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
+				}
 				}else {
 					Messagebox.show("Enter Button Name", "Alert", Messagebox.OK, Messagebox.EXCLAMATION);
 				}
@@ -138,6 +149,28 @@ public class SubscriptionPackageMasterViewModel {
 
 	public void setUserName(String userName) {
 		this.userName = userName;
+	}
+
+
+	public SubscriptionpackageMasterBean getMealTypeMasterBean() {
+		return mealTypeMasterBean;
+	}
+
+
+	public void setMealTypeMasterBean(
+			SubscriptionpackageMasterBean mealTypeMasterBean) {
+		this.mealTypeMasterBean = mealTypeMasterBean;
+	}
+
+
+	public ArrayList<SubscriptionpackageMasterBean> getMealTypeMasterBeanList() {
+		return mealTypeMasterBeanList;
+	}
+
+
+	public void setMealTypeMasterBeanList(
+			ArrayList<SubscriptionpackageMasterBean> mealTypeMasterBeanList) {
+		this.mealTypeMasterBeanList = mealTypeMasterBeanList;
 	}
 
 }

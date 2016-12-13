@@ -53,6 +53,7 @@ public class SubscriptionpackageMasterDAO {
 	
 	public static int insertPackageMaster(Connection connection, String un, SubscriptionpackageMasterBean bean){
 		int i =0;
+		int packageId = 0;
 		PreparedStatement preparedStatement = null;
 		try {
 			preparedStatement = connection.prepareStatement(SubcriptionItemsMasterSql.insertPackageMasterQry);
@@ -63,7 +64,14 @@ public class SubscriptionpackageMasterDAO {
 			preparedStatement.setString(5, un);
 			
 			i = preparedStatement.executeUpdate();
-			
+			if(i>0){
+				String sql = "select max(package_master_id) as id from fapp_subs_package_master";
+				PreparedStatement preparedStatement2 = connection.prepareStatement(sql);
+				ResultSet resultSet = preparedStatement2.executeQuery();
+				while (resultSet.next()) {
+					packageId = resultSet.getInt("id");
+				}
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			if(e.getMessage().startsWith("ERROR: duplicate key")){
@@ -84,7 +92,7 @@ public class SubscriptionpackageMasterDAO {
 				}
 			}
 		}
-		return i;
+		return packageId;
 	}
 	
 	
@@ -107,5 +115,31 @@ public class SubscriptionpackageMasterDAO {
 		}
 		return i;
 	}
+	
+	
+	public static ArrayList<SubscriptionpackageMasterBean> loadMealType(Connection connection){
+		ArrayList<SubscriptionpackageMasterBean> list = new ArrayList<SubscriptionpackageMasterBean>();
+		if(list.size()>0){
+			list.clear();
+		}
+		PreparedStatement preparedStatement = null;
+		
+		try {
+			preparedStatement = connection.prepareStatement(SubcriptionItemsMasterSql.loadMealTypeQry);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				SubscriptionpackageMasterBean bean = new SubscriptionpackageMasterBean();
+				bean.setMealTypeId(resultSet.getInt("meal_type_master_id"));
+				bean.setMealType(resultSet.getString("meal_type"));
+				
+				list.add(bean);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	
 	
 }

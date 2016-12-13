@@ -21,6 +21,11 @@ public class SubcriptionItemsMasterSql {
 	
 	public static final String updatePackageMasterQry = "update fapp_subs_package_master set package_name = ?, no_of_days = ?, button_name = ?, updated_by = ? where package_master_id= ? "; 
 	
-	//
+	
+	//package meal type
+	
+	public static final String loadMealTypeQry = "select meal_type_master_id, meal_type from fapp_subs_meal_type_master where is_active = 'Y'";
+	
+	
 	
 }

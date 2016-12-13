@@ -16,6 +16,14 @@
 						<textbox placeholder="Enter Package Name" value="@bind(vm.subscriptionpackageMasterBean.packageName)" width="250px"></textbox>
 						<intbox placeholder="Enter no Of Days" value="@bind(vm.subscriptionpackageMasterBean.noOfDays)" width="150px"></intbox>	
 						<textbox placeholder="Enter Button Name" value="@bind(vm.subscriptionpackageMasterBean.buttonName)" width="300px"></textbox>
+						
+						<combobox model="@bind(vm.mealTypeMasterBeanList)" value="@bind(vm.mealTypeMasterBean.mealType)" 
+						  selectedItem="@bind(vm.mealTypeMasterBean)" readonly="true" width="150px" placeholder="Select Meal Type">
+						  <template name="model" var ="v">	
+							<comboitem value="@bind(v.mealTypeId)" label="@bind(v.mealType)"></comboitem>
+						  </template>
+						</combobox>
+						
 						<button label="Save" onClick="@command('onClickSavePackage')" sclass="mybutton"></button>
 					</hlayout>
 				</div>
