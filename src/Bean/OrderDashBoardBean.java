@@ -20,7 +20,7 @@ public class OrderDashBoardBean {
 	public Date orderdate;
 	public String orderDateValue;
 	public String orderStatus;
-	public String orderBy;
+	public String orderBy,riceRoti,setName;
 	public String mealType,itemCode,deliveryZone,deliveryAddress,deliveryInstruction,creditApplied;
 	public Date deliveryDate;
 	public String deliveryDateValue,deliveryDayName;
@@ -494,6 +494,18 @@ public class OrderDashBoardBean {
 	}
 	public void setDeliveryDayName(String deliveryDayName) {
 		this.deliveryDayName = deliveryDayName;
+	}
+	public String getRiceRoti() {
+		return riceRoti;
+	}
+	public void setRiceRoti(String riceRoti) {
+		this.riceRoti = riceRoti;
+	}
+	public String getSetName() {
+		return setName;
+	}
+	public void setSetName(String setName) {
+		this.setName = setName;
 	}
 	
 	

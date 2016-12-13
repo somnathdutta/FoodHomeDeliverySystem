@@ -67,7 +67,7 @@
 				<grid height="515px" mold="paging" pageSize="10" hflex="2"
 				model="@bind(vm.orderDashBoardBeanList)">
 					<auxhead>
-						<auxheader colspan="41">
+						<auxheader colspan="43">
 						<button onClick="@command('refresh')" sclass="mybutton"
 						style="border:none;background:transparent"
 						image="images/refresh.png"
@@ -89,7 +89,7 @@
 						</auxheader>
 					</auxhead>
 					<auxhead>
-						<auxheader colspan="41">
+						<auxheader colspan="43">
 							<label value="SEARCH BY ORDER NUMBER" style="font-weight:bold;"/>
 							<textbox value="@bind(vm.orderno)" placeholder="e.g.3"/>
 							<button label="Find" sclass="mybutton" onClick="@command('onClickFindByOrder')" />
@@ -106,6 +106,7 @@
 						<column label="Address" align="center" width="160px"/>
 						<column label="Instruction" align="center" width="140px"/>
 						<column label="Meal Type" align="center" width="80px"/>
+						<column label="Rice Or Roti" align="center" width="80px"/>
 						<column label="Slot" align="center" width="200px"></column>
 						<column label="Delivery Date" align="center" width="90px"/>
 						<column label="Delivery Day" align="center" width="90px"/>
@@ -113,6 +114,7 @@
 						<column label="User Type" align="center" width="140px"/>
 						<column label="Order Item(s)" align="center" width="160px"/>
 						<column label="Item Code" align="center" width="65px"/>
+						<column label="Set Name" align="center" width="115px"/>
 						<column label="Item desc." align="center" width="160px"/>
 						<column label="Quantity" align="center" width="60px"/>
 					    <column label="Vendor Name" align="center" width="140px"/>
@@ -165,6 +167,7 @@
 								<textbox width="100%" multiline="true" value="@bind(v.deliveryAddress)" visible="@bind(v.orderByVisibility)" readonly="true"/>
 								<textbox width="100%" multiline="true" value="@bind(v.deliveryInstruction)" visible="@bind(v.orderByVisibility)" readonly="true"/>
 								<textbox width="100%" value="@bind(v.mealType)" visible="@bind(v.mealTypeVisibility)" readonly="true"/>
+								<textbox width="100%" value="@bind(v.riceRoti)" readonly="true"/>
 								<textbox width="100%" value="@bind(v.timeSlot)" readonly="true"></textbox>
 								<textbox width="100%" value="@bind(v.deliveryDateValue)" visible="@bind(v.deliveryDateVisibility)" readonly="true"/>
 								<textbox width="100%" value="@bind(v.deliveryDayName)" visible="@bind(v.deliveryDateVisibility)" readonly="true"/>
@@ -173,6 +176,7 @@
 								<textbox width="100%" value="@bind(v.userType)" visible="@bind(v.orderNoVisibiliity)" readonly="true"/>
 								<textbox width="100%" value="@bind(v.orderItem)" readonly="true"/>
 								<textbox width="100%" value="@bind(v.itemCode)" readonly="true"/>
+								<textbox width="100%" value="@bind(v.setName)" readonly="true"/>
 								<textbox width="100%" multiline="true" value="@bind(v.itemDescription)" readonly="true"/>
 								<textbox width="100%" value="@bind(v.quantity)" readonly="true"/>
 								<textbox width="100%" value="@bind(v.kitchenName)" readonly="true"/>

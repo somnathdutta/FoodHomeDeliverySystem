@@ -108,9 +108,16 @@ public class OrderDashBoardDAO {
 							dashBoardBean.deliveryInstruction = "NA";
 						}
 						dashBoardBean.mealType = resultSet.getString("meal_type");
+						String riceRoti = resultSet.getString("rice_roti");
+						if(riceRoti!=null){
+							dashBoardBean.riceRoti = riceRoti;
+						}else{
+							dashBoardBean.riceRoti = "No Data";
+						}
 						dashBoardBean.deliveryDate = resultSet.getDate("delivery_date");
 						dashBoardBean.contactNo = resultSet.getString("contact_number");
 						dashBoardBean.orderItem = resultSet.getString("category_name");
+						dashBoardBean.setName = resultSet.getString("set_name");
 						dashBoardBean.quantity = resultSet.getInt("qty");
 						dashBoardBean.kitchenName = resultSet.getString("kitchen_name");
 						dashBoardBean.received = resultSet.getString("received");
@@ -202,6 +209,17 @@ public class OrderDashBoardDAO {
 							dashBoardBean.mealTypeVisibility = false;
 							dashBoardBean.orderCreationTimeVis = false;
 							dashBoardBean.timeSlotVis = false;
+							dashBoardBean.price = 0.0;
+							dashBoardBean.orderNo = "";
+							dashBoardBean.orderDateValue = "";
+							dashBoardBean.orderBy = "";
+							dashBoardBean.orderStatus = "";
+							dashBoardBean.deliveryZone  = "";
+							dashBoardBean.mealType = "";
+							dashBoardBean.deliveryDateValue = "";
+							dashBoardBean.contactNo = "";
+							dashBoardBean.paymentName ="";
+							dashBoardBean.deliveryDayName = "";
 							//dashBoardBean.discountAmount = ((itemTotalPriceValue+dashBoardBean.itemTotalPrice) - dashBoardBean.price );
 						}	
 						orderNo = tempOrderNo ;
