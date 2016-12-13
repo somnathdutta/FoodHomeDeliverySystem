@@ -1,0 +1,50 @@
+<?page title="Subcription Package" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window title="Subscription Package Master" border="normal" apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('ViewModel.SubscriptionPackageMasterViewModel')">
+<div>
+	<tabbox>
+		<tabs>
+			<tab label="Add New Package"></tab>
+			<tab></tab>
+			<tab></tab>
+
+		</tabs>
+		<tabpanels>
+			<tabpanel>
+				<div>
+					<hlayout spacing="20px">
+						<textbox placeholder="Enter Package Name" value="@bind(vm.subscriptionpackageMasterBean.packageName)" width="250px"></textbox>
+						<intbox placeholder="Enter no Of Days" value="@bind(vm.subscriptionpackageMasterBean.noOfDays)" width="150px"></intbox>	
+						<textbox placeholder="Enter Button Name" value="@bind(vm.subscriptionpackageMasterBean.buttonName)" width="300px"></textbox>
+						<button label="Save" onClick="@command('onClickSavePackage')" sclass="mybutton"></button>
+					</hlayout>
+				</div>
+				<space></space>
+				<div>
+					<grid model="@bind(vm.subscriptionpackageMasterBeanList)">
+						<columns>
+							<column align="center" label="Package Name" width="250px"></column>
+							<column align="center" label="No of Days" width="150px"></column>	
+							<column align="center" label="Button Name" width="300px"></column>		
+							<column align="center" label="Action" width="250px"></column>
+						</columns>
+						<rows>
+						  <template name="model" var ="v">	
+							<row>
+								<textbox value="@bind(v.packageName)" width="100%"></textbox>
+								<intbox value="@bind(v.noOfDays)" width="100%"></intbox>
+								<textbox value="@bind(v.buttonName)" width="100%"></textbox>	
+								<button label="Update" onClick="@command('onClickPckgUpdate', bean = v)" sclass="mybutton" width="70%"></button>
+							</row>
+						  </template>
+						</rows>
+					</grid>
+				
+				</div>
+			</tabpanel>
+			
+		</tabpanels>
+	</tabbox>
+</div>
+</window>
+</zk>

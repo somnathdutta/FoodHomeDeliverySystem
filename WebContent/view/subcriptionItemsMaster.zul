@@ -1,0 +1,35 @@
+<?page title="Subscription Items" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window title="Subscription Items" border="normal" apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('ViewModel.SubcriptionItemsMasterViewModel')">
+	<div>
+		<hlayout spacing="20px">
+		<textbox placeholder="Enter Item Name" value="@bind(vm.subcriptionItemsMasterBean.itemName)" width="200px" ></textbox>
+		<textbox placeholder="Enter Item Image" value="@bind(vm.subcriptionItemsMasterBean.itemImage)" width="250px"></textbox>
+		<button label="Save" onClick="@command('onClickSave')" sclass="mybutton"></button>
+		</hlayout>
+	</div>
+	<space></space>
+	<div>
+		<grid model="@bind(vm.subcriptionItemsMasterBeanList)">
+			<columns>
+				<column label="Item Name" align="center" width="200px"></column>
+				<column label="Image Url" align="center" width="250px"></column>
+				<column label="Action" align="left"></column>
+			</columns>
+			<rows>
+			  <template name="model" var= "v">
+				<row>
+				   <textbox value="@bind(v.itemName)" width="100%"></textbox>
+				   <textbox value="@bind(v.itemImage)" width="100%"></textbox>
+				   <button onClick="@command('onClickUpdate', bean = v)" label="Update" sclass="mybutton"></button>
+				</row>
+			  </template>	
+			</rows>
+		</grid>
+	
+	
+	</div>
+	
+	
+</window>
+</zk>

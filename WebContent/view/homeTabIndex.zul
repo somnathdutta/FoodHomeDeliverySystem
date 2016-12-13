@@ -429,7 +429,26 @@
 										</treechildren>
 									</treeitem>
 									
-									
+									<treeitem open="false">
+										<treerow>
+											<treecell label="Manage Subscription" visible="@bind(vm.manageServiceAreaVisibility)"></treecell>
+										</treerow>
+										<treechildren>
+											<treeitem>
+											   <treerow>	
+													<treecell label="Subscription Items" onClick='inclResults.setSrc("subcriptionItemsMaster.zul")'></treecell>
+											   </treerow>
+											</treeitem>
+											
+											<treeitem>
+											   <treerow>	
+													<treecell label="Subscription Package" onClick='inclResults.setSrc("subscriptionPackageMaster.zul")'></treecell>
+											   </treerow>
+											</treeitem>
+											
+											
+										</treechildren>
+									</treeitem>
 									
 									<treeitem>
 										<treerow>
