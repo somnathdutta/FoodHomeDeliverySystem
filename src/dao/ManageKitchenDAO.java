@@ -72,6 +72,11 @@ public class ManageKitchenDAO {
 							}else{
 								item.status = "Deactive";
 							}
+							if(resultSet.getString("is_active_tomorrow").equals("Y")){
+								item.tommActive = "Active";
+							}else{
+								item.tommActive = "Deactive";
+							}
 							item.lunchStock = resultSet.getInt("stock");
 							item.dinnerStock = resultSet.getInt("dinner_stock");
 							item.tommorrowLunchStock = resultSet.getInt("stock_tomorrow");
@@ -94,33 +99,42 @@ public class ManageKitchenDAO {
 		return kitchenItemList;
 	}
 	
-	public static boolean updateItem(Connection  connection,String status, int kicthenId, 
-			String itemCode, boolean isAlaCarte){
+	public static boolean updateItem(Connection  connection,ItemBean item, int kicthenId){
 		boolean updated  = false;
 		
 		try {
 			SQL:{
 					PreparedStatement preparedStatement = null;
 					String sql = "";
-					if(isAlaCarte){
+					/*if(isAlaCarte){
 						sql = "UPDATE fapp_kitchen_items "
 								   +" SET is_item_active=?,is_alacarte ='Y' "
 								   +" WHERE item_code=? and  kitchen_id=? ";
-					}else{
+					}else{*/
 						sql = "UPDATE fapp_kitchen_items "
-								   +" SET is_item_active=? "
+								   +" SET is_item_active=?,is_active_tomorrow=?,stock=?,dinner_stock=?,"
+								   + "  stock_tomorrow=?,dinner_stock_tomorrow=?"
 								   +" WHERE item_code=? and  kitchen_id=? ";
-					}
+					//}
 					
 					try {
 						preparedStatement = connection.prepareStatement(sql);
-						if(status.equalsIgnoreCase("Active")){
+						if(item.status.equalsIgnoreCase("Active")){
 							preparedStatement.setString(1, "Y");
 						}else{
 							preparedStatement.setString(1, "N");
 						}
-						preparedStatement.setString(2, itemCode);
-						preparedStatement.setInt(3, kicthenId);
+						if(item.tommActive.equalsIgnoreCase("Active")){
+							preparedStatement.setString(2, "Y");
+						}else{
+							preparedStatement.setString(2, "N");
+						}
+						preparedStatement.setDouble(3, item.lunchStock);
+						preparedStatement.setDouble(4, item.dinnerStock);
+						preparedStatement.setDouble(5, item.tommorrowLunchStock);
+						preparedStatement.setDouble(6, item.tomorrowDinnerStock);
+						preparedStatement.setString(7, item.itemCode);
+						preparedStatement.setInt(8, kicthenId);
 						int updateCount = preparedStatement.executeUpdate();
 						if(updateCount > 0){
 							updated = true;

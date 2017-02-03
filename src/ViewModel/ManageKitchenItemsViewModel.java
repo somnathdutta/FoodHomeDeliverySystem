@@ -47,7 +47,7 @@ public class ManageKitchenItemsViewModel {
 	
 	
 	private ArrayList<ItemTypeBean> newitemTypeBeanList = new ArrayList<ItemTypeBean>();
-	private ArrayList<ItemTypeBean> itemTypeBeanList = new ArrayList<ItemTypeBean>();
+	private ArrayList<ItemTypeBean> itemTypeBeanList = null;
 	private ArrayList<ItemTypeBean> itemTypeExistingBeanList = new ArrayList<ItemTypeBean>();
 	
 	ManageCategoryBean categoryBean = new ManageCategoryBean();
@@ -94,11 +94,39 @@ public class ManageKitchenItemsViewModel {
 		connection.setAutoCommit(true);
 		
 		loadKitchenList();
-		itemTypeBeanList = ManageKitchenService.loadItemType(connection);
+		
 		
 		itemCapacityKitchenList = ManageKitchenDAO.fetchKitchens(connection);
 		
 		System.out.println("zul page >> kitchenitem.zul");
+	}
+	
+	public void loadItemTypeList(){
+		itemTypeBeanList = ManageKitchenService.loadItemType(connection);
+	}
+	
+	@Command
+	@NotifyChange("*")
+	public void onClickAddItemTab(){
+		
+	}
+	
+	@Command
+	@NotifyChange("*")
+	public void onClickAddItemTypeTab(){
+		loadItemTypeList();
+	}
+	
+	@Command
+	@NotifyChange("*")
+	public void onClickKitchenItemCapacityTab(){
+		
+	}
+	
+	@Command
+	@NotifyChange("*")
+	public void onClickShowItemTab(){
+		
 	}
 	
 	public void loadKitchenList(){
@@ -457,7 +485,7 @@ public class ManageKitchenItemsViewModel {
 		if(kitchenBean.kitchenId!=null){
 			if(kitchenBean.cuisineId!=null){
 				if(kitchenBean.categoryId!=null){
-					if(kitchenBean.capacity!=null){
+					//if(kitchenBean.capacity!=null){
 						//if(itemBeanList.size()>0){
 						if(isItemChecked()){
 							return true;
@@ -465,10 +493,10 @@ public class ManageKitchenItemsViewModel {
 							Messagebox.show("Items required!","Alert",Messagebox.OK,Messagebox.EXCLAMATION);
 							return false;
 						}
-					}else{
-						Messagebox.show("Capacity required!","Alert",Messagebox.OK,Messagebox.EXCLAMATION);
-						return false;
-					}
+					//}else{
+					//	Messagebox.show("Capacity required!","Alert",Messagebox.OK,Messagebox.EXCLAMATION);
+					//	return false;
+					//}
 				}else{
 					Messagebox.show("Category required!","Alert",Messagebox.OK,Messagebox.EXCLAMATION);
 					return false;
@@ -549,13 +577,18 @@ public class ManageKitchenItemsViewModel {
 	@Command
 	@NotifyChange("*")
 	public void onClickItemTypeUpdate(@BindingParam("bean") ItemTypeBean bean){
-		int i = 0;
-		i = ManageKitchenService.updateItemType(connection, bean,userName);
-		if(i>0){
-			Messagebox.show("Updated Successfully", "Information", Messagebox.OK, Messagebox.INFORMATION);
-			itemTypeBeanList = ManageKitchenService.loadItemType(connection);
+		int i = 0;boolean isExists = false;
+		for(ItemTypeBean itemType : itemTypeBeanList){
+			isExists = itemType.getItemType().equalsIgnoreCase(bean.getItemType())?true:false;
 		}
-		
+		if(!isExists){
+			if(ManageKitchenService.updateItemType(connection, bean,userName)>0){
+				Messagebox.show("Updated Successfully", "Information", Messagebox.OK, Messagebox.INFORMATION);
+				loadItemTypeList();
+			}
+		}else{
+			Messagebox.show("Oops! Type already exists!", "Information", Messagebox.OK, Messagebox.ERROR);
+		}
 	}
 	
 	@Command
@@ -569,7 +602,7 @@ public class ManageKitchenItemsViewModel {
 		}
 		if(i>0){
 			Messagebox.show("Saved Successfully", "Information", Messagebox.OK, Messagebox.INFORMATION);
-			  itemTypeBeanList = ManageKitchenService.loadItemType(connection);
+			  loadItemTypeList();
 			  
 			  itemtypeBean.setItemType(null);
 		}

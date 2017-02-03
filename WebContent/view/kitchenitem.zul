@@ -51,10 +51,10 @@
 
 		<tabbox>
 			<tabs>
-				<tab label="Add items" />
-				<tab label="Add Item Type"/>
-				<tab label="Kitchen items Capacity" />
-				<tab label="Show Items" />
+				<tab label="Add items" onClick="@command('onClickAddItemTab')"/>
+				<tab label="Add Item Type" onClick="@command('onClickAddItemTypeTab')"/>
+				<tab label="Kitchen items Capacity" onClick="@command('onClickKitchenItemCapacityTab')"/>
+				<tab label="Show Items" onClick="@command('onClickShowItemTab')"/>
 			</tabs>
 
 			<tabpanels>
@@ -121,10 +121,10 @@
 													</template>
 												</combobox>
 
-												<label value="Capacity"
+												<!-- <label value="Capacity"
 													sclass="mytextbox" />
 												<textbox
-													value="@bind(vm.kitchenBean.capacity)" width="80%" />
+													value="@bind(vm.kitchenBean.capacity)" width="80%" /> -->
 											</hlayout>
 
 										</row>
@@ -225,7 +225,7 @@
 						</div>
 						<space></space>
 						<div>
-							<grid model="@bind(vm.itemTypeBeanList)" mold="paging" pageSize="10" height="450px">
+							<grid model="@bind(vm.itemTypeBeanList)" mold="paging" pageSize="10" height="400px">
 								<columns sizable="true">
 									<column label="Item Type" align="center"></column>
 									<column label = "Action" align="left"></column>
@@ -301,7 +301,9 @@
 				
 							</grid>
 						</div>
-				
+						<div align="center">
+							<button label="Apply Stock" sclass="mybutton"/>
+						</div>
 					</div>
 				</tabpanel>
 				

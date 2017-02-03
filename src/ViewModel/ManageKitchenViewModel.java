@@ -214,7 +214,7 @@ public class ManageKitchenViewModel {
 	@Command
 	@NotifyChange("*")
 	public void onSelectStatus(@BindingParam("bean")ItemBean bean){
-		if(bean.categoryId == 78 || bean.categoryId == 79){
+		/*if(bean.categoryId == 78 || bean.categoryId == 79){
 			if(ManageKitchenDAO.updateItem(connection, bean.status, kitchenBean.kitchenId, bean.itemCode, true)){
 				kitchenBeanList = ManageKitchenDAO.fetchKitchens(connection);
 			}
@@ -222,17 +222,17 @@ public class ManageKitchenViewModel {
 			if(ManageKitchenDAO.updateItem(connection, bean.status, kitchenBean.kitchenId, bean.itemCode, false)){
 				kitchenBeanList = ManageKitchenDAO.fetchKitchens(connection);
 			}
-		}
+		}*/
 		
 	}
 	
-	/*@Command
+	@Command
 	@NotifyChange("*")
-	public void onClickUpdate(@BindingParam("bean")ItemBean bean){
-		if(ManageKitchenDAO.updateItem(connection, bean.status, kitchenBean.kitchenId, bean.itemCode)){
+	public void onClickUpdateKitchenItem(@BindingParam("bean")ItemBean bean){
+		if(ManageKitchenDAO.updateItem(connection, bean, kitchenBean.kitchenId)){
 			kitchenBeanList = ManageKitchenDAO.fetchKitchens(connection);
 		}
-	}*/
+	}
 	
 	/**
 	 * onLoadCityList method is used to load all the city name list from database

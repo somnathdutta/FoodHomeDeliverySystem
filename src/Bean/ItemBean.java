@@ -6,7 +6,8 @@ import org.zkoss.image.AImage;
 
 public class ItemBean implements Comparable<ItemBean> {
 
-	public String itemName,itemCode,itemDescription,cusineName,categoryName,status,dayName,itemTypeName,setName,packingName;
+	public String itemName,itemCode,itemDescription,cusineName,categoryName,
+				status,todayActive,tommActive,dayName,itemTypeName,setName,packingName;
 	public int itemId,cuisineId,categoryId,qty,dayId,packId,packDetailsId,lunchStock,tommorrowLunchStock,
 	dinnerStock,tomorrowDinnerStock,itemTypeId,setId,packingId;
 	
@@ -291,5 +292,17 @@ public class ItemBean implements Comparable<ItemBean> {
 	public void setPackingId(int packingId) {
 		this.packingId = packingId;
 	}
-		
+	public String getTodayActive() {
+		return todayActive;
+	}
+	public void setTodayActive(String todayActive) {
+		this.todayActive = todayActive;
+	}
+	public String getTommActive() {
+		return tommActive;
+	}
+	public void setTommActive(String tommActive) {
+		this.tommActive = tommActive;
+	}
+	
 }

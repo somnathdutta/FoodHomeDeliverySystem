@@ -375,18 +375,20 @@ viewModel="@id('vm') @init('ViewModel.ManageKitchenViewModel')">
 										
 									</combobox>
 								</hlayout><space/>
-								<grid model="@bind(vm.kitchenItemList)" mold="paging" pageSize="9" sizedByContent="true">
+								<grid model="@bind(vm.kitchenItemList)" mold="paging" height="400px"
+								pageSize="9" sizedByContent="true">
 									<columns sizable="true">
 										<column label="Item code" width="75px" align="center"/>
 										<column label="Item name" align="center"/>
 										<column label="Item description" width="285px" align="center"/>
 										<column label="Category name" width="215px" align="center"/>
-										<column label="Status" align="center"/>
+										<column label="Today" align="center"/>
+										<column label="Tomorrow" align="center"/>
 										<column label="Lunch Stock" align="center"/>
 										<column label="Dinner Stock" align="center"/>
 										<column label="Tomm.Lunch Stock" align="center"/>
 										<column label="Tomm.Dinner Stock" align="center"/>
-									<!-- 	<column label="Update" width="50px" align="center"/> -->
+										<column label="Update" width="80px" align="center"/>
 									</columns>
 									<rows>
 											<template name="model" var="v">
@@ -400,12 +402,17 @@ viewModel="@id('vm') @init('ViewModel.ManageKitchenViewModel')">
 														<comboitem  label="Active"/>
 														<comboitem label="Deactive"/> 
 													</combobox>
-													<textbox value="@bind(v.lunchStock)" width="100%" readonly="true"/>
-													<textbox value="@bind(v.dinnerStock)" width="100%" readonly="true"/>
-													<textbox value="@bind(v.tommorrowLunchStock)" width="100%" readonly="true"/>
-													<textbox value="@bind(v.tomorrowDinnerStock)" width="100%" readonly="true"/>
-													<!-- <button style="border:none;background:transparent"
-													image="images/update.png" onClick="@command('onClickUpdate',bean = v)"/> -->
+													<combobox readonly="true" placeholder="[Active/Deactive]" 
+													width="130px" value="@bind(v.tommActive)" onSelect="@command('onSelectStatus',bean = v)">
+														<comboitem  label="Active"/>
+														<comboitem label="Deactive"/> 
+													</combobox>
+													<textbox value="@bind(v.lunchStock)" width="100%" />
+													<textbox value="@bind(v.dinnerStock)" width="100%" />
+													<textbox value="@bind(v.tommorrowLunchStock)" width="100%" />
+													<textbox value="@bind(v.tomorrowDinnerStock)" width="100%" />
+													<button style="border:none;background:transparent"
+													image="images/update.png" onClick="@command('onClickUpdateKitchenItem',bean = v)"/>
 												</row>
 											</template>
 									

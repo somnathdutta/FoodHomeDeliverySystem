@@ -20,7 +20,7 @@
 	   <space></space>	
 	   <div>
 	   	
-	   	<grid model="@bind(vm.itemSetList)">
+	   	<grid model="@bind(vm.itemSetList)" mold="paging" pageSize="6">
 	   		<columns sizable="true">
 	   			<column width="65px" label="Select" align="center"></column>
 	   			<column width="70px" label="Item Code" align="center"></column>	
