@@ -46,7 +46,7 @@ public class WelcomeViewModel {
 	public WelcomeViewModel() {
 
 		try {
-				connection = DataBaseHandler.getInstance().getConnection();
+				connection = DataBaseHandler.getInstance().createConnection();
 			//connection = DataBaseHandler.getInstance().createConnection();///local need to changed
 	
 		} catch (Exception e) {
@@ -145,6 +145,7 @@ public class WelcomeViewModel {
 						//Executions.sendRedirect("view/homePage.zul");
 						
 					} catch (Exception e) {
+						e.printStackTrace();
 						//Messagebox.show(""+e.getMessage(), "Error", Messagebox.OK, Messagebox.ERROR);
 						Window win = (Window) Executions.createComponents("view/errorBox.zul", null, null);
 						

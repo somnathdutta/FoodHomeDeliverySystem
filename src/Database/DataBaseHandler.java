@@ -10,15 +10,19 @@ import javax.sql.DataSource;
 
 public class DataBaseHandler {
 
-	private Connection connection ;
+	private  Connection connection = null;
+	private static DataBaseHandler databaseHandler = null;
+	
+	private DataBaseHandler(){}
 	
 	public static DataBaseHandler getInstance() throws Exception {
-		
-		return new DataBaseHandler();
-		
+		if(databaseHandler == null){
+			databaseHandler = new DataBaseHandler();
+		}
+		return databaseHandler;
 	}
 
-	public Connection getContextConnection()throws Exception{
+/*	public Connection getContextConnection()throws Exception{
 
 		try{
 			
@@ -55,36 +59,37 @@ public class DataBaseHandler {
 			localconnection = connection;
 		}
 		return localconnection;	
-	}
+	}*/
 	
 	public Connection createConnection(){
-		
-		Connection foodAppConnection = null;  
-		
-		try {
-			
-			Class.forName("org.postgresql.Driver");
-			
-			foodAppConnection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/foodhomedelivery", "postgres","password");			
-			
-			//cbizConnection.setAutoCommit(false);
-			
-		} catch (Exception e) {
-			
-			e.printStackTrace();
-			
-		}
-		
-		return foodAppConnection ;		
+
+			try {
+				
+				Class.forName("org.postgresql.Driver");
+				
+				connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/foodhomedelivery", "postgres","password");			
+                System.out.println("New db connection ctreated ...."+connection);
+	
+			} catch (Exception e) {e.printStackTrace();}	
+
+		return connection ;		
 		
 	}
+	
+/*	public void closeConnection(){
+		try {
+			if(connection != null){
+				System.out.println("Close db connection ....");
+				connection.close();
+			}
+		} catch (Exception e) {e.printStackTrace();}	
+	}*/
 	
 	public static void main(String[] args) throws Exception {
 		
 		System.out.println("*********************");
 		
 		Connection connection$local = DataBaseHandler.getInstance().createConnection();
-		
 		
 		System.out.println(connection$local);
 		

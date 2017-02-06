@@ -2,6 +2,7 @@
     <wb-module deploy-name="FoodHomeDeliverySystem">
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/resources"/>
         <dependent-module archiveName="silvertail.jar" deploy-path="/WEB-INF/lib/" handle="module:/resource/silvertail/silvertail">
             <dependency-type>uses</dependency-type>
         </dependent-module>

@@ -11,6 +11,7 @@ import org.zkoss.zul.Messagebox;
 
 import sql.ManageKitchenSql;
 import utility.FappPstm;
+import utility.PropertyFileAccess;
 import Bean.ItemBean;
 import Bean.ItemTypeBean;
 import Bean.ManageKitchens;
@@ -358,7 +359,7 @@ public class ManageKitchenDAO {
 		}
 		try {
 			PreparedStatement preparedStatement = null;
-			preparedStatement = FappPstm.createQuery(connection, ManageKitchenSql.LOADIEMTYPEKITCHENSQL, Arrays.asList(kitchenId));
+			preparedStatement = FappPstm.createQuery(connection,PropertyFileAccess.getPropertyObject().getPropValues("get_manage_kitchen_item_capacity_list", "manage_kitchen_items_capacity.properties") , Arrays.asList(kitchenId)); //ManageKitchenSql.LOADIEMTYPEKITCHENSQL
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				ItemTypeBean bean = new ItemTypeBean();
@@ -366,6 +367,7 @@ public class ManageKitchenDAO {
 				bean.setStockUpdationId(resultSet.getInt("stock_updation_id"));
 				bean.setKitchenName(resultSet.getString("kitchen_name"));
 				bean.setItemType(resultSet.getString("type_name"));
+				bean.setItemTypeId(resultSet.getInt("item_type_id"));
 				bean.setLunchStock(resultSet.getInt("lunch_stock"));
 				bean.setDinnerStok(resultSet.getInt("dinner_stock"));
 				
@@ -380,6 +382,31 @@ public class ManageKitchenDAO {
 		return list;
 		
 	}
+	
+	public static int saveApplyStock(Connection connection, Integer kitchenId , ArrayList<ItemTypeBean> list){
+		int returnCode = 0;
+		PreparedStatement pstm = null;
+		try {
+			pstm = connection.prepareStatement(PropertyFileAccess.getPropertyObject().getPropValues("save_apply_stock_manage_kitchen_item_capacity", "manage_kitchen_items_capacity.properties"));
+			for(ItemTypeBean bean: list){
+				pstm.setInt(1, bean.getLunchStock());
+				pstm.setInt(2, bean.getDinnerStok());
+				pstm.setInt(3, kitchenId);
+				pstm.setInt(4, bean.getItemTypeId());
+				
+				pstm.addBatch();
+			}
+			int[] count= pstm.executeBatch();
+			
+			returnCode = count.length;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			Messagebox.show(e.getMessage(), "Error", Messagebox.OK, Messagebox.ERROR);
+		}
+		return returnCode;
+	} // end saveApplyStock()
+	
 	
 	public static ArrayList<ItemTypeBean> loadKitchenItemTypeNotInKitchen(Connection connection, Integer kitchenId){
 		ArrayList<ItemTypeBean> list = new ArrayList<ItemTypeBean>();
@@ -405,6 +432,7 @@ public class ManageKitchenDAO {
 		}
 		return list;
 	}
+	
 	
 	public static int AddNewItemTypeToKitchen(Connection connection,Integer kId, ItemTypeBean bean){
 		int i = 0;

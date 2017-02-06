@@ -15,6 +15,7 @@ public class ManageKitchenService {
 		return list;
 	}
 	
+	
 	public static int updateItemType(Connection connection, ItemTypeBean bean, String userName){
 		int i = 0;
 		i = ManageKitchenDAO.updateItemType(connection, bean, userName);
@@ -34,11 +35,20 @@ public class ManageKitchenService {
 		
 	}
 	
+	
+	public static int applyStock(Connection connection, Integer kitchenId, ArrayList<ItemTypeBean> list){
+		int returnCode = 0;
+		returnCode = ManageKitchenDAO.saveApplyStock(connection, kitchenId, list);
+		return returnCode;
+	} // end applyStock()
+	
+	
 	public static ArrayList<ItemTypeBean> loadKitItTyNotInK(Connection connection, Integer kitchenId){
 		ArrayList<ItemTypeBean> list= new ArrayList<ItemTypeBean>();
 		list = ManageKitchenDAO.loadKitchenItemTypeNotInKitchen(connection, kitchenId);
 		return list;
 	}
+	
 	
 	public static int insertItemTypeKitchenQty(Connection connection,Integer kId, ItemTypeBean bean){
 		int i = 0;

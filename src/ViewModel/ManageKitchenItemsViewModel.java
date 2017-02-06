@@ -18,6 +18,7 @@ import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zul.Messagebox;
 
 import service.ManageKitchenService;
+import validator.ManageKitchenValidator;
 
 import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
 
@@ -79,6 +80,7 @@ public class ManageKitchenItemsViewModel {
 	private int cuisineid,categoryId;
 	
 	public boolean isAllChecked = false;
+	public boolean applyStockButtonVisible = false;
 	
 	@AfterCompose
 	public void initSetup(@ContextParam(ContextType.VIEW) Component view) throws Exception {
@@ -104,6 +106,9 @@ public class ManageKitchenItemsViewModel {
 	public void loadItemTypeList(){
 		itemTypeBeanList = ManageKitchenService.loadItemType(connection);
 	}
+	
+	
+	
 	
 	@Command
 	@NotifyChange("*")
@@ -619,7 +624,28 @@ public class ManageKitchenItemsViewModel {
 		newItemTypeBean.setLunchStock(null);
 		itemTypeExistingBeanList = ManageKitchenService.loadKitchenItemType(connection, itemCapacitymanageKitchenBean.kitchenId);
 		newitemTypeBeanList = ManageKitchenService.loadKitItTyNotInK(connection, itemCapacitymanageKitchenBean.kitchenId);
+		
+		if(itemTypeExistingBeanList.size()>0){
+			applyStockButtonVisible = true;
+		}else {
+			applyStockButtonVisible = false;
+		}
 	}
+
+
+	
+	@Command
+	@NotifyChange("*")
+	public void onClickApplyStock(){
+		if(ManageKitchenValidator.applyStockValidation(itemTypeExistingBeanList)){
+			int countSaveData = ManageKitchenService.applyStock(connection , itemCapacitymanageKitchenBean.kitchenId, itemTypeExistingBeanList);
+			if(countSaveData>0){
+				Messagebox.show("Stock has been applyed!!");
+			}
+		}
+	} // end onClickApplyStock()
+	
+	
 	
 	@Command
 	@NotifyChange("*")
@@ -908,5 +934,13 @@ public class ManageKitchenItemsViewModel {
 
 	public void setNewitemTypeBeanList(ArrayList<ItemTypeBean> newitemTypeBeanList) {
 		this.newitemTypeBeanList = newitemTypeBeanList;
+	}
+
+	public boolean isApplyStockButtonVisible() {
+		return applyStockButtonVisible;
+	}
+
+	public void setApplyStockButtonVisible(boolean applyStockButtonVisible) {
+		this.applyStockButtonVisible = applyStockButtonVisible;
 	}
 }

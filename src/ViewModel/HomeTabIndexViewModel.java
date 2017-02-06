@@ -148,16 +148,16 @@ public class HomeTabIndexViewModel {
 			System.out.println("Getting session connection login. . .");
 			
 			try {
-				System.out.println("Closing connection session. . . ");
+				System.out.println("Closing connection... ");
 				connection.close();
-			} catch (SQLException e) {
+			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				System.out.println("Exception on sign out button. . . ");
 				e.printStackTrace();
 			}
 			System.out.println("Removing sessionConnection. . . ");
 			session.removeAttribute("sessionConnection");
-			
+			session.invalidate();
 			Messagebox.show("Logged out!", "Information", Messagebox.OK, Messagebox.INFORMATION);
 			
 			Executions.sendRedirect("/index.zul");

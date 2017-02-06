@@ -302,7 +302,7 @@
 							</grid>
 						</div>
 						<div align="center">
-							<button label="Apply Stock" sclass="mybutton"/>
+							<button label="Apply Stock" sclass="mybutton" onClick="@command('onClickApplyStock')" visible="@bind(vm.applyStockButtonVisible)"/>
 						</div>
 					</div>
 				</tabpanel>
