@@ -13,7 +13,14 @@ public class ItemBean implements Comparable<ItemBean> {
 	
 	public Double itemPrice;
 	public AImage itemImage;
+	public AImage imageMedia;
+	public AImage itemContexImagePath;
+	public String itemSrcImagePath;
 	public String itemmagePath;
+	public String itemOldImagePath;
+	
+	public Boolean itemContexImagePathVisible = true;
+	public Boolean itemSrcImagePathVisible = false;
 	
 	public boolean isChecked=false;
 	
@@ -130,14 +137,6 @@ public class ItemBean implements Comparable<ItemBean> {
 	}
 	public void setCategoryId(int categoryId) {
 		this.categoryId = categoryId;
-	}
-	
-	
-	public AImage getItemImage() {
-		return itemImage;
-	}
-	public void setItemImage(AImage itemImage) {
-		this.itemImage = itemImage;
 	}
 	public String getItemmagePath() {
 		return itemmagePath;
@@ -303,6 +302,48 @@ public class ItemBean implements Comparable<ItemBean> {
 	}
 	public void setTommActive(String tommActive) {
 		this.tommActive = tommActive;
+	}
+	public AImage getImageMedia() {
+		return imageMedia;
+	}
+	public void setImageMedia(AImage imageMedia) {
+		this.imageMedia = imageMedia;
+	}
+	public AImage getItemContexImagePath() {
+		return itemContexImagePath;
+	}
+	public void setItemContexImagePath(AImage itemContexImagePath) {
+		this.itemContexImagePath = itemContexImagePath;
+	}
+	public String getItemSrcImagePath() {
+		return itemSrcImagePath;
+	}
+	public void setItemSrcImagePath(String itemSrcImagePath) {
+		this.itemSrcImagePath = itemSrcImagePath;
+	}
+	public Boolean getItemContexImagePathVisible() {
+		return itemContexImagePathVisible;
+	}
+	public void setItemContexImagePathVisible(Boolean itemContexImagePathVisible) {
+		this.itemContexImagePathVisible = itemContexImagePathVisible;
+	}
+	public Boolean getItemSrcImagePathVisible() {
+		return itemSrcImagePathVisible;
+	}
+	public void setItemSrcImagePathVisible(Boolean itemSrcImagePathVisible) {
+		this.itemSrcImagePathVisible = itemSrcImagePathVisible;
+	}
+	public AImage getItemImage() {
+		return itemImage;
+	}
+	public void setItemImage(AImage itemImage) {
+		this.itemImage = itemImage;
+	}
+	public String getItemOldImagePath() {
+		return itemOldImagePath;
+	}
+	public void setItemOldImagePath(String itemOldImagePath) {
+		this.itemOldImagePath = itemOldImagePath;
 	}
 	
 }

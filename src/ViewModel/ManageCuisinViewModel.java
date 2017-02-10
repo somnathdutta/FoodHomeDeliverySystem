@@ -2,13 +2,21 @@ package ViewModel;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Types;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.UUID;
 
+import javax.ws.rs.Path;
+
+import org.apache.commons.io.FilenameUtils;
 import org.zkoss.bind.BindContext;
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.AfterCompose;
@@ -53,6 +61,11 @@ public class ManageCuisinViewModel {
 	private Boolean saveButtonVisibility = true;
 	
 	private Boolean updateButtonVisibility = false;
+	private Boolean updateCancelButtonVisibility = false;
+	
+	private Boolean saveImageVisibility = true;
+	private Boolean updateImageVisibility = false;
+	private Boolean otherUrlImageVisibility = false;
 	
 	PropertyFile propertyfile = new PropertyFile();	
 	
@@ -126,7 +139,11 @@ public class ManageCuisinViewModel {
 	@Command
 	@NotifyChange("*")
 	public void onClickSave(){
+		manageCuisinBean.setProgressBarValue(10);
 		if (validateFields()) {
+			manageCuisinBean.setProgressBarVisible(true);
+			manageCuisinBean.setUploadingDisable(true);
+			manageCuisinBean.setProgressBarValue(20);
 			saveCuisinData();
 		}
 	}
@@ -134,10 +151,111 @@ public class ManageCuisinViewModel {
 	/**
 	 * This method is useful to save the cuisin to database
 	 */
+	
+
+	private boolean uploadImageToFolder(String dirName,String fileName){
+		try {
+			 manageCuisinBean.setProgressBarValue(80);
+			 if(manageCuisinBean.getImageMedia() != null){
+				 Files.copy(new File(dirName+File.separator + fileName),manageCuisinBean.getImageMedia().getStreamData());
+				 System.out.println("Image uploaded!...");
+			 }
+			
+			 manageCuisinBean.setProgressBarValue(90);
+			 
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return true;
+	} // end uploadImageToFolder()
+	
+	
+	private boolean updateImageToFolder(String oldFullPathName,String dirName,String fileName){
+		try {
+			
+			URL resourceUrl = this.getClass().getResource("/");
+			String filePath = resourceUrl.getFile();
+			String serverRootDir = new File(new File(filePath).getParent()).getParent();
+			
+			String pullPath = "view";
+			String[] dir = oldFullPathName.split("/");
+			for(String token: dir){
+				pullPath = pullPath+File.separator+token;
+			}
+			File file = new File(serverRootDir+File.separator+pullPath);
+			if(file.exists()){
+				file.delete();
+				System.out.println("Image deleted!...");
+			}
+			Files.copy(new File(dirName+File.separator + fileName),manageCuisinBean.getImageMedia().getStreamData());
+			 System.out.println("Image updated!...");
+			 
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return true;
+	} // end updateImageToFolder()
+	
+	
+	private void deleteUoloadeImage(String oldFullPathName){
+		try {
+			URL resourceUrl = this.getClass().getResource("/");
+			String filePath = resourceUrl.getFile();
+			String serverRootDir = new File(new File(filePath).getParent()).getParent();
+			
+			String pullPath = "view";
+			String[] dir = oldFullPathName.split("/");
+			for(String token: dir){
+				pullPath = pullPath+File.separator+token;
+			}
+			File file = new File(serverRootDir+File.separator+pullPath);
+			if(file.exists()){
+				file.delete();
+				System.out.println("Image deleted!...");
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	} // end deleteUoloadeImage()
+	
+	
 	public void saveCuisinData(){
+		String fileName =null;
+		String uploadImageDir = "";
+		String uploadImagePath = "";
 		String message ="";
 		Boolean inserted=false;
 		try {
+			MAKE_FILE_PATH:{
+			if(manageCuisinBean.getImageMedia() != null){
+				URL resourceUrl = this.getClass().getResource("/");
+				String filePath = resourceUrl.getFile();
+				String serverRootDir = new File(new File(filePath).getParent()).getParent();
+
+				String currentDate = new SimpleDateFormat("dd-MMM-yyyy").format(new java.util.Date()).toString();
+				
+				String uploadPath = serverRootDir.toString()+File.separator+"uploads"+"/"+"Cuising_Image"+ File.separator+currentDate;
+				manageCuisinBean.setProgressBarValue(70);
+				File fileDir = new File(uploadPath);
+				 if(!fileDir.exists()){
+					 fileDir.mkdirs();
+					 System.out.println("New Directory Created..");
+				 }
+				
+				String cuisingName = manageCuisinBean.cuisinName;
+				cuisingName = cuisingName.replaceAll("\\s", "");
+				String rand = UUID.randomUUID().toString().substring(0, 30);
+				String generateName = cuisingName+"_"+rand;
+			    fileName = generateName.toUpperCase()+".png";
+				
+			    uploadImageDir = serverRootDir.toString()+File.separator+"view"+File.separator+"uploads"+"/"+"Cuising_Image"+ File.separator+currentDate;
+				
+			    uploadImagePath ="uploads"+"/"+"Cuising_Image"+"/"+currentDate+"/"+fileName;
+				manageCuisinBean.setProgressBarValue(30);
+			   }
+
+		    }
 			SQL:{
 					PreparedStatement preparedStatement = null;
 					ResultSet resultSet = null;
@@ -145,10 +263,16 @@ public class ManageCuisinViewModel {
 						preparedStatement = connection.prepareStatement(propertyfile.getPropValues("saveCuisinSql"));
 						
 						preparedStatement.setString(1, manageCuisinBean.cuisinName);
-						if(manageCuisinBean.cuisinePicturePath!=null){
-							preparedStatement.setString(2, manageCuisinBean.cuisinePicturePath);
-						}else{
-							preparedStatement.setNull(2, Types.INTEGER);
+						if(manageCuisinBean.getImageMedia() != null && manageCuisinBean.cuisinePicturePath != null){
+							 preparedStatement.setString(2, uploadImagePath);
+						}else {
+							if(manageCuisinBean.getImageMedia() != null){
+								preparedStatement.setString(2, uploadImagePath);
+							}else if(manageCuisinBean.cuisinePicturePath != null) {
+								preparedStatement.setString(2, manageCuisinBean.cuisinePicturePath);
+							}else{
+								preparedStatement.setNull(2, Types.VARCHAR);
+							}
 						}
 						
 						if(manageCuisinBean.status.equalsIgnoreCase("Active")){
@@ -167,9 +291,16 @@ public class ManageCuisinViewModel {
 							System.out.println("Cuisin save message =" + message);
 						}
 						if (inserted) {
-							Messagebox.show("Cuisin Saved Successfully...");
-							loadAllCuisinList();
-							refresh();
+							manageCuisinBean.setProgressBarValue(50);
+							if(uploadImageToFolder(uploadImageDir,fileName)){
+								manageCuisinBean.setProgressBarValue(100);
+								manageCuisinBean.setProgressBarVisible(false);
+								manageCuisinBean.setUploadingDisable(false);
+								manageCuisinBean.setImageMedia(null);
+								Messagebox.show("Cuisin Saved Successfully...");
+								loadAllCuisinList();
+								refresh();
+							}
 						}
 				} catch (Exception e) {
 					Messagebox.show("Error Due To: "+e.getMessage(), "Error", Messagebox.OK, Messagebox.ERROR);
@@ -189,18 +320,31 @@ public class ManageCuisinViewModel {
 	@Command
 	@NotifyChange("*")
 	public void onClickEdit(@BindingParam("bean") ManageCuisinBean managecuisinbean){
+		
+		saveImageVisibility = false;
+		updateImageVisibility = true;
+		
+		updateButtonVisibility = true;
+		updateCancelButtonVisibility = true;
+		saveButtonVisibility = false;
+		
 		manageCuisinBean.cuisinId = managecuisinbean.cuisinId;
 		manageCuisinBean.cuisinName = managecuisinbean.cuisinName;
-		manageCuisinBean.cuisinePicturePath = managecuisinbean.cuisinePicturePath;
-		try {
+		manageCuisinBean.cuisineUpdatePicturePath = managecuisinbean.cuisinePicturePath;
+		manageCuisinBean.oldUploadedPath = managecuisinbean.cuisinePicturePath;
+		if(!(managecuisinbean.cuisinePicturePath != null && managecuisinbean.cuisinePicturePath.startsWith("uploads/"))){
+			manageCuisinBean.cuisinePicturePath = managecuisinbean.cuisinePicturePath;
+		}else {
+			manageCuisinBean.cuisinePicturePath = null;
+		}
+		//manageCuisinBean.cuisinePicturePath = managecuisinbean.cuisinePicturePath;
+/*		try {
 			cuisineImage = new AImage(manageCuisinBean.cuisinePicturePath);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 		manageCuisinBean.status = managecuisinbean.status;
-		updateButtonVisibility = true;
-		saveButtonVisibility = false;
 		/*try {
 			SQL:{
 				PreparedStatement preparedStatement = null;
@@ -234,12 +378,61 @@ public class ManageCuisinViewModel {
 	}
 	
 	@Command
+	@NotifyChange("*")	
+	public void onClickUpdateCancel(){
+		
+		updateButtonVisibility = false;
+		updateCancelButtonVisibility = false;
+		saveButtonVisibility = true;
+		
+		saveImageVisibility = true;
+		updateImageVisibility = false;
+		
+		manageCuisinBean.cuisinName = null;
+		manageCuisinBean.cuisinePicturePath = null;
+		manageCuisinBean.status = null;
+		manageCuisinBean.setImageMedia(null);
+		cuisineImage = null;
+		
+	} // end onClickUpdateCancel()
+	
+	
+	
+	@Command
 	@NotifyChange("*")
 	public void onClickUpdate(){
+		String fileName = null;
+		String uploadImageDir = null;
+		String uploadImagePath = null;
 		String message="";
 		Boolean updated= false;
 		if(validateFields()){
 			try {
+				UPDATE_IMG:{
+					URL resourceUrl = this.getClass().getResource("/");
+					String filePath = resourceUrl.getFile();
+					String serverRootDir = new File(new File(filePath).getParent()).getParent();
+
+					String currentDate = new SimpleDateFormat("dd-MMM-yyyy").format(new java.util.Date()).toString();
+					
+					String uploadPath = serverRootDir.toString()+File.separator+"view"+File.separator+"uploads"+File.separator+"Cuising_Image"+ File.separator+currentDate;
+					File fileDir = new File(uploadPath);
+					 if(!fileDir.exists()){
+						 fileDir.mkdirs();
+						 System.out.println("New Directory Created..");
+					 }
+					
+					String cuisingName = manageCuisinBean.cuisinName;
+					cuisingName = cuisingName.replaceAll("\\s", "");
+					String rand = UUID.randomUUID().toString().substring(0, 30);
+					String generateName = cuisingName+"_"+rand;
+				    fileName = generateName.toUpperCase()+".png";
+					
+				    uploadImageDir = fileDir.toString();
+					
+				    uploadImagePath ="uploads"+"/"+"Cuising_Image"+"/"+currentDate+"/"+fileName;
+
+			    }
 				SQL:{
 					PreparedStatement preparedStatement = null;
 					ResultSet resultSet = null;
@@ -248,9 +441,28 @@ public class ManageCuisinViewModel {
 						
 						preparedStatement.setString(1, manageCuisinBean.cuisinName);
 						if(manageCuisinBean.cuisinePicturePath!=null){
+							if(manageCuisinBean.oldUploadedPath.startsWith("uploads/")){
+								deleteUoloadeImage(manageCuisinBean.oldUploadedPath);
+							}
 							preparedStatement.setString(2, manageCuisinBean.cuisinePicturePath);
 						}else{
-							preparedStatement.setNull(2, Types.INTEGER);
+							if(manageCuisinBean.getImageMedia() != null){
+								if(manageCuisinBean.cuisineUpdatePicturePath != null){
+									if(updateImageToFolder(manageCuisinBean.cuisineUpdatePicturePath,uploadImageDir,fileName)){
+										preparedStatement.setString(2, uploadImagePath);
+									}
+								}else {
+									 if(uploadImageToFolder(uploadImageDir,fileName)){
+										 preparedStatement.setString(2, uploadImagePath);
+					                  }
+								}
+							}else {
+								if(manageCuisinBean.cuisineUpdatePicturePath != null && manageCuisinBean.cuisineUpdatePicturePath.startsWith("uploads/")){
+									preparedStatement.setString(2, manageCuisinBean.cuisineUpdatePicturePath);
+								}else {
+									preparedStatement.setNull(2, Types.VARCHAR);
+								}
+							}
 						}
 						if(manageCuisinBean.status.equalsIgnoreCase("Active")){
 							preparedStatement.setString(3, "Y");
@@ -274,6 +486,10 @@ public class ManageCuisinViewModel {
 							loadAllCuisinList();
 							saveButtonVisibility=true;
 							updateButtonVisibility=false;
+							updateCancelButtonVisibility = false;
+							
+							saveImageVisibility = true;
+							updateImageVisibility = false;
 						}
 						
 					} catch (Exception e) {
@@ -291,6 +507,7 @@ public class ManageCuisinViewModel {
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Command
 	@NotifyChange("*")
 	public void onClickDelete(@BindingParam("bean") final ManageCuisinBean bean){
@@ -337,6 +554,27 @@ public class ManageCuisinViewModel {
 			Messagebox.show("Cuisine deletion failed !","ERROR",Messagebox.OK,Messagebox.ERROR);
 		}
 	}
+	
+	
+	
+	@Command
+	@NotifyChange("*")
+	public void onOkOnlineImage(){
+		
+		if(manageCuisinBean.cuisinePicturePath == null){
+			Messagebox.show("PLEASE GIVE FIRST ONE LINE URL!!","ALERT:",Messagebox.OK,Messagebox.QUESTION);
+		}else {
+			saveImageVisibility = false;
+			updateImageVisibility = true;
+			
+			manageCuisinBean.setImageMedia(null);
+			manageCuisinBean.cuisineUpdatePicturePath = manageCuisinBean.cuisinePicturePath;
+		}
+		
+	} // end onOkOnlineImage()
+	
+	
+	
 	/**
 	 * 
 	 *Upload cuisine image
@@ -345,6 +583,13 @@ public class ManageCuisinViewModel {
 	@NotifyChange("*")
 	public void onUploadCuisineImage(@ContextParam(ContextType.BIND_CONTEXT) BindContext ctx) throws IOException {
 
+		saveImageVisibility = true;
+		updateImageVisibility = false;
+
+		manageCuisinBean.cuisinePicturePath = null;
+		
+		manageCuisinBean.setProgressBarVisible(false);
+		
 		UploadEvent upEvent = null;
 		
 		Object objUploadEvent = ctx.getTriggerEvent();
@@ -356,8 +601,12 @@ public class ManageCuisinViewModel {
 		if (upEvent != null) {
 
 			Media media = upEvent.getMedia();
+			manageCuisinBean.setImageMedia((AImage) media);
 			
-			String yearPath = "/"+"Images_Cuisineimages" + "/" +new SimpleDateFormat("dd-MMM-yyyy").format(new java.util.Date())+ "/";
+			
+			cuisineImage = (AImage) media;
+			
+/*			String yearPath = "/"+"Images_Cuisineimages" + "/" +new SimpleDateFormat("dd-MMM-yyyy").format(new java.util.Date())+ "/";
 						
 			//String yearPath = "Images_Categoryimages" + "\\"+new SimpleDateFormat("dd-MMM-yyyy").format(new java.util.Date())+ "\\";
 			
@@ -375,16 +624,13 @@ public class ManageCuisinViewModel {
 				baseDir.mkdirs();
 			}
 
-			Files.copy(new File(cuisineImagefilePath + media.getName()),media.getStreamData());
-
-			Messagebox.show("Image Sucessfully uploaded!");
 			
 			cuisineFileuploaded = true;
 			cuisineImagefilePath = cuisineImagefilePath + media.getName();
 		
 			manageCuisinBean.cuisinePicturePath = cuisineImagefilePath;
 
-			cuisineImage = (AImage) media;
+			cuisineImage = (AImage) media;*/
 		}
 	}
 	
@@ -505,5 +751,37 @@ public class ManageCuisinViewModel {
 
 	public void setCuisineImage(AImage cuisineImage) {
 		this.cuisineImage = cuisineImage;
+	}
+
+	public Boolean getUpdateCancelButtonVisibility() {
+		return updateCancelButtonVisibility;
+	}
+
+	public void setUpdateCancelButtonVisibility(Boolean updateCancelButtonVisibility) {
+		this.updateCancelButtonVisibility = updateCancelButtonVisibility;
+	}
+
+	public Boolean getSaveImageVisibility() {
+		return saveImageVisibility;
+	}
+
+	public void setSaveImageVisibility(Boolean saveImageVisibility) {
+		this.saveImageVisibility = saveImageVisibility;
+	}
+
+	public Boolean getUpdateImageVisibility() {
+		return updateImageVisibility;
+	}
+
+	public void setUpdateImageVisibility(Boolean updateImageVisibility) {
+		this.updateImageVisibility = updateImageVisibility;
+	}
+
+	public Boolean getOtherUrlImageVisibility() {
+		return otherUrlImageVisibility;
+	}
+
+	public void setOtherUrlImageVisibility(Boolean otherUrlImageVisibility) {
+		this.otherUrlImageVisibility = otherUrlImageVisibility;
 	}
 }

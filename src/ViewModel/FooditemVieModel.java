@@ -2,12 +2,15 @@ package ViewModel;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Types;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.UUID;
 
 import org.zkoss.bind.BindContext;
 import org.zkoss.bind.BindUtils;
@@ -87,6 +90,7 @@ public class FooditemVieModel {
 	private String itemImagefilePath;
 	
 	private boolean itemImageFileuploaded = false;
+	private boolean cancelFlage= false;
 	
 	private int cuisineid,categoryId;
 	
@@ -144,12 +148,12 @@ public class FooditemVieModel {
 							}
 							if(bean.itemmagePath != null){
 								try {
-									bean.itemImage = new AImage(bean.itemmagePath);
+									//bean.itemImage = new AImage(bean.itemmagePath);
 								} catch (Exception e) {
-									bean.itemImage = null;
+									//bean.itemImage = null;
 								}
 							}else{
-								bean.itemImage = null;
+								//bean.itemImage = null;
 							}
 							bean.itemTypeId = resultSet.getInt("item_type_id");
 							if(resultSet.getString("type_name") != null){
@@ -298,6 +302,10 @@ public class FooditemVieModel {
 		clear();
 		onLoadCuisineList();
 		itemBean.itemCode = FoodItemDAO.getLastItemCode(connection);
+		if(cancelFlage){
+			saveButtonVisibility = true;
+			updateButtonVisibility = false;
+		}
 	}
 	
 	
@@ -318,6 +326,34 @@ public class FooditemVieModel {
 		}	
 	}
 	
+	
+	
+	private String getNewImageUploadPath(){
+		String savePath = null;
+		
+		try {
+			String rootPath = getServerRealRootPath();
+			String imageName = getNewImageName()+".png";
+			String currentDate = new SimpleDateFormat("dd-MMM-yyyy").format(new Date()).toString();
+			
+			String uploadDir = rootPath+File.separator+"view"+File.separator+"uploads"+File.separator+"Item_Images"+File.separator+currentDate;
+			File fileDir = new File(uploadDir);
+			if(!fileDir.exists()){
+				fileDir.mkdir();
+				System.out.println("New folder has been created...");
+			}
+			Files.copy(new File(fileDir.toString()+File.separator+imageName), itemBean.imageMedia.getStreamData());
+			
+			System.out.println("New Image Uploaded...");
+			savePath = "uploads/Item_Images/"+currentDate+"/"+imageName;
+			
+		} catch (Exception e) {e.printStackTrace();}
+		
+		return savePath;
+	} // end getNewImageUploadPath()
+	
+	
+	
 	public void saveItem(){
 		boolean isInserted = false;
 		
@@ -335,9 +371,11 @@ public class FooditemVieModel {
 						}else{
 							preparedStatement.setNull(2, Types.INTEGER);
 						}
-						if(itemBean.itemmagePath!=null){
+						if(itemBean.imageMedia != null){
+							preparedStatement.setString(3, getNewImageUploadPath());
+						}else if(itemBean.itemmagePath != null){
 							preparedStatement.setString(3, itemBean.itemmagePath);
-						}else{
+						}else {
 							preparedStatement.setNull(3, Types.INTEGER);
 						}
 						if(itemBean.itemPrice != null){
@@ -388,6 +426,15 @@ public class FooditemVieModel {
 	@Command
 	@NotifyChange("*")
 	public void onClickEdit(@BindingParam("bean")ItemBean bean){
+		
+		itemBean.itemContexImagePathVisible = false;
+		itemBean.itemSrcImagePathVisible = true;
+		
+		itemBean.itemOldImagePath = bean.itemmagePath;
+		itemBean.itemSrcImagePath = bean.itemmagePath;
+		
+		cancelFlage = true;
+		
 		categoryId = bean.categoryId;
 		itemBean.cusineName = bean.cusineName;
 		itemBean.categoryName = bean.categoryName;
@@ -441,6 +488,90 @@ public class FooditemVieModel {
 		}	
 	}
 	
+	
+	
+	private String updateImage(){
+		String returnUpdatrPath = "";
+		
+		String oldPath = null;
+		String newPath = "view";
+		String rootServerPath = null;
+		
+		try {
+			String deletePath = "";
+		    oldPath = itemBean.itemOldImagePath;
+		    rootServerPath = getServerRealRootPath();
+			String fileName = getNewImageName()+".png";
+			
+			if(oldPath != null && oldPath.length()>0 && oldPath.startsWith("uploads/")){
+				String token[] = oldPath.split("/");
+				for(int i= 0 ; i<=token.length-2 ;i++){
+					newPath = newPath+File.separator+token[i];
+					if(returnUpdatrPath.length()==0){
+						returnUpdatrPath = token[i];
+					}else {
+						returnUpdatrPath = returnUpdatrPath+"/"+token[i];
+					}
+				}
+				for(String tokn: token){
+					deletePath = deletePath+File.separator+tokn;
+				}
+				File file = new File(rootServerPath+File.separator+"view"+File.separator+deletePath);
+				if(file.exists()){
+					file.delete();
+					System.out.println("Old Image Deleted..");
+				}
+				Files.copy(new File(rootServerPath+File.separator+newPath+File.separator+fileName), itemBean.imageMedia.getStreamData());
+				System.out.println("New Image Updated..");
+				
+				returnUpdatrPath = returnUpdatrPath+"/"+fileName;
+				
+			}else {
+				String currentdate = new SimpleDateFormat("dd-MMM-yyyy").format(new Date()).toString();
+				String uploadDir = rootServerPath + File.separator+"view"+File.separator+"uploads"+File.separator+"Item_Images"+File.separator+currentdate;
+				File file = new File(uploadDir);
+				if(!file.exists()){
+					file.mkdir();
+					System.out.println("New Folder Created..");
+				}
+				Files.copy(new File(file.toString()+File.separator+fileName), itemBean.imageMedia.getStreamData());
+				System.out.println("New Image Uploaded..");
+				
+				returnUpdatrPath = "uploads/Item_Images/"+currentdate+"/"+fileName;
+			}
+			
+		} catch (Exception e) {e.printStackTrace();}
+		
+		return returnUpdatrPath;
+	} // end updateImage()
+	
+	
+	private String updateOnlineUrl(String onlineUrl){
+		String returnValue="";
+		String oldPath = null;
+		String newPath = "view";
+		String rootServerPath = null;
+		try {
+			oldPath = itemBean.itemOldImagePath;
+			if(oldPath != null && oldPath.length()>0 && oldPath.startsWith("uploads/") && !(onlineUrl.startsWith("uploads/"))){
+				rootServerPath = getServerRealRootPath();
+				String token[] = oldPath.split("/");
+				for(String tokn: token){
+					newPath = newPath+File.separator+tokn;
+				}
+				File file = new File(rootServerPath+File.separator+newPath);
+				if(file.exists()){
+					file.delete();
+					System.out.println("Old Image deleted...");
+				}
+			}
+			returnValue = onlineUrl;
+		} catch (Exception e) {e.printStackTrace();}
+		
+		return returnValue;
+	} // end updateOnlineUrl()
+	
+	
 	public void updateItem(){
 		boolean isUpdated = false;
 		System.out.println(itemTypeBean.packingId);
@@ -457,9 +588,11 @@ public class FooditemVieModel {
 						}else{
 							preparedStatement.setNull(2, Types.INTEGER);
 						}
-						if(itemBean.itemmagePath!=null){
-							preparedStatement.setString(3, itemBean.itemmagePath);
-						}else{
+						if(itemBean.itemmagePath!=null && itemBean.itemmagePath.length()>0){
+							preparedStatement.setString(3, updateOnlineUrl(itemBean.itemmagePath));
+						}else if(itemBean.imageMedia != null){
+							preparedStatement.setString(3, updateImage());
+						}else {
 							preparedStatement.setNull(3, Types.INTEGER);
 						}
 						if(itemBean.itemPrice != null){
@@ -571,6 +704,10 @@ public class FooditemVieModel {
 	@Command
 	@NotifyChange("*")
 	public void onUploadItemImage(@ContextParam(ContextType.BIND_CONTEXT) BindContext ctx) throws IOException{
+		
+		itemBean.itemContexImagePathVisible = true;
+		itemBean.itemSrcImagePathVisible = false;
+		
 		UploadEvent upEvent = null;
 		
 		Object objUploadEvent = ctx.getTriggerEvent();
@@ -582,34 +719,70 @@ public class FooditemVieModel {
 		if (upEvent != null) {
 
 			Media media = upEvent.getMedia();
+			itemBean.imageMedia = (AImage) media;
 			
-			String yearPath = "/"+"Images_IemImages" + "/" +new SimpleDateFormat("dd-MMM-yyyy").format(new java.util.Date())+ "/";
-						
-			String contextPath = Sessions.getCurrent().getWebApp().getServletContext().getContextPath();
 			
-			String imagespath = System.getProperty("catalina.home")+"/"+"webapps"+"/"+contextPath.replace("/", "")+"/"+"view"+"/"+"images";
-	 		
-			itemImagefilePath = imagespath;
+			itemBean.itemContexImagePath = itemBean.imageMedia;
+			itemBean.itemmagePath = null;
+			itemBean.itemSrcImagePath = null;
 			
-			itemImagefilePath = itemImagefilePath + yearPath;
-		        
-			File baseDir = new File(itemImagefilePath);
-			if (!baseDir.exists()) {
-				baseDir.mkdirs();
-			}
-
-			Files.copy(new File(itemImagefilePath + media.getName()),media.getStreamData());
-
-			Messagebox.show("Image Sucessfully uploaded!","Information",Messagebox.OK,Messagebox.INFORMATION);
-			
-			itemImageFileuploaded = true;
-			itemImagefilePath = itemImagefilePath + media.getName();
-		
-			itemBean.itemmagePath = itemImagefilePath;
-
-			itemImage = (AImage) media;
 		}
-	}
+	} // onUploadItemImage()
+	
+	
+	
+	private String getServerRealRootPath(){
+		String rootPath= null;
+		try {
+			
+			URL resourceUrl = this.getClass().getResource("/");
+			String filePath = resourceUrl.getFile();
+		    rootPath = new File(new File(filePath).getParent()).getParent();
+		    
+		} catch (Exception e) {	e.printStackTrace();}
+		
+		return rootPath;
+	} // end getServerRealPath()
+	
+	
+	private String getNewImageName(){
+		String imgName= null;
+		try {
+			if(itemBean.itemName != null && itemBean.itemName.length()>0){
+				String itemName = itemBean.itemName;
+				       itemName = itemName.replaceAll("\\s", "");
+				String renValue = UUID.randomUUID().toString().substring(0, 30);
+				
+				imgName = (itemName+renValue).toUpperCase();
+			}else {
+				imgName= null;
+				Messagebox.show("PLEASE GIVE ITEM NAME!!", "ALERT:", Messagebox.OK, Messagebox.QUESTION);
+			}
+		} catch (Exception e) {	e.printStackTrace();}
+		
+		return imgName;
+	} // end getNewImageName()
+	
+	@Command
+	@NotifyChange("*")
+	public void onOkForOnlineImage(){
+
+		if(itemBean.itemmagePath != null && itemBean.itemmagePath.length()>0){
+			
+			itemBean.itemContexImagePathVisible = false;
+			itemBean.itemSrcImagePathVisible = true;
+			
+			itemBean.itemSrcImagePath = itemBean.itemmagePath;
+			
+			
+			itemBean.imageMedia= null;
+			itemBean.itemContexImagePath = null;
+		}else {
+			itemBean.itemSrcImagePath = null;
+			Messagebox.show("PLEASE GIVE FIRST URL THEN HIT ENTER!!", "ALERT:", Messagebox.OK, Messagebox.QUESTION);
+		}
+	} // end onOkForOnlineImage()
+	
 	
 	public boolean validate(){
 		if(itemBean.cusineName != null){
@@ -704,12 +877,19 @@ public class FooditemVieModel {
 		itemBean.itemmagePath = null;
 		//itemBean.itemCode = null;
 		itemBean.itemPrice =null;
-		categoryBeanList.clear();
-		alaCarteTypeList.clear();
+		//categoryBeanList.clear();
+		//alaCarteTypeList.clear();
 		alaCarteTypeBean.itemTypeName = null;
-		ItemTypeList.clear();
+		//ItemTypeList.clear();
 		itemTypeBean.itemTypeName = null;
 		itemPackTypeBean.packingName = null;
+		
+		itemBean.imageMedia = null;
+		itemBean.itemmagePath = null;
+		itemBean.itemContexImagePath = null;
+		itemBean.itemSrcImagePath = null;
+		
+		
 	}
 	
 	public void loadAllSavedItems(){

@@ -6,13 +6,20 @@ import org.zkoss.image.AImage;
 
 public class ManageCuisinBean {
 	
+	private AImage imageMedia;
+	private Integer progressBarValue =0;
+	private Boolean uploadingDisable;
+	private Boolean progressBarVisible;
+	
+	
 	public String cuisinName;
 	
 	public Integer cuisinId;
 	
 	public String status;
-	
+	public String oldUploadedPath;
 	public String cuisinePicturePath;
+	public String cuisineUpdatePicturePath;
 	
 	public AImage cuisineImage;
 		
@@ -115,5 +122,54 @@ public class ManageCuisinBean {
 	public void setCategoryListVisibility(Boolean categoryListVisibility) {
 		this.categoryListVisibility = categoryListVisibility;
 	}
+
+	public AImage getImageMedia() {
+		return imageMedia;
+	}
+
+	public void setImageMedia(AImage imageMedia) {
+		this.imageMedia = imageMedia;
+	}
+
+	public Integer getProgressBarValue() {
+		return progressBarValue;
+	}
+
+	public void setProgressBarValue(Integer progressBarValue) {
+		this.progressBarValue = progressBarValue;
+	}
+
+	public Boolean getProgressBarVisible() {
+		return progressBarVisible;
+	}
+
+	public void setProgressBarVisible(Boolean progressBarVisible) {
+		this.progressBarVisible = progressBarVisible;
+	}
+
+	public Boolean getUploadingDisable() {
+		return uploadingDisable;
+	}
+
+	public void setUploadingDisable(Boolean uploadingDisable) {
+		this.uploadingDisable = uploadingDisable;
+	}
+
+	public String getCuisineUpdatePicturePath() {
+		return cuisineUpdatePicturePath;
+	}
+
+	public void setCuisineUpdatePicturePath(String cuisineUpdatePicturePath) {
+		this.cuisineUpdatePicturePath = cuisineUpdatePicturePath;
+	}
+
+	public String getOldUploadedPath() {
+		return oldUploadedPath;
+	}
+
+	public void setOldUploadedPath(String oldUploadedPath) {
+		this.oldUploadedPath = oldUploadedPath;
+	}
+
 	
 }

@@ -139,10 +139,12 @@
 												style="font-weight:bold" />
 											<vlayout>
 												<button
-													label="Upload Image" sclass="mybutton" upload="true"
+													label="Take Photo From Computer" style="font-size:11px;" sclass="mybutton" upload="true"
 													onUpload="@command('onUploadItemImage',upEvent=event)" />
 												OR URL
 												<textbox width="100%"
+												    placeholder="put and hit enter"
+												    onOK="@command('onOkForOnlineImage')"
 													value="@bind(vm.itemBean.itemmagePath)" />
 											</vlayout>
 											
@@ -223,12 +225,9 @@
 								</grid>
 								<vbox
 									style="border:#DADADA 2px solid;">
-									<hbox
-										style="border:#DADADA 1px solid;">
-										<!-- <image content="@bind(vm.itemImage)" height="180px" width="300px"/> -->
-										<iframe
-											src="@bind(vm.itemBean.itemmagePath)" height="380px"
-											width="400px" />
+									<hbox style="border:#DADADA 1px solid;">
+										<image content="@bind(vm.itemBean.itemContexImagePath)" height="180px" width="300px" visible="@bind(vm.itemBean.itemContexImagePathVisible)"/>
+										<image src="@bind(vm.itemBean.itemSrcImagePath)" height="180px" width="300px" visible="@bind(vm.itemBean.itemSrcImagePathVisible)"/>
 									</hbox>
 								</vbox>
 							</hbox>

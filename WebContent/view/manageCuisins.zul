@@ -75,19 +75,28 @@
 				</columns>
 				
 				<rows>
+				    <row>
+				         <hbox align="center" visible="@bind(vm.manageCuisinBean.progressBarVisible)">
+				           <progressmeter id="curr_met" value="@bind(vm.manageCuisinBean.progressBarValue)" width="150px" />
+				           <label id="progress_label" value="Uploading..." style="color:green;"/>
+                         </hbox>
+				    </row>
 					<row>
 						
 							<label value="Cuisine Name" style="font-weight:bold;"/>
-							<textbox placeholder="[Cuisine Name]" value="@bind(vm.manageCuisinBean.cuisinName)"/>
+							<textbox placeholder="[Cuisine Name]" value="@bind(vm.manageCuisinBean.cuisinName)" disabled="@bind(vm.manageCuisinBean.uploadingDisable)"/>
 						
 					</row>
 					<row>
 						
 							<label value="Cuisine Image" style="font-weight:bold;"/>
 							<vlayout>
-								<button label="Upload Cuisine Image"  upload="true" sclass="mybutton" 
+								<button label="Take Photo From Computer"  upload="true" sclass="mybutton" 
+								disabled="@bind(vm.manageCuisinBean.uploadingDisable)"
 								onUpload="@command('onUploadCuisineImage',upEvent=event)"/>OR URL
-								<textbox value="@bind(vm.manageCuisinBean.cuisinePicturePath)"/>
+								<textbox value="@bind(vm.manageCuisinBean.cuisinePicturePath)" onOK="@command('onOkOnlineImage')" 
+								placeholder="Give URL then hit Enter"
+								disabled="@bind(vm.manageCuisinBean.uploadingDisable)"/>
 							</vlayout>
 							
 						
@@ -96,7 +105,7 @@
 					<row>
 						
 							<label value="Is active" style="font-weight:bold;"/>
-							<combobox placeholder="[Active/Deactive]" width="130px" value="@bind(vm.manageCuisinBean.status)">
+							<combobox placeholder="[Active/Deactive]" width="130px" value="@bind(vm.manageCuisinBean.status)" disabled="@bind(vm.manageCuisinBean.uploadingDisable)">
 								<comboitem  label="Active"/>
 								<comboitem label="Deactive"/>
 							</combobox>
@@ -105,17 +114,18 @@
 					
 					<row>
 						<div align="right">
-							<vbox>
-	    						<button label="Save Cuisine" sclass="mybutton"   onClick="@command('onClickSave')" visible="@bind(vm.saveButtonVisibility)"/>
+							<hbox>
+	    						<button label="Save Cuisine" sclass="mybutton"   onClick="@command('onClickSave')" visible="@bind(vm.saveButtonVisibility)" disabled="@bind(vm.manageCuisinBean.uploadingDisable)"/>
 	    						<button label="Update Cuisine" sclass="mybutton" onClick="@command('onClickUpdate')" visible="@bind(vm.updateButtonVisibility)" />
-	    					</vbox>
+	    						<button label="Cancel" sclass="mybutton" onClick="@command('onClickUpdateCancel')" visible="@bind(vm.updateCancelButtonVisibility)" />
+	    					</hbox>
 	      				</div>
 					</row>
 				</rows>
 			</grid>
 			<vbox style="border:#DADADA 2px solid;">
-	        	<!-- <image content="@bind(vm.cuisineImage)" height="190px" width="360px"></image> -->
-	        	<iframe src="@bind(vm.manageCuisinBean.cuisinePicturePath)"  height="190px" width="360px"/>
+	        	<image content="@bind(vm.cuisineImage)" height="190px" width="360px" visible="@bind(vm.saveImageVisibility)" /> 
+	        	<image src="@bind(vm.manageCuisinBean.cuisineUpdatePicturePath)" height="190px" width="360px" visible="@bind(vm.updateImageVisibility)" />  
 	        </vbox>
 		</hbox>
 		</div>
@@ -142,7 +152,7 @@
 					<textbox readonly="true" value="@bind(v.cuisinName)"/>
 					<div align="center">
 						<hbox style="padding-bottom:1%; border:#DADADA 2px solid;">
-       							<image height="40px" width="75px" content="@bind(v.cuisineImage)"/>
+       						<image height="40px" width="75px" src="@bind(v.cuisinePicturePath)"/>
 						</hbox>
 					</div>
 					<textbox readonly="true" value="@bind(v.status)"/>
